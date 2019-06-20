@@ -6,3 +6,8 @@ npm-debug.*
 *.key
 *.mobileprovision
 coverage/**/*
+.expo-source/*
+android/*
+assets/*
+ios/*
+
