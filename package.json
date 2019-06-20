@@ -1,0 +1,55 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|sentry-expo|native-base))"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js"
+    ]
+  },
+  "dependencies": {
+    "expo": "^32.0.0",
+    "expokit": "32.1.1",
+    "native-base": "^2.12.1",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-sqlite-storage": "^3.3.10",
+    "react-navigation": "^3.11.0",
+    "react-redux": "^7.0.3",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-persist-expo-securestore": "^0.1.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.8.0",
+    "babel-preset-expo": "^5.0.0",
+    "babel-preset-react-native": "^4.0.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-native": "^3.7.0",
+    "jest": "^24.8.0",
+    "jest-enzyme": "^7.0.2",
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "^16.8.6"
+  },
+  "private": true
+}
