@@ -7,4 +7,4 @@ export default function Creation() {
             <Text>Creation screen</Text>
         </View>
     )
-};
+}

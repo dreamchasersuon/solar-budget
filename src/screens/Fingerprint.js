@@ -7,4 +7,4 @@ export default function Fingerprint() {
             <Text>Fingerprint screen</Text>
         </View>
     )
-};
+}

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-namespace
 import * as types from '../types';
 
 export const wallet = [];
@@ -13,4 +14,4 @@ export default function walletReducer(state = wallet, action) {
         default:
             return state;
     }
-};
+}

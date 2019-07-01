@@ -7,4 +7,4 @@ export default function Stats() {
             <Text>Login credentials screen</Text>
         </View>
     )
-};
+}

@@ -7,4 +7,4 @@ export default function LoginPin() {
             <Text>Login by PIN CODE screen</Text>
         </View>
     )
-};
+}

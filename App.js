@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-handler-names */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-no-bind */
 import React from "react";
-import { AppLoading, Font } from "expo";
-import { Linking } from 'expo';
-import Root from './src/navigation/root';
+import { AppLoading, Font, Linking } from "expo";
+import RootProvider from './src/navigation/root';
 import { persistor, store } from './src/redux';
 
 export default class App extends React.Component {
@@ -22,19 +25,22 @@ export default class App extends React.Component {
       FontAwesome: require('native-base/Fonts/FontAwesome.ttf')
     });
 
+    // eslint-disable-next-line no-invalid-this
     this.setState({ initialUrl });
     return Promise.all([fonts]);
   };
 
   render() {
     if (this.state.loading) {
-      return <AppLoading
-        startAsync={ this.bootstrap }
-        onFinish={() => this.setState({ loading: false })}
-        onError={ console.warn }
-      />
+      return (
+          <AppLoading
+              startAsync={this.bootstrap}
+              onFinish={() => this.setState({ loading: false })}
+              onError={console.warn}
+          />
+      )
     }
 
-    return <Root store={ store } persistor={ persistor } initialUrl={ this.state.initialUrl }/>
+    return <RootProvider store={store} persistor={persistor} initialUrl={this.state.initialUrl} />
   }
 }

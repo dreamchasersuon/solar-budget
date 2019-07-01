@@ -10,7 +10,7 @@ function navigate(routeName, params = {}) {
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,
-      params,
+      params
     })
   );
 }
@@ -25,7 +25,7 @@ function replaceTo(routeName, params = {}, key = undefined) {
   _navigator.dispatch(StackActions.reset({
     index: 0,
     key,
-    actions: [NavigationActions.navigate({ routeName, params })],
+    actions: [NavigationActions.navigate({ routeName, params })]
   }))
 }
 
@@ -35,5 +35,5 @@ export default {
   navigate,
   setTopLevelNavigator,
   replaceTo,
-  goBack,
+  goBack
 };

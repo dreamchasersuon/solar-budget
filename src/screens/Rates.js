@@ -7,4 +7,4 @@ export default function Rates() {
             <Text>Rates screen</Text>
         </View>
     )
-};
+}

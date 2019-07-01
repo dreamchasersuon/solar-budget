@@ -7,4 +7,4 @@ export default function Welcome() {
             <Text>Welcome screen</Text>
         </View>
     )
-};
+}

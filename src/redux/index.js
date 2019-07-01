@@ -9,7 +9,7 @@ const storage = createSecureStore();
 const config = {
   key: 'root',
   storage,
-  blacklist: ['navigation'],
+  blacklist: ['navigation']
 };
 
 const reducer = persistCombineReducers(config, reducers);
@@ -27,9 +27,7 @@ const store = createStore(
 
 const persistor = persistStore(
     store,
-    null,
-    () => {
-    },
+    null
 );
 
 export { persistor, store };

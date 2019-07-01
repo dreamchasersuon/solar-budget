@@ -231,7 +231,64 @@
     <last-search-timestamp>1558449798421</last-search-timestamp>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d86717f6-18a3-49c5-991e-103fde98e3c0" name="Default Changelist" comment="" />
+    <list default="true" id="d86717f6-18a3-49c5-991e-103fde98e3c0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDevKernelDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDevKernelDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeProdKernelDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeProdKernelDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDevKernelDebug/tmp/devKernelDebug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDevKernelDebug/tmp/devKernelDebug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDevKernelDebug/tmp/devKernelDebug/file-input-save-data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDevKernelDebug/tmp/devKernelDebug/file-input-save-data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/javac/devKernelDebug/compileDevKernelDebugJavaWithJavac/classes/host/exp/exponent/MainActivity.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/javac/devKernelDebug/compileDevKernelDebugJavaWithJavac/classes/host/exp/exponent/MainActivity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/javac/devKernelDebug/compileDevKernelDebugJavaWithJavac/classes/host/exp/exponent/generated/AppConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/javac/devKernelDebug/compileDevKernelDebugJavaWithJavac/classes/host/exp/exponent/generated/AppConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/javac/devKernelDebug/compileDevKernelDebugJavaWithJavac/classes/host/exp/exponent/generated/DetachBuildConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/javac/devKernelDebug/compileDevKernelDebugJavaWithJavac/classes/host/exp/exponent/generated/DetachBuildConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/devKernel/debug/173/host/exp/exponent/MainActivity.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/devKernel/debug/173/host/exp/exponent/MainActivity.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/devKernel/debug/173/host/exp/exponent/generated/AppConstants.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/devKernel/debug/173/host/exp/exponent/generated/AppConstants.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/devKernel/debug/173/host/exp/exponent/generated/DetachBuildConstants.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/devKernel/debug/173/host/exp/exponent/generated/DetachBuildConstants.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/devKernel/debug/0/classes.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/devKernel/debug/0/classes.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/outputs/apk/devKernel/debug/app-devKernel-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/outputs/apk/devKernel/debug/app-devKernel-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/outputs/apk/devKernel/debug/solar.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/host/exp/exponent/generated/AppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/host/exp/exponent/generated/AppConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/host/exp/exponent/generated/DetachBuildConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/host/exp/exponent/generated/DetachBuildConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/../assets/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/solar-budget/Supporting/shell-app-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/solar-budget/Supporting/shell-app-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/solar-budget/Supporting/shell-app.bundle" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/solar-budget/Supporting/shell-app.bundle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/navigation/root.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/navigation/root.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/navigation/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/navigation/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/navigation/service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/navigation/service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/redux/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/redux/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/redux/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/redux/reducers/wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/redux/reducers/wallet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/redux/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/About.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/About.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/AcceptPin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/AcceptPin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Creation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Creation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Fingerprint.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Fingerprint.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/LoginCredentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/LoginCredentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/LoginPin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/LoginPin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Pin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Pin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Rates.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Rates.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Stats.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Stats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Targets.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Targets.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Wallet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../yarn.lock" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +308,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="BUILD_TARGET_KEY" value="apk" />
@@ -269,44 +326,19 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="539" />
     <option name="y" value="23" />
-    <option name="width" value="1440" />
+    <option name="width" value="901" />
     <option name="height" value="824" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
@@ -316,7 +348,7 @@
     <property name="project.structure.last.edited" value="Suggestions" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.notifications" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.2.1" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1558450045964" />
   </component>
@@ -408,7 +440,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="824" extended-state="0" />
+    <frame x="539" y="23" width="901" height="824" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="1" />
@@ -424,7 +456,7 @@
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.32941177" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.46852645" side_tool="true" weight="0.3442623" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32941177" />
-      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.5314735" weight="0.3442623" />
+      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.5314735" weight="0.2363388" />
       <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="7" />
       <window_info anchor="bottom" id="Debug" order="8" />

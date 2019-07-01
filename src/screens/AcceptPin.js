@@ -7,4 +7,4 @@ export default function AcceptPin() {
             <Text>Stats screen</Text>
         </View>
     )
-};
+}

@@ -7,4 +7,4 @@ export default function PinCode() {
             <Text>Pin code screen</Text>
         </View>
     )
-};
+}

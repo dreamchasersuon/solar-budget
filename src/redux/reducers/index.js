@@ -1,4 +1,4 @@
-import wallet from './wallet';
+import walletReducer from './wallet';
 
 const rehydrated = (state = false, action) => {
     switch (action.type) {
@@ -12,6 +12,6 @@ const rehydrated = (state = false, action) => {
   
   export default {
     rehydrated,
-    wallet
+    walletReducer
   };
   

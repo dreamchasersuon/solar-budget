@@ -7,4 +7,4 @@ export default function Settings() {
             <Text>Settings screen</Text>
         </View>
     )
-};
+}

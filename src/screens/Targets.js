@@ -7,4 +7,4 @@ export default function Targets() {
             <Text>Targets screen</Text>
         </View>
     )
-};
+}

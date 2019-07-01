@@ -7,4 +7,4 @@ export default function Stats() {
             <Text>Stats screen</Text>
         </View>
     )
-};
+}
