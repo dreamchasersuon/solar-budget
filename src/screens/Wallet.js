@@ -1,23 +1,25 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { 
     View, 
-    Text, 
-    StyleSheet, 
-    TouchableOpacity
+    StyleSheet
 } from 'react-native';
 import {
     $BLUE,
-    //$SILVER,
+    $LIGHTSILVER,
     $WHITE
 } from '../constants/colorLiterals';
 import BlueButton from '../components/BlueButton';
 import Transaction from '../components/Transaction';
 import WalletHeader from '../components/WalletHeader';
+import MakeTransactionButton from '../components/MakeTransactionButton';
+import CreateBillButton from '../components/CreateBillButton';
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: $LIGHTSILVER
     },
     billsAndButtonContainer: {
         flexDirection: 'row',
@@ -33,35 +35,30 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start'
     },
-    buttonCreateBill: {
-        backgroundColor: $BLUE,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderTopLeftRadius: 4,
-        borderBottomLeftRadius: 4,
-        width: 40,
-        height: 26
-    },
-    createBillText: {
-        color: $WHITE
-    },
     transactionsContainer: {
         width: '90%',
         marginTop: 40,
         justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'column',
-        height: '80%'
+        height: '60%'
     },
     buttonStyle: {
         backgroundColor: $BLUE,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
         borderRadius: 4,
         width: 100,
         height: 26
     },
     buttonTextStyle: {
+        color: $WHITE
+    },
+    icon: {
+        fontSize: 20,
+        marginRight: 10,
+        marginLeft: 10,
         color: $WHITE
     }
 })
@@ -69,27 +66,27 @@ const styles = StyleSheet.create({
 export default function Wallet() {
     return (
         <View style={styles.container}>
-            <WalletHeader />
+            <WalletHeader 
+                        hasStats 
+                        title="Кошелёк"
+            />
             <View style={styles.billsAndButtonContainer}>
                 <View style={styles.billsContainer}>
                     <BlueButton 
-                            title="Счёт" 
-                            buttonStyle={styles.buttonStyle}
-                            buttonTextStyle={styles.buttonTextStyle} 
+                              title="Счёт" 
+                              iconStyle={styles.icon}
+                              buttonStyle={styles.buttonStyle}
+                              buttonTextStyle={styles.buttonTextStyle} 
                     />
                 </View>
                 <View>
-                    <TouchableOpacity 
-                                      onPress={() => null}
-                                      style={styles.buttonCreateBill}
-                    >
-                        <Text style={styles.createBillText}>Add</Text>
-                    </TouchableOpacity>
+                    <CreateBillButton />
                 </View>
             </View>
             <View style={styles.transactionsContainer}>
                 <Transaction />
             </View>
+            <MakeTransactionButton />
         </View>
     )
 }

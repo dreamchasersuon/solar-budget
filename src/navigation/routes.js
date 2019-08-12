@@ -22,7 +22,6 @@ const WalletScreen = createStackNavigator({
         screen: Wallet,
         navigationOptions: {
             header: null,
-            title: 'Кошелёк',
             headerStyle: {
                 marginLeft: 30,
                 marginTop: 20,
@@ -37,7 +36,13 @@ const RatesScreen = createStackNavigator({
     Rates: {
         screen: Rates,
         navigationOptions: {
-            title: 'Курсы валют'
+            header: null,
+            headerStyle: {
+                marginLeft: 30,
+                marginTop: 20,
+                borderBottomWidth: 0,
+                elevation: 0
+            }
         }
     }
 });
@@ -46,7 +51,13 @@ const TargetsScreen = createStackNavigator({
     Targets: {
         screen: Targets,
         navigationOptions: {
-            title: 'Цели'
+            header: null,
+            headerStyle: {
+                marginLeft: 30,
+                marginTop: 20,
+                borderBottomWidth: 0,
+                elevation: 0
+            }
         }
     }
 });
@@ -55,7 +66,13 @@ const SettingsScreen = createStackNavigator({
     Settings: {
         screen: Settings,
         navigationOptions: {
-            title: 'Настройки'
+            header: null,
+            headerStyle: {
+                marginLeft: 30,
+                marginTop: 20,
+                borderBottomWidth: 0,
+                elevation: 0
+            }
         }
     }
 });
@@ -100,18 +117,9 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
         tabBarOptions: {
             showLabel: false,
             style: {
-                elevation: 8,
-                borderTopWidth: 0
-            }
-        },
-        defaultNavigationOptions: {
-            headerStyle: {
-                marginLeft: 30,
-                borderBottomWidth: 0,
-                elevation: 0
-            },
-            headerTitleStyle: {
-                fontWeight: 'regular'
+                elevation: 10,
+                borderTopWidth: 0,
+                height: 60
             }
         }
     }

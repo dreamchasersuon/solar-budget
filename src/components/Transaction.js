@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     bodyData: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '90%'
     },
     bodyTransactionValue: {
         fontSize: 25,
