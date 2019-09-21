@@ -12,3 +12,6 @@ in directory of your choice;
 5. run `expo publish` - you need to serve application on your network (note, if you will change network, you will need to `expo publish` and rebuild app);
 6. open Android Studio and make build (metro bundler should work);
 7. download application on your phone and install it.
+
+If you want to complete the issue add a comment like 'Working on it' make sure to create new branch with tag of issue (e.g #3). Redux logic should be covered by tests.
+
