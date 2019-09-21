@@ -15,3 +15,5 @@ in directory of your choice;
 
 If you want to complete the issue add a comment like 'Working on it' make sure to create new branch with tag of issue (e.g #3). Redux logic should be covered by tests.
 
+Here is a link to design: https://www.figma.com/file/KNJUkfyRk3Wdc9GNmdUW92Mo/Solar-Budget?node-id=0%3A1
+
