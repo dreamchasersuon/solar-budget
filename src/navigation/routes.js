@@ -1,8 +1,6 @@
-import {
-  createStackNavigator,
-  createAppContainer,
-  createBottomTabNavigator
-} from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { Image, StyleSheet } from 'react-native';
 import React from 'react';
 import Wallet from '../screens/Wallet';
@@ -150,5 +148,4 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
   }
 );
 
-// eslint-disable-next-line no-undef
-export default AppNavigator = createAppContainer(BottomTabsBarNavigator);
+export default createAppContainer(BottomTabsBarNavigator);

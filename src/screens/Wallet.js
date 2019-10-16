@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '60%'
+    height: '62%'
   },
   buttonStyle: {
     backgroundColor: $BLUE,
@@ -32,13 +32,24 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: $WHITE
+  },
+  headerTopLeftSide: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 135,
+    justifyContent: 'space-between'
   }
 });
 
 export default function Wallet() {
   return (
     <View style={styles.container}>
-      <Header hasStats title="Кошелёк" hasLeftMenu />
+      <Header
+        headerTopLeftSideStyle={styles.headerTopLeftSide}
+        hasStats
+        title="Кошелёк"
+        hasLeftMenu
+      />
       <TransactionsContainer containerStyle={styles.transactionsContainer}>
         <Transaction />
       </TransactionsContainer>

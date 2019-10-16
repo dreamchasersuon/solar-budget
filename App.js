@@ -3,7 +3,8 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
-import { AppLoading, Font, Linking } from 'expo';
+import { AppLoading, Linking } from 'expo';
+import * as Font from 'expo-font';
 import RootProvider from './src/navigation/root';
 import { persistor, store } from './src/redux';
 

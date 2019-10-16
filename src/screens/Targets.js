@@ -5,6 +5,7 @@ import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import MakeTransactionButton from '../components/MakeTransactionButton';
 import TransactionsContainer from '../components/TransactionsContainer';
+import ProgressBar from '../components/ProgressBar';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,11 +28,10 @@ const styles = StyleSheet.create({
   },
   transactionsContainer: {
     width: '90%',
-    marginTop: 40,
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '35%'
+    height: '20.1%'
   },
   buttonStyle: {
     backgroundColor: $BLUE,
@@ -56,13 +56,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     fontWeight: 'normal'
+  },
+  circleTitle: {
+    fontSize: 24,
+    color: $BLUE,
+    marginLeft: 70,
+    marginTop: 68
+  },
+  headerTopLeftSide: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 100,
+    justifyContent: 'space-between'
   }
 });
 
 export default function Targets() {
   return (
     <View style={styles.container}>
-      <Header title="Цели" />
+      <Header
+        headerTopLeftSideStyle={styles.headerTopLeftSide}
+        hasLeftMenu
+        title="Цели"
+      />
+      <ProgressBar
+        isTargetCircle
+        circleTitle="12%"
+        circleTitleStyle={styles.circleTitle}
+      />
       <TransactionsContainer
         hasTitle
         title="История платежей"

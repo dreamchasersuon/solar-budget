@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { $BLUE, $WHITE, $SILVER, $RED } from '../constants/colorLiterals';
+import { $BLUE, $WHITE, $SILVER } from '../constants/colorLiterals';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { View, StyleSheet, Text } from 'react-native';
@@ -43,8 +43,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   titleText: {
-    fontSize: 20,
-    marginLeft: 35
+    fontSize: 20
   },
   buttonStyle: {
     backgroundColor: $BLUE,
@@ -93,29 +92,29 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: $WHITE
   },
-  headerTopLeftSide: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   headerTopRightSide: {
     flexDirection: 'row',
     alignItems: 'center'
   }
 });
-
-export default function Header({ hasStats, title, hasLeftMenu }) {
+//TODO: make it readable by separating components
+export default function Header({
+  hasStats,
+  title,
+  hasLeftMenu,
+  headerTopLeftSideStyle
+}) {
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
     <View style={styles.container}>
       <View style={styles.headerTopContainer}>
-        <View style={styles.headerTopLeftSide}>
+        <View style={headerTopLeftSideStyle}>
           {hasLeftMenu ? (
             <View style={styles.headerLeftSideMenu}>
               <Ionicons
                 name="ios-reorder"
                 color="white"
                 style={styles.iconSideMenu}
-                onPress={goToStats}
               />
             </View>
           ) : (
@@ -124,7 +123,13 @@ export default function Header({ hasStats, title, hasLeftMenu }) {
           <Text style={styles.titleText}>{title}</Text>
         </View>
         <View style={styles.headerTopRightSide}>
-          {hasStats && <Ionicons name="ios-pie" style={styles.iconStats} />}
+          {hasStats && (
+            <Ionicons
+              name="ios-pie"
+              style={styles.iconStats}
+              onPress={goToStats}
+            />
+          )}
           <BlueButton
             iconStyle={styles.iconBalance}
             title="29.000"
@@ -142,9 +147,11 @@ export default function Header({ hasStats, title, hasLeftMenu }) {
             buttonTextStyle={styles.buttonTextStyle}
           />
         </View>
-        <View>
-          <CreateBillButton />
-        </View>
+        {hasLeftMenu && (
+          <React.Fragment>
+            <CreateBillButton />
+          </React.Fragment>
+        )}
       </View>
     </View>
   );

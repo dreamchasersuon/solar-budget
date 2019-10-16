@@ -4,11 +4,16 @@ import { TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function BlueButton(props) {
+export default function BlueButton({
+  buttonStyle,
+  iconStyle,
+  title,
+  buttonTextStyle
+}) {
   return (
-    <TouchableOpacity style={props.buttonStyle}>
-      <Ionicons name="ios-heart" style={props.iconStyle} />
-      <Text style={props.buttonTextStyle}>{props.title}</Text>
+    <TouchableOpacity style={buttonStyle}>
+      <Ionicons name="ios-heart" style={iconStyle} />
+      <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>
   );
 }

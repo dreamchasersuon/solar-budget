@@ -1,18 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Icon } from 'native-base';
 import NavigationService from '../navigation/service';
 
 const styles = StyleSheet.create({
   iconStyle: {
-    fontSize: 16
+    fontSize: 26,
+    marginLeft: 10
   }
 });
 
 export default function BackButton() {
   const goBack = () => NavigationService.goBack();
   return (
-    <Ionicons name="arrow-left" style={styles.iconStyle} onPress={goBack} />
+    <Icon name="arrow-round-back" style={styles.iconStyle} onPress={goBack} />
   );
 }
