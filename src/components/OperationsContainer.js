@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import Card from '../../assets/card.svg';
 
 const styles = StyleSheet.create({
   operation: {
@@ -10,10 +11,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     justifyContent: 'space-between'
-  },
-  icon: {
-    width: 30,
-    height: 30
   },
   operationTitle: {
     fontSize: 9,
@@ -28,7 +25,7 @@ export default function OperationsContainer(props) {
   return (
     <View style={props.operationsContainerStyle}>
       <View style={styles.operation}>
-        <Image source={require('../../assets/card.png')} style={styles.icon} />
+        <Card />
         <View style={styles.operationContainer}>
           <Text style={styles.operationTitle}>{props.operationTitle}</Text>
           <Text style={props.operationAmountStyle}>{props.operationType}</Text>

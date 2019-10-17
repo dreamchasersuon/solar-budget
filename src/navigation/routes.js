@@ -1,20 +1,16 @@
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { Image, StyleSheet } from 'react-native';
+import TargetsImg from '../../assets/target.svg';
+import SettingsImg from '../../assets/settings.svg';
+import RatesImg from '../../assets/rates.svg';
+import WalletImg from '../../assets/wallet.svg';
 import React from 'react';
 import Wallet from '../screens/Wallet';
 import Targets from '../screens/Targets';
 import Rates from '../screens/Rates';
 import Settings from '../screens/Settings';
 import Statistics from '../screens/Stats';
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 30,
-    height: 30
-  }
-});
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -93,45 +89,25 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     Wallet: {
       screen: WalletScreen,
       navigationOptions: {
-        tabBarIcon: (
-          <Image
-            source={require('../../assets/wallet.png')}
-            style={styles.icon}
-          />
-        )
+        tabBarIcon: <WalletImg />
       }
     },
     Targets: {
       screen: TargetsScreen,
       navigationOptions: {
-        tabBarIcon: (
-          <Image
-            source={require('../../assets/targets.png')}
-            style={styles.icon}
-          />
-        )
+        tabBarIcon: <TargetsImg />
       }
     },
     Rates: {
       screen: RatesScreen,
       navigationOptions: {
-        tabBarIcon: (
-          <Image
-            source={require('../../assets/rates.png')}
-            style={styles.icon}
-          />
-        )
+        tabBarIcon: <RatesImg />
       }
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
-        tabBarIcon: (
-          <Image
-            source={require('../../assets/settings.png')}
-            style={styles.icon}
-          />
-        )
+        tabBarIcon: <SettingsImg />
       }
     }
   },

@@ -3,6 +3,7 @@ import React from 'react';
 import { $BLUE, $WHITE, $SILVER } from '../constants/colorLiterals';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
+import StatsBtn from '../../assets/statsBtn.svg';
 import { View, StyleSheet, Text } from 'react-native';
 import BlueButton from '../components/BlueButton';
 import PropTypes from 'prop-types';
@@ -63,8 +64,6 @@ const styles = StyleSheet.create({
     color: $WHITE
   },
   iconBalance: {
-    color: $WHITE,
-    fontSize: 20,
     marginRight: 10,
     marginLeft: 10
   },
@@ -95,6 +94,9 @@ const styles = StyleSheet.create({
   headerTopRightSide: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  statsBtnWrapper: {
+    marginRight: 15
   }
 });
 //TODO: make it readable by separating components
@@ -124,11 +126,9 @@ export default function Header({
         </View>
         <View style={styles.headerTopRightSide}>
           {hasStats && (
-            <Ionicons
-              name="ios-pie"
-              style={styles.iconStats}
-              onPress={goToStats}
-            />
+            <View style={styles.statsBtnWrapper}>
+              <StatsBtn onPress={goToStats} />
+            </View>
           )}
           <BlueButton
             iconStyle={styles.iconBalance}

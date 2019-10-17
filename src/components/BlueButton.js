@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ruble from '../../assets/ruble.svg';
 
 export default function BlueButton({
   buttonStyle,
@@ -12,7 +12,9 @@ export default function BlueButton({
 }) {
   return (
     <TouchableOpacity style={buttonStyle}>
-      <Ionicons name="ios-heart" style={iconStyle} />
+      <View style={iconStyle}>
+        <Ruble />
+      </View>
       <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>
   );
