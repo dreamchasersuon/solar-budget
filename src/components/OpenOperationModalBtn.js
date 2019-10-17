@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function MakeTransactionButton() {
+export default function OpenOperationModalBtn() {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.touchableArea}>

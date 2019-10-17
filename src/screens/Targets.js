@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
-import MakeTransactionButton from '../components/MakeTransactionButton';
+import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import TransactionsContainer from '../components/TransactionsContainer';
 import ProgressBar from '../components/ProgressBar';
 
@@ -92,7 +92,7 @@ export default function Targets() {
       >
         <Transaction />
       </TransactionsContainer>
-      <MakeTransactionButton />
+      <OpenOperationModalBtn />
     </View>
   );
 }

@@ -9,6 +9,10 @@
       "android"
     ],
     "version": "1.0.0",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
