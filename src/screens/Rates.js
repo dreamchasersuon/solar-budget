@@ -1,12 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import RatesContainer from '../components/RatesContainer';
 import RatePair from '../components/RatePair';
+import AddRatePairModal from '../components/AddRatePairModal';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +43,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Rates() {
+  const [isAddRatePairModalVisible, makeTarget] = useState(false);
+  const toggleAddRatePairModal = () => makeTarget(!isAddRatePairModalVisible);
   return (
     <View style={styles.container}>
       <Header
@@ -52,7 +55,11 @@ export default function Rates() {
       <RatesContainer containerStyle={styles.transactionsContainer}>
         <RatePair />
       </RatesContainer>
-      <OpenOperationModalBtn />
+      <OpenOperationModalBtn expandModal={toggleAddRatePairModal} />
+      <AddRatePairModal
+        isVisible={isAddRatePairModalVisible}
+        toggleAddRatePairModal={toggleAddRatePairModal}
+      />
     </View>
   );
 }
