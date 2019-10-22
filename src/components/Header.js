@@ -105,7 +105,8 @@ export default function Header({
   title,
   hasLeftMenu,
   headerTopLeftSideStyle,
-  hasBudget
+  hasBudget,
+  onPressCreateBill
 }) {
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
@@ -155,7 +156,7 @@ export default function Header({
           </View>
           {hasLeftMenu && (
             <React.Fragment>
-              <CreateBillButton />
+              <CreateBillButton onPressCreateBill={onPressCreateBill} />
             </React.Fragment>
           )}
         </View>

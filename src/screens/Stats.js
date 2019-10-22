@@ -86,6 +86,7 @@ export default function Statistics() {
       <Header
         headerTopLeftSideStyle={styles.statsHeaderTopLeftSide}
         title="Статистика"
+        hasBudget
       />
       <ProgressBar circleTitle="май" circleTitleStyle={styles.circleTitle} />
       <View style={styles.operationsContainer}>

@@ -19,9 +19,9 @@ import Delete from '../../assets/delete.svg';
 import React from 'react';
 
 //TODO: refactor into smaller components eject styles
-export default function TransactionModal({
+export default function SendMoneyToTargetModal({
   isVisible,
-  toggleTransactionModal
+  toggleSendMoneyToTargetModal
 }) {
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
@@ -74,7 +74,7 @@ export default function TransactionModal({
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-              onPress={toggleTransactionModal}
+              onPress={toggleSendMoneyToTargetModal}
             >
               <Close />
             </TouchableOpacity>
@@ -83,57 +83,6 @@ export default function TransactionModal({
             keyboardShouldPersistTaps="always"
             contentContainerStyle={{ alignItems: 'center' }}
           >
-            <View
-              style={{
-                paddingRight: 20,
-                paddingLeft: 20,
-                marginTop: 30,
-                width: '100%'
-              }}
-            >
-              <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 10 }}>
-                Назначение
-              </Text>
-              <TextInput
-                style={{
-                  height: 35,
-                  width: '100%',
-                  borderColor: $MEDIUMSILVER,
-                  borderWidth: 1,
-                  borderRadius: 3,
-                  color: $MEDIUMSILVER,
-                  paddingLeft: 10,
-                  fontSize: 10
-                }}
-                placeholder="Выберите категорию платежа"
-              />
-            </View>
-            <View
-              style={{
-                paddingRight: 20,
-                paddingLeft: 20,
-                marginTop: 20,
-                width: '100%'
-              }}
-            >
-              <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 10 }}>
-                Описание
-              </Text>
-              <TextInput
-                style={{
-                  height: 55,
-                  width: '100%',
-                  borderColor: $MEDIUMSILVER,
-                  borderWidth: 1,
-                  borderRadius: 3,
-                  color: $MEDIUMSILVER,
-                  paddingLeft: 10,
-                  fontSize: 10
-                }}
-                placeholder="Добавьте описание"
-                multiline
-              />
-            </View>
             <View
               style={{
                 paddingRight: 20,
@@ -178,6 +127,31 @@ export default function TransactionModal({
                   placeholder="Время"
                 />
               </View>
+            </View>
+            <View
+              style={{
+                paddingRight: 20,
+                paddingLeft: 20,
+                marginTop: 30,
+                width: '100%'
+              }}
+            >
+              <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 10 }}>
+                Счет
+              </Text>
+              <TextInput
+                style={{
+                  height: 35,
+                  width: '100%',
+                  borderColor: $MEDIUMSILVER,
+                  borderWidth: 1,
+                  borderRadius: 3,
+                  color: $MEDIUMSILVER,
+                  paddingLeft: 10,
+                  fontSize: 10
+                }}
+                placeholder="Выберите счет списания средств"
+              />
             </View>
             <View
               style={{
@@ -436,7 +410,7 @@ export default function TransactionModal({
                     marginLeft: 'auto',
                     marginRight: 'auto'
                   }}
-                  onPress={toggleTransactionModal}
+                  onPress={toggleSendMoneyToTargetModal}
                 >
                   <Text style={{ color: $BLUE, fontSize: 16 }}>Завершить</Text>
                 </TouchableOpacity>

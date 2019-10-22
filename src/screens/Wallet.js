@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import TransactionsContainer from '../components/TransactionsContainer';
 import TransactionModal from '../components/TransactionModal';
+import BillModal from '../components/BillModal';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,8 +44,11 @@ const styles = StyleSheet.create({
 });
 
 export default function Wallet() {
-  const [isVisible, makeTransaction] = useState(false);
-  const toggleTransactionModal = () => makeTransaction(!isVisible);
+  const [isTransactionModalVisible, makeTransaction] = useState(false);
+  const toggleTransactionModal = () =>
+    makeTransaction(!isTransactionModalVisible);
+  const [isBillModalVisible, makeBill] = useState(false);
+  const toggleBillModal = () => makeBill(!isBillModalVisible);
   return (
     <View style={styles.container}>
       <Header
@@ -53,14 +57,19 @@ export default function Wallet() {
         title="Кошелёк"
         hasLeftMenu
         hasBudget
+        onPressCreateBill={toggleBillModal}
       />
       <TransactionsContainer containerStyle={styles.transactionsContainer}>
         <Transaction />
       </TransactionsContainer>
       <OpenOperationModalBtn expandModal={toggleTransactionModal} />
       <TransactionModal
-        isVisible={isVisible}
+        isVisible={isTransactionModalVisible}
         toggleTransactionModal={toggleTransactionModal}
+      />
+      <BillModal
+        isVisible={isBillModalVisible}
+        toggleBillModal={toggleBillModal}
       />
     </View>
   );

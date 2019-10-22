@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import TransactionsContainer from '../components/TransactionsContainer';
 import ProgressBar from '../components/ProgressBar';
+import CreateTargetModal from '../components/CreateTargetModal';
+import SendMoneyToTargetModal from '../components/SendMoneyToTargetModal';
 
 const styles = StyleSheet.create({
   container: {
@@ -72,6 +74,13 @@ const styles = StyleSheet.create({
 });
 
 export default function Targets() {
+  const [isCreateTargetModalVisible, makeTarget] = useState(false);
+  const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
+  const [isSendMoneyToTargetModalVisible, makeTransactionToTarget] = useState(
+    false
+  );
+  const toggleSendMoneyToTargetModal = () =>
+    makeTransactionToTarget(!isSendMoneyToTargetModalVisible);
   return (
     <View style={styles.container}>
       <Header
@@ -79,6 +88,7 @@ export default function Targets() {
         hasLeftMenu
         title="Цели"
         hasBudget
+        onPressCreateBill={toggleCreateTargetModal}
       />
       <ProgressBar
         isTargetCircle
@@ -93,7 +103,15 @@ export default function Targets() {
       >
         <Transaction />
       </TransactionsContainer>
-      <OpenOperationModalBtn />
+      <OpenOperationModalBtn expandModal={toggleSendMoneyToTargetModal} />
+      <CreateTargetModal
+        isVisible={isCreateTargetModalVisible}
+        toggleCreateTargetModal={toggleCreateTargetModal}
+      />
+      <SendMoneyToTargetModal
+        isVisible={isSendMoneyToTargetModalVisible}
+        toggleSendMoneyToTargetModal={toggleSendMoneyToTargetModal}
+      />
     </View>
   );
 }

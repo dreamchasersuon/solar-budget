@@ -19,9 +19,9 @@ import Delete from '../../assets/delete.svg';
 import React from 'react';
 
 //TODO: refactor into smaller components eject styles
-export default function TransactionModal({
+export default function CreateTargetModal({
   isVisible,
-  toggleTransactionModal
+  toggleCreateTargetModal
 }) {
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
@@ -58,10 +58,10 @@ export default function TransactionModal({
                 fontSize: 18,
                 marginTop: 20,
                 fontWeight: '700',
-                marginLeft: 120
+                marginLeft: 150
               }}
             >
-              Транзакция
+              Цель
             </Text>
             <TouchableOpacity
               style={{
@@ -69,12 +69,12 @@ export default function TransactionModal({
                 borderWidth: 1,
                 borderColor: $BLUE,
                 width: 30,
-                marginLeft: 80,
+                marginLeft: 110,
                 height: 30,
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
-              onPress={toggleTransactionModal}
+              onPress={toggleCreateTargetModal}
             >
               <Close />
             </TouchableOpacity>
@@ -112,88 +112,16 @@ export default function TransactionModal({
               style={{
                 paddingRight: 20,
                 paddingLeft: 20,
-                marginTop: 20,
+                marginTop: 30,
                 width: '100%'
               }}
             >
               <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 10 }}>
-                Описание
-              </Text>
-              <TextInput
-                style={{
-                  height: 55,
-                  width: '100%',
-                  borderColor: $MEDIUMSILVER,
-                  borderWidth: 1,
-                  borderRadius: 3,
-                  color: $MEDIUMSILVER,
-                  paddingLeft: 10,
-                  fontSize: 10
-                }}
-                placeholder="Добавьте описание"
-                multiline
-              />
-            </View>
-            <View
-              style={{
-                paddingRight: 20,
-                paddingLeft: 20,
-                marginTop: 20,
-                width: '100%'
-              }}
-            >
-              <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 10 }}>
-                Дата и время
+                Валюта
               </Text>
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <TextInput
-                  style={{
-                    height: 35,
-                    width: '48%',
-                    borderColor: $MEDIUMSILVER,
-                    borderWidth: 1,
-                    borderRadius: 3,
-                    color: $MEDIUMSILVER,
-                    paddingLeft: 10,
-                    fontSize: 10
-                  }}
-                  placeholder="Дата"
-                />
-                <TextInput
-                  style={{
-                    height: 35,
-                    width: '48%',
-                    borderColor: $MEDIUMSILVER,
-                    borderWidth: 1,
-                    borderRadius: 3,
-                    color: $MEDIUMSILVER,
-                    paddingLeft: 10,
-                    fontSize: 10
-                  }}
-                  placeholder="Время"
-                />
-              </View>
-            </View>
-            <View
-              style={{
-                paddingRight: 20,
-                paddingLeft: 20,
-                marginTop: 20,
-                width: '100%'
-              }}
-            >
-              <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 10 }}>
-                Сумма
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 210,
                   justifyContent: 'space-between'
                 }}
               >
@@ -208,7 +136,7 @@ export default function TransactionModal({
                     flexDirection: 'row'
                   }}
                   buttonTextStyle={{ color: $WHITE, fontSize: 12 }}
-                  title="Доход"
+                  title="Рубли"
                 />
                 <BlueButton
                   buttonStyle={{
@@ -221,9 +149,34 @@ export default function TransactionModal({
                     flexDirection: 'row'
                   }}
                   buttonTextStyle={{ color: $MEDIUMSILVER, fontSize: 12 }}
-                  title="Расход"
+                  title="Доллары"
+                />
+                <BlueButton
+                  buttonStyle={{
+                    backgroundColor: $TRANSPARENT,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 4,
+                    width: 100,
+                    height: 26,
+                    flexDirection: 'row'
+                  }}
+                  buttonTextStyle={{ color: $MEDIUMSILVER, fontSize: 12 }}
+                  title="Евро"
                 />
               </View>
+            </View>
+            <View
+              style={{
+                paddingRight: 20,
+                paddingLeft: 20,
+                marginTop: 30,
+                width: '100%'
+              }}
+            >
+              <Text style={{ fontSize: 14, color: $BLUE, marginBottom: 5 }}>
+                Сумма
+              </Text>
               <View
                 style={{
                   marginTop: 15,
@@ -436,7 +389,7 @@ export default function TransactionModal({
                     marginLeft: 'auto',
                     marginRight: 'auto'
                   }}
-                  onPress={toggleTransactionModal}
+                  onPress={toggleCreateTargetModal}
                 >
                   <Text style={{ color: $BLUE, fontSize: 16 }}>Завершить</Text>
                 </TouchableOpacity>

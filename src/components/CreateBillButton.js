@@ -20,9 +20,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function CreateBillButton() {
+export default function CreateBillButton({ onPressCreateBill }) {
   return (
-    <TouchableOpacity style={styles.buttonCreateBill}>
+    <TouchableOpacity
+      style={styles.buttonCreateBill}
+      onPress={onPressCreateBill}
+    >
       <Ionicons name="ios-add" style={styles.createBillText} />
     </TouchableOpacity>
   );
