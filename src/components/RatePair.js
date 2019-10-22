@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
-
+//TODO: refactor into smaller components
 export default function RatePair() {
   const [expanded, expandRateInfo] = useState(false);
   const expandRateCard = () => expandRateInfo(!expanded);
   return (
     <View style={styles.rateWrapper}>
-      <TouchableOpacity style={styles.container} onPress={expandRateCard}>
+      <TouchableOpacity style={styles.container}>
         <Rate />
         <View style={styles.content}>
           <View style={styles.ratePercent}>

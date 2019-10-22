@@ -78,6 +78,7 @@ export default function Targets() {
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu
         title="Цели"
+        hasBudget
       />
       <ProgressBar
         isTargetCircle

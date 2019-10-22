@@ -1,12 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import TransactionsContainer from '../components/TransactionsContainer';
+import TransactionModal from '../components/TransactionModal';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +43,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Wallet() {
+  const [isVisible, makeTransaction] = useState(false);
+  const toggleTransactionModal = () => makeTransaction(!isVisible);
   return (
     <View style={styles.container}>
       <Header
@@ -49,11 +52,16 @@ export default function Wallet() {
         hasStats
         title="Кошелёк"
         hasLeftMenu
+        hasBudget
       />
       <TransactionsContainer containerStyle={styles.transactionsContainer}>
         <Transaction />
       </TransactionsContainer>
-      <OpenOperationModalBtn />
+      <OpenOperationModalBtn expandModal={toggleTransactionModal} />
+      <TransactionModal
+        isVisible={isVisible}
+        toggleTransactionModal={toggleTransactionModal}
+      />
     </View>
   );
 }

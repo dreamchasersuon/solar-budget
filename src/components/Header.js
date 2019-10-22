@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginTop: 40
+    marginTop: 45
   },
   headerTopContainer: {
     flexDirection: 'row',
@@ -104,7 +104,8 @@ export default function Header({
   hasStats,
   title,
   hasLeftMenu,
-  headerTopLeftSideStyle
+  headerTopLeftSideStyle,
+  hasBudget
 }) {
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
@@ -124,35 +125,41 @@ export default function Header({
           )}
           <Text style={styles.titleText}>{title}</Text>
         </View>
-        <View style={styles.headerTopRightSide}>
-          {hasStats && (
-            <View style={styles.statsBtnWrapper}>
-              <StatsBtn onPress={goToStats} />
-            </View>
-          )}
-          <BlueButton
-            iconStyle={styles.iconBalance}
-            title="29.000"
-            buttonStyle={styles.buttonStyle}
-            buttonTextStyle={styles.buttonTextStyle}
-          />
-        </View>
-      </View>
-      <View style={styles.headerBottomContainer}>
-        <View style={styles.billsContainer}>
-          <BlueButton
-            title="Счёт"
-            iconStyle={styles.icon}
-            buttonStyle={[styles.buttonStyle, styles.buttonBillsStyle]}
-            buttonTextStyle={styles.buttonTextStyle}
-          />
-        </View>
-        {hasLeftMenu && (
-          <React.Fragment>
-            <CreateBillButton />
-          </React.Fragment>
+        {hasBudget && (
+          <View style={styles.headerTopRightSide}>
+            {hasStats && (
+              <View style={styles.statsBtnWrapper}>
+                <StatsBtn onPress={goToStats} />
+              </View>
+            )}
+            <BlueButton
+              iconStyle={styles.iconBalance}
+              title="29.000"
+              icon
+              buttonStyle={styles.buttonStyle}
+              buttonTextStyle={styles.buttonTextStyle}
+            />
+          </View>
         )}
       </View>
+      {hasBudget && (
+        <View style={styles.headerBottomContainer}>
+          <View style={styles.billsContainer}>
+            <BlueButton
+              title="Счёт"
+              icon
+              iconStyle={styles.icon}
+              buttonStyle={[styles.buttonStyle, styles.buttonBillsStyle]}
+              buttonTextStyle={styles.buttonTextStyle}
+            />
+          </View>
+          {hasLeftMenu && (
+            <React.Fragment>
+              <CreateBillButton />
+            </React.Fragment>
+          )}
+        </View>
+      )}
     </View>
   );
 }

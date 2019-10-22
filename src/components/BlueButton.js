@@ -8,13 +8,12 @@ export default function BlueButton({
   buttonStyle,
   iconStyle,
   title,
-  buttonTextStyle
+  buttonTextStyle,
+  icon
 }) {
   return (
     <TouchableOpacity style={buttonStyle}>
-      <View style={iconStyle}>
-        <Ruble />
-      </View>
+      <View style={iconStyle}>{icon && <Ruble />}</View>
       <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>
   );
