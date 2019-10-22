@@ -430,6 +430,16 @@ export default function TransactionModal({
                     </TouchableNativeFeedback>
                   </View>
                 </View>
+                <TouchableOpacity
+                  style={{
+                    marginTop: 30,
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                  }}
+                  onPress={toggleTransactionModal}
+                >
+                  <Text style={{ color: $BLUE, fontSize: 16 }}>Завершить</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
