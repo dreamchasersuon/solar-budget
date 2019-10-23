@@ -9,7 +9,6 @@ import {
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import NavigationService from '../navigation/service';
 import Delete from '../../assets/delete.svg';
-import ArrowLeft from '../../assets/left-arrow.svg';
 
 const styles = StyleSheet.create({
   container: {
@@ -74,23 +73,16 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: $WHITE
-  },
-  backArrow: {
-    position: 'absolute',
-    left: 20,
-    top: 60
   }
 });
 
 //TODO: refactor into smaller components
-export default function AcceptPinCode() {
-  const goBack = () => NavigationService.goBack();
+export default function CreatePinCode() {
   const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
     <View style={styles.container}>
-      <ArrowLeft onPress={goTo('CreatePin')} style={styles.backArrow} />
       <View style={styles.pros}>
-        <Text style={styles.prosTitle}>Подтвердите PIN-CODE</Text>
+        <Text style={styles.prosTitle}>Придумайте PIN-CODE</Text>
         <View style={styles.paginationContainer}>
           <View style={[styles.pagination, { backgroundColor: $BLUE }]} />
           <View style={styles.pagination} />

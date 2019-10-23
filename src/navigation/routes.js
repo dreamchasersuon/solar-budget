@@ -14,6 +14,8 @@ import Statistics from '../screens/Stats';
 import Welcome from '../screens/Welcome';
 import LoginCredentials from '../screens/LoginCredentials';
 import Creation from '../screens/Creation';
+import CreatePinCode from '../screens/CreatePin';
+import AcceptPinCode from '../screens/AcceptPin';
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -164,10 +166,34 @@ const AuthStack = createStackNavigator(
           elevation: 0
         }
       }
+    },
+    CreatePin: {
+      screen: CreatePinCode,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
+    },
+    AcceptPin: {
+      screen: AcceptPinCode,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
     }
   },
   {
-    initialRouteName: 'Welcome'
+    initialRouteName: 'AcceptPin'
   }
 );
 
