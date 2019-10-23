@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   }
 });
 
+//TODO: refactor into smaller components
 export default function Settings() {
   return (
     <View style={styles.container}>
