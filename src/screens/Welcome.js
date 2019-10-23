@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import NavigationService from '../navigation/service';
 
 const styles = StyleSheet.create({
   container: {
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
 
 //TODO: refactor into smaller components
 export default function Welcome() {
+  const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -98,6 +100,7 @@ export default function Welcome() {
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.SelectableBackground()}
+          onPress={goTo('LoginCredentials')}
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>Войти</Text>

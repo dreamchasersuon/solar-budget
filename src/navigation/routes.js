@@ -12,6 +12,7 @@ import Rates from '../screens/Rates';
 import Settings from '../screens/Settings';
 import Statistics from '../screens/Stats';
 import Welcome from '../screens/Welcome';
+import LoginCredentials from '../screens/LoginCredentials';
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -125,20 +126,37 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
   }
 );
 
-const AuthStack = createStackNavigator({
-  Welcome: {
-    screen: Welcome,
-    navigationOptions: {
-      header: null,
-      headerStyle: {
-        marginLeft: 30,
-        marginTop: 20,
-        borderBottomWidth: 0,
-        elevation: 0
+const AuthStack = createStackNavigator(
+  {
+    Welcome: {
+      screen: Welcome,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
+    },
+    LoginCredentials: {
+      screen: LoginCredentials,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
       }
     }
+  },
+  {
+    initialRouteName: 'Welcome'
   }
-});
+);
 
 const AppStack = createStackNavigator(
   {
