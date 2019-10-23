@@ -13,6 +13,7 @@ import Settings from '../screens/Settings';
 import Statistics from '../screens/Stats';
 import Welcome from '../screens/Welcome';
 import LoginCredentials from '../screens/LoginCredentials';
+import Creation from '../screens/Creation';
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -142,6 +143,18 @@ const AuthStack = createStackNavigator(
     },
     LoginCredentials: {
       screen: LoginCredentials,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
+    },
+    Creation: {
+      screen: Creation,
       navigationOptions: {
         header: null,
         headerStyle: {

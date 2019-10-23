@@ -93,6 +93,7 @@ export default function Welcome() {
       <View style={styles.buttonsContainer}>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.SelectableBackground()}
+          onPress={goTo('Creation')}
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>Создать аккаунт</Text>
