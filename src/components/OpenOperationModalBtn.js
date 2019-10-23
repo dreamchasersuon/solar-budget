@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
     height: 60,
     elevation: 8,
     borderRadius: 50,
-    backgroundColor: $WHITE,
-    marginTop: 10
+    backgroundColor: $WHITE
   },
   touchableArea: {
     width: 60,

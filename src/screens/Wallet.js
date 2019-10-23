@@ -13,7 +13,8 @@ import BillModal from '../components/BillModal';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER
+    backgroundColor: $LIGHTSILVER,
+    height: '100%'
   },
   transactionsContainer: {
     width: '90%',

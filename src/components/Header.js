@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   headerLeftSideMenu: {
-    height: 50,
+    height: 60,
     width: 15,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
