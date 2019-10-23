@@ -11,6 +11,7 @@ import Targets from '../screens/Targets';
 import Rates from '../screens/Rates';
 import Settings from '../screens/Settings';
 import Statistics from '../screens/Stats';
+import Welcome from '../screens/Welcome';
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -124,4 +125,33 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(BottomTabsBarNavigator);
+const AuthStack = createStackNavigator({
+  Welcome: {
+    screen: Welcome,
+    navigationOptions: {
+      header: null,
+      headerStyle: {
+        marginLeft: 30,
+        marginTop: 20,
+        borderBottomWidth: 0,
+        elevation: 0
+      }
+    }
+  }
+});
+
+const AppStack = createStackNavigator(
+  {
+    Auth: {
+      screen: AuthStack
+    },
+    App: {
+      screen: BottomTabsBarNavigator
+    }
+  },
+  {
+    headerMode: 'none'
+  }
+);
+
+export default createAppContainer(AppStack);

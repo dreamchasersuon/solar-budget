@@ -71,7 +71,6 @@ export default function Settings() {
             headerTopLeftSideStyle={styles.headerTopLeftSide}
             title="Настройки"
             hasLeftMenu
-            hasAvatar
           />
         </View>
         <View style={styles.avatar} />
