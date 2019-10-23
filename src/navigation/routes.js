@@ -16,6 +16,8 @@ import LoginCredentials from '../screens/LoginCredentials';
 import Creation from '../screens/Creation';
 import CreatePinCode from '../screens/CreatePin';
 import AcceptPinCode from '../screens/AcceptPin';
+import Fingerprint from '../screens/Fingerprint';
+import LoginPin from '../screens/LoginPin';
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -190,10 +192,34 @@ const AuthStack = createStackNavigator(
           elevation: 0
         }
       }
+    },
+    AddFingerprint: {
+      screen: Fingerprint,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
+    },
+    LoginPin: {
+      screen: LoginPin,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
     }
   },
   {
-    initialRouteName: 'AcceptPin'
+    initialRouteName: 'LoginPin'
   }
 );
 

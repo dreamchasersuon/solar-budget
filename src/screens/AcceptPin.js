@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import NavigationService from '../navigation/service';
-import Delete from '../../assets/delete.svg';
+import Delete from '../../assets/big-delete.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 
 const styles = StyleSheet.create({

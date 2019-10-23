@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  TouchableOpacity
-} from 'react-native';
+import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import NavigationService from '../navigation/service';
-import Delete from '../../assets/delete.svg';
+import Delete from '../../assets/big-delete.svg';
 
 const styles = StyleSheet.create({
   container: {
