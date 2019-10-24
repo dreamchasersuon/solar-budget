@@ -1,8 +1,72 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, Animated, View } from 'react-native';
-
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  Animated,
+  View,
+  TouchableNativeFeedback,
+  TouchableOpacity
+} from 'react-native';
+import Logo from '../../assets/logo.svg';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
-import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
+import {
+  $BLUE,
+  $LIGHTSILVER,
+  $MEDIUMSILVER,
+  $WHITE
+} from '../constants/colorLiterals';
+
+const styles = StyleSheet.create({
+  content: {
+    paddingTop: 140,
+    paddingLeft: 30,
+    justifyContent: 'space-between',
+    height: '100%'
+  },
+  container: {
+    backgroundColor: $LIGHTSILVER,
+    ...StyleSheet.absoluteFillObject
+  },
+  note: {
+    fontSize: 11,
+    color: $MEDIUMSILVER,
+    marginTop: 10,
+    width: 180
+  },
+  termsOfUse: {
+    borderBottomWidth: 1,
+    borderColor: $MEDIUMSILVER,
+    height: 27,
+    width: 270,
+    marginTop: 20
+  },
+  termsOfUseText: {
+    fontSize: 16
+  },
+  buttonsContainer: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
+    marginBottom: 20,
+    height: 140,
+    width: '100%'
+  },
+  button: {
+    backgroundColor: $BLUE,
+    width: '100%',
+    height: 45,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonText: {
+    color: $WHITE
+  },
+  buttonTextBlue: {
+    color: $BLUE
+  }
+});
 
 export default function withSideScreen(Component) {
   return class SideScreen extends React.Component {
@@ -18,11 +82,44 @@ export default function withSideScreen(Component) {
         transform: [{ translateX: parallax }]
       };
       return (
-        <Animated.View style={[styles.drawerContainer, animatedStyles]}>
-          <Text style={styles.drawerText}>I am in the drawer!</Text>
-          <Text style={styles.drawerText}>
-            Watch parallax animation while you pull the drawer!
-          </Text>
+        <Animated.View style={[animatedStyles]}>
+          <View style={styles.content}>
+            <View>
+              <Logo />
+              <Text style={styles.note}>
+                Следите за своими финансами и исполняйте мечты вместе с нами
+              </Text>
+            </View>
+            <View>
+              <TouchableOpacity style={styles.termsOfUse}>
+                <Text style={styles.termsOfUseText}>Условия и положения</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.termsOfUse}>
+                <Text style={styles.termsOfUseText}>
+                  Политика конфиденциальности
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonsContainer}>
+              <TouchableNativeFeedback
+                background={TouchableNativeFeedback.SelectableBackground()}
+              >
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Оставить отзыв</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback
+                background={TouchableNativeFeedback.SelectableBackground()}
+              >
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Техническая поддержка</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableOpacity>
+                <Text style={styles.buttonTextBlue}>Пожертвование</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </Animated.View>
       );
     };
@@ -31,11 +128,11 @@ export default function withSideScreen(Component) {
       return (
         <View style={styles.container}>
           <DrawerLayout
-            drawerWidth={300}
+            drawerWidth={320}
             keyboardDismissMode="on-drag"
             drawerPosition={DrawerLayout.positions.Left}
             drawerType={'back'}
-            drawerBackgroundColor="#ddd"
+            drawerBackgroundColor={$WHITE}
             renderNavigationView={this.renderParallaxDrawer}
             contentContainerStyle={Platform.select({
               ios: {
@@ -57,45 +154,3 @@ export default function withSideScreen(Component) {
     }
   };
 }
-
-const styles = StyleSheet.create({
-  drawerContainer: {
-    flex: 1,
-    paddingTop: 10
-  },
-  drawerText: {
-    margin: 10,
-    fontSize: 15,
-    textAlign: 'left'
-  },
-  container: {
-    backgroundColor: $LIGHTSILVER,
-    ...StyleSheet.absoluteFillObject
-  },
-  transactionsContainer: {
-    width: '90%',
-    marginTop: 40,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'column',
-    height: '59%'
-  },
-  buttonStyle: {
-    backgroundColor: $BLUE,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    borderRadius: 4,
-    width: 100,
-    height: 26
-  },
-  buttonTextStyle: {
-    color: $WHITE
-  },
-  headerTopLeftSide: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 135,
-    justifyContent: 'space-between'
-  }
-});
