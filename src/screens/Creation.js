@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 30,
-    height: 90,
+    height: 100,
     width: '100%'
   },
   button: {
     backgroundColor: $BLUE,
     width: '100%',
-    height: 50,
+    height: 45,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center'
@@ -143,6 +143,7 @@ export default function Creation() {
       <View style={styles.buttonsContainer}>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.SelectableBackground()}
+          onPress={goTo('CreatePin')}
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>Создать</Text>

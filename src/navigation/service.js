@@ -16,17 +16,17 @@ function navigate(routeName, params = {}) {
 }
 
 function goBack() {
-  _navigator.dispatch(
-    NavigationActions.back()
-  )
+  _navigator.dispatch(NavigationActions.back());
 }
 
 function replaceTo(routeName, params = {}, key = undefined) {
-  _navigator.dispatch(StackActions.reset({
-    index: 0,
-    key,
-    actions: [NavigationActions.navigate({ routeName, params })]
-  }))
+  _navigator.dispatch(
+    StackActions.reset({
+      index: 0,
+      key,
+      actions: [NavigationActions.navigate({ routeName, params })]
+    })
+  );
 }
 
 // add other navigation functions that you need and export them

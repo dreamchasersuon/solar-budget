@@ -234,7 +234,7 @@ const AppStack = createStackNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'App'
+    initialRouteName: 'Auth'
   }
 );
 

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  TouchableOpacity
-} from 'react-native';
+import { View, StyleSheet, Text, TouchableNativeFeedback } from 'react-native';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import NavigationService from '../navigation/service';
 import Delete from '../../assets/big-delete.svg';
@@ -88,7 +82,7 @@ export default function AcceptPinCode() {
   const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
     <View style={styles.container}>
-      <ArrowLeft onPress={goTo('CreatePin')} style={styles.backArrow} />
+      <ArrowLeft onPress={goBack} style={styles.backArrow} />
       <View style={styles.pros}>
         <Text style={styles.prosTitle}>Подтвердите PIN-CODE</Text>
         <View style={styles.paginationContainer}>
@@ -243,13 +237,14 @@ export default function AcceptPinCode() {
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.Ripple($BLUE, true)}
+          onPress={goTo('AddFingerprint')}
         >
           <View
             style={{
               borderRadius: 50,
               width: 65,
               height: 65,
-              marginLeft: 85,
+              marginLeft: 88,
               justifyContent: 'center',
               alignItems: 'center'
             }}

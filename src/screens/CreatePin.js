@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
 //TODO: refactor into smaller components
 export default function CreatePinCode() {
   const goTo = routeName => () => NavigationService.navigate(routeName);
+  const goBack = () => NavigationService.goBack();
   return (
     <View style={styles.container}>
       <View style={styles.pros}>
@@ -229,13 +230,14 @@ export default function CreatePinCode() {
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.Ripple($BLUE, true)}
+          onPress={goTo('AcceptPin')}
         >
           <View
             style={{
               borderRadius: 50,
               width: 65,
               height: 65,
-              marginLeft: 85,
+              marginLeft: 88,
               justifyContent: 'center',
               alignItems: 'center'
             }}
@@ -245,6 +247,7 @@ export default function CreatePinCode() {
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.Ripple($BLUE, true)}
+          onPress={goBack}
         >
           <View
             style={{

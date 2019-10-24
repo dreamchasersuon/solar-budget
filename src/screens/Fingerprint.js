@@ -4,12 +4,10 @@ import {
   StyleSheet,
   Text,
   TouchableNativeFeedback,
-  TextInput
+  TouchableOpacity
 } from 'react-native';
-import Pros from '../../assets/pros.svg';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
-import TogglePassword from '../../assets/toggle-pass.svg';
 import NavigationService from '../navigation/service';
 
 const styles = StyleSheet.create({
@@ -105,13 +103,14 @@ const styles = StyleSheet.create({
 //TODO: refactor into smaller components, remove unused styles
 export default function AddFingerprint() {
   const goBack = () => NavigationService.goBack();
+  const goTo = roteName => () => NavigationService.navigate(roteName);
   return (
     <View style={styles.container}>
-      <View style={styles.header}></View>
+      <View style={styles.header} />
       <View style={styles.pros}>
-        <View style={styles.fingerprint}>
+        <TouchableOpacity style={styles.fingerprint} onPress={goBack}>
           <Fingerprint />
-        </View>
+        </TouchableOpacity>
 
         <Text style={styles.prosTitle}>
           Использовать отпечаток пальца для входа?
@@ -124,6 +123,7 @@ export default function AddFingerprint() {
       <View style={styles.buttonsContainer}>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.SelectableBackground()}
+          onPress={goTo('App')}
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>Использовать</Text>

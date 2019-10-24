@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   TouchableNativeFeedback,
-  TextInput,
   TouchableOpacity
 } from 'react-native';
 import Pros from '../../assets/pros.svg';
@@ -268,6 +267,7 @@ export default function LoginPinCode() {
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.Ripple($BLUE, true)}
+          onPress={goTo('App')}
         >
           <View
             style={{

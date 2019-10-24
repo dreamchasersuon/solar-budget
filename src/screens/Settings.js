@@ -1,9 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native';
 import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import Language from '../../assets/language.svg';
-import { ScrollView } from 'react-navigation';
+import NavigationService from '../navigation/service';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,6 +69,7 @@ const styles = StyleSheet.create({
 
 //TODO: refactor into smaller components
 export default function Settings() {
+  const logout = () => NavigationService.navigate('Auth');
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -147,7 +154,7 @@ export default function Settings() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={logout}>
         <Text style={styles.logout}>Выйти</Text>
       </TouchableOpacity>
     </View>

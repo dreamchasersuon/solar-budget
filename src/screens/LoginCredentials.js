@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 30,
-    height: 110,
+    height: 100,
     width: '100%'
   },
   button: {
     backgroundColor: $BLUE,
     width: '100%',
-    height: 50,
+    height: 45,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center'
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 //TODO: refactor into smaller components
 export default function LoginCredentials() {
   const goBack = () => NavigationService.goBack();
-  const authorize = () => NavigationService.replaceTo('App');
+  const authorize = () => NavigationService.navigate('App');
   return (
     <View style={styles.container}>
       <View style={styles.header}>

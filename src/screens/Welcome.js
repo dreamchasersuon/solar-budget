@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 30,
-    height: 110,
+    height: 100,
     width: '100%'
   },
   button: {
     backgroundColor: $BLUE,
     width: '100%',
-    height: 50,
+    height: 45,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center'
@@ -101,7 +101,7 @@ export default function Welcome() {
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.SelectableBackground()}
-          onPress={goTo('LoginCredentials')}
+          onPress={goTo('LoginPin')}
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>Войти</Text>
