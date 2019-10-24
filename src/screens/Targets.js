@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: $LIGHTSILVER,
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+    elevation: 8
   },
   billsAndButtonContainer: {
     flexDirection: 'row',

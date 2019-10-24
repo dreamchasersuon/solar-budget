@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: $LIGHTSILVER,
     alignItems: 'center',
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+    elevation: 8
   },
   transactionsContainer: {
     width: '90%',
