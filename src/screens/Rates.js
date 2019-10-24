@@ -8,11 +8,13 @@ import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import RatesContainer from '../components/RatesContainer';
 import RatePair from '../components/RatePair';
 import AddRatePairModal from '../components/AddRatePairModal';
+import withSideScreen from '../components/SideScreenHOC';
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER
+    backgroundColor: $LIGHTSILVER,
+    ...StyleSheet.absoluteFillObject
   },
   transactionsContainer: {
     width: '90%',
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function Rates() {
+function Rates() {
   const [isAddRatePairModalVisible, makeTarget] = useState(false);
   const toggleAddRatePairModal = () => makeTarget(!isAddRatePairModalVisible);
   return (
@@ -63,3 +65,5 @@ export default function Rates() {
     </View>
   );
 }
+
+export default withSideScreen(Rates);

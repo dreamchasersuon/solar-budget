@@ -8,11 +8,13 @@ import TransactionsContainer from '../components/TransactionsContainer';
 import ProgressBar from '../components/ProgressBar';
 import CreateTargetModal from '../components/CreateTargetModal';
 import SendMoneyToTargetModal from '../components/SendMoneyToTargetModal';
+import withSideScreen from '../components/SideScreenHOC';
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER
+    backgroundColor: $LIGHTSILVER,
+    ...StyleSheet.absoluteFillObject
   },
   billsAndButtonContainer: {
     flexDirection: 'row',
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function Targets() {
+function Targets() {
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
   const [isSendMoneyToTargetModalVisible, makeTransactionToTarget] = useState(
@@ -115,3 +117,5 @@ export default function Targets() {
     </View>
   );
 }
+
+export default withSideScreen(Targets);

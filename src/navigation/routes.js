@@ -219,7 +219,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'LoginPin'
+    initialRouteName: 'Welcome'
   }
 );
 
@@ -233,7 +233,8 @@ const AppStack = createStackNavigator(
     }
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
+    initialRouteName: 'App'
   }
 );
 

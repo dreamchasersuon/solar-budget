@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { $BLUE, $WHITE, $SILVER } from '../constants/colorLiterals';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
 import { View, StyleSheet, Text } from 'react-native';
