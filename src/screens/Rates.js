@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   headerTopLeftSide: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 175,
+    width: 166,
     justifyContent: 'space-between'
   }
 });

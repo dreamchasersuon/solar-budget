@@ -17,20 +17,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },
-  billsAndButtonContainer: {
-    flexDirection: 'row',
-    marginTop: 5,
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  billsContainer: {
-    width: '70%',
-    marginLeft: 50,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-start'
-  },
   transactionsContainer: {
     width: '90%',
     justifyContent: 'flex-start',
@@ -71,7 +57,7 @@ const styles = StyleSheet.create({
   headerTopLeftSide: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 100,
+    width: 90,
     justifyContent: 'space-between'
   }
 });

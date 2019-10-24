@@ -10,17 +10,19 @@ import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import Language from '../../assets/language.svg';
 import NavigationService from '../navigation/service';
+import withSideScreen from '../components/SideScreenHOC';
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: $LIGHTSILVER,
-    height: '100%'
+    height: '100%',
+    elevation: 8
   },
   headerTopLeftSide: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 155,
+    width: 144,
     justifyContent: 'space-between'
   },
   title: {
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
   settingsUnitContainer: {
     paddingRight: 40,
     marginTop: 30,
-    paddingLeft: 55,
+    paddingLeft: 44,
     width: '100%'
   },
   avatar: {
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
 });
 
 //TODO: refactor into smaller components
-export default function Settings() {
+function Settings() {
   const logout = () => NavigationService.navigate('Auth');
   return (
     <View style={styles.container}>
@@ -160,3 +162,5 @@ export default function Settings() {
     </View>
   );
 }
+
+export default withSideScreen(Settings);

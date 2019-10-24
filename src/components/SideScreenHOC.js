@@ -71,9 +71,6 @@ const styles = StyleSheet.create({
 //TODO: refactor into smaller components
 export default function withSideScreen(Component) {
   return class SideScreen extends React.Component {
-    constructor(props) {
-      super(props);
-    }
     renderParallaxDrawer = progressValue => {
       const parallax = progressValue.interpolate({
         inputRange: [0, 1],

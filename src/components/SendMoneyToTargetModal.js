@@ -404,19 +404,20 @@ export default function SendMoneyToTargetModal({
                     </TouchableNativeFeedback>
                   </View>
                 </View>
-                <TouchableOpacity
-                  style={{
-                    marginTop: 30,
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
-                  onPress={toggleSendMoneyToTargetModal}
-                >
-                  <Text style={{ color: $BLUE, fontSize: 16 }}>Завершить</Text>
-                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
+          <TouchableOpacity
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}
+            onPress={toggleSendMoneyToTargetModal}
+          >
+            <Text style={{ color: $BLUE, fontSize: 16 }}>Завершить</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

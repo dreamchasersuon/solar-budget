@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 30,
-    height: 110,
+    height: 80,
     width: '100%'
   },
   button: {
     backgroundColor: $BLUE,
     width: '100%',
-    height: 50,
+    height: 45,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center'

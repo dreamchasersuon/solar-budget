@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   billsContainer: {
     width: '70%',
-    marginLeft: 50,
+    marginLeft: 40,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start'

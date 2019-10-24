@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   headerTopLeftSide: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: 135,
+    width: 125,
     justifyContent: 'space-between'
   }
 });

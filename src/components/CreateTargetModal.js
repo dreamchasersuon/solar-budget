@@ -385,7 +385,8 @@ export default function CreateTargetModal({
                 </View>
                 <TouchableOpacity
                   style={{
-                    marginTop: 30,
+                    marginTop: 20,
+                    marginBottom: 20,
                     marginLeft: 'auto',
                     marginRight: 'auto'
                   }}
