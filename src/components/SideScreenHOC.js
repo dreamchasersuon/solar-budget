@@ -11,11 +11,12 @@ import {
 import Logo from '../../assets/logo.svg';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import {
-  $BLUE,
   $LIGHTSILVER,
   $MEDIUMSILVER,
   $WHITE
 } from '../constants/colorLiterals';
+import MajorBlueButton from './MajorBlueButton';
+import SecondaryButton from './SecondaryButton';
 
 const styles = StyleSheet.create({
   content: {
@@ -51,24 +52,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     height: 140,
     width: '100%'
-  },
-  button: {
-    backgroundColor: $BLUE,
-    width: '100%',
-    height: 45,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    color: $WHITE
-  },
-  buttonTextBlue: {
-    color: $BLUE
   }
 });
 
-//TODO: refactor into smaller components
 export default function withSideScreen(Component) {
   return class SideScreen extends React.Component {
     renderParallaxDrawer = progressValue => {
@@ -99,23 +85,9 @@ export default function withSideScreen(Component) {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonsContainer}>
-              <TouchableNativeFeedback
-                background={TouchableNativeFeedback.SelectableBackground()}
-              >
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Оставить отзыв</Text>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                background={TouchableNativeFeedback.SelectableBackground()}
-              >
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Техническая поддержка</Text>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableOpacity>
-                <Text style={styles.buttonTextBlue}>Пожертвование</Text>
-              </TouchableOpacity>
+              <MajorBlueButton buttonText="Оставить отзыв" />
+              <MajorBlueButton buttonText="Техническая поддержка" />
+              <SecondaryButton buttonText="Пожертвование" />
             </View>
           </View>
         </Animated.View>
