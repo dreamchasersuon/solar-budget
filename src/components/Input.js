@@ -25,14 +25,14 @@ export default function CustomInput({
   label,
   placeholder,
   hasMargin,
-  isPassword
+  password
 }) {
   return (
     <React.Fragment>
       <Text style={hasMargin ? [styles.label, styles.marginTop] : styles.label}>
         {label}
       </Text>
-      {isPassword ? (
+      {password ? (
         <View>
           <TextInput
             style={styles.input}

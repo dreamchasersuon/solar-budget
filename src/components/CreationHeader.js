@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 20,
     fontWeight: '500'
+  },
+  backArrow: {
+    marginLeft: 20
   }
 });
 

@@ -18,12 +18,12 @@ export default function CreatePinCode() {
   const goBack = () => NavigationService.goBack();
   return (
     <View style={styles.container}>
-      <SecurePin />
+      <SecurePin title="Придумайте PIN-CODE" />
       <NumericBoard
         hasDelete
-        hasFingerprint
+        needNullAlignment
         onPressDevNavigation={goTo('AcceptPin')}
-        onPressDevNavBack={goBack}
+        onPressDevNavGoBack={goBack}
       />
     </View>
   );

@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
+    maxWidth: 220,
+    textAlign: 'center',
     marginTop: 10
   },
   note: {
@@ -30,13 +32,14 @@ export default function InfoPost({
   children,
   title,
   note,
-  extendedNote
+  extendedNote,
+  securePinNoMargins
 }) {
   return (
     <View style={styles.container}>
       {children}
       <Text style={styles.title}>{title}</Text>
-      {hasPinCode && <SecurePin />}
+      {hasPinCode && <SecurePin noMargins={securePinNoMargins} />}
       {note && <Text style={styles.note}>{note}</Text>}
       {extendedNote && <Text style={styles.extendedNote}>{extendedNote}</Text>}
     </View>

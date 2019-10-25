@@ -1,8 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { View, StyleSheet, TouchableNativeFeedback, Text } from 'react-native';
-import { $BLUE } from '../constants/colorLiterals';
-import Delete from '../../assets/big-delete.svg';
+import { View, StyleSheet } from 'react-native';
 import NumericUnit from './NumericUnit';
 
 const styles = StyleSheet.create({
@@ -47,6 +45,9 @@ export default function NumericBoard({
       <NumericUnit containerStyle={styles.container} number="7" />
       <NumericUnit containerStyle={styles.container} number="8" />
       <NumericUnit containerStyle={styles.container} number="9" />
+      {hasFingerprint && (
+        <NumericUnit containerStyle={styles.container} iconFingerprint />
+      )}
       <NumericUnit
         containerStyle={
           needNullAlignment ? styles.containerWithMargin : styles.container
@@ -60,9 +61,6 @@ export default function NumericBoard({
           iconDelete
           onPress={onPressDevNavGoBack}
         />
-      )}
-      {hasFingerprint && (
-        <NumericUnit containerStyle={styles.container} iconFingerprint />
       )}
     </View>
   );

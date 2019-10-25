@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   }
 });
 
-//TODO: refactor into smaller components
 export default function Welcome() {
   const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
@@ -41,7 +40,6 @@ export default function Welcome() {
         <Text style={styles.language}>RU</Text>
       </View>
       <InfoPost
-        hasPinCode
         title="Анализируйте статистику"
         note="Получайте точные статистические данные по вашему бюджету в реальном
           времени"

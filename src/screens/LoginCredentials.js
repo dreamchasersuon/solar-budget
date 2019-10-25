@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform
-} from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import Pros from '../../assets/pros.svg';
-import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import ArrowLeft from '../../assets/left-arrow.svg';
-import TogglePassword from '../../assets/toggle-pass.svg';
 import NavigationService from '../navigation/service';
 import InfoPost from '../components/InfoPost';
 import CustomInput from '../components/Input';
@@ -39,44 +29,17 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 20,
-    height: 80,
+    height: 90,
     width: '100%'
-  },
-  button: {
-    backgroundColor: $BLUE,
-    width: '100%',
-    height: 45,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    color: $WHITE
-  },
-  remindPassword: {
-    color: $BLUE,
-    textAlign: 'center'
   },
   form: {
     width: '100%',
     justifyContent: 'space-between',
     paddingLeft: 30,
     paddingRight: 30
-  },
-  label: {
-    fontSize: 10
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    borderColor: $MEDIUMSILVER,
-    borderBottomWidth: 1,
-    fontSize: 13
-  },
-  togglePassword: { position: 'absolute', right: 10, marginTop: 15 }
+  }
 });
 
-//TODO: refactor into smaller components
 export default function LoginCredentials() {
   const goBack = () => NavigationService.goBack();
   const authorize = () => NavigationService.replaceTo('App');

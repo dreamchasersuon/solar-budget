@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 30,
-    height: 50,
+    height: 90,
     width: '100%'
   }
 });
@@ -42,7 +42,7 @@ export default function LoginPinCode() {
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
-      <InfoPost hasPinCode title="Добрый вечер">
+      <InfoPost securePinNoMargins hasPinCode title="Добрый вечер">
         <Pros />
       </InfoPost>
       <NumericBoard

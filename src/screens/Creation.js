@@ -20,6 +20,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 30,
     paddingRight: 30
+  },
+  buttonsContainer: {
+    justifyContent: 'space-between',
+    paddingRight: 30,
+    paddingLeft: 30,
+    marginBottom: 20,
+    height: 90,
+    width: '100%'
   }
 });
 

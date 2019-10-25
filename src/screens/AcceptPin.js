@@ -25,7 +25,7 @@ export default function AcceptPinCode() {
   return (
     <View style={styles.container}>
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
-      <SecurePin />
+      <SecurePin title="Подтвердите PIN-CODE" />
       <NumericBoard
         hasDelete
         needNullAlignment
