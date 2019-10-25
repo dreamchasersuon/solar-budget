@@ -14,6 +14,8 @@ import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import TogglePassword from '../../assets/toggle-pass.svg';
 import NavigationService from '../navigation/service';
+import CreationHeader from '../components/CreationHeader';
+import InfoPost from '../components/InfoPost';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,36 +23,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'space-between'
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 50
-  },
-  headerText: {
-    fontSize: 18,
-    marginLeft: 20,
-    fontWeight: '500'
-  },
-  backArrow: {
-    marginLeft: 20
-  },
-  pros: {
-    alignItems: 'center'
-  },
-  prosTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginTop: 10
-  },
-  prosText: {
-    textAlign: 'center',
-    fontSize: 11,
-    width: 250,
-    marginTop: 5,
-    opacity: 0.6
   },
   buttonsContainer: {
     justifyContent: 'space-between',
@@ -113,18 +85,8 @@ export default function Creation() {
       style={styles.container}
       behavior={Platform.OS === 'android' ? 'height' : 'padding'}
     >
-      <View style={styles.header}>
-        <ArrowLeft onPress={goBack} style={styles.backArrow} />
-        <Text style={styles.headerText}>Новый аккаунт</Text>
-      </View>
-      <View style={styles.pros}>
-        <Pros />
-        <Text style={styles.prosTitle}>Анонимность</Text>
-        <Text style={styles.prosText}>
-          Только вы можете просматривать свои данные. Никакой привязки к соц.
-          сетям и сквозной аналитики
-        </Text>
-      </View>
+      <CreationHeader goBack={goBack} />
+      <InfoPost />
       <View style={styles.form}>
         <React.Fragment>
           <Text style={styles.label}>Имя аккаунта</Text>
