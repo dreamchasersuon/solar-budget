@@ -1,18 +1,12 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  Text
-} from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import NavigationService from '../navigation/service';
 import CreationHeader from '../components/CreationHeader';
 import InfoPost from '../components/InfoPost';
-import Form from '../components/Form';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 import Pros from '../../assets/pros.svg';
+import CustomInput from '../components/Input';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +14,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'space-between'
+  },
+  form: {
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingLeft: 30,
+    paddingRight: 30
   }
 });
 
@@ -39,7 +39,21 @@ export default function Creation() {
       >
         <Pros />
       </InfoPost>
-      <Form hasPasswordApprove />
+      <View style={styles.form}>
+        <CustomInput label="Имя аккаунта" placeholder="Введите имя" />
+        <CustomInput
+          label="Пароль"
+          placeholder="Создайте пароль"
+          hasMargin
+          password
+        />
+        <CustomInput
+          label="Подтверждение"
+          placeholder="Подтвердите пароль"
+          hasMargin
+          password
+        />
+      </View>
       <View style={styles.buttonsContainer}>
         <MajorBlueButton
           buttonText="Создать"

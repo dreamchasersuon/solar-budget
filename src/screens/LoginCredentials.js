@@ -13,6 +13,10 @@ import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import TogglePassword from '../../assets/toggle-pass.svg';
 import NavigationService from '../navigation/service';
+import InfoPost from '../components/InfoPost';
+import CustomInput from '../components/Input';
+import MajorBlueButton from '../components/MajorBlueButton';
+import SecondaryButton from '../components/SecondaryButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,21 +33,6 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     marginLeft: 20
-  },
-  pros: {
-    alignItems: 'center'
-  },
-  prosTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginTop: 10
-  },
-  prosText: {
-    textAlign: 'center',
-    fontSize: 11,
-    width: 250,
-    marginTop: 5,
-    opacity: 0.6
   },
   buttonsContainer: {
     justifyContent: 'space-between',
@@ -67,10 +56,6 @@ const styles = StyleSheet.create({
   remindPassword: {
     color: $BLUE,
     textAlign: 'center'
-  },
-  remindPasswordSmall: {
-    color: $BLUE,
-    fontSize: 11
   },
   form: {
     width: '100%',
@@ -103,44 +88,26 @@ export default function LoginCredentials() {
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
-      <View style={styles.pros}>
+      <InfoPost
+        title="Добрый вечер"
+        note="Войдите с помощью логина и пароля. Если вы забыли пароль -
+          воспользуйтесь формой"
+        extendedNote="восстановления пароля"
+      >
         <Pros />
-        <Text style={styles.prosTitle}>Добрый вечер</Text>
-        <Text style={styles.prosText}>
-          Войдите с помощью логина и пароля. Если вы забыли пароль -
-          воспользуйтесь формой
-        </Text>
-        <Text style={styles.remindPasswordSmall}>восстановления пароля</Text>
-      </View>
+      </InfoPost>
       <View style={styles.form}>
-        <React.Fragment>
-          <Text style={styles.label}>Имя аккаунта</Text>
-          <View>
-            <TextInput style={styles.input} placeholder="Введите имя" />
-          </View>
-        </React.Fragment>
-        <React.Fragment>
-          <Text style={[styles.label, { marginTop: 30 }]}>Пароль</Text>
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="Введите пароль"
-              secureTextEntry
-            />
-            <TogglePassword style={styles.togglePassword} />
-          </View>
-        </React.Fragment>
+        <CustomInput label="Имя аккаунта" placeholder="Введите имя" />
+        <CustomInput
+          label="Пароль"
+          placeholder="Введите пароль"
+          hasMargin
+          password
+        />
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.SelectableBackground()}
-          onPress={authorize}
-        >
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Войти</Text>
-          </View>
-        </TouchableNativeFeedback>
-        <Text style={styles.remindPassword}>Забыли пароль?</Text>
+        <MajorBlueButton handleOnPress={authorize} buttonText="Войти" />
+        <SecondaryButton buttonText="Забыли пароль?" />
       </View>
     </KeyboardAvoidingView>
   );
