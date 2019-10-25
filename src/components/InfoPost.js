@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { $BLUE } from '../constants/colorLiterals';
+import SecurePin from './SecurePin';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +25,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function InfoPost({ children, title, note, extendedNote }) {
+export default function InfoPost({
+  hasPinCode,
+  children,
+  title,
+  note,
+  extendedNote
+}) {
   return (
     <View style={styles.container}>
       {children}
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.note}>{note}</Text>
+      {hasPinCode && <SecurePin />}
+      {note && <Text style={styles.note}>{note}</Text>}
       {extendedNote && <Text style={styles.extendedNote}>{extendedNote}</Text>}
     </View>
   );
