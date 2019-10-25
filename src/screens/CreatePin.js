@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   }
 });
 
-//TODO: refactor into smaller components
 export default function CreatePinCode() {
   const goTo = routeName => () => NavigationService.navigate(routeName);
   const goBack = () => NavigationService.goBack();

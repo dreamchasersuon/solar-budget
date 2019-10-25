@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
   }
 });
 
-//TODO: refactor into smaller components
 export default function AcceptPinCode() {
   const goBack = () => NavigationService.goBack();
   const goTo = routeName => () => NavigationService.navigate(routeName);
