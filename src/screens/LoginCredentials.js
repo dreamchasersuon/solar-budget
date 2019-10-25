@@ -4,7 +4,9 @@ import {
   StyleSheet,
   Text,
   TouchableNativeFeedback,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 30,
     paddingLeft: 30,
-    marginBottom: 30,
+    marginBottom: 20,
     height: 80,
     width: '100%'
   },
@@ -92,9 +94,12 @@ const styles = StyleSheet.create({
 //TODO: refactor into smaller components
 export default function LoginCredentials() {
   const goBack = () => NavigationService.goBack();
-  const authorize = () => NavigationService.navigate('App');
+  const authorize = () => NavigationService.replaceTo('App');
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'android' ? 'height' : 'padding'}
+    >
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
@@ -110,12 +115,18 @@ export default function LoginCredentials() {
       <View style={styles.form}>
         <React.Fragment>
           <Text style={styles.label}>Имя аккаунта</Text>
-          <TextInput style={styles.input} placeholder="Введите имя" />
+          <View>
+            <TextInput style={styles.input} placeholder="Введите имя" />
+          </View>
         </React.Fragment>
         <React.Fragment>
           <Text style={[styles.label, { marginTop: 30 }]}>Пароль</Text>
           <View>
-            <TextInput style={styles.input} placeholder="Введите пароль" />
+            <TextInput
+              style={styles.input}
+              placeholder="Введите пароль"
+              secureTextEntry
+            />
             <TogglePassword style={styles.togglePassword} />
           </View>
         </React.Fragment>
@@ -131,6 +142,6 @@ export default function LoginCredentials() {
         </TouchableNativeFeedback>
         <Text style={styles.remindPassword}>Забыли пароль?</Text>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

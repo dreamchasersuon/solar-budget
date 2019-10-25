@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import TargetsImg from '../../assets/target.svg';
 import SettingsImg from '../../assets/settings.svg';
@@ -119,7 +119,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Wallet',
     tabBarOptions: {
       showLabel: false,
       style: {
@@ -134,96 +134,34 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
 const AuthStack = createStackNavigator(
   {
     Welcome: {
-      screen: Welcome,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: Welcome
     },
     LoginCredentials: {
-      screen: LoginCredentials,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: LoginCredentials
     },
     Creation: {
-      screen: Creation,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: Creation
     },
     CreatePin: {
-      screen: CreatePinCode,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: CreatePinCode
     },
     AcceptPin: {
-      screen: AcceptPinCode,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: AcceptPinCode
     },
     AddFingerprint: {
-      screen: Fingerprint,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: Fingerprint
     },
     LoginPin: {
-      screen: LoginPin,
-      navigationOptions: {
-        header: null,
-        headerStyle: {
-          marginLeft: 30,
-          marginTop: 20,
-          borderBottomWidth: 0,
-          elevation: 0
-        }
-      }
+      screen: LoginPin
     }
   },
   {
-    initialRouteName: 'Welcome'
+    initialRouteName: 'Welcome',
+    headerMode: 'none'
   }
 );
 
-const AppStack = createStackNavigator(
+const AppStack = createSwitchNavigator(
   {
     Auth: {
       screen: AuthStack
@@ -234,7 +172,7 @@ const AppStack = createStackNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'App'
+    initialRouteName: 'Auth'
   }
 );
 

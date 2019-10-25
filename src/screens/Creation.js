@@ -5,7 +5,9 @@ import {
   Text,
   TouchableNativeFeedback,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
@@ -107,7 +109,10 @@ export default function Creation() {
   const goBack = () => NavigationService.goBack();
   const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'android' ? 'height' : 'padding'}
+    >
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
         <Text style={styles.headerText}>Новый аккаунт</Text>
@@ -128,14 +133,22 @@ export default function Creation() {
         <React.Fragment>
           <Text style={[styles.label, { marginTop: 30 }]}>Пароль</Text>
           <View>
-            <TextInput style={styles.input} placeholder="Создайте пароль" />
+            <TextInput
+              style={styles.input}
+              placeholder="Создайте пароль"
+              secureTextEntry
+            />
             <TogglePassword style={styles.togglePassword} />
           </View>
         </React.Fragment>
         <React.Fragment>
           <Text style={[styles.label, { marginTop: 30 }]}>Подтверждение</Text>
           <View>
-            <TextInput style={styles.input} placeholder="Подтвердите пароль" />
+            <TextInput
+              style={styles.input}
+              placeholder="Подтвердите пароль"
+              secureTextEntry
+            />
             <TogglePassword style={styles.togglePassword} />
           </View>
         </React.Fragment>
@@ -156,6 +169,6 @@ export default function Creation() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

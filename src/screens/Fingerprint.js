@@ -23,9 +23,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 50
   },
-  backArrow: {
-    marginLeft: 20
-  },
   pros: {
     alignItems: 'center'
   },
@@ -47,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 30,
     paddingLeft: 30,
-    marginBottom: 30,
+    marginBottom: 20,
     height: 80,
     width: '100%'
   },
@@ -66,26 +63,6 @@ const styles = StyleSheet.create({
     color: $BLUE,
     textAlign: 'center'
   },
-  remindPasswordSmall: {
-    color: $BLUE,
-    fontSize: 11
-  },
-  form: {
-    width: '100%',
-    justifyContent: 'space-between',
-    paddingLeft: 30,
-    paddingRight: 30
-  },
-  label: {
-    fontSize: 10
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    borderColor: $MEDIUMSILVER,
-    borderBottomWidth: 1,
-    fontSize: 13
-  },
   fingerprint: {
     borderStyle: 'dashed',
     borderWidth: 1,
@@ -96,8 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20
-  },
-  togglePassword: { position: 'absolute', right: 10, marginTop: 15 }
+  }
 });
 
 //TODO: refactor into smaller components, remove unused styles
