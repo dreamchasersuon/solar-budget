@@ -6,9 +6,12 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity
 } from 'react-native';
-import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
 import NavigationService from '../navigation/service';
+import InfoPost from '../components/InfoPost';
+import MajorBlueButton from '../components/MajorBlueButton';
+import SecondaryButton from '../components/SecondaryButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,23 +26,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 50
   },
-  pros: {
-    alignItems: 'center'
-  },
-  prosTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    textAlign: 'center',
-    width: 220,
-    marginTop: 10
-  },
-  prosText: {
-    textAlign: 'center',
-    fontSize: 11,
-    width: 250,
-    marginTop: 5,
-    opacity: 0.6
-  },
   buttonsContainer: {
     justifyContent: 'space-between',
     paddingRight: 30,
@@ -47,21 +33,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     height: 80,
     width: '100%'
-  },
-  button: {
-    backgroundColor: $BLUE,
-    width: '100%',
-    height: 45,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    color: $WHITE
-  },
-  remindPassword: {
-    color: $BLUE,
-    textAlign: 'center'
   },
   fingerprint: {
     borderStyle: 'dashed',
@@ -76,36 +47,27 @@ const styles = StyleSheet.create({
   }
 });
 
-//TODO: refactor into smaller components, remove unused styles
 export default function AddFingerprint() {
   const goBack = () => NavigationService.goBack();
   const goTo = roteName => () => NavigationService.navigate(roteName);
   return (
     <View style={styles.container}>
       <View style={styles.header} />
-      <View style={styles.pros}>
+      <InfoPost
+        title="Использовать отпечаток пальца для входа?"
+        note="Используйте отпечаток пальца для более быстрого и легкого доступа к
+          своей учетной записи"
+      >
         <TouchableOpacity style={styles.fingerprint} onPress={goBack}>
           <Fingerprint />
         </TouchableOpacity>
-
-        <Text style={styles.prosTitle}>
-          Использовать отпечаток пальца для входа?
-        </Text>
-        <Text style={styles.prosText}>
-          Используйте отпечаток пальца для более быстрого и легкого доступа к
-          своей учетной записи
-        </Text>
-      </View>
+      </InfoPost>
       <View style={styles.buttonsContainer}>
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.SelectableBackground()}
-          onPress={goTo('App')}
-        >
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Использовать</Text>
-          </View>
-        </TouchableNativeFeedback>
-        <Text style={styles.remindPassword}>Позже</Text>
+        <MajorBlueButton
+          handleOnPress={goTo('App')}
+          buttonText="Использовать"
+        />
+        <SecondaryButton buttonText="Позже" />
       </View>
     </View>
   );

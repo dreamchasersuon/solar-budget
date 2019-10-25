@@ -1,11 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Text
+} from 'react-native';
 import NavigationService from '../navigation/service';
 import CreationHeader from '../components/CreationHeader';
 import InfoPost from '../components/InfoPost';
 import Form from '../components/Form';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
+import Pros from '../../assets/pros.svg';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +32,13 @@ export default function Creation() {
       behavior={Platform.OS === 'android' ? 'height' : 'padding'}
     >
       <CreationHeader goBack={goBack} />
-      <InfoPost />
+      <InfoPost
+        title="Анонимность"
+        note="Только вы можете просматривать свои данные. Никакой привязки к соц.
+        сетям и сквозной аналитики"
+      >
+        <Pros />
+      </InfoPost>
       <Form hasPasswordApprove />
       <View style={styles.buttonsContainer}>
         <MajorBlueButton

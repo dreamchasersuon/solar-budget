@@ -1,5 +1,4 @@
 import React from 'react';
-import Pros from '../../assets/pros.svg';
 import { View, StyleSheet, Text } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -20,15 +19,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function InfoPost() {
+export default function InfoPost({ children, title, note }) {
   return (
     <View style={styles.container}>
-      <Pros />
-      <Text style={styles.title}>Анонимность</Text>
-      <Text style={styles.note}>
-        Только вы можете просматривать свои данные. Никакой привязки к соц.
-        сетям и сквозной аналитики
-      </Text>
+      {children}
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.note}>{note}</Text>
     </View>
   );
 }
