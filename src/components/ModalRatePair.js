@@ -1,9 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableNativeFeedback, View, StyleSheet } from 'react-native';
 import RateInfo from '../../assets/rate_info.svg';
 import { $BLUE } from '../constants/colorLiterals';
-import SelectRatePair from '../../assets/select_rate-pair.svg';
+import SelectedRatePair from '../../assets/selected_rate-pair.svg';
+import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
   }
 });
 export default function ModalRatePair({ title }) {
+  const [isSelected, selectPair] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.left}>
@@ -34,9 +36,10 @@ export default function ModalRatePair({ title }) {
       </View>
       <TouchableNativeFeedback
         background={TouchableNativeFeedback.Ripple($BLUE, true)}
+        onPress={() => selectPair(!isSelected)}
       >
         <View style={styles.button}>
-          <SelectRatePair />
+          {isSelected ? <SelectedRatePair /> : <UnselectedRatePair />}
         </View>
       </TouchableNativeFeedback>
     </View>
