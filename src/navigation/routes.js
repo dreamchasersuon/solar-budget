@@ -1,4 +1,5 @@
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+// eslint-disable-next-line import/named
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import TargetsImg from '../../assets/target.svg';
@@ -18,6 +19,7 @@ import CreatePinCode from '../screens/CreatePin';
 import AcceptPinCode from '../screens/AcceptPin';
 import Fingerprint from '../screens/Fingerprint';
 import LoginPin from '../screens/LoginPin';
+import { $WHITE } from '../constants/colorLiterals';
 
 const WalletScreen = createStackNavigator({
   Wallet: {
@@ -91,7 +93,7 @@ const SettingsScreen = createStackNavigator({
   }
 });
 
-const BottomTabsBarNavigator = createBottomTabNavigator(
+const BottomTabsBarNavigator = createMaterialTopTabNavigator(
   {
     Wallet: {
       screen: WalletScreen,
@@ -120,11 +122,19 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Wallet',
+    tabBarPosition: 'bottom',
     tabBarOptions: {
       showLabel: false,
+      showIcon: true,
+      iconStyle: {
+        marginTop: 4
+      },
+      indicatorStyle: {
+        height: 0
+      },
       style: {
         elevation: 10,
-        borderTopWidth: 0,
+        backgroundColor: $WHITE,
         height: 60
       }
     }
@@ -172,7 +182,7 @@ const AppStack = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Auth'
+    initialRouteName: 'App'
   }
 );
 
