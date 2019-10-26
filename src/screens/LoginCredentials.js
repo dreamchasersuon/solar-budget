@@ -7,7 +7,7 @@ import InfoPost from '../components/InfoPost';
 import CustomInput from '../components/Input';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
-import { $BLUE } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +50,13 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: 30
+  },
+  input: {
+    height: 40,
+    width: '100%',
+    borderColor: $MEDIUMSILVER,
+    borderBottomWidth: 1,
+    fontSize: 13
   }
 });
 
@@ -74,12 +81,14 @@ export default function LoginCredentials() {
       </InfoPost>
       <View style={styles.form}>
         <CustomInput
+          inputStyle={styles.input}
           label="Имя аккаунта"
           labelStyle={styles.label}
           placeholder="Введите имя"
         />
         <CustomInput
           label="Пароль"
+          inputStyle={styles.input}
           placeholder="Введите пароль"
           hasMargin
           labelStyle={[styles.label, styles.marginTop]}

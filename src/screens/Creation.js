@@ -7,7 +7,7 @@ import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/Input';
-import { $BLUE } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: 30
+  },
+  input: {
+    height: 40,
+    width: '100%',
+    borderColor: $MEDIUMSILVER,
+    borderBottomWidth: 1,
+    fontSize: 13
   }
 });
 
@@ -62,11 +69,13 @@ export default function Creation() {
       </InfoPost>
       <View style={styles.form}>
         <CustomInput
+          inputStyle={styles.input}
           labelStyle={styles.label}
           label="Имя аккаунта"
           placeholder="Введите имя"
         />
         <CustomInput
+          inputStyle={styles.input}
           label="Пароль"
           placeholder="Создайте пароль"
           hasMargin
@@ -74,6 +83,7 @@ export default function Creation() {
           password
         />
         <CustomInput
+          inputStyle={styles.input}
           label="Подтверждение"
           placeholder="Подтвердите пароль"
           hasMargin

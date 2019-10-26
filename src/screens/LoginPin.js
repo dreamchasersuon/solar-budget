@@ -5,7 +5,6 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
 import InfoPost from '../components/InfoPost';
 import NumericBoard from '../components/NumericBoard';
-import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
 import { $BLUE } from '../constants/colorLiterals';
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: 30,
-    height: 90,
+    height: 50,
     width: '100%'
   },
   numericBoardWrapperStyle: {
@@ -49,6 +48,11 @@ const styles = StyleSheet.create({
   },
   numberStyle: {
     fontSize: 40
+  },
+  buttonText: {
+    color: $BLUE,
+    textAlign: 'center',
+    fontSize: 12
   },
   buttonTextWithNote: {
     color: $BLUE,
@@ -98,7 +102,8 @@ export default function LoginPinCode() {
         numberStyle={styles.numberStyle}
       />
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton
+        <SecondaryButton
+          buttonTextStyle={styles.buttonText}
           handleOnPress={goTo('LoginCredentials')}
           buttonText="Использовать логин и пароль"
         />

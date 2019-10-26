@@ -182,7 +182,7 @@ const AppStack = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'App'
+    initialRouteName: 'Auth'
   }
 );
 
