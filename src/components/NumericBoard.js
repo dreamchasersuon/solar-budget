@@ -28,23 +28,58 @@ const styles = StyleSheet.create({
 });
 
 export default function NumericBoard({
-  onPressDevNavigation,
-  onPressDevNavGoBack,
   hasDelete,
   hasFingerprint,
-  needNullAlignment
+  needNullAlignment,
+  onPressNumber
 }) {
   return (
     <View style={styles.wrapper}>
-      <NumericUnit containerStyle={styles.container} number="1" />
-      <NumericUnit containerStyle={styles.container} number="2" />
-      <NumericUnit containerStyle={styles.container} number="3" />
-      <NumericUnit containerStyle={styles.container} number="4" />
-      <NumericUnit containerStyle={styles.container} number="5" />
-      <NumericUnit containerStyle={styles.container} number="6" />
-      <NumericUnit containerStyle={styles.container} number="7" />
-      <NumericUnit containerStyle={styles.container} number="8" />
-      <NumericUnit containerStyle={styles.container} number="9" />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('1')}
+        number="1"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('2')}
+        number="2"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('3')}
+        number="3"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('4')}
+        number="4"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('5')}
+        number="5"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('7')}
+        number="6"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('7')}
+        number="7"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('8')}
+        number="8"
+      />
+      <NumericUnit
+        containerStyle={styles.container}
+        onPress={onPressNumber('9')}
+        number="9"
+      />
       {hasFingerprint && (
         <NumericUnit containerStyle={styles.container} iconFingerprint />
       )}
@@ -53,13 +88,13 @@ export default function NumericBoard({
           needNullAlignment ? styles.containerWithMargin : styles.container
         }
         number="0"
-        onPress={onPressDevNavigation}
+        onPress={onPressNumber('0')}
       />
       {hasDelete && (
         <NumericUnit
           containerStyle={styles.container}
           iconDelete
-          onPress={onPressDevNavGoBack}
+          onPress={onPressNumber('delete')}
         />
       )}
     </View>

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,10 +32,16 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 50,
     backgroundColor: $MEDIUMSILVER
+  },
+  paginationActive: {
+    width: 10,
+    height: 10,
+    borderRadius: 50,
+    backgroundColor: $BLUE
   }
 });
 
-export default function SecurePin({ title, noMargins }) {
+export default function SecurePin({ title, noMargins, pinCodeLength }) {
   return (
     <View
       style={
@@ -52,10 +58,26 @@ export default function SecurePin({ title, noMargins }) {
             : [styles.paginationContainer, styles.marginTop]
         }
       >
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
-        <View style={styles.pagination} />
+        <View
+          style={
+            pinCodeLength > 0 ? styles.paginationActive : styles.pagination
+          }
+        />
+        <View
+          style={
+            pinCodeLength > 1 ? styles.paginationActive : styles.pagination
+          }
+        />
+        <View
+          style={
+            pinCodeLength > 2 ? styles.paginationActive : styles.pagination
+          }
+        />
+        <View
+          style={
+            pinCodeLength > 3 ? styles.paginationActive : styles.pagination
+          }
+        />
       </View>
     </View>
   );

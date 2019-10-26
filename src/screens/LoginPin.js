@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
@@ -7,6 +7,7 @@ import InfoPost from '../components/InfoPost';
 import NumericBoard from '../components/NumericBoard';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
+import SecurePin from '../components/SecurePin';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,21 +36,39 @@ const styles = StyleSheet.create({
 });
 
 export default function LoginPinCode() {
+  const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
   const goTo = routeName => () => NavigationService.navigate(routeName);
+
+  const setPinCode = value => () => {
+    if (pinCode.length === 4) return;
+    const updatePinCode = pinCode + value;
+    if (value === 'delete') {
+      return setPin(pinCode.slice(0, -1));
+    }
+    setPin(updatePinCode);
+  };
+
+  if (pinCode.length === 4) {
+    setPin('');
+    NavigationService.navigate('App');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
-      <InfoPost securePinNoMargins hasPinCode title="Добрый вечер">
-        <Pros />
-      </InfoPost>
+      <View>
+        <InfoPost title="Добрый вечер">
+          <Pros />
+        </InfoPost>
+        <SecurePin noMargins pinCodeLength={pinCode.length} />
+      </View>
       <NumericBoard
+        onPressNumber={value => setPinCode(value)}
         hasDelete
         hasFingerprint
-        onPressDevNavigation={goTo('App')}
-        onPressDevNavGoBack={goBack}
       />
       <View style={styles.buttonsContainer}>
         <MajorBlueButton
