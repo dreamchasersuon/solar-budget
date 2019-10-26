@@ -166,7 +166,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'Creation',
     headerMode: 'none'
   }
 );
