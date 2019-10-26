@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import Pros from '../../assets/pros.svg';
 import NavigationService from '../navigation/service';
-import InfoPost from '../components/InfoPost';
 import MajorBlueButton from '../components/MajorBlueButton';
-import { $MEDIUMSILVER } from '../constants/colorLiterals';
+import Slider from '../components/Slider';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,21 +28,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     height: 100,
     width: '100%'
-  },
-  aboutContainer: {
-    alignItems: 'center'
-  },
-  paginationContainer: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 50
-  },
-  pagination: {
-    width: 10,
-    height: 10,
-    borderRadius: 50,
-    backgroundColor: $MEDIUMSILVER
   }
 });
 
@@ -55,20 +38,7 @@ export default function Welcome() {
       <View style={styles.header}>
         <Text style={styles.language}>RU</Text>
       </View>
-      <View style={styles.aboutContainer}>
-        <InfoPost
-          title="Анализируйте статистику"
-          note="Получайте точные статистические данные по вашему бюджету в реальном
-          времени"
-        >
-          <Pros />
-        </InfoPost>
-        <View style={styles.paginationContainer}>
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-          <View style={styles.pagination} />
-        </View>
-      </View>
+      <Slider />
       <View style={styles.buttonsContainer}>
         <MajorBlueButton
           handleOnPress={goTo('Creation')}
