@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
-import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
+import { $LIGHTSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
@@ -26,18 +26,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '59%'
   },
-  buttonStyle: {
-    backgroundColor: $BLUE,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    borderRadius: 4,
-    width: 100,
-    height: 26
-  },
-  buttonTextStyle: {
-    color: $WHITE
-  },
   headerTopLeftSide: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -54,7 +42,13 @@ function Wallet() {
   const toggleBillModal = () => makeBill(!isBillModalVisible);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        isBillModalVisible || isTransactionModalVisible
+          ? [styles.container, { opacity: 0.8 }]
+          : styles.container
+      }
+    >
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasStats

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     width: '100%',
-    height: '60%',
+    height: '80%',
     alignItems: 'center',
     backgroundColor: $WHITE,
     borderTopLeftRadius: 30,

@@ -46,7 +46,13 @@ function Targets() {
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        isCreateTargetModalVisible
+          ? [styles.container, { opacity: 0.8 }]
+          : styles.container
+      }
+    >
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu

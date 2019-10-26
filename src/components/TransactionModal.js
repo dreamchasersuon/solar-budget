@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     width: '100%',
-    height: '70%',
+    height: '80%',
     alignItems: 'center',
     backgroundColor: $WHITE,
     borderTopLeftRadius: 30,
@@ -263,6 +263,7 @@ export default function TransactionModal({
       throw new Error(`Cannot open date picker ${message}`);
     }
   }
+
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>

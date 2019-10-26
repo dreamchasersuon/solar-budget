@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { $BLUE, $LIGHTSILVER } from '../constants/colorLiterals';
+import { $LIGHTSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import RatesContainer from '../components/RatesContainer';
@@ -37,7 +37,13 @@ function Rates() {
   const [isAddRatePairModalVisible, makeTarget] = useState(false);
   const toggleAddRatePairModal = () => makeTarget(!isAddRatePairModalVisible);
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        isAddRatePairModalVisible
+          ? [styles.container, { opacity: 0.8 }]
+          : styles.container
+      }
+    >
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         title="Курсы валют"
