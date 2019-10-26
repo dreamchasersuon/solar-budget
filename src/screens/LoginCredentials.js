@@ -7,6 +7,7 @@ import InfoPost from '../components/InfoPost';
 import CustomInput from '../components/Input';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
+import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +38,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 30,
     paddingRight: 30
+  },
+  buttonText: {
+    color: $BLUE,
+    textAlign: 'center',
+    fontSize: 12,
+    marginLeft: 5
+  },
+  label: {
+    fontSize: 10
+  },
+  marginTop: {
+    marginTop: 30
   }
 });
 
@@ -60,17 +73,25 @@ export default function LoginCredentials() {
         <Pros />
       </InfoPost>
       <View style={styles.form}>
-        <CustomInput label="Имя аккаунта" placeholder="Введите имя" />
+        <CustomInput
+          label="Имя аккаунта"
+          labelStyle={styles.label}
+          placeholder="Введите имя"
+        />
         <CustomInput
           label="Пароль"
           placeholder="Введите пароль"
           hasMargin
+          labelStyle={[styles.label, styles.marginTop]}
           password
         />
       </View>
       <View style={styles.buttonsContainer}>
         <MajorBlueButton handleOnPress={authorize} buttonText="Войти" />
-        <SecondaryButton buttonText="Забыли пароль?" />
+        <SecondaryButton
+          buttonTextStyle={styles.buttonText}
+          buttonText="Забыли пароль?"
+        />
       </View>
     </KeyboardAvoidingView>
   );

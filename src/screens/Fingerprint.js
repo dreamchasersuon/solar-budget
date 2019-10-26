@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  TouchableOpacity
-} from 'react-native';
-import { $MEDIUMSILVER } from '../constants/colorLiterals';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
 import NavigationService from '../navigation/service';
 import InfoPost from '../components/InfoPost';
@@ -44,6 +38,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20
+  },
+  buttonText: {
+    color: $BLUE,
+    textAlign: 'center',
+    fontSize: 12,
+    marginLeft: 5
   }
 });
 
@@ -67,7 +67,11 @@ export default function AddFingerprint() {
           handleOnPress={goTo('App')}
           buttonText="Использовать"
         />
-        <SecondaryButton buttonText="Позже" />
+        <SecondaryButton
+          handleOnPress={goTo('App')}
+          buttonTextStyle={styles.buttonText}
+          buttonText="Позже"
+        />
       </View>
     </View>
   );

@@ -26,9 +26,6 @@ const styles = StyleSheet.create({
     marginTop: -20,
     padding: 10
   },
-  operationContainer: {
-    flexDirection: 'column'
-  },
   leftOperationsContainer: {
     borderRightWidth: 1,
     borderColor: $SILVER,
@@ -41,14 +38,6 @@ const styles = StyleSheet.create({
     width: '50%',
     paddingLeft: 5
   },
-  icon: {
-    width: 30,
-    height: 30
-  },
-  operationTitle: {
-    fontSize: 9,
-    marginBottom: 10
-  },
   operationAmountDebit: {
     color: $GREEN,
     fontSize: 20
@@ -56,14 +45,6 @@ const styles = StyleSheet.create({
   operationAmountCredit: {
     color: $RED,
     fontSize: 20
-  },
-  operation: {
-    flexDirection: 'row',
-    paddingLeft: 5,
-    paddingRight: 5,
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'space-between'
   },
   circleTitle: {
     color: $SILVER,

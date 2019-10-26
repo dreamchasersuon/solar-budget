@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
+import { $BLUE, $LIGHTSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
 import RatesContainer from '../components/RatesContainer';
@@ -24,18 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     height: '62%'
-  },
-  buttonStyle: {
-    backgroundColor: $BLUE,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    borderRadius: 4,
-    width: 100,
-    height: 26
-  },
-  buttonTextStyle: {
-    color: $WHITE
   },
   headerTopLeftSide: {
     flexDirection: 'row',

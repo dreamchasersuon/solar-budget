@@ -7,6 +7,7 @@ import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/Input';
+import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,6 +29,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     height: 90,
     width: '100%'
+  },
+  buttonTextWithNote: {
+    color: $BLUE,
+    textAlign: 'center',
+    fontSize: 12,
+    marginLeft: 5
+  },
+  label: {
+    fontSize: 10
+  },
+  marginTop: {
+    marginTop: 30
   }
 });
 
@@ -48,17 +61,23 @@ export default function Creation() {
         <Pros />
       </InfoPost>
       <View style={styles.form}>
-        <CustomInput label="Имя аккаунта" placeholder="Введите имя" />
+        <CustomInput
+          labelStyle={styles.label}
+          label="Имя аккаунта"
+          placeholder="Введите имя"
+        />
         <CustomInput
           label="Пароль"
           placeholder="Создайте пароль"
           hasMargin
+          labelStyle={[styles.label, styles.marginTop]}
           password
         />
         <CustomInput
           label="Подтверждение"
           placeholder="Подтвердите пароль"
           hasMargin
+          labelStyle={[styles.label, styles.marginTop]}
           password
         />
       </View>
@@ -71,6 +90,7 @@ export default function Creation() {
           handleOnPress={goTo('LoginCredentials')}
           buttonText="ВОЙТИ"
           hasNote
+          buttonTextStyle={styles.buttonTextWithNote}
           noteText="Уже зарегистрированы?"
         />
       </View>

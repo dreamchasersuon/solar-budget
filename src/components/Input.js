@@ -1,24 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { $MEDIUMSILVER } from '../constants/colorLiterals';
 import HiddenPassword from '../../assets/toggle-pass.svg';
 import VisiblePassword from '../../assets/visible-pass.svg';
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 10
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    borderColor: $MEDIUMSILVER,
-    borderBottomWidth: 1,
-    fontSize: 13
-  },
-  marginTop: {
-    marginTop: 30
-  },
   hiddenPassword: { position: 'absolute', right: 10, marginTop: 15 },
   visiblePassword: { position: 'absolute', right: 10, marginTop: 19 }
 });
@@ -26,8 +12,11 @@ const styles = StyleSheet.create({
 export default function CustomInput({
   label,
   placeholder,
-  hasMargin,
-  password
+  placeholderColor,
+  labelStyle,
+  password,
+  inputStyle,
+  multiline
 }) {
   const [initial, setValue] = useState('');
   const [isHiddenPassword, togglePassword] = useState(true);
@@ -42,15 +31,13 @@ export default function CustomInput({
 
   return (
     <React.Fragment>
-      <Text style={hasMargin ? [styles.label, styles.marginTop] : styles.label}>
-        {label}
-      </Text>
+      {label && <Text style={labelStyle}>{label}</Text>}
       {password ? (
         <View>
           <TextInput
             value={initial}
             onChange={validate}
-            style={styles.input}
+            style={inputStyle}
             placeholder={placeholder}
             secureTextEntry={isHiddenPassword}
           />
@@ -69,10 +56,12 @@ export default function CustomInput({
         </View>
       ) : (
         <TextInput
-          style={styles.input}
+          style={inputStyle}
           value={initial}
           onChange={validate}
           placeholder={placeholder}
+          placeholderTextColor={placeholderColor}
+          multiline={multiline}
         />
       )}
     </React.Fragment>

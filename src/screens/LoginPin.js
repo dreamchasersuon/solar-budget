@@ -8,6 +8,7 @@ import NumericBoard from '../components/NumericBoard';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
+import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +33,28 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     height: 90,
     width: '100%'
+  },
+  numericBoardWrapperStyle: {
+    width: 240,
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  },
+  numericBoardContainerStyle: {
+    borderRadius: 50,
+    width: 65,
+    height: 65,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  numberStyle: {
+    fontSize: 40
+  },
+  buttonTextWithNote: {
+    color: $BLUE,
+    textAlign: 'center',
+    fontSize: 12,
+    marginLeft: 5
   }
 });
 
@@ -68,7 +91,11 @@ export default function LoginPinCode() {
       <NumericBoard
         onPressNumber={value => setPinCode(value)}
         hasDelete
+        bigDelete
         hasFingerprint
+        wrapperStyle={styles.numericBoardWrapperStyle}
+        containerStyle={styles.numericBoardContainerStyle}
+        numberStyle={styles.numberStyle}
       />
       <View style={styles.buttonsContainer}>
         <MajorBlueButton
@@ -76,6 +103,7 @@ export default function LoginPinCode() {
           buttonText="Использовать логин и пароль"
         />
         <SecondaryButton
+          buttonTextStyle={styles.buttonTextWithNote}
           handleOnPress={goTo('Creation')}
           buttonText="РЕГИСТРАЦИЯ"
           hasNote

@@ -16,6 +16,30 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 20,
     top: 60
+  },
+  numericBoardWrapperStyle: {
+    width: 240,
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  },
+  numericBoardContainerStyle: {
+    borderRadius: 50,
+    width: 65,
+    height: 65,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  numericBoardContainerWithMarginStyle: {
+    borderRadius: 50,
+    width: 65,
+    height: 65,
+    marginLeft: 88,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  numberStyle: {
+    fontSize: 40
   }
 });
 
@@ -42,9 +66,14 @@ export default function CreatePinCode() {
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
       <SecurePin pinCodeLength={pinCode.length} title="Придумайте PIN-CODE" />
       <NumericBoard
+        wrapperStyle={styles.numericBoardWrapperStyle}
+        containerStyle={styles.numericBoardContainerStyle}
+        containerWithMarginStyle={styles.numericBoardContainerWithMarginStyle}
         onPressNumber={value => setPinCode(value)}
         hasDelete
+        bigDelete
         needNullAlignment
+        numberStyle={styles.numberStyle}
       />
     </View>
   );
