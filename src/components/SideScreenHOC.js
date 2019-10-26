@@ -5,7 +5,6 @@ import {
   Text,
   Animated,
   View,
-  TouchableNativeFeedback,
   TouchableOpacity
 } from 'react-native';
 import Logo from '../../assets/logo.svg';

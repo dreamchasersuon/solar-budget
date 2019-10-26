@@ -1,4 +1,16 @@
-import { Modal, Text, StyleSheet, ScrollView, View } from 'react-native';
+import {
+  Modal,
+  Text,
+  StyleSheet,
+  ScrollView,
+  View,
+  Picker,
+  TouchableOpacity,
+  // eslint-disable-next-line react-native/split-platform-components
+  TimePickerAndroid,
+  // eslint-disable-next-line react-native/split-platform-components
+  DatePickerAndroid
+} from 'react-native';
 import {
   $BLUE,
   $MEDIUMSILVER,
@@ -6,7 +18,7 @@ import {
   $WHITE
 } from '../constants/colorLiterals';
 import BlueButton from './BlueButton';
-import React from 'react';
+import React, { useState } from 'react';
 import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
 import CustomInput from './Input';
@@ -68,6 +80,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 10
   },
+  purposeInputItem: {
+    color: $MEDIUMSILVER,
+    fontSize: 3
+  },
   descriptionInputContainer: {
     paddingRight: 20,
     paddingLeft: 20,
@@ -103,6 +119,11 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     color: $MEDIUMSILVER,
     paddingLeft: 10,
+    fontSize: 10
+  },
+  dateInputLabel: {
+    marginTop: 10,
+    color: $MEDIUMSILVER,
     fontSize: 10
   },
   transactionFormWrapper: {
@@ -193,6 +214,55 @@ export default function TransactionModal({
   isVisible,
   toggleTransactionModal
 }) {
+  const [income, setIncome] = useState(true);
+  const [outcome, setOutcome] = useState(false);
+  const [operationValue, setOperationValue] = useState('');
+
+  const chooseOperationType = type => () => {
+    if (type === 'income') {
+      setOutcome(false);
+      setIncome(true);
+    } else {
+      setOutcome(true);
+      setIncome(false);
+    }
+  };
+
+  const setOperation = value => () => {
+    const updateOperationValue = operationValue + value;
+    if (value === 'delete') {
+      return setOperationValue(operationValue.slice(0, -1));
+    }
+    setOperationValue(updateOperationValue);
+  };
+
+  async function timepicker() {
+    try {
+      const { action, hour, minute } = await TimePickerAndroid.open({
+        hour: 12,
+        minute: 0,
+        is24Hour: false
+      });
+      if (action !== TimePickerAndroid.dismissedAction) {
+        // Selected hour (0-23), minute (0-59)
+      }
+    } catch ({ code, message }) {
+      throw new Error(`Cannot open time picker ${message}`);
+    }
+  }
+
+  async function datepicker() {
+    try {
+      const { action, year, month, day } = await DatePickerAndroid.open({
+        date: new Date()
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        // Selected year, month (0-11), day
+      }
+    } catch ({ code, message }) {
+      throw new Error(`Cannot open date picker ${message}`);
+    }
+  }
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
@@ -209,12 +279,16 @@ export default function TransactionModal({
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.purposeInputContainer}>
-              <CustomInput
-                inputStyle={styles.purposeInput}
-                placeholder="Выберите категорию платежа"
-                label="Назначение"
-                labelStyle={styles.label}
-              />
+              <Text style={styles.label}>Назначение</Text>
+              <View style={styles.purposeInput}>
+                <Picker
+                  style={styles.purposeInput}
+                  itemStyle={styles.purposeInputItem}
+                >
+                  <Picker.Item label="Выберите назначение платежа" />
+                  <Picker.Item label="Продукты" value="products" />
+                </Picker>
+              </View>
             </View>
             <View style={styles.descriptionInputContainer}>
               <CustomInput
@@ -228,32 +302,53 @@ export default function TransactionModal({
             <View style={styles.dateInputContainer}>
               <Text style={styles.label}>Дата и время</Text>
               <View style={styles.dateInputAlignment}>
-                <CustomInput inputStyle={styles.dateInput} placeholder="Дата" />
-                <CustomInput
-                  inputStyle={styles.dateInput}
-                  placeholder="Время"
-                />
+                <TouchableOpacity style={styles.dateInput} onPress={datepicker}>
+                  <Text style={styles.dateInputLabel}>Дата</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.dateInput} onPress={timepicker}>
+                  <Text style={styles.dateInputLabel}>Время</Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
               <Text style={styles.label}>Сумма</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <BlueButton
-                  buttonStyle={styles.operationTypeBtnActive}
-                  buttonTextStyle={styles.operationTypeTextActive}
+                  handleOnPress={chooseOperationType('income')}
+                  buttonStyle={
+                    income
+                      ? styles.operationTypeBtnActive
+                      : styles.operationTypeBtnInactive
+                  }
+                  buttonTextStyle={
+                    income
+                      ? styles.operationTypeTextActive
+                      : styles.operationTypeTextInactive
+                  }
                   title="Доход"
                 />
                 <BlueButton
-                  buttonStyle={styles.operationTypeBtnInactive}
-                  buttonTextStyle={styles.operationTypeTextInactive}
+                  handleOnPress={chooseOperationType('outcome')}
+                  buttonStyle={
+                    outcome
+                      ? styles.operationTypeBtnActive
+                      : styles.operationTypeBtnInactive
+                  }
+                  buttonTextStyle={
+                    outcome
+                      ? styles.operationTypeTextActive
+                      : styles.operationTypeTextInactive
+                  }
                   title="Расход"
                 />
               </View>
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
                   inputStyle={styles.transactionInput}
-                  placeholder="+ 0"
+                  placeholder={income ? '+ 0' : '- 0'}
                   placeholderColor={$BLUE}
+                  initial={operationValue}
+                  isEditable={false}
                 />
                 <View style={styles.numericBoard}>
                   <NumericBoard
@@ -265,7 +360,7 @@ export default function TransactionModal({
                     numberStyle={styles.numericBoardNumberStyle}
                     hasDelete
                     needNullAlignment
-                    onPressNumber={() => null}
+                    onPressNumber={value => setOperation(value)}
                   />
                 </View>
               </View>

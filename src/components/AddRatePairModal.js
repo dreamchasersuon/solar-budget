@@ -53,7 +53,7 @@ export default function AddRatePairModal({
 }) {
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
-      <View style={styles.modalHiddenArea}>
+      <View style={[styles.modalHiddenArea]}>
         <View style={styles.modalActiveArea}>
           <ModalHeader
             containerStyle={styles.headerModalStyle}
@@ -67,6 +67,13 @@ export default function AddRatePairModal({
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.ratePairsContainer}>
+              <ModalRatePair title="USD/RUB" />
+              <ModalRatePair title="USD/CAN" />
+              <ModalRatePair title="USD/EUR" />
+              <ModalRatePair title="USD/CRN" />
+              <ModalRatePair title="USD/GRV" />
+              <ModalRatePair title="USD/GBR" />
+              <ModalRatePair title="USD/MLD" />
               <ModalRatePair title="USD/RUB" />
               <ModalRatePair title="USD/CAN" />
               <ModalRatePair title="USD/EUR" />

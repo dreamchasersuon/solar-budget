@@ -16,14 +16,11 @@ export default function CustomInput({
   labelStyle,
   password,
   inputStyle,
-  multiline
+  multiline,
+  initial,
+  isEditable
 }) {
-  const [initial, setValue] = useState('');
   const [isHiddenPassword, togglePassword] = useState(true);
-
-  const validate = e => {
-    setValue(e.text);
-  };
 
   const setSecureOnPassword = () => {
     togglePassword(!isHiddenPassword);
@@ -36,7 +33,6 @@ export default function CustomInput({
         <View>
           <TextInput
             value={initial}
-            onChange={validate}
             style={inputStyle}
             placeholder={placeholder}
             secureTextEntry={isHiddenPassword}
@@ -58,7 +54,7 @@ export default function CustomInput({
         <TextInput
           style={inputStyle}
           value={initial}
-          onChange={validate}
+          editable={isEditable}
           placeholder={placeholder}
           placeholderTextColor={placeholderColor}
           multiline={multiline}

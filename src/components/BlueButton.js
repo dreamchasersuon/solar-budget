@@ -9,10 +9,11 @@ export default function BlueButton({
   iconStyle,
   title,
   buttonTextStyle,
-  icon
+  icon,
+  handleOnPress
 }) {
   return (
-    <TouchableOpacity style={buttonStyle}>
+    <TouchableOpacity onPress={handleOnPress} style={buttonStyle}>
       <View style={iconStyle}>{icon && <Ruble />}</View>
       <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>
