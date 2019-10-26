@@ -6,7 +6,7 @@ import {
   $WHITE
 } from '../constants/colorLiterals';
 import BlueButton from './BlueButton';
-import React from 'react';
+import React, { useState } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
@@ -157,6 +157,37 @@ export default function CreateTargetModal({
   isVisible,
   toggleCreateTargetModal
 }) {
+  const [rub, setRUB] = useState(true);
+  const [usd, setUSD] = useState(false);
+  const [eur, setEUR] = useState(false);
+  const [operationValue, setOperationValue] = useState('');
+
+  const chooseOperationType = type => () => {
+    if (type === 'rub') {
+      setUSD(false);
+      setEUR(false);
+      setRUB(true);
+    }
+    if (type === 'usd') {
+      setEUR(false);
+      setRUB(false);
+      setUSD(true);
+    }
+    if (type === 'eur') {
+      setUSD(false);
+      setRUB(false);
+      setEUR(true);
+    }
+  };
+
+  const setOperation = value => () => {
+    const updateOperationValue = operationValue + value;
+    if (value === 'delete') {
+      return setOperationValue(operationValue.slice(0, -1));
+    }
+    setOperationValue(updateOperationValue);
+  };
+
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
@@ -184,18 +215,45 @@ export default function CreateTargetModal({
               <Text style={styles.label}>Валюта</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <BlueButton
-                  buttonStyle={styles.operationTypeBtnActive}
-                  buttonTextStyle={styles.operationTypeTextActive}
+                  handleOnPress={chooseOperationType('rub')}
+                  buttonStyle={
+                    rub
+                      ? styles.operationTypeBtnActive
+                      : styles.operationTypeBtnInactive
+                  }
+                  buttonTextStyle={
+                    rub
+                      ? styles.operationTypeTextActive
+                      : styles.operationTypeTextInactive
+                  }
                   title="Рубли"
                 />
                 <BlueButton
-                  buttonStyle={styles.operationTypeBtnInactive}
-                  buttonTextStyle={styles.operationTypeTextInactive}
+                  handleOnPress={chooseOperationType('usd')}
+                  buttonStyle={
+                    usd
+                      ? styles.operationTypeBtnActive
+                      : styles.operationTypeBtnInactive
+                  }
+                  buttonTextStyle={
+                    usd
+                      ? styles.operationTypeTextActive
+                      : styles.operationTypeTextInactive
+                  }
                   title="Доллары"
                 />
                 <BlueButton
-                  buttonStyle={styles.operationTypeBtnInactive}
-                  buttonTextStyle={styles.operationTypeTextInactive}
+                  handleOnPress={chooseOperationType('eur')}
+                  buttonStyle={
+                    eur
+                      ? styles.operationTypeBtnActive
+                      : styles.operationTypeBtnInactive
+                  }
+                  buttonTextStyle={
+                    eur
+                      ? styles.operationTypeTextActive
+                      : styles.operationTypeTextInactive
+                  }
                   title="Евро"
                 />
               </View>
@@ -207,6 +265,8 @@ export default function CreateTargetModal({
                   inputStyle={styles.transactionInput}
                   placeholder="+ 0"
                   placeholderColor={$BLUE}
+                  initial={operationValue}
+                  isEditable={false}
                 />
                 <View style={styles.numericBoard}>
                   <NumericBoard
@@ -218,7 +278,7 @@ export default function CreateTargetModal({
                     numberStyle={styles.numericBoardNumberStyle}
                     hasDelete
                     needNullAlignment
-                    onPressNumber={() => null}
+                    onPressNumber={value => setOperation(value)}
                   />
                 </View>
               </View>
