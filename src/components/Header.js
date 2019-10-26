@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { $BLUE, $WHITE, $SILVER } from '../constants/colorLiterals';
+import { $BLUE, $WHITE } from '../constants/colorLiterals';
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
 import { View, StyleSheet, Text } from 'react-native';
@@ -34,10 +34,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: $BLUE
   },
-  headerRightSideMenu: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   iconSideMenu: {
     transform: [{ rotate: '90deg' }],
     fontSize: 25
@@ -65,11 +61,6 @@ const styles = StyleSheet.create({
   iconBalance: {
     marginRight: 10,
     marginLeft: 10
-  },
-  iconStats: {
-    color: $SILVER,
-    fontSize: 26,
-    marginRight: 15
   },
   headerBottomContainer: {
     flexDirection: 'row',
@@ -105,7 +96,8 @@ export default function Header({
   hasLeftMenu,
   headerTopLeftSideStyle,
   hasBudget,
-  onPressCreateBill
+  onPressCreateBill,
+  billTitle
 }) {
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
@@ -146,7 +138,7 @@ export default function Header({
         <View style={styles.headerBottomContainer}>
           <View style={styles.billsContainer}>
             <BlueButton
-              title="Счёт"
+              title={billTitle}
               icon
               iconStyle={styles.icon}
               buttonStyle={[styles.buttonStyle, styles.buttonBillsStyle]}

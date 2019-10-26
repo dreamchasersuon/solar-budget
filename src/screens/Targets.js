@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '20.1%'
+    height: '25%'
   },
   transactionsContainerTitle: {
     alignSelf: 'flex-start',
@@ -57,6 +57,7 @@ function Targets() {
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu
         title="Цели"
+        billTitle="Машина"
         hasBudget
         onPressCreateBill={toggleCreateTargetModal}
       />

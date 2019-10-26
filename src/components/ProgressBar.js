@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { $BLUE, $GREEN, $SILVER } from '../constants/colorLiterals';
 
@@ -8,7 +7,7 @@ const styles = StyleSheet.create({
   svgContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: -10,
     width: 320,
     height: 300
   },

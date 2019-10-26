@@ -53,6 +53,7 @@ function Wallet() {
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasStats
         title="Кошелёк"
+        billTitle="Счет"
         hasLeftMenu
         hasBudget
         onPressCreateBill={toggleBillModal}

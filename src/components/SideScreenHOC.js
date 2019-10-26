@@ -10,6 +10,7 @@ import {
 import Logo from '../../assets/logo.svg';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import {
+  $BLUE,
   $LIGHTSILVER,
   $MEDIUMSILVER,
   $WHITE
@@ -51,6 +52,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     height: 140,
     width: '100%'
+  },
+  buttonTextStyle: {
+    color: $BLUE
   }
 });
 
@@ -86,7 +90,10 @@ export default function withSideScreen(Component) {
             <View style={styles.buttonsContainer}>
               <MajorBlueButton buttonText="Оставить отзыв" />
               <MajorBlueButton buttonText="Техническая поддержка" />
-              <SecondaryButton buttonText="Пожертвование" />
+              <SecondaryButton
+                buttonText="Пожертвование"
+                buttonTextStyle={styles.buttonTextStyle}
+              />
             </View>
           </View>
         </Animated.View>
