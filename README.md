@@ -11,7 +11,7 @@ in directory of your choice;
 4. run `expo start` to open metro bundler (make sure to install expo `expo cli` first;
 5. install `expo client` on your phone and authorize in with your credentials (same for `expo cli`).
 
-If you want to complete the issue add a comment like 'Working on it' and label "In progress" make sure to create new branch with tag of issue (e.g #3). Redux logic should be covered by tests.
+If you want to complete the issue add a comment like 'Working on it' and label "In progress" make sure to create new branch with tag of issue (e.g #3). Redux logic and plain functions should be covered by tests. 
 
 Here is a link to design: https://www.figma.com/file/KNJUkfyRk3Wdc9GNmdUW92Mo/Solar-Budget?node-id=0%3A1
 
