@@ -23,6 +23,8 @@ import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
 import CustomInput from './Input';
 import ModalHeader from './ModalHeader';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../redux/walletFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     height: 55,
     textAlign: 'right',
-    width: '100%'
+    maxWidth: '99%'
   },
   transactionInputWrapper: {
     marginTop: 15,
@@ -214,21 +216,20 @@ export default function TransactionModal({
   isVisible,
   toggleTransactionModal
 }) {
+  const dispatch = useDispatch();
+  const [purpose, selectPurpose] = useState('');
   const [transactionType, setTransactionType] = useState('income');
-  const [operationValue, setOperationValue] = useState('');
-  const [date, chooseDate] = useState(
-    `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
-  );
-  const [time, chooseTime] = useState(
-    `${new Date().getHours()}:${new Date().getMinutes()}`
-  );
+  const [amount, setTransactionAmount] = useState('');
+  const [date, chooseDate] = useState(`Дата`);
+  const [time, chooseTime] = useState(`Время`);
+  const [description, writeDescription] = useState('');
 
-  const setOperation = value => () => {
-    const updateOperationValue = operationValue + value;
+  const setAmount = value => () => {
+    const updateOperationValue = amount + value;
     if (value === 'delete') {
-      return setOperationValue(operationValue.slice(0, -1));
+      return setTransactionAmount(amount.slice(0, -1));
     }
-    setOperationValue(updateOperationValue);
+    setTransactionAmount(updateOperationValue);
   };
 
   async function timepicker() {
@@ -255,6 +256,19 @@ export default function TransactionModal({
     }
   }
 
+  const createTransaction = () => {
+    dispatch(
+      addTransaction({
+        purpose,
+        description,
+        date: `${date}:${time}`,
+        type: transactionType,
+        amount
+      })
+    );
+    toggleTransactionModal();
+  };
+
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
@@ -274,8 +288,10 @@ export default function TransactionModal({
               <Text style={styles.label}>Назначение</Text>
               <View style={styles.purposeInput}>
                 <Picker
+                  selectedValue={purpose}
                   style={styles.purposeInput}
                   itemStyle={styles.purposeInputItem}
+                  onValueChange={(value, index) => selectPurpose(value)}
                 >
                   <Picker.Item label="Выберите назначение платежа" />
                   <Picker.Item label="Продукты" value="products" />
@@ -289,16 +305,17 @@ export default function TransactionModal({
                 multiline
                 label="Описание"
                 labelStyle={styles.label}
+                handleChange={value => writeDescription(value)}
               />
             </View>
             <View style={styles.dateInputContainer}>
               <Text style={styles.label}>Дата и время</Text>
               <View style={styles.dateInputAlignment}>
                 <TouchableOpacity style={styles.dateInput} onPress={datepicker}>
-                  <Text style={styles.dateInputLabel}>Дата</Text>
+                  <Text style={styles.dateInputLabel}>{date}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.dateInput} onPress={timepicker}>
-                  <Text style={styles.dateInputLabel}>Время</Text>
+                  <Text style={styles.dateInputLabel}>{time}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -306,7 +323,7 @@ export default function TransactionModal({
               <Text style={styles.label}>Сумма</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <BlueButton
-                  handleOnPress={setTransactionType('income')}
+                  handleOnPress={() => setTransactionType('income')}
                   buttonStyle={
                     transactionType === 'income'
                       ? styles.operationTypeBtnActive
@@ -320,7 +337,7 @@ export default function TransactionModal({
                   title="Доход"
                 />
                 <BlueButton
-                  handleOnPress={setTransactionType('outcome')}
+                  handleOnPress={() => setTransactionType('outcome')}
                   buttonStyle={
                     transactionType === 'outcome'
                       ? styles.operationTypeBtnActive
@@ -339,7 +356,7 @@ export default function TransactionModal({
                   inputStyle={styles.transactionInput}
                   placeholder={transactionType === 'income' ? '+ 0' : '- 0'}
                   placeholderColor={$BLUE}
-                  initial={operationValue}
+                  initial={amount}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>
@@ -352,7 +369,7 @@ export default function TransactionModal({
                     numberStyle={styles.numericBoardNumberStyle}
                     hasDelete
                     needNullAlignment
-                    onPressNumber={value => setOperation(value)}
+                    onPressNumber={value => setAmount(value)}
                   />
                 </View>
               </View>
@@ -360,7 +377,7 @@ export default function TransactionModal({
           </ScrollView>
           <SecondaryButton
             buttonTextStyle={styles.buttonTextStyle}
-            handleOnPress={toggleTransactionModal}
+            handleOnPress={createTransaction}
             buttonStyle={styles.buttonFinish}
             buttonText="Создать"
           />

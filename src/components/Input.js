@@ -18,7 +18,8 @@ export default function CustomInput({
   inputStyle,
   multiline,
   initial,
-  isEditable
+  isEditable,
+  handleChange
 }) {
   const [isHiddenPassword, togglePassword] = useState(true);
 
@@ -58,6 +59,7 @@ export default function CustomInput({
           placeholder={placeholder}
           placeholderTextColor={placeholderColor}
           multiline={multiline}
+          onChangeText={handleChange}
         />
       )}
     </React.Fragment>

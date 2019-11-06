@@ -2,7 +2,6 @@ module.exports = {
   extends: [
     'react-native',
     'plugin:prettier/recommended',
-    'plugin:react-native/all',
     'react-app',
     'plugin:jsx-a11y/recommended'
   ],
