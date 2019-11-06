@@ -7,24 +7,24 @@ import SelectedRatePair from '../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingRight: 23,
-    paddingLeft: 30,
-    marginTop: 20
-  },
-  left: { flexDirection: 'row', alignItems: 'center' },
-  title: { fontSize: 14, marginLeft: 10 },
   button: {
+    alignItems: 'center',
     borderRadius: 50,
-    width: 25,
     height: 25,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    width: 25
+  },
+  container: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    paddingLeft: 30,
+    paddingRight: 23,
+    width: '100%'
+  },
+  left: { alignItems: 'center', flexDirection: 'row' },
+  title: { fontSize: 14, marginLeft: 10 }
 });
 export default function ModalRatePair({ title }) {
   const [isSelected, selectPair] = useState(false);

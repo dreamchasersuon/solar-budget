@@ -13,6 +13,23 @@ const styles = StyleSheet.create({
   marginTop: {
     marginTop: 30
   },
+  pagination: {
+    backgroundColor: $MEDIUMSILVER,
+    borderRadius: 50,
+    height: 10,
+    width: 10
+  },
+  paginationActive: {
+    backgroundColor: $BLUE,
+    borderRadius: 50,
+    height: 10,
+    width: 10
+  },
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 80
+  },
   title: {
     fontSize: 18,
     fontWeight: '700',
@@ -21,23 +38,6 @@ const styles = StyleSheet.create({
   titleNoMargin: {
     fontSize: 18,
     fontWeight: '700'
-  },
-  paginationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 80
-  },
-  pagination: {
-    width: 10,
-    height: 10,
-    borderRadius: 50,
-    backgroundColor: $MEDIUMSILVER
-  },
-  paginationActive: {
-    width: 10,
-    height: 10,
-    borderRadius: 50,
-    backgroundColor: $BLUE
   }
 });
 

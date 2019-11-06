@@ -10,55 +10,55 @@ import SecurePin from '../components/SecurePin';
 import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
+  backArrow: {
+    marginLeft: 20
+  },
+  buttonText: {
+    color: $BLUE,
+    fontSize: 12,
+    textAlign: 'center'
+  },
+  buttonTextWithNote: {
+    color: $BLUE,
+    fontSize: 12,
+    marginLeft: 5,
+    textAlign: 'center'
+  },
+  buttonsContainer: {
+    height: 50,
+    justifyContent: 'space-between',
+    marginBottom: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%'
+  },
   container: {
     alignItems: 'center',
-    width: '100%',
     height: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '100%'
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    width: '100%',
-    marginTop: 50
-  },
-  backArrow: {
-    marginLeft: 20
-  },
-  buttonsContainer: {
-    justifyContent: 'space-between',
-    paddingRight: 30,
-    paddingLeft: 30,
-    marginBottom: 30,
-    height: 50,
+    marginTop: 50,
     width: '100%'
-  },
-  numericBoardWrapperStyle: {
-    width: 240,
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
-  numericBoardContainerStyle: {
-    borderRadius: 50,
-    width: 65,
-    height: 65,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   numberStyle: {
     fontSize: 40
   },
-  buttonText: {
-    color: $BLUE,
-    textAlign: 'center',
-    fontSize: 12
+  numericBoardContainerStyle: {
+    alignItems: 'center',
+    borderRadius: 50,
+    height: 65,
+    justifyContent: 'center',
+    width: 65
   },
-  buttonTextWithNote: {
-    color: $BLUE,
-    textAlign: 'center',
-    fontSize: 12,
-    marginLeft: 5
+  numericBoardWrapperStyle: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: 240
   }
 });
 

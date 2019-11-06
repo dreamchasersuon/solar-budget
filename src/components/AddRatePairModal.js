@@ -5,46 +5,46 @@ import ModalHeader from './ModalHeader';
 import ModalRatePair from './ModalRatePair';
 
 const styles = StyleSheet.create({
-  modalHiddenArea: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    height: '100%',
-    backgroundColor: $TRANSPARENT
+  closeModal: {
+    alignItems: 'center',
+    borderColor: $BLUE,
+    borderRadius: 50,
+    borderWidth: 1,
+    height: 30,
+    justifyContent: 'center',
+    marginLeft: 60,
+    width: 30
+  },
+  headerModalStyle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 5,
+    marginTop: 5
+  },
+  headerTitleModalStyle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginLeft: 110,
+    marginTop: 20
   },
   modalActiveArea: {
-    width: '100%',
-    height: '80%',
     alignItems: 'center',
     backgroundColor: $WHITE,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    elevation: 8
+    elevation: 8,
+    height: '80%',
+    width: '100%'
   },
-  headerModalStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-    marginBottom: 5
+  modalHiddenArea: {
+    alignItems: 'flex-end',
+    backgroundColor: $TRANSPARENT,
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'flex-end'
   },
-  headerTitleModalStyle: {
-    fontSize: 18,
-    marginTop: 20,
-    fontWeight: '700',
-    marginLeft: 110
-  },
-  closeModal: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: $BLUE,
-    width: 30,
-    marginLeft: 60,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  scrollView: { alignItems: 'center', width: '100%' },
-  ratePairsContainer: { marginTop: 15, marginBottom: 20 }
+  ratePairsContainer: { marginBottom: 20, marginTop: 15 },
+  scrollView: { alignItems: 'center', width: '100%' }
 });
 
 export default function AddRatePairModal({

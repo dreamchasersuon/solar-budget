@@ -13,24 +13,24 @@ import withSideScreen from '../components/SideScreenHOC';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: $LIGHTSILVER,
     alignItems: 'center',
+    backgroundColor: $LIGHTSILVER,
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },
+  headerTopLeftSide: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 125
+  },
   transactionsContainer: {
-    width: '90%',
-    marginTop: 40,
-    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '59%'
-  },
-  headerTopLeftSide: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 125,
-    justifyContent: 'space-between'
+    height: '59%',
+    justifyContent: 'flex-start',
+    marginTop: 40,
+    width: '90%'
   }
 });
 

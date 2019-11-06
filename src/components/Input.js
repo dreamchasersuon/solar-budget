@@ -5,8 +5,8 @@ import HiddenPassword from '../../assets/toggle-pass.svg';
 import VisiblePassword from '../../assets/visible-pass.svg';
 
 const styles = StyleSheet.create({
-  hiddenPassword: { position: 'absolute', right: 10, marginTop: 15 },
-  visiblePassword: { position: 'absolute', right: 10, marginTop: 19 }
+  hiddenPassword: { marginTop: 15, position: 'absolute', right: 10 },
+  visiblePassword: { marginTop: 19, position: 'absolute', right: 10 }
 });
 
 export default function CustomInput({

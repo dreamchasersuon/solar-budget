@@ -17,19 +17,19 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },
+  headerTopLeftSide: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 166
+  },
   transactionsContainer: {
-    width: '90%',
-    marginTop: 40,
-    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '62%'
-  },
-  headerTopLeftSide: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 166,
-    justifyContent: 'space-between'
+    height: '62%',
+    justifyContent: 'flex-start',
+    marginTop: 40,
+    width: '90%'
   }
 });
 

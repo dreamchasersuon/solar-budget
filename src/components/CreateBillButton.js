@@ -6,13 +6,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
   buttonCreateBill: {
-    backgroundColor: $BLUE,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderTopLeftRadius: 4,
+    backgroundColor: $BLUE,
     borderBottomLeftRadius: 4,
-    width: 40,
-    height: 26
+    borderTopLeftRadius: 4,
+    height: 26,
+    justifyContent: 'center',
+    width: 40
   },
   createBillText: {
     color: $WHITE,

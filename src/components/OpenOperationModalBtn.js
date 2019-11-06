@@ -6,20 +6,20 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: 60,
-    height: 60,
-    elevation: 8,
+    backgroundColor: $WHITE,
     borderRadius: 50,
-    backgroundColor: $WHITE
-  },
-  touchableArea: {
-    width: 60,
+    elevation: 8,
     height: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
+    width: 60
   },
   icon: {
     fontSize: 35
+  },
+  touchableArea: {
+    alignItems: 'center',
+    height: 60,
+    justifyContent: 'center',
+    width: 60
   }
 });
 

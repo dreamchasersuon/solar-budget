@@ -9,36 +9,36 @@ import CreateTargetModal from '../components/CreateTargetModal';
 import withSideScreen from '../components/SideScreenHOC';
 
 const styles = StyleSheet.create({
+  circleTitle: {
+    color: $BLUE,
+    fontSize: 24,
+    marginLeft: 70,
+    marginTop: 68
+  },
   container: {
     alignItems: 'center',
     backgroundColor: $LIGHTSILVER,
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },
+  headerTopLeftSide: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 90
+  },
   transactionsContainer: {
-    width: '90%',
-    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '25%'
+    height: '25%',
+    justifyContent: 'flex-start',
+    width: '90%'
   },
   transactionsContainerTitle: {
     alignSelf: 'flex-start',
     fontSize: 16,
-    marginBottom: 10,
-    fontWeight: 'normal'
-  },
-  circleTitle: {
-    fontSize: 24,
-    color: $BLUE,
-    marginLeft: 70,
-    marginTop: 68
-  },
-  headerTopLeftSide: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 90,
-    justifyContent: 'space-between'
+    fontWeight: 'normal',
+    marginBottom: 10
   }
 });
 

@@ -5,40 +5,53 @@ import Rate from '../../assets/rate.svg';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: $WHITE,
-    elevation: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: $WHITE,
     borderRadius: 2,
+    elevation: 8,
     flexDirection: 'row',
-    width: '100%',
     height: 70,
+    justifyContent: 'center',
+    paddingLeft: 25,
     paddingRight: 25,
-    paddingLeft: 25
-  },
-  ratePair: {
-    fontSize: 14
+    width: '100%'
   },
   content: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
     height: '60%',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
     paddingRight: 10,
-    paddingLeft: 15
+    width: '100%'
   },
-  ratePrice: {
-    flexDirection: 'column',
+  rateInfo: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
+    borderRadius: 2,
+    elevation: 8,
+    flexDirection: 'row',
+    height: 150,
+    justifyContent: 'center',
+    marginTop: -2,
+    width: '104.4%'
+  },
+  rateInfoContent: {
+    flexDirection: 'row',
+    height: '60%',
     justifyContent: 'space-between',
-    alignItems: 'flex-end'
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: '100%'
   },
-  ratePercent: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start'
+  rateInfoText: {
+    fontSize: 10,
+    marginTop: 10
   },
-  ratePercentage: {
-    fontSize: 12
+  rateInfoTitle: {
+    borderTopColor: $SILVER,
+    borderTopWidth: 0.5,
+    opacity: 5,
+    width: '100%'
   },
   rateNationalCurrency: {
     color: $SILVER,
@@ -48,38 +61,25 @@ const styles = StyleSheet.create({
     color: $SILVER,
     fontSize: 14
   },
+  ratePair: {
+    fontSize: 14
+  },
+  ratePercent: {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  ratePercentage: {
+    fontSize: 12
+  },
+  ratePrice: {
+    alignItems: 'flex-end',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
   rateWrapper: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start'
-  },
-  rateInfo: {
-    backgroundColor: $WHITE,
-    elevation: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 2,
-    flexDirection: 'row',
-    width: '104.4%',
-    height: 150,
-    marginTop: -2
-  },
-  rateInfoContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '60%',
-    paddingRight: 15,
-    paddingLeft: 15
-  },
-  rateInfoTitle: {
-    borderTopColor: $SILVER,
-    opacity: 5,
-    width: '100%',
-    borderTopWidth: 0.5
-  },
-  rateInfoText: {
-    fontSize: 10,
-    marginTop: 10
   }
 });
 //TODO: refactor into smaller components

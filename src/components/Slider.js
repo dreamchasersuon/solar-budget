@@ -11,26 +11,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     maxHeight: 220
   },
+  bold: {
+    fontSize: 11,
+    fontWeight: '700',
+    textAlign: 'center'
+  },
   slideContainer: {
     alignItems: 'center'
+  },
+  slideNote: {
+    fontSize: 11,
+    marginTop: 5,
+    opacity: 0.6,
+    textAlign: 'center',
+    width: 250
   },
   slideTitle: {
     fontSize: 18,
     fontWeight: '700',
-    textAlign: 'center',
-    marginTop: 10
-  },
-  slideNote: {
-    textAlign: 'center',
-    fontSize: 11,
-    width: 250,
-    marginTop: 5,
-    opacity: 0.6
-  },
-  bold: {
-    textAlign: 'center',
-    fontSize: 11,
-    fontWeight: '700'
+    marginTop: 10,
+    textAlign: 'center'
   }
 });
 

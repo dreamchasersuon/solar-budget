@@ -9,58 +9,58 @@ import {
 import { View, StyleSheet, Text } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: $WHITE,
-    elevation: 8,
+  bodyData: {
     alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%'
+  },
+  bodyTransactionTarget: {
+    color: $SILVER
+  },
+  bodyTransactionValue: {
+    color: $GREEN,
+    fontSize: 25,
+    marginRight: 30
+  },
+  container: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
     borderRadius: 2,
-    width: '100%',
+    elevation: 8,
     height: 80,
-    marginBottom: 20
+    justifyContent: 'center',
+    marginBottom: 20,
+    width: '100%'
   },
   headerData: {
-    flexDirection: 'row',
-    marginBottom: 15,
-    width: '90%',
     alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  headerTarget: {
-    fontSize: 11
-  },
-  headerDateTime: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginBottom: 15,
+    width: '90%'
   },
   headerDate: {
     flexDirection: 'row',
     marginRight: 10
   },
-  headerTime: {
-    flexDirection: 'row'
+  headerDateTextLight: {
+    color: $BLUE,
+    fontSize: 10
   },
   headerDateTextRegular: {
     fontSize: 10,
     marginRight: 5
   },
-  headerDateTextLight: {
-    color: $BLUE,
-    fontSize: 10
-  },
-  bodyData: {
+  headerDateTime: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '90%'
+    justifyContent: 'space-between'
   },
-  bodyTransactionValue: {
-    fontSize: 25,
-    marginRight: 30,
-    color: $GREEN
+  headerTarget: {
+    fontSize: 11
   },
-  bodyTransactionTarget: {
-    color: $SILVER
+  headerTime: {
+    flexDirection: 'row'
   }
 });
 

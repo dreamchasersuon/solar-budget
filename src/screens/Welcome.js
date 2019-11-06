@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import NavigationService from '../navigation/service';
@@ -5,29 +6,29 @@ import MajorBlueButton from '../components/MajorBlueButton';
 import Slider from '../components/Slider';
 
 const styles = StyleSheet.create({
+  buttonsContainer: {
+    height: 100,
+    justifyContent: 'space-between',
+    marginBottom: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%'
+  },
   container: {
     alignItems: 'center',
-    width: '100%',
     height: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '100%'
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    width: '100%',
-    marginTop: 50
+    marginTop: 50,
+    width: '100%'
   },
   language: {
     fontSize: 16,
     marginRight: 30
-  },
-  buttonsContainer: {
-    justifyContent: 'space-between',
-    paddingRight: 30,
-    paddingLeft: 30,
-    marginBottom: 30,
-    height: 100,
-    width: '100%'
   }
 });
 

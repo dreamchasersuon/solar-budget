@@ -6,23 +6,23 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center'
   },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    maxWidth: 220,
-    textAlign: 'center',
-    marginTop: 10
-  },
-  note: {
-    textAlign: 'center',
-    fontSize: 11,
-    width: 250,
-    marginTop: 5,
-    opacity: 0.6
-  },
   extendedNote: {
     color: $BLUE,
     fontSize: 11
+  },
+  note: {
+    fontSize: 11,
+    marginTop: 5,
+    opacity: 0.6,
+    textAlign: 'center',
+    width: 250
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 10,
+    maxWidth: 220,
+    textAlign: 'center'
   }
 });
 

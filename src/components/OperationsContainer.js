@@ -5,19 +5,19 @@ import Card from '../../assets/card.svg';
 
 const styles = StyleSheet.create({
   operation: {
+    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingLeft: 5,
     paddingRight: 5,
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    width: '90%'
+  },
+  operationContainer: {
+    flexDirection: 'column'
   },
   operationTitle: {
     fontSize: 9,
     marginBottom: 10
-  },
-  operationContainer: {
-    flexDirection: 'column'
   }
 });
 

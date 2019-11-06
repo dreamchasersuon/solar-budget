@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-commonjs,import/no-extraneous-dependencies
 const { getDefaultConfig } = require('metro-config');
 
+// eslint-disable-next-line import/no-commonjs
 module.exports = (async () => {
   const {
     resolver: { sourceExts, assetExts }

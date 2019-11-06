@@ -19,19 +19,30 @@ import MajorBlueButton from './MajorBlueButton';
 import SecondaryButton from './SecondaryButton';
 
 const styles = StyleSheet.create({
-  content: {
-    paddingTop: 140,
-    paddingLeft: 30,
+  buttonTextStyle: {
+    color: $BLUE
+  },
+  buttonsContainer: {
+    alignItems: 'center',
+    height: 140,
     justifyContent: 'space-between',
-    height: '100%'
+    marginBottom: 20,
+    paddingRight: 20,
+    width: '100%'
   },
   container: {
     backgroundColor: $LIGHTSILVER,
     ...StyleSheet.absoluteFillObject
   },
+  content: {
+    height: '100%',
+    justifyContent: 'space-between',
+    paddingLeft: 30,
+    paddingTop: 140
+  },
   note: {
-    fontSize: 11,
     color: $MEDIUMSILVER,
+    fontSize: 11,
     marginTop: 10,
     width: 180
   },
@@ -39,22 +50,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: $MEDIUMSILVER,
     height: 27,
-    width: 270,
-    marginTop: 20
+    marginTop: 20,
+    width: 270
   },
   termsOfUseText: {
     fontSize: 16
-  },
-  buttonsContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingRight: 20,
-    marginBottom: 20,
-    height: 140,
-    width: '100%'
-  },
-  buttonTextStyle: {
-    color: $BLUE
   }
 });
 

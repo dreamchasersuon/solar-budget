@@ -10,44 +10,44 @@ import CustomInput from '../components/Input';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'space-between'
-  },
-  form: {
-    width: '100%',
-    justifyContent: 'space-between',
-    paddingLeft: 30,
-    paddingRight: 30
-  },
-  buttonsContainer: {
-    justifyContent: 'space-between',
-    paddingRight: 30,
-    paddingLeft: 30,
-    marginBottom: 20,
-    height: 90,
-    width: '100%'
-  },
   buttonTextWithNote: {
     color: $BLUE,
-    textAlign: 'center',
     fontSize: 12,
-    marginLeft: 5
+    marginLeft: 5,
+    textAlign: 'center'
+  },
+  buttonsContainer: {
+    height: 90,
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%'
+  },
+  container: {
+    alignItems: 'center',
+    height: '100%',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  form: {
+    justifyContent: 'space-between',
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%'
+  },
+  input: {
+    borderBottomWidth: 1,
+    borderColor: $MEDIUMSILVER,
+    fontSize: 13,
+    height: 40,
+    width: '100%'
   },
   label: {
     fontSize: 10
   },
   marginTop: {
     marginTop: 30
-  },
-  input: {
-    height: 40,
-    width: '100%',
-    borderColor: $MEDIUMSILVER,
-    borderBottomWidth: 1,
-    fontSize: 13
   }
 });
 

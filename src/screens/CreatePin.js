@@ -6,40 +6,40 @@ import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center'
-  },
   backArrow: {
-    position: 'absolute',
     left: 20,
+    position: 'absolute',
     top: 60
   },
-  numericBoardWrapperStyle: {
-    width: 240,
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
-  numericBoardContainerStyle: {
-    borderRadius: 50,
-    width: 65,
-    height: 65,
+  container: {
+    alignItems: 'center',
+    height: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
-  },
-  numericBoardContainerWithMarginStyle: {
-    borderRadius: 50,
-    width: 65,
-    height: 65,
-    marginLeft: 88,
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: '100%'
   },
   numberStyle: {
     fontSize: 40
+  },
+  numericBoardContainerStyle: {
+    alignItems: 'center',
+    borderRadius: 50,
+    height: 65,
+    justifyContent: 'center',
+    width: 65
+  },
+  numericBoardContainerWithMarginStyle: {
+    alignItems: 'center',
+    borderRadius: 50,
+    height: 65,
+    justifyContent: 'center',
+    marginLeft: 88,
+    width: 65
+  },
+  numericBoardWrapperStyle: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: 240
   }
 });
 

@@ -5,12 +5,12 @@ import { $BLUE, $WHITE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     backgroundColor: $BLUE,
-    width: '100%',
-    height: 45,
     borderRadius: 5,
+    height: 45,
     justifyContent: 'center',
-    alignItems: 'center'
+    width: '100%'
   },
   text: {
     color: $WHITE

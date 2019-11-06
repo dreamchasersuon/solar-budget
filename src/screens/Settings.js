@@ -13,22 +13,35 @@ import NavigationService from '../navigation/service';
 import withSideScreen from '../components/SideScreenHOC';
 
 const styles = StyleSheet.create({
+  avatar: {
+    backgroundColor: $MEDIUMSILVER,
+    borderRadius: 50,
+    height: 70,
+    marginRight: 25,
+    marginTop: 30,
+    width: 70
+  },
   container: {
     alignItems: 'center',
     backgroundColor: $LIGHTSILVER,
-    height: '100%',
-    elevation: 8
+    elevation: 8,
+    height: '100%'
+  },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  headerContainer: {
+    height: 140,
+    width: '50%'
   },
   headerTopLeftSide: {
-    flexDirection: 'row',
     alignItems: 'center',
-    width: 144,
-    justifyContent: 'space-between'
-  },
-  title: {
-    color: $BLUE,
-    fontSize: 16,
-    marginBottom: 10
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 144
   },
   logout: {
     color: $BLUE,
@@ -37,35 +50,22 @@ const styles = StyleSheet.create({
     paddingTop: 20
   },
   settingsUnit: {
-    width: '75%',
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 15
+    marginTop: 15,
+    width: '75%'
   },
   settingsUnitContainer: {
-    paddingRight: 40,
     marginTop: 30,
     paddingLeft: 44,
+    paddingRight: 40,
     width: '100%'
   },
-  avatar: {
-    width: 70,
-    height: 70,
-    backgroundColor: $MEDIUMSILVER,
-    borderRadius: 50,
-    marginTop: 30,
-    marginRight: 25
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%'
-  },
-  headerContainer: {
-    width: '50%',
-    height: 140
+  title: {
+    color: $BLUE,
+    fontSize: 16,
+    marginBottom: 10
   }
 });
 

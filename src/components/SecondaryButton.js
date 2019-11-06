@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   note: {
-    fontSize: 12,
-    color: $MEDIUMSILVER
+    color: $MEDIUMSILVER,
+    fontSize: 12
   }
 });
 

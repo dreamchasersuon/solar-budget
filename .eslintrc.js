@@ -1,23 +1,29 @@
 module.exports = {
-  extends: ['react-native', 'plugin:prettier/recommended'],
+  extends: [
+    'react-native',
+    'plugin:prettier/recommended',
+    'plugin:react-native/all',
+    'react-app',
+    'plugin:jsx-a11y/recommended'
+  ],
   parser: 'babel-eslint',
   env: {
     jest: true
   },
-  plugins: ['prettier'],
+  plugins: ['prettier', 'react', 'react-native', 'jsx-a11y'],
   rules: {
     'prettier/prettier': 'error',
     'no-use-before-define': 1,
     'react/prop-types': 1,
     'react/no-multi-comp': 1,
-    'react/prefer-es6-class': 1,
-    'react/prefer-stateless-function': 1,
+    'react/prefer-es6-class': 0,
+    'react/prefer-stateless-function': 0,
     'react/no-array-index-key': 1,
     'react/no-string-refs': 1,
     'react/no-is-mounted': 1,
     'react/jsx-boolean-value': 1,
-    'react/no-did-mount-set-state': 1,
-    'react/no-did-update-set-state': 1,
+    'react/no-did-mount-set-state': 0,
+    'react/no-did-update-set-state': 0,
     'react/no-direct-mutation-state': 1,
     'react/no-set-state': 0,
     'react/no-typos': 0,

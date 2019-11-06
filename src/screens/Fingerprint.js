@@ -8,42 +8,42 @@ import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 
 const styles = StyleSheet.create({
+  buttonText: {
+    color: $BLUE,
+    fontSize: 12,
+    marginLeft: 5,
+    textAlign: 'center'
+  },
+  buttonsContainer: {
+    height: 80,
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%'
+  },
   container: {
     alignItems: 'center',
-    width: '100%',
     height: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  fingerprint: {
+    alignItems: 'center',
+    borderColor: $MEDIUMSILVER,
+    borderRadius: 50,
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    height: 100,
+    justifyContent: 'center',
+    marginBottom: 20,
+    width: 100
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    width: '100%',
-    marginTop: 50
-  },
-  buttonsContainer: {
-    justifyContent: 'space-between',
-    paddingRight: 30,
-    paddingLeft: 30,
-    marginBottom: 20,
-    height: 80,
+    marginTop: 50,
     width: '100%'
-  },
-  fingerprint: {
-    borderStyle: 'dashed',
-    borderWidth: 1,
-    borderRadius: 50,
-    width: 100,
-    borderColor: $MEDIUMSILVER,
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20
-  },
-  buttonText: {
-    color: $BLUE,
-    textAlign: 'center',
-    fontSize: 12,
-    marginLeft: 5
   }
 });
 

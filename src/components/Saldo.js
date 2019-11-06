@@ -4,24 +4,24 @@ import { Text, View, StyleSheet } from 'react-native';
 import { $BLUE, $GREEN, $RED } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
-  saldoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingLeft: 60,
-    paddingRight: 60
-  },
-  operationsSaldo: {
-    color: $BLUE,
+  operationSaldoCredit: {
+    color: $RED,
     fontSize: 22
   },
   operationSaldoDebit: {
     color: $GREEN,
     fontSize: 22
   },
-  operationSaldoCredit: {
-    color: $RED,
+  operationsSaldo: {
+    color: $BLUE,
     fontSize: 22
+  },
+  saldoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 60,
+    paddingRight: 60,
+    width: '100%'
   }
 });
 

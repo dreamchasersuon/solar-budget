@@ -11,82 +11,82 @@ import BackButton from './BackButton';
 import NavigationService from '../navigation/service';
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  billsContainer: {
     alignItems: 'center',
-    width: '100%',
-    marginTop: 45
-  },
-  headerTopContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 10
-  },
-  headerLeftSideMenu: {
-    height: 60,
-    width: 15,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: $BLUE
-  },
-  iconSideMenu: {
-    transform: [{ rotate: '90deg' }],
-    fontSize: 25
-  },
-  titleText: {
-    fontSize: 20
-  },
-  buttonStyle: {
-    backgroundColor: $BLUE,
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    borderTopLeftRadius: 4,
-    borderBottomLeftRadius: 4,
-    width: 100,
-    height: 26,
-    flexDirection: 'row'
+    marginLeft: 40,
+    width: '70%'
   },
   buttonBillsStyle: {
-    borderTopRightRadius: 4,
-    borderBottomRightRadius: 4
+    borderBottomRightRadius: 4,
+    borderTopRightRadius: 4
+  },
+  buttonStyle: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderBottomLeftRadius: 4,
+    borderTopLeftRadius: 4,
+    flexDirection: 'row',
+    height: 26,
+    justifyContent: 'flex-start',
+    width: 100
   },
   buttonTextStyle: {
     color: $WHITE
   },
-  iconBalance: {
-    marginRight: 10,
-    marginLeft: 10
+  container: {
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: 45,
+    width: '100%'
   },
   headerBottomContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  billsContainer: {
-    width: '70%',
-    marginLeft: 40,
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'space-between',
+    width: '100%'
   },
-  icon: {
-    fontSize: 20,
-    marginRight: 10,
-    marginLeft: 10,
-    color: $WHITE
+  headerLeftSideMenu: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderBottomRightRadius: 20,
+    borderTopRightRadius: 20,
+    height: 60,
+    justifyContent: 'center',
+    width: 15
+  },
+  headerTopContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    width: '100%'
   },
   headerTopRightSide: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  icon: {
+    color: $WHITE,
+    fontSize: 20,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  iconBalance: {
+    marginLeft: 10,
+    marginRight: 10
+  },
+  iconSideMenu: {
+    fontSize: 25,
+    transform: [{ rotate: '90deg' }]
   },
   statsBtnWrapper: {
     marginRight: 15
+  },
+  titleText: {
+    fontSize: 20
   }
 });
 //TODO: make it readable by separating components

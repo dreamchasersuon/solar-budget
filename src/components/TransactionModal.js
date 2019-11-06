@@ -25,189 +25,189 @@ import CustomInput from './Input';
 import ModalHeader from './ModalHeader';
 
 const styles = StyleSheet.create({
-  modalHiddenArea: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    height: '100%',
-    backgroundColor: $TRANSPARENT
+  buttonFinish: {
+    marginBottom: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 20
   },
+  buttonTextStyle: { color: $BLUE, fontSize: 16 },
+  closeModal: {
+    alignItems: 'center',
+    borderColor: $BLUE,
+    borderRadius: 50,
+    borderWidth: 1,
+    height: 30,
+    justifyContent: 'center',
+    marginLeft: 80,
+    width: 30
+  },
+  dateInput: {
+    borderColor: $MEDIUMSILVER,
+    borderRadius: 3,
+    borderWidth: 1,
+    color: $MEDIUMSILVER,
+    fontSize: 10,
+    height: 35,
+    paddingLeft: 10,
+    width: '48%'
+  },
+  dateInputAlignment: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  dateInputContainer: {
+    marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '100%'
+  },
+  dateInputLabel: {
+    color: $MEDIUMSILVER,
+    fontSize: 10,
+    marginTop: 10
+  },
+  descriptionInput: {
+    borderColor: $MEDIUMSILVER,
+    borderRadius: 3,
+    borderWidth: 1,
+    color: $MEDIUMSILVER,
+    fontSize: 10,
+    height: 55,
+    paddingLeft: 10,
+    width: '100%'
+  },
+  descriptionInputContainer: {
+    marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '100%'
+  },
+  headerModalStyle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 5,
+    marginTop: 5
+  },
+  headerTitleModalStyle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginLeft: 120,
+    marginTop: 20
+  },
+  label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
   modalActiveArea: {
-    width: '100%',
-    height: '80%',
     alignItems: 'center',
     backgroundColor: $WHITE,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    elevation: 8
-  },
-  headerModalStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-    marginBottom: 5
-  },
-  headerTitleModalStyle: {
-    fontSize: 18,
-    marginTop: 20,
-    fontWeight: '700',
-    marginLeft: 120
-  },
-  closeModal: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: $BLUE,
-    width: 30,
-    marginLeft: 80,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  scrollView: { alignItems: 'center' },
-  purposeInputContainer: {
-    paddingRight: 20,
-    paddingLeft: 20,
-    marginTop: 30,
+    elevation: 8,
+    height: '80%',
     width: '100%'
   },
+  modalHiddenArea: {
+    alignItems: 'flex-end',
+    backgroundColor: $TRANSPARENT,
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'flex-end'
+  },
+  numericBoard: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+    paddingLeft: 60,
+    paddingRight: 60,
+    width: '100%'
+  },
+  numericBoardContainerStyle: {
+    alignItems: 'center',
+    borderRadius: 50,
+    height: 55,
+    justifyContent: 'center',
+    width: 55
+  },
+  numericBoardContainerWithMarginsStyle: {
+    alignItems: 'center',
+    borderRadius: 50,
+    height: 55,
+    justifyContent: 'center',
+    marginLeft: 72,
+    width: 55
+  },
+  numericBoardNumberStyle: { fontSize: 28 },
+  numericBoardWrapperStyle: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  operationTypeBtnActive: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderRadius: 4,
+    flexDirection: 'row',
+    height: 26,
+    justifyContent: 'center',
+    width: 100
+  },
+  operationTypeBtnInactive: {
+    alignItems: 'center',
+    backgroundColor: $TRANSPARENT,
+    borderRadius: 4,
+    flexDirection: 'row',
+    height: 26,
+    justifyContent: 'center',
+    width: 100
+  },
+  operationTypeBtnsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 210
+  },
+  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
+  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
   purposeInput: {
-    height: 35,
-    width: '100%',
     borderColor: $MEDIUMSILVER,
-    borderWidth: 1,
     borderRadius: 3,
+    borderWidth: 1,
     color: $MEDIUMSILVER,
+    fontSize: 10,
+    height: 35,
     paddingLeft: 10,
-    fontSize: 10
+    width: '100%'
+  },
+  purposeInputContainer: {
+    marginTop: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '100%'
   },
   purposeInputItem: {
     color: $MEDIUMSILVER,
     fontSize: 3
   },
-  descriptionInputContainer: {
-    paddingRight: 20,
-    paddingLeft: 20,
-    marginTop: 20,
-    width: '100%'
-  },
-  descriptionInput: {
-    height: 55,
-    width: '100%',
-    borderColor: $MEDIUMSILVER,
-    borderWidth: 1,
-    borderRadius: 3,
-    color: $MEDIUMSILVER,
-    paddingLeft: 10,
-    fontSize: 10
-  },
-  dateInputContainer: {
-    paddingRight: 20,
-    paddingLeft: 20,
-    marginTop: 20,
-    width: '100%'
-  },
-  label: { fontSize: 14, color: $BLUE, marginBottom: 10 },
-  dateInputAlignment: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  dateInput: {
-    height: 35,
-    width: '48%',
-    borderColor: $MEDIUMSILVER,
-    borderWidth: 1,
-    borderRadius: 3,
-    color: $MEDIUMSILVER,
-    paddingLeft: 10,
-    fontSize: 10
-  },
-  dateInputLabel: {
-    marginTop: 10,
-    color: $MEDIUMSILVER,
-    fontSize: 10
-  },
+  scrollView: { alignItems: 'center' },
   transactionFormWrapper: {
-    paddingRight: 20,
-    paddingLeft: 20,
     marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
     width: '100%'
   },
-  operationTypeBtnsContainer: {
-    flexDirection: 'row',
-    width: 210,
-    justifyContent: 'space-between'
+  transactionInput: {
+    borderBottomWidth: 1,
+    borderColor: $MEDIUMSILVER,
+    color: $BLUE,
+    fontSize: 28,
+    height: 55,
+    textAlign: 'right',
+    width: '100%'
   },
-  operationTypeBtnActive: {
-    backgroundColor: $BLUE,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    width: 100,
-    height: 26,
-    flexDirection: 'row'
-  },
-  operationTypeBtnInactive: {
-    backgroundColor: $TRANSPARENT,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    width: 100,
-    height: 26,
-    flexDirection: 'row'
-  },
-  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
-  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
   transactionInputWrapper: {
     marginTop: 15,
     paddingBottom: 20
-  },
-  transactionInput: {
-    height: 55,
-    width: '100%',
-    borderColor: $MEDIUMSILVER,
-    borderBottomWidth: 1,
-    color: $BLUE,
-    textAlign: 'right',
-    fontSize: 28
-  },
-  numericBoard: {
-    paddingLeft: 60,
-    paddingRight: 60,
-    marginTop: 20,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  numericBoardWrapperStyle: {
-    width: '100%',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
-  numericBoardContainerStyle: {
-    borderRadius: 50,
-    width: 55,
-    height: 55,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  numericBoardContainerWithMarginsStyle: {
-    borderRadius: 50,
-    width: 55,
-    height: 55,
-    marginLeft: 72,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  numericBoardNumberStyle: { fontSize: 28 },
-  buttonFinish: {
-    marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  buttonTextStyle: { color: $BLUE, fontSize: 16 }
+  }
 });
 
 export default function TransactionModal({

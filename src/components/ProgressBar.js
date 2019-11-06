@@ -4,24 +4,24 @@ import Svg, { Circle } from 'react-native-svg';
 import { $BLUE, $GREEN, $SILVER } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
-  svgContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: -10,
-    width: 320,
-    height: 300
-  },
   amount: {
     color: $GREEN,
     fontSize: 22
   },
   amountContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   currency: {
     color: $SILVER,
     fontSize: 20
+  },
+  svgContainer: {
+    alignItems: 'center',
+    height: 300,
+    justifyContent: 'center',
+    marginTop: -10,
+    width: 320
   }
 });
 
