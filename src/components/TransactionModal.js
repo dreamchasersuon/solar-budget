@@ -214,19 +214,14 @@ export default function TransactionModal({
   isVisible,
   toggleTransactionModal
 }) {
-  const [income, setIncome] = useState(true);
-  const [outcome, setOutcome] = useState(false);
+  const [transactionType, setTransactionType] = useState('income');
   const [operationValue, setOperationValue] = useState('');
-
-  const chooseOperationType = type => () => {
-    if (type === 'income') {
-      setOutcome(false);
-      setIncome(true);
-    } else {
-      setOutcome(true);
-      setIncome(false);
-    }
-  };
+  const [date, chooseDate] = useState(
+    `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
+  );
+  const [time, chooseTime] = useState(
+    `${new Date().getHours()}:${new Date().getMinutes()}`
+  );
 
   const setOperation = value => () => {
     const updateOperationValue = operationValue + value;
@@ -243,9 +238,7 @@ export default function TransactionModal({
         minute: 0,
         is24Hour: false
       });
-      if (action !== TimePickerAndroid.dismissedAction) {
-        // Selected hour (0-23), minute (0-59)
-      }
+      chooseTime(`${hour}:${minute}`);
     } catch ({ code, message }) {
       throw new Error(`Cannot open time picker ${message}`);
     }
@@ -256,9 +249,7 @@ export default function TransactionModal({
       const { action, year, month, day } = await DatePickerAndroid.open({
         date: new Date()
       });
-      if (action !== DatePickerAndroid.dismissedAction) {
-        // Selected year, month (0-11), day
-      }
+      chooseDate(`${day}.${month}.${year}`);
     } catch ({ code, message }) {
       throw new Error(`Cannot open date picker ${message}`);
     }
@@ -315,28 +306,28 @@ export default function TransactionModal({
               <Text style={styles.label}>Сумма</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <BlueButton
-                  handleOnPress={chooseOperationType('income')}
+                  handleOnPress={setTransactionType('income')}
                   buttonStyle={
-                    income
+                    transactionType === 'income'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    income
+                    transactionType === 'income'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
                   title="Доход"
                 />
                 <BlueButton
-                  handleOnPress={chooseOperationType('outcome')}
+                  handleOnPress={setTransactionType('outcome')}
                   buttonStyle={
-                    outcome
+                    transactionType === 'outcome'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    outcome
+                    transactionType === 'outcome'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
@@ -346,7 +337,7 @@ export default function TransactionModal({
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
                   inputStyle={styles.transactionInput}
-                  placeholder={income ? '+ 0' : '- 0'}
+                  placeholder={transactionType === 'income' ? '+ 0' : '- 0'}
                   placeholderColor={$BLUE}
                   initial={operationValue}
                   isEditable={false}
@@ -371,7 +362,7 @@ export default function TransactionModal({
             buttonTextStyle={styles.buttonTextStyle}
             handleOnPress={toggleTransactionModal}
             buttonStyle={styles.buttonFinish}
-            buttonText="Завершить"
+            buttonText="Создать"
           />
         </View>
       </View>
