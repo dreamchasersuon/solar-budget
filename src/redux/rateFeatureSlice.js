@@ -5,6 +5,7 @@ const rateSlice = createSlice({
   initialState: [],
   reducers: {
     addRate(state, action) {
+      console.log(action.payload);
       state.push(action.payload);
     }
   }

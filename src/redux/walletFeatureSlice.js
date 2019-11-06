@@ -5,7 +5,6 @@ const walletSlice = createSlice({
   initialState: [],
   reducers: {
     addTransaction(state, action) {
-      console.log(action.payload);
       state.push(action.payload);
     }
   }

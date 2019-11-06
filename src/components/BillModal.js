@@ -11,6 +11,8 @@ import SecondaryButton from './SecondaryButton';
 import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import ModalHeader from './ModalHeader';
+import { useDispatch } from 'react-redux';
+import { addBill } from '../redux/billFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -138,35 +140,21 @@ const styles = StyleSheet.create({
 });
 
 export default function BillModal({ isVisible, toggleBillModal }) {
-  const [rub, setRUB] = useState(true);
-  const [usd, setUSD] = useState(false);
-  const [eur, setEUR] = useState(false);
-  const [operationValue, setOperationValue] = useState('');
+  const dispatch = useDispatch();
+  const [currency, setCurrency] = useState('rub');
+  const [depositAmount, setDeposit] = useState('');
 
-  const chooseOperationType = type => () => {
-    if (type === 'rub') {
-      setUSD(false);
-      setEUR(false);
-      setRUB(true);
+  const setDepositAmount = value => () => {
+    const updateOperationValue = depositAmount + value;
+    if (value === 'delete') {
+      return setDeposit(depositAmount.slice(0, -1));
     }
-    if (type === 'usd') {
-      setEUR(false);
-      setRUB(false);
-      setUSD(true);
-    }
-    if (type === 'eur') {
-      setUSD(false);
-      setRUB(false);
-      setEUR(true);
-    }
+    setDeposit(updateOperationValue);
   };
 
-  const setOperation = value => () => {
-    const updateOperationValue = operationValue + value;
-    if (value === 'delete') {
-      return setOperationValue(operationValue.slice(0, -1));
-    }
-    setOperationValue(updateOperationValue);
+  const createBill = () => {
+    dispatch(addBill({ currency, depositAmount }));
+    toggleBillModal();
   };
 
   return (
@@ -188,42 +176,42 @@ export default function BillModal({ isVisible, toggleBillModal }) {
               <Text style={styles.label}>Валюта</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <BlueButton
-                  handleOnPress={chooseOperationType('rub')}
+                  handleOnPress={() => setCurrency('rub')}
                   buttonStyle={
-                    rub
+                    currency === 'rub'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    rub
+                    currency === 'rub'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
                   title="Рубли"
                 />
                 <BlueButton
-                  handleOnPress={chooseOperationType('usd')}
+                  handleOnPress={() => setCurrency('usd')}
                   buttonStyle={
-                    usd
+                    currency === 'usd'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    usd
+                    currency === 'usd'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
                   title="Доллары"
                 />
                 <BlueButton
-                  handleOnPress={chooseOperationType('eur')}
+                  handleOnPress={() => setCurrency('eur')}
                   buttonStyle={
-                    eur
+                    currency === 'eur'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    eur
+                    currency === 'eur'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
@@ -238,7 +226,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
                   inputStyle={styles.transactionInput}
                   placeholder="+ 0"
                   placeholderColor={$BLUE}
-                  initial={operationValue}
+                  initial={depositAmount}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>
@@ -251,7 +239,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
                     numberStyle={styles.numericBoardNumberStyle}
                     hasDelete
                     needNullAlignment
-                    onPressNumber={value => setOperation(value)}
+                    onPressNumber={value => setDepositAmount(value)}
                   />
                 </View>
               </View>
@@ -259,9 +247,9 @@ export default function BillModal({ isVisible, toggleBillModal }) {
           </ScrollView>
           <SecondaryButton
             buttonTextStyle={styles.buttonTextStyle}
-            handleOnPress={toggleBillModal}
+            handleOnPress={createBill}
             buttonStyle={styles.buttonFinish}
-            buttonText="Завершить"
+            buttonText="Создать"
           />
         </View>
       </View>

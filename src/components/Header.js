@@ -121,7 +121,7 @@ export default function Header({
           <View style={styles.headerTopRightSide}>
             {hasStats && (
               <View style={styles.statsBtnWrapper}>
-                <StatsBtn onPress={goToStats} />
+                <StatsBtn />
               </View>
             )}
             <BlueButton

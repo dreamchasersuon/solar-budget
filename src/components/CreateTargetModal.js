@@ -11,6 +11,8 @@ import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
+import { useDispatch } from 'react-redux';
+import { addTarget } from '../redux/targetFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -157,35 +159,28 @@ export default function CreateTargetModal({
   isVisible,
   toggleCreateTargetModal
 }) {
-  const [rub, setRUB] = useState(true);
-  const [usd, setUSD] = useState(false);
-  const [eur, setEUR] = useState(false);
-  const [operationValue, setOperationValue] = useState('');
-
-  const chooseOperationType = type => () => {
-    if (type === 'rub') {
-      setUSD(false);
-      setEUR(false);
-      setRUB(true);
-    }
-    if (type === 'usd') {
-      setEUR(false);
-      setRUB(false);
-      setUSD(true);
-    }
-    if (type === 'eur') {
-      setUSD(false);
-      setRUB(false);
-      setEUR(true);
-    }
-  };
+  const dispatch = useDispatch();
+  const [currency, setCurrency] = useState('rub');
+  const [targetName, setTargetName] = useState('');
+  const [targetPrice, setTargetPrice] = useState('');
 
   const setOperation = value => () => {
-    const updateOperationValue = operationValue + value;
+    const updateOperationValue = targetPrice + value;
     if (value === 'delete') {
-      return setOperationValue(operationValue.slice(0, -1));
+      return setTargetPrice(targetPrice.slice(0, -1));
     }
-    setOperationValue(updateOperationValue);
+    setTargetPrice(updateOperationValue);
+  };
+
+  const createTarget = () => {
+    dispatch(
+      addTarget({
+        name: targetName,
+        currency,
+        targetPrice
+      })
+    );
+    toggleCreateTargetModal();
   };
 
   return (
@@ -209,48 +204,49 @@ export default function CreateTargetModal({
                 placeholder="Напишите название цели"
                 label="Название"
                 labelStyle={styles.label}
+                handleChange={value => setTargetName(value)}
               />
             </View>
             <View style={styles.transactionFormWrapper}>
               <Text style={styles.label}>Валюта</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <BlueButton
-                  handleOnPress={chooseOperationType('rub')}
+                  handleOnPress={() => setCurrency('rub')}
                   buttonStyle={
-                    rub
+                    currency === 'rub'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    rub
+                    currency === 'rub'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
                   title="Рубли"
                 />
                 <BlueButton
-                  handleOnPress={chooseOperationType('usd')}
+                  handleOnPress={() => setCurrency('usd')}
                   buttonStyle={
-                    usd
+                    currency === 'usd'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    usd
+                    currency === 'usd'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
                   title="Доллары"
                 />
                 <BlueButton
-                  handleOnPress={chooseOperationType('eur')}
+                  handleOnPress={() => setCurrency('eur')}
                   buttonStyle={
-                    eur
+                    currency === 'eur'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    eur
+                    currency === 'eur'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
@@ -265,7 +261,7 @@ export default function CreateTargetModal({
                   inputStyle={styles.transactionInput}
                   placeholder="+ 0"
                   placeholderColor={$BLUE}
-                  initial={operationValue}
+                  initial={targetPrice}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>
@@ -286,7 +282,7 @@ export default function CreateTargetModal({
           </ScrollView>
           <SecondaryButton
             buttonTextStyle={styles.buttonTextStyle}
-            handleOnPress={toggleCreateTargetModal}
+            handleOnPress={createTarget}
             buttonStyle={styles.buttonFinish}
             buttonText="Завершить"
           />

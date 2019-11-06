@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, TouchableNativeFeedback, View, StyleSheet } from 'react-native';
 import RateInfo from '../../assets/rate_info.svg';
 import { $BLUE } from '../constants/colorLiterals';
 import SelectedRatePair from '../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
-
+import { useDispatch } from 'react-redux';
+import { addRate } from '../redux/rateFeatureSlice';
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
@@ -27,7 +28,12 @@ const styles = StyleSheet.create({
   title: { fontSize: 14, marginLeft: 10 }
 });
 export default function ModalRatePair({ title }) {
+  const dispatch = useDispatch();
   const [isSelected, selectPair] = useState(false);
+  useEffect(() => {
+    dispatch(addRate({ title, selected: isSelected }));
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.left}>

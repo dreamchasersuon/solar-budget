@@ -261,8 +261,9 @@ export default function TransactionModal({
       addTransaction({
         purpose,
         description,
-        date: `${date}:${time}`,
-        type: transactionType,
+        date,
+        time,
+        transactionType,
         amount
       })
     );
