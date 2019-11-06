@@ -5,21 +5,18 @@ import { Root } from 'native-base';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/es/integration/react';
 import NavigationService from './service';
 
-export default function RootProvider({ store, persistor, initialUrl }) {
+export default function RootProvider({ store, initialUrl }) {
   return (
     <Root>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <AppNavigator
-            screenProps={{ initialUrl }}
-            ref={navigatorRef => {
-              NavigationService.setTopLevelNavigator(navigatorRef);
-            }}
-          />
-        </PersistGate>
+        <AppNavigator
+          screenProps={{ initialUrl }}
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
       </Provider>
     </Root>
   );
@@ -27,6 +24,5 @@ export default function RootProvider({ store, persistor, initialUrl }) {
 
 RootProvider.propTypes = {
   store: PropTypes.object,
-  persistor: PropTypes.object,
   initialUrl: PropTypes.object
 };

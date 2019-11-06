@@ -4,9 +4,10 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { AppLoading, Linking } from 'expo';
+// eslint-disable-next-line import/no-namespace
 import * as Font from 'expo-font';
 import RootProvider from './src/navigation/root';
-import { persistor, store } from './src/redux';
+import store from './src/redux';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -42,12 +43,6 @@ export default class App extends React.Component {
       );
     }
 
-    return (
-      <RootProvider
-        store={store}
-        persistor={persistor}
-        initialUrl={this.state.initialUrl}
-      />
-    );
+    return <RootProvider store={store} initialUrl={this.state.initialUrl} />;
   }
 }
