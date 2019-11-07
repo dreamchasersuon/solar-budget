@@ -1,4 +1,5 @@
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Animated, Easing } from 'react-native';
 // eslint-disable-next-line import/named
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -21,32 +22,80 @@ import Fingerprint from '../screens/Fingerprint';
 import LoginPin from '../screens/LoginPin';
 import { $WHITE } from '../constants/colorLiterals';
 
-const WalletScreen = createStackNavigator({
-  Wallet: {
-    screen: Wallet,
-    navigationOptions: {
-      header: null,
-      headerStyle: {
-        marginLeft: 30,
-        marginTop: 20,
-        borderBottomWidth: 0,
-        elevation: 0
+const transitionConfig = () => {
+  return {
+    transitionSpec: {
+      duration: 750,
+      easing: Easing.out(Easing.poly(4)),
+      timing: Animated.timing,
+      useNativeDriver: true
+    },
+    screenInterpolator: sceneProps => {
+      const { position, layout, scene, index, scenes } = sceneProps;
+      const toIndex = index;
+      const thisSceneIndex = scene.index;
+      const height = layout.initHeight;
+      const width = layout.initWidth;
+
+      const translateX = position.interpolate({
+        inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+        outputRange: [width, 0, 0]
+      });
+
+      const translateY = position.interpolate({
+        inputRange: [0, thisSceneIndex],
+        outputRange: [height, 0]
+      });
+
+      const slideFromRight = { transform: [{ translateX }] };
+      const slideFromBottom = { transform: [{ translateY }] };
+
+      const lastSceneIndex = scenes[scenes.length - 1].index;
+
+      if (lastSceneIndex - toIndex > 1) {
+        if (scene.index === toIndex) return;
+
+        if (scene.index !== lastSceneIndex) return { opacity: 0 };
+
+        return slideFromBottom;
+      }
+
+      return slideFromRight;
+    }
+  };
+};
+
+const WalletScreen = createStackNavigator(
+  {
+    Wallet: {
+      screen: Wallet,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
+      }
+    },
+    Statistics: {
+      screen: Statistics,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          marginLeft: 30,
+          marginTop: 20,
+          borderBottomWidth: 0,
+          elevation: 0
+        }
       }
     }
   },
-  Statistics: {
-    screen: Statistics,
-    navigationOptions: {
-      header: null,
-      headerStyle: {
-        marginLeft: 30,
-        marginTop: 20,
-        borderBottomWidth: 0,
-        elevation: 0
-      }
-    }
+  {
+    transitionConfig
   }
-});
+);
 
 const RatesScreen = createStackNavigator({
   Rates: {
@@ -93,7 +142,7 @@ const SettingsScreen = createStackNavigator({
   }
 });
 
-const BottomTabsBarNavigator = createMaterialTopTabNavigator(
+const BottomTabsBarNavigator = createBottomTabNavigator(
   {
     Wallet: {
       screen: WalletScreen,
@@ -122,18 +171,16 @@ const BottomTabsBarNavigator = createMaterialTopTabNavigator(
   },
   {
     initialRouteName: 'Wallet',
-    tabBarPosition: 'bottom',
+    resetOnBlur: true,
     tabBarOptions: {
       showLabel: false,
       showIcon: true,
       iconStyle: {
         marginTop: 4
       },
-      indicatorStyle: {
-        height: 0
-      },
       style: {
         elevation: 10,
+        borderTopWidth: 0,
         backgroundColor: $WHITE,
         height: 60
       }
@@ -167,7 +214,8 @@ const AuthStack = createStackNavigator(
   },
   {
     initialRouteName: 'Welcome',
-    headerMode: 'none'
+    headerMode: 'none',
+    transitionConfig
   }
 );
 
