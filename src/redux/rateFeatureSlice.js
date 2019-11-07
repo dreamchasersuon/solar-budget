@@ -5,11 +5,13 @@ const rateSlice = createSlice({
   initialState: [],
   reducers: {
     addRate(state, action) {
-      console.log(action.payload);
       state.push(action.payload);
+    },
+    removeRate(state, action) {
+      return state.filter(rate => rate.pair !== action.payload.pair);
     }
   }
 });
 
-export const { addRate } = rateSlice.actions;
+export const { addRate, removeRate } = rateSlice.actions;
 export default rateSlice.reducer;

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { $LIGHTSILVER } from '../constants/colorLiterals';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
-import TransactionsContainer from '../components/TransactionsContainer';
 import CreateTargetModal from '../components/CreateTargetModal';
 import withSideScreen from '../components/SideScreenHOC';
+import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,20 +27,23 @@ const styles = StyleSheet.create({
     height: '60%',
     justifyContent: 'flex-start',
     width: '90%'
+  },
+  clearHistory: {
+    textAlign: 'center',
+    marginTop: 'auto',
+    width: 250,
+    marginBottom: 'auto',
+    color: $MEDIUMSILVER,
+    fontSize: 14
   }
 });
 
 function Targets() {
+  const targets = useSelector(state => state.target);
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
   return (
-    <View
-      style={
-        isCreateTargetModalVisible
-          ? [styles.container, { opacity: 0.8 }]
-          : styles.container
-      }
-    >
+    <View style={styles.container}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu
@@ -49,12 +52,28 @@ function Targets() {
         hasBudget
         onPressCreateBill={toggleCreateTargetModal}
       />
-      <TransactionsContainer
-        hasTitle
-        containerStyle={styles.transactionsContainer}
-      >
-        <Transaction />
-      </TransactionsContainer>
+      {targets.length ? (
+        <FlatList
+          data={targets}
+          contentContainerStyle={styles.transactionsContainer}
+          renderItem={({ item }) => (
+            <Transaction
+              purpose={item.purpose}
+              about={item.description}
+              amount={item.amount}
+              date={item.date}
+              time={item.time}
+              type={item.type}
+            />
+          )}
+          keyExtractor={transaction => transaction.time}
+        />
+      ) : (
+        <Text style={styles.clearHistory}>
+          У цели нет ни одного платежа. Для создания платежа по цели необходимо
+          указать название цели в поле "Назначение" транзакции
+        </Text>
+      )}
       <CreateTargetModal
         isVisible={isCreateTargetModalVisible}
         toggleCreateTargetModal={toggleCreateTargetModal}

@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 25,
     paddingRight: 25,
-    width: '100%'
+    width: '100%',
+    marginBottom: 20
   },
   content: {
     flexDirection: 'row',
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   }
 });
 //TODO: refactor into smaller components
-export default function RatePair() {
+export default function RatePair({ ratePair, ratePercent, rate, rateNote }) {
   const [expanded, expandRateInfo] = useState(false);
   const expandRateCard = () => expandRateInfo(!expanded);
   return (
@@ -92,12 +93,12 @@ export default function RatePair() {
         <Rate />
         <View style={styles.content}>
           <View style={styles.ratePercent}>
-            <Text style={styles.ratePair}>USD/CAN</Text>
-            <Text style={styles.ratePercentage}>0.23%</Text>
+            <Text style={styles.ratePair}>{ratePair}</Text>
+            <Text style={styles.ratePercentage}>{ratePercent}</Text>
           </View>
           <View style={styles.ratePrice}>
-            <Text style={styles.rateNationalCurrencyValue}>{`1.23`}</Text>
-            <Text style={styles.rateNationalCurrency}>{`Цена Can`}</Text>
+            <Text style={styles.rateNationalCurrencyValue}>{rate}</Text>
+            <Text style={styles.rateNationalCurrency}>{rateNote}</Text>
           </View>
         </View>
       </TouchableOpacity>

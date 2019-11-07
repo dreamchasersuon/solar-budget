@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     elevation: 8,
-    height: '80%',
+    height: '60%',
     width: '100%'
   },
   modalHiddenArea: {
@@ -67,20 +67,48 @@ export default function AddRatePairModal({
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.ratePairsContainer}>
-              <ModalRatePair title="USD/RUB" />
-              <ModalRatePair title="USD/CAN" />
-              <ModalRatePair title="USD/EUR" />
-              <ModalRatePair title="USD/CRN" />
-              <ModalRatePair title="USD/GRV" />
-              <ModalRatePair title="USD/GBR" />
-              <ModalRatePair title="USD/MLD" />
-              <ModalRatePair title="USD/RUB" />
-              <ModalRatePair title="USD/CAN" />
-              <ModalRatePair title="USD/EUR" />
-              <ModalRatePair title="USD/CRN" />
-              <ModalRatePair title="USD/GRV" />
-              <ModalRatePair title="USD/GBR" />
-              <ModalRatePair title="USD/MLD" />
+              <ModalRatePair
+                title="USD/RUB"
+                ratePercent="0.23%"
+                rateNote="Цена RUB"
+                rateValue="1.23"
+              />
+              <ModalRatePair
+                title="USD/CAN"
+                ratePercent="0.63%"
+                rateNote="Цена CAN"
+                rateValue="1.93"
+              />
+              <ModalRatePair
+                title="USD/EUR"
+                ratePercent="1.61%"
+                rateNote="Цена EUR"
+                rateValue="1.74"
+              />
+              <ModalRatePair
+                title="USD/CRN"
+                ratePercent="0.02%"
+                rateNote="Цена CRN"
+                rateValue="0.23"
+              />
+              <ModalRatePair
+                title="USD/GRV"
+                ratePercent="0.12%"
+                rateNote="Цена GRV"
+                rateValue="0.2"
+              />
+              <ModalRatePair
+                title="USD/GBR"
+                ratePercent="0.56%"
+                rateNote="Цена GBR"
+                rateValue="1.63"
+              />
+              <ModalRatePair
+                title="USD/MLD"
+                ratePercent="0.01%"
+                rateNote="Цена MLD"
+                rateValue="0.22"
+              />
             </View>
           </ScrollView>
         </View>

@@ -218,11 +218,11 @@ export default function TransactionModal({
 }) {
   const dispatch = useDispatch();
   const [purpose, selectPurpose] = useState('');
-  const [transactionType, setTransactionType] = useState('income');
+  const [type, setTransactionType] = useState('income');
   const [amount, setTransactionAmount] = useState('');
   const [date, chooseDate] = useState(`Дата`);
   const [time, chooseTime] = useState(`Время`);
-  const [description, writeDescription] = useState('');
+  const [description, writeDescription] = useState('Описание');
 
   const setAmount = value => () => {
     const updateOperationValue = amount + value;
@@ -263,7 +263,7 @@ export default function TransactionModal({
         description,
         date,
         time,
-        transactionType,
+        type,
         amount
       })
     );
@@ -326,12 +326,12 @@ export default function TransactionModal({
                 <BlueButton
                   handleOnPress={() => setTransactionType('income')}
                   buttonStyle={
-                    transactionType === 'income'
+                    type === 'income'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    transactionType === 'income'
+                    type === 'income'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
@@ -340,12 +340,12 @@ export default function TransactionModal({
                 <BlueButton
                   handleOnPress={() => setTransactionType('outcome')}
                   buttonStyle={
-                    transactionType === 'outcome'
+                    type === 'outcome'
                       ? styles.operationTypeBtnActive
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
-                    transactionType === 'outcome'
+                    type === 'outcome'
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
@@ -355,7 +355,7 @@ export default function TransactionModal({
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
                   inputStyle={styles.transactionInput}
-                  placeholder={transactionType === 'income' ? '+ 0' : '- 0'}
+                  placeholder={type === 'income' ? '+ 0' : '- 0'}
                   placeholderColor={$BLUE}
                   initial={amount}
                   isEditable={false}

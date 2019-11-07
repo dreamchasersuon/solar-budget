@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '90%'
+    width: 300
   },
   bodyTransactionTarget: {
     color: $SILVER
@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: 'center',
     marginBottom: 20,
-    width: '100%'
+    width: 340
   },
   headerData: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 15,
-    width: '90%'
+    width: 300
   },
   headerDate: {
     flexDirection: 'row',
@@ -64,28 +64,35 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function Transaction() {
+export default function Transaction({
+  purpose,
+  date,
+  time,
+  type,
+  amount,
+  about
+}) {
   return (
     <View style={styles.container}>
       <View style={styles.headerData}>
-        <Text style={styles.headerTarget}>Входящий перевод</Text>
+        <Text style={styles.headerTarget}>{purpose}</Text>
         <View style={styles.headerDateTime}>
           <View style={styles.headerDate}>
             <Text style={styles.headerDateTextRegular}>Дата</Text>
-            <Text style={styles.headerDateTextLight}>29.06.19</Text>
+            <Text style={styles.headerDateTextLight}>{date}</Text>
           </View>
           <View style={styles.headerTime}>
             <Text style={styles.headerDateTextRegular}>Время</Text>
-            <Text style={styles.headerDateTextLight}>16:20</Text>
+            <Text style={styles.headerDateTextLight}>{time}</Text>
           </View>
         </View>
       </View>
 
       <View style={styles.bodyData}>
-        <Text style={styles.bodyTransactionValue}>+ 1200</Text>
-        <Text style={styles.bodyTransactionTarget}>
-          От Екатерина Андреевна К.
-        </Text>
+        <Text style={styles.bodyTransactionValue}>{`${
+          type === 'income' ? '+' : '-'
+        }${amount}`}</Text>
+        <Text style={styles.bodyTransactionTarget}>{about}</Text>
       </View>
     </View>
   );
