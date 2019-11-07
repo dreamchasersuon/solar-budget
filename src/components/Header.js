@@ -3,12 +3,13 @@ import React from 'react';
 import { $BLUE, $WHITE } from '../constants/colorLiterals';
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
 import BlueButton from '../components/BlueButton';
 import PropTypes from 'prop-types';
 import CreateBillButton from './CreateBillButton';
 import BackButton from './BackButton';
 import NavigationService from '../navigation/service';
+import { useDispatch, useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   billsContainer: {
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
-//TODO: make it readable by separating components
+
 export default function Header({
   hasStats,
   title,
@@ -99,7 +100,12 @@ export default function Header({
   onPressCreateBill,
   billTitle
 }) {
+  const bills = useSelector(state => state.bill);
+  const dispatch = useDispatch();
   const goToStats = () => NavigationService.navigate('Statistics');
+  const selectBill = () => {
+    dispatch(setBillActive());
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerTopContainer}>
@@ -136,15 +142,22 @@ export default function Header({
       </View>
       {hasBudget && (
         <View style={styles.headerBottomContainer}>
-          <View style={styles.billsContainer}>
-            <BlueButton
-              title={billTitle}
-              icon
-              iconStyle={styles.icon}
-              buttonStyle={[styles.buttonStyle, styles.buttonBillsStyle]}
-              buttonTextStyle={styles.buttonTextStyle}
-            />
-          </View>
+          <FlatList
+            horizontal
+            contentContainerStyle={styles.billsContainer}
+            data={bills}
+            renderItem={({ item }) => (
+              <BlueButton
+                title="Счет"
+                icon={item.currency}
+                iconStyle={styles.icon}
+                buttonStyle={[styles.buttonStyle, styles.buttonBillsStyle]}
+                buttonTextStyle={styles.buttonTextStyle}
+                handleOnPress={selectBill}
+              />
+            )}
+          />
+
           {hasLeftMenu && (
             <React.Fragment>
               <CreateBillButton onPressCreateBill={onPressCreateBill} />

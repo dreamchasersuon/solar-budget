@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     elevation: 8,
-    height: '70%',
+    height: '80%',
     width: '100%'
   },
   modalHiddenArea: {

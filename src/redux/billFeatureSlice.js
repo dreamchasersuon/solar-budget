@@ -6,6 +6,17 @@ const billSlice = createSlice({
   reducers: {
     addBill(state, action) {
       state.push(action.payload);
+    },
+    setBillActive(state, action) {
+      state.find(bill => {
+        if (bill.active === true) {
+          bill.active = false;
+        }
+        if (bill.depositAmount === action.payload.depositAmount) {
+          return (bill.active = true);
+        }
+        return bill;
+      });
     }
   }
 });
