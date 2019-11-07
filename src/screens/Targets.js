@@ -5,7 +5,8 @@ import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import CreateTargetModal from '../components/CreateTargetModal';
 import withSideScreen from '../components/SideScreenHOC';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTargetActive } from '../redux/targetFeatureSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,22 +40,40 @@ const styles = StyleSheet.create({
 });
 
 function Targets() {
+  const dispatch = useDispatch();
+  const transactions = useSelector(state => state.wallet.targetId);
   const targets = useSelector(state => state.target);
+
+  let activeTarget;
+  let activeTargetPrice;
+  if (targets.length) {
+    activeTarget = targets.find(target => target.active);
+    activeTargetPrice = activeTarget.depositAmount;
+  } else {
+    activeTargetPrice = '0';
+  }
+
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
+
+  const selectTarget = depositAmount => {
+    dispatch(setTargetActive({ depositAmount }));
+  };
   return (
     <View style={styles.container}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu
         title="Цели"
-        billTitle="Машина"
         hasBudget
-        onPressCreateBill={toggleCreateTargetModal}
+        toggleModal={toggleCreateTargetModal}
+        handleOnPress={selectTarget}
+        list={targets}
+        deposit={activeTargetPrice}
       />
-      {targets.length ? (
+      {transactions !== undefined ? (
         <FlatList
-          data={targets}
+          data={transactions}
           contentContainerStyle={styles.transactionsContainer}
           renderItem={({ item }) => (
             <Transaction
@@ -71,6 +90,7 @@ function Targets() {
       ) : (
         <Text style={styles.clearHistory}>
           У цели нет ни одного платежа. Для создания платежа по цели необходимо
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
           указать название цели в поле "Назначение" транзакции
         </Text>
       )}

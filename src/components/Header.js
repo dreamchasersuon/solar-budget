@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { $BLUE, $WHITE } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
@@ -9,19 +9,22 @@ import PropTypes from 'prop-types';
 import CreateBillButton from './CreateBillButton';
 import BackButton from './BackButton';
 import NavigationService from '../navigation/service';
-import { useDispatch, useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   billsContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between'
+  },
+  billsContainerWrapper: {
     marginLeft: 40,
-    width: '70%'
+    width: '75%',
+    marginRight: 5
   },
   buttonBillsStyle: {
     borderBottomRightRadius: 4,
-    borderTopRightRadius: 4
+    borderTopRightRadius: 4,
+    marginRight: 5
   },
   buttonStyle: {
     alignItems: 'center',
@@ -33,8 +36,20 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: 100
   },
+  buttonStyleUnselected: {
+    alignItems: 'center',
+    borderBottomLeftRadius: 4,
+    borderTopLeftRadius: 4,
+    flexDirection: 'row',
+    height: 26,
+    justifyContent: 'flex-start',
+    width: 100
+  },
   buttonTextStyle: {
     color: $WHITE
+  },
+  buttonTextStyleUnselected: {
+    color: $MEDIUMSILVER
   },
   container: {
     alignItems: 'center',
@@ -97,15 +112,12 @@ export default function Header({
   hasLeftMenu,
   headerTopLeftSideStyle,
   hasBudget,
-  onPressCreateBill,
-  billTitle
+  toggleModal,
+  list,
+  handleOnPress,
+  deposit
 }) {
-  const bills = useSelector(state => state.bill);
-  const dispatch = useDispatch();
   const goToStats = () => NavigationService.navigate('Statistics');
-  const selectBill = () => {
-    dispatch(setBillActive());
-  };
   return (
     <View style={styles.container}>
       <View style={styles.headerTopContainer}>
@@ -132,7 +144,7 @@ export default function Header({
             )}
             <BlueButton
               iconStyle={styles.iconBalance}
-              title="29.000"
+              title={deposit}
               icon
               buttonStyle={styles.buttonStyle}
               buttonTextStyle={styles.buttonTextStyle}
@@ -142,25 +154,35 @@ export default function Header({
       </View>
       {hasBudget && (
         <View style={styles.headerBottomContainer}>
-          <FlatList
-            horizontal
-            contentContainerStyle={styles.billsContainer}
-            data={bills}
-            renderItem={({ item }) => (
-              <BlueButton
-                title="Счет"
-                icon={item.currency}
-                iconStyle={styles.icon}
-                buttonStyle={[styles.buttonStyle, styles.buttonBillsStyle]}
-                buttonTextStyle={styles.buttonTextStyle}
-                handleOnPress={selectBill}
-              />
-            )}
-          />
-
+          <View style={styles.billsContainerWrapper}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              contentContainerStyle={styles.billsContainer}
+              data={list}
+              renderItem={({ item }) => (
+                <BlueButton
+                  title={item.name}
+                  icon={item.currency}
+                  iconStyle={styles.icon}
+                  buttonStyle={
+                    item.active
+                      ? [styles.buttonStyle, styles.buttonBillsStyle]
+                      : [styles.buttonStyleUnselected, styles.buttonBillsStyle]
+                  }
+                  buttonTextStyle={
+                    item.active
+                      ? styles.buttonTextStyle
+                      : styles.buttonTextStyleUnselected
+                  }
+                  handleOnPress={() => handleOnPress(item.depositAmount)}
+                />
+              )}
+            />
+          </View>
           {hasLeftMenu && (
             <React.Fragment>
-              <CreateBillButton onPressCreateBill={onPressCreateBill} />
+              <CreateBillButton onPressCreateBill={toggleModal} />
             </React.Fragment>
           )}
         </View>

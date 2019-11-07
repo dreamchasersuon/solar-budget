@@ -9,7 +9,8 @@ import TransactionModal from '../components/TransactionModal';
 import BillModal from '../components/BillModal';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import withSideScreen from '../components/SideScreenHOC';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBillActive } from '../redux/billFeatureSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,23 +47,40 @@ const styles = StyleSheet.create({
 });
 
 function Wallet() {
+  const dispatch = useDispatch();
   const walletTransactions = useSelector(state => state.wallet);
+  const bills = useSelector(state => state.bill);
+
+  let activeBill;
+  let activeBillDeposit;
+  if (bills.length) {
+    activeBill = bills.find(bill => bill.active);
+    activeBillDeposit = activeBill.depositAmount;
+  } else {
+    activeBillDeposit = '0';
+  }
+
   const [isTransactionModalVisible, makeTransaction] = useState(false);
   const toggleTransactionModal = () =>
     makeTransaction(!isTransactionModalVisible);
   const [isBillModalVisible, makeBill] = useState(false);
   const toggleBillModal = () => makeBill(!isBillModalVisible);
 
+  const selectBill = depositAmount => {
+    dispatch(setBillActive({ depositAmount }));
+  };
   return (
     <View style={styles.container}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasStats
         title="Кошелёк"
-        billTitle="Счет"
         hasLeftMenu
         hasBudget
-        onPressCreateBill={toggleBillModal}
+        toggleModal={toggleBillModal}
+        handleOnPress={selectBill}
+        list={bills}
+        deposit={activeBillDeposit}
       />
       {walletTransactions.length ? (
         <FlatList

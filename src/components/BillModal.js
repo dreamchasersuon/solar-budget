@@ -12,7 +12,7 @@ import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import ModalHeader from './ModalHeader';
 import { useDispatch } from 'react-redux';
-import { addBill } from '../redux/billFeatureSlice';
+import { addBill, setBillActive } from '../redux/billFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -117,6 +117,22 @@ const styles = StyleSheet.create({
   },
   operationTypeTextActive: { color: $WHITE, fontSize: 12 },
   operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
+  purposeInput: {
+    borderColor: $MEDIUMSILVER,
+    borderRadius: 3,
+    borderWidth: 1,
+    color: $MEDIUMSILVER,
+    fontSize: 10,
+    height: 35,
+    paddingLeft: 10,
+    width: '100%'
+  },
+  purposeInputContainer: {
+    marginTop: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '100%'
+  },
   scrollView: { alignItems: 'center' },
   transactionFormWrapper: {
     marginTop: 20,
@@ -143,6 +159,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
   const dispatch = useDispatch();
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
+  const [name, setBillName] = useState('');
 
   const setDepositAmount = value => () => {
     const updateOperationValue = depositAmount + value;
@@ -153,7 +170,8 @@ export default function BillModal({ isVisible, toggleBillModal }) {
   };
 
   const createBill = () => {
-    dispatch(addBill({ currency, depositAmount }));
+    dispatch(addBill({ name, currency, depositAmount, active: true }));
+    dispatch(setBillActive({ depositAmount }));
     toggleBillModal();
   };
 
@@ -172,6 +190,15 @@ export default function BillModal({ isVisible, toggleBillModal }) {
             keyboardShouldPersistTaps="always"
             contentContainerStyle={styles.scrollView}
           >
+            <View style={styles.purposeInputContainer}>
+              <CustomInput
+                inputStyle={styles.purposeInput}
+                placeholder="Напишите название счета"
+                label="Название"
+                labelStyle={styles.label}
+                handleChange={value => setBillName(value)}
+              />
+            </View>
             <View style={styles.transactionFormWrapper}>
               <Text style={styles.label}>Валюта</Text>
               <View style={styles.operationTypeBtnsContainer}>

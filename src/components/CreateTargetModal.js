@@ -12,7 +12,7 @@ import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
 import { useDispatch } from 'react-redux';
-import { addTarget } from '../redux/targetFeatureSlice';
+import { addTarget, setTargetActive } from '../redux/targetFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -161,13 +161,13 @@ export default function CreateTargetModal({
 }) {
   const dispatch = useDispatch();
   const [currency, setCurrency] = useState('rub');
-  const [targetName, setTargetName] = useState('');
-  const [targetPrice, setTargetPrice] = useState('');
+  const [name, setTargetName] = useState('');
+  const [depositAmount, setTargetPrice] = useState('');
 
   const setOperation = value => () => {
-    const updateOperationValue = targetPrice + value;
+    const updateOperationValue = depositAmount + value;
     if (value === 'delete') {
-      return setTargetPrice(targetPrice.slice(0, -1));
+      return setTargetPrice(depositAmount.slice(0, -1));
     }
     setTargetPrice(updateOperationValue);
   };
@@ -175,11 +175,13 @@ export default function CreateTargetModal({
   const createTarget = () => {
     dispatch(
       addTarget({
-        name: targetName,
+        name,
         currency,
-        targetPrice
+        depositAmount,
+        active: true
       })
     );
+    dispatch(setTargetActive({ depositAmount }));
     toggleCreateTargetModal();
   };
 
@@ -261,7 +263,7 @@ export default function CreateTargetModal({
                   inputStyle={styles.transactionInput}
                   placeholder="+ 0"
                   placeholderColor={$BLUE}
-                  initial={targetPrice}
+                  initial={depositAmount}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>

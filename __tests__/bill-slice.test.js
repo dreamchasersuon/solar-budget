@@ -1,33 +1,46 @@
-import bill, { addBill } from '../src/redux/billFeatureSlice';
+import bill, { addBill, setBillActive } from '../src/redux/billFeatureSlice';
 
 describe('addBill', () => {
   it('should create target with specified name', () => {
     const bill = addBill({
-      name: 'USD'
+      currency: 'usd'
     });
 
     expect(bill.payload).toEqual({
-      name: 'USD'
+      currency: 'usd'
     });
   });
 
   it('should create target with specified deposit', () => {
     const bill = addBill({
-      deposit: '5000'
+      depositAmount: '5000'
     });
 
     expect(bill.payload).toEqual({
-      deposit: '5000'
+      depositAmount: '5000'
     });
   });
 
   it('should create target with specified name and deposit', () => {
     const bill = addBill({
-      name: 'Rubles',
-      deposit: '50000000'
+      currency: 'rub',
+      depositAmount: '50000000'
     });
 
-    expect(bill.payload).toEqual({ name: 'Rubles', deposit: '50000000' });
+    expect(bill.payload).toEqual({
+      currency: 'rub',
+      depositAmount: '50000000'
+    });
+  });
+});
+
+describe('setBillActive', () => {
+  it('should set new active bill', () => {
+    const bill = setBillActive({
+      depositAmount: '255'
+    });
+
+    expect(bill.payload).toEqual({ depositAmount: '255' });
   });
 });
 
@@ -37,15 +50,35 @@ describe('billReducer', () => {
       bill([], {
         type: addBill.type,
         payload: {
-          name: 'Rubles',
-          deposit: '4000000'
+          currency: 'rub',
+          depositAmount: '4000000'
         }
       })
     ).toEqual([
       {
-        name: 'Rubles',
-        deposit: '4000000'
+        currency: 'rub',
+        depositAmount: '4000000'
       }
+    ]);
+  });
+
+  it('should set new active bill on click', () => {
+    expect(
+      bill(
+        [
+          { currency: 'rub', active: true, depositAmount: '302' },
+          { currency: 'rub', active: false, depositAmount: '392' }
+        ],
+        {
+          type: setBillActive.type,
+          payload: {
+            depositAmount: '392'
+          }
+        }
+      )
+    ).toEqual([
+      { currency: 'rub', active: false, depositAmount: '302' },
+      { currency: 'rub', active: true, depositAmount: '392' }
     ]);
   });
 });

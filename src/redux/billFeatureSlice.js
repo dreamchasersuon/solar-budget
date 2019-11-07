@@ -8,12 +8,15 @@ const billSlice = createSlice({
       state.push(action.payload);
     },
     setBillActive(state, action) {
-      state.find(bill => {
-        if (bill.active === true) {
+      state.forEach(bill => {
+        if (bill.active) {
           bill.active = false;
         }
+        return bill;
+      });
+      state.forEach(bill => {
         if (bill.depositAmount === action.payload.depositAmount) {
-          return (bill.active = true);
+          bill.active = true;
         }
         return bill;
       });
@@ -21,5 +24,5 @@ const billSlice = createSlice({
   }
 });
 
-export const { addBill } = billSlice.actions;
+export const { addBill, setBillActive } = billSlice.actions;
 export default billSlice.reducer;

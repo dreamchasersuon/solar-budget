@@ -1,4 +1,7 @@
-import target, { addTarget } from '../src/redux/targetFeatureSlice';
+import target, {
+  addTarget,
+  setTargetActive
+} from '../src/redux/targetFeatureSlice';
 
 describe('addTarget', () => {
   it('should create target with specified name', () => {
@@ -13,21 +16,31 @@ describe('addTarget', () => {
 
   it('should create target with specified deposit', () => {
     const target = addTarget({
-      deposit: '5000'
+      price: '5000'
     });
 
     expect(target.payload).toEqual({
-      deposit: '5000'
+      price: '5000'
     });
   });
 
   it('should create target with specified name and deposit', () => {
     const target = addTarget({
       name: 'Home',
-      deposit: '50000000'
+      price: '50000000'
     });
 
-    expect(target.payload).toEqual({ name: 'Home', deposit: '50000000' });
+    expect(target.payload).toEqual({ name: 'Home', price: '50000000' });
+  });
+});
+
+describe('setTargetActive', () => {
+  it('should set new active target', () => {
+    const target = setTargetActive({
+      price: '255'
+    });
+
+    expect(target.payload).toEqual({ price: '255' });
   });
 });
 
@@ -38,14 +51,34 @@ describe('targetReducer', () => {
         type: addTarget.type,
         payload: {
           name: 'Home',
-          deposit: '5000000'
+          price: '5000000'
         }
       })
     ).toEqual([
       {
         name: 'Home',
-        deposit: '5000000'
+        price: '5000000'
       }
+    ]);
+  });
+
+  it('should set new active target on click', () => {
+    expect(
+      target(
+        [
+          { currency: 'rub', active: true, price: '302' },
+          { currency: 'rub', active: false, price: '392' }
+        ],
+        {
+          type: setTargetActive.type,
+          payload: {
+            price: '392'
+          }
+        }
+      )
+    ).toEqual([
+      { currency: 'rub', active: false, price: '302' },
+      { currency: 'rub', active: true, price: '392' }
     ]);
   });
 });

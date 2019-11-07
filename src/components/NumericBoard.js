@@ -49,7 +49,7 @@ export default function NumericBoard({
       <NumericUnit
         containerStyle={containerStyle}
         numberStyle={numberStyle}
-        onPress={onPressNumber('7')}
+        onPress={onPressNumber('6')}
         number="6"
       />
       <NumericUnit

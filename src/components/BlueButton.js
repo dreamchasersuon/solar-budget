@@ -13,7 +13,7 @@ export default function BlueButton({
   handleOnPress
 }) {
   return (
-    <TouchableOpacity onPress={handleOnPress} style={buttonStyle}>
+    <TouchableOpacity key={1} onPress={handleOnPress} style={buttonStyle}>
       <View style={iconStyle}>{icon && <Ruble />}</View>
       <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>
