@@ -14,6 +14,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import {
   $BLUE,
   $MEDIUMSILVER,
+  $RED,
   $TRANSPARENT,
   $WHITE
 } from '../constants/colorLiterals';
@@ -102,6 +103,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
+  labelInvalid: {
+    color: $RED,
+    fontSize: 14,
+    marginBottom: 10
+  },
   modalActiveArea: {
     alignItems: 'center',
     backgroundColor: $WHITE,
@@ -217,6 +223,9 @@ export default function TransactionModal({
   toggleTransactionModal
 }) {
   const dispatch = useDispatch();
+  const [isValid, setValidity] = useState(true);
+  const [isValidPurpose, setPurposeValidity] = useState(true);
+  const [isValidAmount, setAmountValidity] = useState(true);
   const bills = useSelector(state => state.bill);
   const targets = useSelector(state => state.target);
   const [purpose, selectPurpose] = useState('');
@@ -232,7 +241,11 @@ export default function TransactionModal({
 
   const setAmount = value => () => {
     const updateOperationValue = amount + value;
+    setAmountValidity(true);
     if (value === 'delete') {
+      if (!amount.slice(0, -1).length) {
+        setAmountValidity(false);
+      }
       return setTransactionAmount(amount.slice(0, -1));
     }
     setTransactionAmount(updateOperationValue);
@@ -262,8 +275,22 @@ export default function TransactionModal({
     }
   }
 
+  function onSelectPurpose(value) {
+    setPurposeValidity(true);
+    selectPurpose(value);
+  }
+
   const createTransaction = () => {
-    const id = uuid(date + time);
+    if (!amount.length) {
+      setAmountValidity(false);
+    }
+    if (!purpose.length) {
+      setPurposeValidity(false);
+    }
+    if (!amount.length || !purpose.length) {
+      return setValidity(false);
+    }
+    const id = uuid(date);
     const activeBill = bills.find(bill => bill.active);
     const isTarget = targets.find(target => target.id === purpose);
     const billId = activeBill.id;
@@ -297,6 +324,8 @@ export default function TransactionModal({
     dispatch(
       withdrawDepositing({ type: isTarget ? 'outcome' : type, amount, billId })
     );
+    selectPurpose('');
+    setTransactionAmount('');
     toggleTransactionModal();
   };
 
@@ -325,10 +354,18 @@ export default function TransactionModal({
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.purposeInputContainer}>
-              <Text style={styles.label}>Назначение</Text>
-              <View style={styles.purposeInput}>
+              <Text style={isValidPurpose ? styles.label : styles.labelInvalid}>
+                Назначение
+              </Text>
+              <View
+                style={
+                  isValidPurpose
+                    ? styles.purposeInput
+                    : [styles.purposeInput, { color: $RED, borderColor: $RED }]
+                }
+              >
                 <RNPickerSelect
-                  onValueChange={(value, index) => selectPurpose(value)}
+                  onValueChange={(value, index) => onSelectPurpose(value)}
                   items={[
                     { value: 'products', label: 'Продукты' },
                     ...mappedTargetsForPicker
@@ -391,9 +428,16 @@ export default function TransactionModal({
               </View>
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
-                  inputStyle={styles.transactionInput}
+                  inputStyle={
+                    isValidAmount
+                      ? styles.transactionInput
+                      : [
+                          styles.transactionInput,
+                          { color: $RED, borderColor: $RED }
+                        ]
+                  }
                   placeholder={type === 'income' ? '+ 0' : '- 0'}
-                  placeholderColor={$BLUE}
+                  placeholderColor={isValidAmount ? $BLUE : $RED}
                   initial={amount}
                   isEditable={false}
                 />
@@ -414,7 +458,11 @@ export default function TransactionModal({
             </View>
           </ScrollView>
           <SecondaryButton
-            buttonTextStyle={styles.buttonTextStyle}
+            buttonTextStyle={
+              isValid
+                ? styles.buttonTextStyle
+                : [styles.buttonTextStyle, { color: $RED }]
+            }
             handleOnPress={createTransaction}
             buttonStyle={styles.buttonFinish}
             buttonText="Создать"

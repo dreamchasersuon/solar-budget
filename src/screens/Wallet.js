@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
   transactionsContainer: {
     alignItems: 'center',
     flexDirection: 'column',
-    height: '85%',
     justifyContent: 'flex-start',
     marginTop: 40,
     paddingTop: 5,
+    paddingBottom: 60,
     paddingLeft: 15,
     paddingRight: 15,
     width: 358
@@ -119,7 +119,7 @@ function Wallet() {
               type={item.type}
             />
           )}
-          keyExtractor={transaction => transaction.time}
+          keyExtractor={item => item.id}
         />
       ) : null}
       <OpenOperationModalBtn

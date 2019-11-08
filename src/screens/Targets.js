@@ -24,10 +24,10 @@ const styles = StyleSheet.create({
   transactionsContainer: {
     alignItems: 'center',
     flexDirection: 'column',
-    height: '85%',
     justifyContent: 'flex-start',
     marginTop: 40,
     paddingTop: 5,
+    paddingBottom: 60,
     paddingLeft: 15,
     paddingRight: 15,
     width: 358

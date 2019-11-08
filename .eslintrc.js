@@ -13,7 +13,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-use-before-define': 1,
-    'react/prop-types': 1,
+    'react/prop-types': 0,
     'react/no-multi-comp': 1,
     'react/prefer-es6-class': 0,
     'react/prefer-stateless-function': 0,

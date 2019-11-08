@@ -173,6 +173,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
       addBill({ id, name: currency, currency, depositAmount, active: true })
     );
     dispatch(setBillActive({ id, depositAmount }));
+    setDeposit('');
     toggleBillModal();
   };
 
@@ -274,7 +275,11 @@ export default function BillModal({ isVisible, toggleBillModal }) {
             </View>
           </ScrollView>
           <SecondaryButton
-            buttonTextStyle={styles.buttonTextStyle}
+            buttonTextStyle={
+              isValid
+                ? styles.buttonTextStyle
+                : [styles.buttonTextStyle, { color: $RED }]
+            }
             handleOnPress={createBill}
             buttonStyle={styles.buttonFinish}
             buttonText="Создать"

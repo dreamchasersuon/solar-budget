@@ -2,6 +2,7 @@ import { Modal, Text, ScrollView, View, StyleSheet } from 'react-native';
 import {
   $BLUE,
   $MEDIUMSILVER,
+  $RED,
   $TRANSPARENT,
   $WHITE
 } from '../constants/colorLiterals';
@@ -49,6 +50,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
+  labelInvalid: {
+    color: $RED,
+    fontSize: 14,
+    marginBottom: 10
+  },
   modalActiveArea: {
     alignItems: 'center',
     backgroundColor: $WHITE,
@@ -164,19 +170,40 @@ export default function CreateTargetModal({
   toggleCreateTargetModal
 }) {
   const dispatch = useDispatch();
+  const [isValid, setValidity] = useState(true);
+  const [isValidName, setNameValidity] = useState(true);
+  const [isValidAmount, setAmountValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
   const [name, setTargetName] = useState('');
   const [depositAmount, setTargetPrice] = useState('');
 
   const setOperation = value => () => {
     const updateOperationValue = depositAmount + value;
+    setAmountValidity(true);
     if (value === 'delete') {
+      if (!depositAmount.slice(0, -1).length) {
+        setAmountValidity(false);
+      }
       return setTargetPrice(depositAmount.slice(0, -1));
     }
     setTargetPrice(updateOperationValue);
   };
 
+  function onTypeName(value) {
+    setNameValidity(true);
+    setTargetName(value);
+  }
+
   const createTarget = () => {
+    if (!depositAmount.length) {
+      setAmountValidity(false);
+    }
+    if (!name.length) {
+      setNameValidity(false);
+    }
+    if (!depositAmount.length || !name.length) {
+      return setValidity(false);
+    }
     const id = uuid(name);
     dispatch(
       addTarget({
@@ -188,6 +215,8 @@ export default function CreateTargetModal({
       })
     );
     dispatch(setTargetActive({ id }));
+    setTargetPrice('');
+    setTargetName('');
     toggleCreateTargetModal();
   };
 
@@ -208,11 +237,15 @@ export default function CreateTargetModal({
           >
             <View style={styles.purposeInputContainer}>
               <CustomInput
-                inputStyle={styles.purposeInput}
+                inputStyle={
+                  isValidName
+                    ? styles.purposeInput
+                    : [styles.purposeInput, { color: $RED, borderColor: $RED }]
+                }
                 placeholder="Напишите название цели"
                 label="Название"
-                labelStyle={styles.label}
-                handleChange={value => setTargetName(value)}
+                labelStyle={isValidName ? styles.label : styles.labelInvalid}
+                handleChange={value => onTypeName(value)}
               />
             </View>
             <View style={styles.transactionFormWrapper}>
@@ -263,12 +296,18 @@ export default function CreateTargetModal({
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>Сумма</Text>
+              <Text style={isValidAmount ? styles.label : styles.labelInvalid}>
+                Сумма
+              </Text>
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
-                  inputStyle={styles.transactionInput}
+                  inputStyle={
+                    isValidAmount
+                      ? styles.transactionInput
+                      : [styles.transactionInput, { borderColor: $RED }]
+                  }
                   placeholder="+ 0"
-                  placeholderColor={$BLUE}
+                  placeholderColor={isValidAmount ? $BLUE : $RED}
                   initial={depositAmount}
                   isEditable={false}
                 />
@@ -289,7 +328,11 @@ export default function CreateTargetModal({
             </View>
           </ScrollView>
           <SecondaryButton
-            buttonTextStyle={styles.buttonTextStyle}
+            buttonTextStyle={
+              isValid
+                ? styles.buttonTextStyle
+                : [styles.buttonTextStyle, { color: $RED }]
+            }
             handleOnPress={createTarget}
             buttonStyle={styles.buttonFinish}
             buttonText="Завершить"
