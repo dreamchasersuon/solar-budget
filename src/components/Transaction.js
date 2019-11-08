@@ -4,7 +4,8 @@ import {
   $GREEN,
   $SILVER,
   $BLUE,
-  $WHITE
+  $WHITE,
+  $RED
 } from '../constants/colorLiterals';
 import { View, StyleSheet, Text } from 'react-native';
 
@@ -89,9 +90,13 @@ export default function Transaction({
       </View>
 
       <View style={styles.bodyData}>
-        <Text style={styles.bodyTransactionValue}>{`${
-          type === 'income' ? '+' : '-'
-        }${amount}`}</Text>
+        {type === 'income' ? (
+          <Text style={styles.bodyTransactionValue}>`+${amount}`</Text>
+        ) : (
+          <Text style={[styles.bodyTransactionValue, { color: $RED }]}>
+            `-${amount}`
+          </Text>
+        )}
         <Text style={styles.bodyTransactionTarget}>{about}</Text>
       </View>
     </View>
