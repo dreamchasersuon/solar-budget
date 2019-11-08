@@ -2,6 +2,7 @@ import { Modal, Text, StyleSheet, ScrollView, View } from 'react-native';
 import {
   $BLUE,
   $MEDIUMSILVER,
+  $RED,
   $TRANSPARENT,
   $WHITE
 } from '../constants/colorLiterals';
@@ -46,6 +47,11 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
+  labelInvalid: {
+    color: $RED,
+    fontSize: 14,
+    marginBottom: 10
+  },
   modalActiveArea: {
     alignItems: 'center',
     backgroundColor: $WHITE,
@@ -142,12 +148,17 @@ const styles = StyleSheet.create({
 
 export default function BillModal({ isVisible, toggleBillModal }) {
   const dispatch = useDispatch();
+  const [isValid, setValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
 
   const setDepositAmount = value => () => {
     const updateOperationValue = depositAmount + value;
+    setValidity(true);
     if (value === 'delete') {
+      if (!depositAmount.slice(0, -1).length) {
+        setValidity(false);
+      }
       return setDeposit(depositAmount.slice(0, -1));
     }
     setDeposit(updateOperationValue);
@@ -155,6 +166,9 @@ export default function BillModal({ isVisible, toggleBillModal }) {
 
   const createBill = () => {
     const id = uuid(currency + depositAmount);
+    if (!isValid || !depositAmount.length) {
+      return setValidity(false);
+    }
     dispatch(
       addBill({ id, name: currency, currency, depositAmount, active: true })
     );
@@ -225,12 +239,21 @@ export default function BillModal({ isVisible, toggleBillModal }) {
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>Сумма</Text>
+              <Text style={isValid ? styles.label : styles.labelInvalid}>
+                Сумма
+              </Text>
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
-                  inputStyle={styles.transactionInput}
+                  inputStyle={
+                    isValid
+                      ? styles.transactionInput
+                      : [
+                          styles.transactionInput,
+                          { color: $RED, borderColor: $RED }
+                        ]
+                  }
                   placeholder="+ 0"
-                  placeholderColor={$BLUE}
+                  placeholderColor={isValid ? $BLUE : $RED}
                   initial={depositAmount}
                   isEditable={false}
                 />
