@@ -62,10 +62,14 @@ function Wallet() {
     activeBillDeposit = '0';
   }
 
-  const activeBillId = activeBill.id;
-  const activeBillTransactions = transactions.filter(
-    transaction => transaction.billId === activeBillId
-  );
+  let activeBillId;
+  let activeBillTransactions = [];
+  if (bills.length) {
+    activeBillId = activeBill.id;
+    activeBillTransactions = transactions.filter(
+      transaction => transaction.billId === activeBillId
+    );
+  }
 
   const [isTransactionModalVisible, makeTransaction] = useState(false);
   const toggleTransactionModal = () =>
@@ -89,13 +93,19 @@ function Wallet() {
         list={bills}
         deposit={activeBillDeposit}
       />
-      {!bills.length && (
+      {bills.length === 0 ? (
         <Text style={styles.clearHistory}>
           Для использования кошелька создайте счет с помощью кнопки с плюсом в
           правом верхнем углу
         </Text>
+      ) : null}
+      {bills.length > 0 && !activeBillTransactions.length && (
+        <Text style={styles.clearHistory}>
+          Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку
+          снизу.
+        </Text>
       )}
-      {activeBillTransactions.length && bills.length ? (
+      {bills.length > 0 && activeBillTransactions.length ? (
         <FlatList
           data={activeBillTransactions}
           contentContainerStyle={styles.transactionsContainer}
@@ -111,12 +121,7 @@ function Wallet() {
           )}
           keyExtractor={transaction => transaction.time}
         />
-      ) : (
-        <Text style={styles.clearHistory}>
-          Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку
-          снизу.
-        </Text>
-      )}
+      ) : null}
       <OpenOperationModalBtn
         isActive={!!bills.length}
         expandModal={toggleTransactionModal}

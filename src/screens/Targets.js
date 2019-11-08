@@ -57,10 +57,12 @@ function Targets() {
   }
 
   const transactions = useSelector(state => state.wallet);
-  const activeTransactions = transactions.filter(
-    transaction => (transaction.targetId = activeTarget.id)
-  );
-
+  let activeTransactions = [];
+  if (targets.length) {
+    activeTransactions = transactions.filter(
+      transaction => (transaction.targetId = activeTarget.id)
+    );
+  }
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
 
@@ -79,6 +81,17 @@ function Targets() {
         list={targets}
         deposit={activeTargetPrice}
       />
+      {targets.length === 0 ? (
+        <Text style={styles.clearHistory}>
+          Создайте цель с помощью кнопки с плюсом в правом верхнем углу
+        </Text>
+      ) : (
+        <Text style={styles.clearHistory}>
+          У цели нет ни одного платежа. Для создания платежа по цели необходимо
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
+          указать название цели в поле "Назначение" транзакции
+        </Text>
+      )}
       {activeTransactions.length > 0 ? (
         <FlatList
           data={activeTransactions}
@@ -95,13 +108,7 @@ function Targets() {
           )}
           keyExtractor={transaction => transaction.time}
         />
-      ) : (
-        <Text style={styles.clearHistory}>
-          У цели нет ни одного платежа. Для создания платежа по цели необходимо
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
-          указать название цели в поле "Назначение" транзакции
-        </Text>
-      )}
+      ) : null}
       <CreateTargetModal
         isVisible={isCreateTargetModalVisible}
         toggleCreateTargetModal={toggleCreateTargetModal}

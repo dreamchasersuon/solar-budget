@@ -118,22 +118,6 @@ const styles = StyleSheet.create({
   },
   operationTypeTextActive: { color: $WHITE, fontSize: 12 },
   operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
-  purposeInput: {
-    borderColor: $MEDIUMSILVER,
-    borderRadius: 3,
-    borderWidth: 1,
-    color: $MEDIUMSILVER,
-    fontSize: 10,
-    height: 35,
-    paddingLeft: 10,
-    width: '100%'
-  },
-  purposeInputContainer: {
-    marginTop: 30,
-    paddingLeft: 20,
-    paddingRight: 20,
-    width: '100%'
-  },
   scrollView: { alignItems: 'center' },
   transactionFormWrapper: {
     marginTop: 20,
@@ -160,7 +144,6 @@ export default function BillModal({ isVisible, toggleBillModal }) {
   const dispatch = useDispatch();
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
-  const [name, setBillName] = useState('');
 
   const setDepositAmount = value => () => {
     const updateOperationValue = depositAmount + value;
@@ -171,8 +154,10 @@ export default function BillModal({ isVisible, toggleBillModal }) {
   };
 
   const createBill = () => {
-    const id = uuid(name);
-    dispatch(addBill({ id, name, currency, depositAmount, active: true }));
+    const id = uuid(currency + depositAmount);
+    dispatch(
+      addBill({ id, name: currency, currency, depositAmount, active: true })
+    );
     dispatch(setBillActive({ id, depositAmount }));
     toggleBillModal();
   };
@@ -192,15 +177,6 @@ export default function BillModal({ isVisible, toggleBillModal }) {
             keyboardShouldPersistTaps="always"
             contentContainerStyle={styles.scrollView}
           >
-            <View style={styles.purposeInputContainer}>
-              <CustomInput
-                inputStyle={styles.purposeInput}
-                placeholder="Напишите название счета"
-                label="Название"
-                labelStyle={styles.label}
-                handleChange={value => setBillName(value)}
-              />
-            </View>
             <View style={styles.transactionFormWrapper}>
               <Text style={styles.label}>Валюта</Text>
               <View style={styles.operationTypeBtnsContainer}>
