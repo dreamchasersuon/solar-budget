@@ -28,10 +28,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function OpenOperationModalBtn({ expandModal }) {
+export default function OpenOperationModalBtn({ expandModal, isActive }) {
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.touchableArea} onPress={expandModal}>
+      <TouchableOpacity
+        style={styles.touchableArea}
+        onPress={isActive ? expandModal : null}
+      >
         <Ionicons name="ios-add" color={$BLUE} style={styles.icon} />
       </TouchableOpacity>
     </View>

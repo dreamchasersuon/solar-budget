@@ -12,7 +12,8 @@ import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import ModalHeader from './ModalHeader';
 import { useDispatch } from 'react-redux';
-import { addBill, setBillActive } from '../redux/billFeatureSlice';
+import { addBill, setBillActive } from '../redux/features/billFeatureSlice';
+import uuid from 'uuid';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -170,8 +171,9 @@ export default function BillModal({ isVisible, toggleBillModal }) {
   };
 
   const createBill = () => {
-    dispatch(addBill({ name, currency, depositAmount, active: true }));
-    dispatch(setBillActive({ depositAmount }));
+    const id = uuid(name);
+    dispatch(addBill({ id, name, currency, depositAmount, active: true }));
+    dispatch(setBillActive({ id, depositAmount }));
     toggleBillModal();
   };
 

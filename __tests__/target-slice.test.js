@@ -1,7 +1,7 @@
 import target, {
   addTarget,
   setTargetActive
-} from '../src/redux/targetFeatureSlice';
+} from '../src/redux/features/targetFeatureSlice';
 
 describe('addTarget', () => {
   it('should create target with specified name', () => {
@@ -37,10 +37,10 @@ describe('addTarget', () => {
 describe('setTargetActive', () => {
   it('should set new active target', () => {
     const target = setTargetActive({
-      price: '255'
+      id: '255'
     });
 
-    expect(target.payload).toEqual({ price: '255' });
+    expect(target.payload).toEqual({ id: '255' });
   });
 });
 
@@ -66,19 +66,19 @@ describe('targetReducer', () => {
     expect(
       target(
         [
-          { currency: 'rub', active: true, price: '302' },
-          { currency: 'rub', active: false, price: '392' }
+          { id: '8735', currency: 'rub', active: true, price: '302' },
+          { id: '5435', currency: 'rub', active: false, price: '392' }
         ],
         {
           type: setTargetActive.type,
           payload: {
-            price: '392'
+            id: '5435'
           }
         }
       )
     ).toEqual([
-      { currency: 'rub', active: false, price: '302' },
-      { currency: 'rub', active: true, price: '392' }
+      { id: '8735', currency: 'rub', active: false, price: '302' },
+      { id: '5435', currency: 'rub', active: true, price: '392' }
     ]);
   });
 });

@@ -15,8 +15,17 @@ const targetSlice = createSlice({
         return target;
       });
       state.forEach(target => {
-        if (target.depositAmount === action.payload.depositAmount) {
+        if (target.id === action.payload.id) {
           target.active = true;
+        }
+        return target;
+      });
+    },
+    depositingToTarget(state, action) {
+      state.map(target => {
+        if (target.id === action.payload.targetId) {
+          return (target.depositAmount = `${Number(target.depositAmount) -
+            Number(action.payload.amount)}`);
         }
         return target;
       });
@@ -24,5 +33,9 @@ const targetSlice = createSlice({
   }
 });
 
-export const { addTarget, setTargetActive } = targetSlice.actions;
+export const {
+  addTarget,
+  setTargetActive,
+  depositingToTarget
+} = targetSlice.actions;
 export default targetSlice.reducer;

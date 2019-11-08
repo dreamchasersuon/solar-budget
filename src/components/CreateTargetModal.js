@@ -12,7 +12,11 @@ import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
 import { useDispatch } from 'react-redux';
-import { addTarget, setTargetActive } from '../redux/targetFeatureSlice';
+import {
+  addTarget,
+  setTargetActive
+} from '../redux/features/targetFeatureSlice';
+import uuid from 'uuid';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -173,15 +177,17 @@ export default function CreateTargetModal({
   };
 
   const createTarget = () => {
+    const id = uuid(name);
     dispatch(
       addTarget({
+        id,
         name,
         currency,
         depositAmount,
         active: true
       })
     );
-    dispatch(setTargetActive({ depositAmount }));
+    dispatch(setTargetActive({ id }));
     toggleCreateTargetModal();
   };
 

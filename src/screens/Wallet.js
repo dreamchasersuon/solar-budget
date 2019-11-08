@@ -10,7 +10,7 @@ import BillModal from '../components/BillModal';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import withSideScreen from '../components/SideScreenHOC';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBillActive } from '../redux/billFeatureSlice';
+import { setBillActive } from '../redux/features/billFeatureSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     height: '85%',
     justifyContent: 'flex-start',
     marginTop: 40,
+    paddingTop: 5,
     paddingLeft: 15,
     paddingRight: 15,
     width: 358
@@ -48,11 +49,12 @@ const styles = StyleSheet.create({
 
 function Wallet() {
   const dispatch = useDispatch();
-  const walletTransactions = useSelector(state => state.wallet);
+  const transactions = useSelector(state => state.wallet);
   const bills = useSelector(state => state.bill);
 
   let activeBill;
   let activeBillDeposit;
+
   if (bills.length) {
     activeBill = bills.find(bill => bill.active);
     activeBillDeposit = activeBill.depositAmount;
@@ -60,14 +62,19 @@ function Wallet() {
     activeBillDeposit = '0';
   }
 
+  const activeBillId = activeBill.id;
+  const activeBillTransactions = transactions.filter(
+    transaction => transaction.billId === activeBillId
+  );
+
   const [isTransactionModalVisible, makeTransaction] = useState(false);
   const toggleTransactionModal = () =>
     makeTransaction(!isTransactionModalVisible);
   const [isBillModalVisible, makeBill] = useState(false);
   const toggleBillModal = () => makeBill(!isBillModalVisible);
 
-  const selectBill = depositAmount => {
-    dispatch(setBillActive({ depositAmount }));
+  const selectBill = id => {
+    dispatch(setBillActive({ id }));
   };
   return (
     <View style={styles.container}>
@@ -82,9 +89,15 @@ function Wallet() {
         list={bills}
         deposit={activeBillDeposit}
       />
-      {walletTransactions.length ? (
+      {!bills.length && (
+        <Text style={styles.clearHistory}>
+          Для использования кошелька создайте счет с помощью кнопки с плюсом в
+          правом верхнем углу
+        </Text>
+      )}
+      {activeBillTransactions.length && bills.length ? (
         <FlatList
-          data={walletTransactions}
+          data={activeBillTransactions}
           contentContainerStyle={styles.transactionsContainer}
           renderItem={({ item }) => (
             <Transaction
@@ -104,7 +117,10 @@ function Wallet() {
           снизу.
         </Text>
       )}
-      <OpenOperationModalBtn expandModal={toggleTransactionModal} />
+      <OpenOperationModalBtn
+        isActive={!!bills.length}
+        expandModal={toggleTransactionModal}
+      />
 
       <TransactionModal
         isVisible={isTransactionModalVisible}

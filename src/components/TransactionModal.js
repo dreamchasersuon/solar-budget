@@ -4,13 +4,13 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  Picker,
   TouchableOpacity,
   // eslint-disable-next-line react-native/split-platform-components
   TimePickerAndroid,
   // eslint-disable-next-line react-native/split-platform-components
   DatePickerAndroid
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import {
   $BLUE,
   $MEDIUMSILVER,
@@ -23,8 +23,12 @@ import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
 import CustomInput from './Input';
 import ModalHeader from './ModalHeader';
-import { useDispatch } from 'react-redux';
-import { addTransaction } from '../redux/walletFeatureSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTransaction } from '../redux/features/walletFeatureSlice';
+import { withdrawDepositing } from '../redux/features/billFeatureSlice';
+import { depositingToTarget } from '../redux/features/targetFeatureSlice';
+
+import uuid from 'uuid';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -186,10 +190,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     width: '100%'
   },
-  purposeInputItem: {
-    color: $MEDIUMSILVER,
-    fontSize: 3
-  },
   scrollView: { alignItems: 'center' },
   transactionFormWrapper: {
     marginTop: 20,
@@ -217,11 +217,17 @@ export default function TransactionModal({
   toggleTransactionModal
 }) {
   const dispatch = useDispatch();
+  const bills = useSelector(state => state.bill);
+  const targets = useSelector(state => state.target);
   const [purpose, selectPurpose] = useState('');
   const [type, setTransactionType] = useState('income');
   const [amount, setTransactionAmount] = useState('');
-  const [date, chooseDate] = useState(`Дата`);
-  const [time, chooseTime] = useState(`Время`);
+  const [date, chooseDate] = useState(
+    `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
+  );
+  const [time, chooseTime] = useState(
+    `${new Date().getHours()}:${new Date().getMinutes()}`
+  );
   const [description, writeDescription] = useState('Описание');
 
   const setAmount = value => () => {
@@ -257,18 +263,51 @@ export default function TransactionModal({
   }
 
   const createTransaction = () => {
+    const id = uuid(date + time);
+    const activeBill = bills.find(bill => bill.active);
+    const isTarget = targets.find(target => target.id === purpose);
+    const billId = activeBill.id;
+    let targetId;
+    if (isTarget) {
+      targetId = purpose;
+      dispatch(depositingToTarget({ targetId, amount }));
+    } else {
+      targetId = null;
+    }
+
+    let targetName;
+    if (isTarget) {
+      const target = targets.find(target => target.id === targetId);
+      targetName = target.name;
+    }
+
     dispatch(
       addTransaction({
-        purpose,
+        id,
+        billId,
+        targetId: isTarget ? purpose : null,
+        purpose: isTarget ? targetName : purpose,
         description,
         date,
         time,
-        type,
+        type: isTarget ? 'outcome' : type,
         amount
       })
     );
+    dispatch(
+      withdrawDepositing({ type: isTarget ? 'outcome' : type, amount, billId })
+    );
     toggleTransactionModal();
   };
+
+  const mappedTargetsForPicker = [];
+  targets.forEach(target => {
+    const pickerItem = {
+      label: target.name,
+      value: target.id
+    };
+    return mappedTargetsForPicker.push(pickerItem);
+  });
 
   return (
     <Modal animationType="slide" transparent visible={isVisible}>
@@ -288,15 +327,13 @@ export default function TransactionModal({
             <View style={styles.purposeInputContainer}>
               <Text style={styles.label}>Назначение</Text>
               <View style={styles.purposeInput}>
-                <Picker
-                  selectedValue={purpose}
-                  style={styles.purposeInput}
-                  itemStyle={styles.purposeInputItem}
+                <RNPickerSelect
                   onValueChange={(value, index) => selectPurpose(value)}
-                >
-                  <Picker.Item label="Выберите назначение платежа" />
-                  <Picker.Item label="Продукты" value="products" />
-                </Picker>
+                  items={[
+                    { value: 'products', label: 'Продукты' },
+                    ...mappedTargetsForPicker
+                  ]}
+                />
               </View>
             </View>
             <View style={styles.descriptionInputContainer}>

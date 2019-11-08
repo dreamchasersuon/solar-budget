@@ -1,4 +1,7 @@
-import bill, { addBill, setBillActive } from '../src/redux/billFeatureSlice';
+import bill, {
+  addBill,
+  setBillActive
+} from '../src/redux/features/billFeatureSlice';
 
 describe('addBill', () => {
   it('should create target with specified name', () => {
@@ -37,10 +40,10 @@ describe('addBill', () => {
 describe('setBillActive', () => {
   it('should set new active bill', () => {
     const bill = setBillActive({
-      depositAmount: '255'
+      id: '255'
     });
 
-    expect(bill.payload).toEqual({ depositAmount: '255' });
+    expect(bill.payload).toEqual({ id: '255' });
   });
 });
 
@@ -66,19 +69,19 @@ describe('billReducer', () => {
     expect(
       bill(
         [
-          { currency: 'rub', active: true, depositAmount: '302' },
-          { currency: 'rub', active: false, depositAmount: '392' }
+          { id: '1245', currency: 'rub', active: true, depositAmount: '302' },
+          { id: '8735', currency: 'rub', active: false, depositAmount: '392' }
         ],
         {
           type: setBillActive.type,
           payload: {
-            depositAmount: '392'
+            id: '8735'
           }
         }
       )
     ).toEqual([
-      { currency: 'rub', active: false, depositAmount: '302' },
-      { currency: 'rub', active: true, depositAmount: '392' }
+      { id: '1245', currency: 'rub', active: false, depositAmount: '302' },
+      { id: '8735', currency: 'rub', active: true, depositAmount: '392' }
     ]);
   });
 });

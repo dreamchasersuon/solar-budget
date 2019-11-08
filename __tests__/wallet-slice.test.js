@@ -1,4 +1,6 @@
-import wallet, { addTransaction } from '../src/redux/walletFeatureSlice';
+import wallet, {
+  addTransaction
+} from '../src/redux/features/walletFeatureSlice';
 
 describe('addTransaction', () => {
   it('should generate debit transaction', () => {

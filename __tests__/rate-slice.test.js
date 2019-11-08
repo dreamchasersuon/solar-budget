@@ -1,4 +1,7 @@
-import rate, { addRate, removeRate } from '../src/redux/rateFeatureSlice';
+import rate, {
+  addRate,
+  removeRate
+} from '../src/redux/features/rateFeatureSlice';
 
 describe('addRate', () => {
   it('should create target with specified name', () => {

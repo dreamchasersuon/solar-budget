@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import CreateTargetModal from '../components/CreateTargetModal';
 import withSideScreen from '../components/SideScreenHOC';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTargetActive } from '../redux/targetFeatureSlice';
+import { setTargetActive } from '../redux/features/targetFeatureSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,10 +24,13 @@ const styles = StyleSheet.create({
   transactionsContainer: {
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 20,
-    height: '60%',
+    height: '85%',
     justifyContent: 'flex-start',
-    width: '90%'
+    marginTop: 40,
+    paddingTop: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: 358
   },
   clearHistory: {
     textAlign: 'center',
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
 
 function Targets() {
   const dispatch = useDispatch();
-  const transactions = useSelector(state => state.wallet.targetId);
+
   const targets = useSelector(state => state.target);
 
   let activeTarget;
@@ -53,11 +56,16 @@ function Targets() {
     activeTargetPrice = '0';
   }
 
+  const transactions = useSelector(state => state.wallet);
+  const activeTransactions = transactions.filter(
+    transaction => (transaction.targetId = activeTarget.id)
+  );
+
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
 
-  const selectTarget = depositAmount => {
-    dispatch(setTargetActive({ depositAmount }));
+  const selectTarget = id => {
+    dispatch(setTargetActive({ id }));
   };
   return (
     <View style={styles.container}>
@@ -71,9 +79,9 @@ function Targets() {
         list={targets}
         deposit={activeTargetPrice}
       />
-      {transactions !== undefined ? (
+      {activeTransactions.length > 0 ? (
         <FlatList
-          data={transactions}
+          data={activeTransactions}
           contentContainerStyle={styles.transactionsContainer}
           renderItem={({ item }) => (
             <Transaction

@@ -6,7 +6,7 @@ import { $BLUE } from '../constants/colorLiterals';
 import SelectedRatePair from '../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addRate, removeRate } from '../redux/rateFeatureSlice';
+import { addRate, removeRate } from '../redux/features/rateFeatureSlice';
 
 const styles = StyleSheet.create({
   button: {

@@ -1,11 +1,13 @@
-import user from './userFeatureSlice';
-import wallet from './walletFeatureSlice';
-import target from './targetFeatureSlice';
-import rate from './rateFeatureSlice';
-import settings from './settingsFeatureSlice';
-import bill from './billFeatureSlice';
+import user from './features/userFeatureSlice';
+import wallet from './features/walletFeatureSlice';
+import target from './features/targetFeatureSlice';
+import rate from './features/rateFeatureSlice';
+import settings from './features/settingsFeatureSlice';
+import bill from './features/billFeatureSlice';
+import rehydrate from './features/rehydrateFeatureSlice';
 
 export default {
+  rehydrate,
   user,
   wallet,
   bill,

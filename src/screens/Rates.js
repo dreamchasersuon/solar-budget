@@ -5,11 +5,9 @@ import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
-import RatesContainer from '../components/RatesContainer';
 import RatePair from '../components/RatePair';
 import AddRatePairModal from '../components/AddRatePairModal';
 import withSideScreen from '../components/SideScreenHOC';
-import Transaction from '../components/Transaction';
 import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
@@ -77,7 +75,7 @@ function Rates() {
           Курсы валют не выбраны. Для выбора курса нажмите на кнопку снизу
         </Text>
       )}
-      <OpenOperationModalBtn expandModal={toggleAddRatePairModal} />
+      <OpenOperationModalBtn isActive expandModal={toggleAddRatePairModal} />
       <AddRatePairModal
         isVisible={isAddRatePairModalVisible}
         toggleAddRatePairModal={toggleAddRatePairModal}

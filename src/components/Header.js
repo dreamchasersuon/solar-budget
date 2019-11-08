@@ -160,6 +160,7 @@ export default function Header({
               horizontal
               contentContainerStyle={styles.billsContainer}
               data={list}
+              keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 <BlueButton
                   title={item.name}
@@ -175,7 +176,7 @@ export default function Header({
                       ? styles.buttonTextStyle
                       : styles.buttonTextStyleUnselected
                   }
-                  handleOnPress={() => handleOnPress(item.depositAmount)}
+                  handleOnPress={() => handleOnPress(item.id)}
                 />
               )}
             />
