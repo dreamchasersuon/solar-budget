@@ -93,12 +93,12 @@ function Wallet() {
         list={bills}
         deposit={activeBillDeposit}
       />
-      {bills.length === 0 ? (
+      {bills.length === 0 && (
         <Text style={styles.clearHistory}>
           Для использования кошелька создайте счет с помощью кнопки с плюсом в
           правом верхнем углу
         </Text>
-      ) : null}
+      )}
       {bills.length > 0 && !activeBillTransactions.length && (
         <Text style={styles.clearHistory}>
           Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку

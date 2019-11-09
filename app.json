@@ -28,16 +28,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ios-solar-budget",
-      "publishBundlePath": "ios/solar-budget/Supporting/shell-app.bundle",
-      "publishManifestPath": "ios/solar-budget/Supporting/shell-app-manifest.json"
+      "bundleIdentifier": "ios-solar-budget"
     },
     "isDetached": false,
     "scheme": "exp37638b9cb1c94c8e9043775a75b45947",
     "android": {
-      "package": "android.solar.budget",
-      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
-      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+      "package": "android.solar.budget"
     }
   }
 }

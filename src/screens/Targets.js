@@ -60,7 +60,7 @@ function Targets() {
   let activeTransactions = [];
   if (targets.length) {
     activeTransactions = transactions.filter(
-      transaction => (transaction.targetId = activeTarget.id)
+      transaction => transaction.targetId === activeTarget.id
     );
   }
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
@@ -81,14 +81,14 @@ function Targets() {
         list={targets}
         deposit={activeTargetPrice}
       />
-      {targets.length === 0 ? (
+      {targets.length === 0 && (
         <Text style={styles.clearHistory}>
           Создайте цель с помощью кнопки с плюсом в правом верхнем углу
         </Text>
-      ) : (
+      )}
+      {targets.length > 0 && !activeTransactions.length && (
         <Text style={styles.clearHistory}>
           У цели нет ни одного платежа. Для создания платежа по цели необходимо
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
           указать название цели в поле "Назначение" транзакции
         </Text>
       )}
@@ -106,7 +106,7 @@ function Targets() {
               type={item.type}
             />
           )}
-          keyExtractor={transaction => transaction.time}
+          keyExtractor={item => item.id}
         />
       ) : null}
       <CreateTargetModal

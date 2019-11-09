@@ -335,7 +335,7 @@ export default function CreateTargetModal({
             }
             handleOnPress={createTarget}
             buttonStyle={styles.buttonFinish}
-            buttonText="Завершить"
+            buttonText="Создать"
           />
         </View>
       </View>

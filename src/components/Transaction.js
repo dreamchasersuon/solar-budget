@@ -91,10 +91,10 @@ export default function Transaction({
 
       <View style={styles.bodyData}>
         {type === 'income' ? (
-          <Text style={styles.bodyTransactionValue}>`+${amount}`</Text>
+          <Text style={styles.bodyTransactionValue}>+{amount}</Text>
         ) : (
           <Text style={[styles.bodyTransactionValue, { color: $RED }]}>
-            `-${amount}`
+            -{amount}
           </Text>
         )}
         <Text style={styles.bodyTransactionTarget}>{about}</Text>
