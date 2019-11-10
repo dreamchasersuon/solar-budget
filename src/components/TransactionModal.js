@@ -366,10 +366,26 @@ export default function TransactionModal({
               >
                 <RNPickerSelect
                   onValueChange={(value, index) => onSelectPurpose(value)}
+                  style={{
+                    inputAndroid: {
+                      backgroundColor: 'transparent',
+                      top: 2,
+                      fontSize: 10
+                    },
+                    iconContainer: {
+                      top: 5,
+                      right: 15
+                    }
+                  }}
+                  useNativeAndroidPickerStyle={false}
                   items={[
                     { value: 'products', label: 'Продукты' },
                     ...mappedTargetsForPicker
                   ]}
+                  placeholder={{
+                    label: 'Выберите назначение',
+                    value: null
+                  }}
                 />
               </View>
             </View>
