@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     elevation: 8,
-    height: '80%',
+    height: '95%',
     width: '100%'
   },
   modalHiddenArea: {
@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   transactionInputWrapper: {
-    marginTop: 15,
     paddingBottom: 20
   }
 });

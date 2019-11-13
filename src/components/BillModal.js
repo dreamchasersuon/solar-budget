@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   transactionInputWrapper: {
-    marginTop: 15,
     paddingBottom: 20
   }
 });
