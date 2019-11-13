@@ -28,8 +28,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction } from '../redux/features/walletFeatureSlice';
 import { withdrawDepositing } from '../redux/features/billFeatureSlice';
 import { depositingToTarget } from '../redux/features/targetFeatureSlice';
-
 import uuid from 'uuid';
+import bringInCash from '../utils/dotSeparation';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -456,7 +456,7 @@ export default function TransactionModal({
                   }
                   placeholder={type === 'income' ? '+ 0' : '- 0'}
                   placeholderColor={isValidAmount ? $BLUE : $RED}
-                  initial={amount}
+                  initial={bringInCash(amount)}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>

@@ -15,6 +15,7 @@ import ModalHeader from './ModalHeader';
 import { useDispatch } from 'react-redux';
 import { addBill, setBillActive } from '../redux/features/billFeatureSlice';
 import uuid from 'uuid';
+import bringInCash from '../utils/dotSeparation';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -254,7 +255,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
                   }
                   placeholder="+ 0"
                   placeholderColor={isValid ? $BLUE : $RED}
-                  initial={depositAmount}
+                  initial={bringInCash(depositAmount)}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>

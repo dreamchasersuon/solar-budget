@@ -8,6 +8,7 @@ import {
   $RED
 } from '../constants/colorLiterals';
 import { View, StyleSheet, Text } from 'react-native';
+import bringInCash from '../utils/dotSeparation';
 
 const styles = StyleSheet.create({
   bodyData: {
@@ -91,10 +92,12 @@ export default function Transaction({
 
       <View style={styles.bodyData}>
         {type === 'income' ? (
-          <Text style={styles.bodyTransactionValue}>+{amount}</Text>
+          <Text style={styles.bodyTransactionValue}>
+            +{bringInCash(amount)}
+          </Text>
         ) : (
           <Text style={[styles.bodyTransactionValue, { color: $RED }]}>
-            -{amount}
+            -{bringInCash(amount)}
           </Text>
         )}
         <Text style={styles.bodyTransactionTarget}>{about}</Text>

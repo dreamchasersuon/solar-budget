@@ -18,6 +18,7 @@ import {
   setTargetActive
 } from '../redux/features/targetFeatureSlice';
 import uuid from 'uuid';
+import bringInCash from '../utils/dotSeparation';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -308,7 +309,7 @@ export default function CreateTargetModal({
                   }
                   placeholder="+ 0"
                   placeholderColor={isValidAmount ? $BLUE : $RED}
-                  initial={depositAmount}
+                  initial={bringInCash(depositAmount)}
                   isEditable={false}
                 />
                 <View style={styles.numericBoard}>

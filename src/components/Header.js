@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import CreateBillButton from './CreateBillButton';
 import BackButton from './BackButton';
 import NavigationService from '../navigation/service';
+import bringInCash from '../utils/dotSeparation';
 
 const styles = StyleSheet.create({
   billsContainer: {
@@ -144,7 +145,7 @@ export default function Header({
             )}
             <BlueButton
               iconStyle={styles.iconBalance}
-              title={deposit}
+              title={bringInCash(deposit)}
               icon
               buttonStyle={styles.buttonStyle}
               buttonTextStyle={styles.buttonTextStyle}
