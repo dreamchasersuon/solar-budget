@@ -66,6 +66,7 @@ export default function AcceptPinCode() {
         `PIN-CODE ${activeUser.pinCode} и ${pinCode} не совпадает`
       );
     }
+
     NavigationService.navigate('AddFingerprint');
   }
 

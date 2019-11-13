@@ -6,6 +6,8 @@ import NavigationService from '../navigation/service';
 import InfoPost from '../components/InfoPost';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
+// eslint-disable-next-line import/no-namespace
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const styles = StyleSheet.create({
   buttonText: {
@@ -49,7 +51,24 @@ const styles = StyleSheet.create({
 
 export default function AddFingerprint() {
   const goBack = () => NavigationService.goBack();
-  const goTo = roteName => () => NavigationService.navigate(roteName);
+  const goTo = roteName => NavigationService.navigate(roteName);
+
+  const hasFingerprint = async () => {
+    const fingerprint = await LocalAuthentication.supportedAuthenticationTypesAsync();
+    return fingerprint.find(type => type === 1);
+  };
+
+  const useFingerprint = async () => {
+    if (await hasFingerprint()) {
+      try {
+        await LocalAuthentication.authenticateAsync();
+        goTo('App');
+      } catch (e) {
+        throw new Error('Попробуйте еще раз');
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header} />
@@ -64,11 +83,11 @@ export default function AddFingerprint() {
       </InfoPost>
       <View style={styles.buttonsContainer}>
         <MajorBlueButton
-          handleOnPress={goTo('App')}
+          handleOnPress={useFingerprint}
           buttonText="Использовать"
         />
         <SecondaryButton
-          handleOnPress={goTo('App')}
+          handleOnPress={() => goTo('App')}
           buttonTextStyle={styles.buttonText}
           buttonText="Позже"
         />

@@ -31,7 +31,7 @@ const userSlice = createSlice({
         notifications: true,
         pinCode: null,
         pinHash: null,
-        fingerprint: null,
+        fingerprint: false,
         avatar: null
       });
     },
