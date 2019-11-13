@@ -36,6 +36,7 @@ export default function CustomInput({
             value={initial}
             style={inputStyle}
             placeholder={placeholder}
+            onChangeText={handleChange}
             secureTextEntry={isHiddenPassword}
           />
           {isHiddenPassword && (

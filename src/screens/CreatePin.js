@@ -4,6 +4,10 @@ import NavigationService from '../navigation/service';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPinCode } from '../redux/features/userFeatureSlice';
+// eslint-disable-next-line import/no-commonjs
+const CryptoJS = require('crypto-js');
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -44,6 +48,9 @@ const styles = StyleSheet.create({
 });
 
 export default function CreatePinCode() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.find(user => user.active));
+
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
 
@@ -57,6 +64,9 @@ export default function CreatePinCode() {
   };
 
   if (pinCode.length === 4) {
+    const pinHash = CryptoJS.enc.Hex.parse(`${pinCode} ${user.login}`);
+
+    dispatch(createPinCode({ pinCode, pinHash }));
     setPin('');
     NavigationService.navigate('AcceptPin');
   }

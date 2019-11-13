@@ -4,6 +4,7 @@ import NavigationService from '../navigation/service';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
+import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -44,6 +45,9 @@ const styles = StyleSheet.create({
 });
 
 export default function AcceptPinCode() {
+  const users = useSelector(state => state.user);
+  const activeUser = users.find(user => user.active);
+
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
 
@@ -57,6 +61,11 @@ export default function AcceptPinCode() {
 
   if (pinCode.length === 4) {
     setPin('');
+    if (activeUser.pinCode !== pinCode) {
+      throw new Error(
+        `PIN-CODE ${activeUser.pinCode} и ${pinCode} не совпадает`
+      );
+    }
     NavigationService.navigate('AddFingerprint');
   }
 

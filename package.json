@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@zeit/swr": "^0.0.2",
+    "crypto-js": "^3.1.9-1",
     "expo": "^35.0.0",
     "expo-font": "~7.0.0",
     "expo-secure-store": "~7.0.0",
@@ -34,7 +35,6 @@
     "react-native-picker-select": "^6.3.3",
     "react-native-reanimated": "~1.2.0",
     "react-native-screens": "^2.0.0-alpha.4",
-    "react-native-snap-carousel": "^3.8.4",
     "react-native-svg": "9.9.2",
     "react-native-swiper": "^1.5.14",
     "react-navigation": "^4.0.10",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import NavigationService from '../navigation/service';
 import CreationHeader from '../components/CreationHeader';
@@ -8,6 +8,8 @@ import SecondaryButton from '../components/SecondaryButton';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/Input';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { useDispatch } from 'react-redux';
+import { createByCredentials } from '../redux/features/userFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonTextWithNote: {
@@ -52,8 +54,29 @@ const styles = StyleSheet.create({
 });
 
 export default function Creation() {
+  const dispatch = useDispatch();
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatedPassword, setRepeatedPassword] = useState('');
+
+  const validatePasswords = () =>
+    password.length && repeatedPassword.length && password === repeatedPassword;
+  const createUser = () => {
+    if (!validatePasswords()) {
+      console.log(`Пароли ${password} и ${repeatedPassword} не совпадают`);
+      return;
+    }
+    dispatch(
+      createByCredentials({
+        login,
+        password
+      })
+    );
+
+    goTo('CreatePin');
+  };
   const goBack = () => NavigationService.goBack();
-  const goTo = routeName => () => NavigationService.navigate(routeName);
+  const goTo = routeName => NavigationService.navigate(routeName);
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -73,6 +96,8 @@ export default function Creation() {
           labelStyle={styles.label}
           label="Имя аккаунта"
           placeholder="Введите имя"
+          initial={login}
+          handleChange={value => setLogin(value)}
         />
         <CustomInput
           inputStyle={styles.input}
@@ -81,6 +106,8 @@ export default function Creation() {
           hasMargin
           labelStyle={[styles.label, styles.marginTop]}
           password
+          initial={password}
+          handleChange={value => setPassword(value)}
         />
         <CustomInput
           inputStyle={styles.input}
@@ -89,15 +116,14 @@ export default function Creation() {
           hasMargin
           labelStyle={[styles.label, styles.marginTop]}
           password
+          initial={repeatedPassword}
+          handleChange={value => setRepeatedPassword(value)}
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton
-          buttonText="Создать"
-          handleOnPress={goTo('CreatePin')}
-        />
+        <MajorBlueButton buttonText="Создать" handleOnPress={createUser} />
         <SecondaryButton
-          handleOnPress={goTo('LoginCredentials')}
+          handleOnPress={() => goTo('LoginCredentials')}
           buttonText="ВОЙТИ"
           hasNote
           buttonTextStyle={styles.buttonTextWithNote}

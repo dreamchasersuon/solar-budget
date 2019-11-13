@@ -8,7 +8,6 @@ const billSlice = createSlice({
       state.push(action.payload);
     },
     withdrawDepositing(state, action) {
-      console.log(action);
       state.map(bill => {
         if (bill.id === action.payload.billId) {
           if (action.payload.type === 'income') {
