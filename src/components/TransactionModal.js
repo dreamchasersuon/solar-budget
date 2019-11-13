@@ -297,7 +297,9 @@ export default function TransactionModal({
     let targetId;
     if (isTarget) {
       targetId = purpose;
-      dispatch(depositingToTarget({ targetId, amount }));
+      dispatch(
+        depositingToTarget({ id, targetId, amount, date, time, type: 'income' })
+      );
     } else {
       targetId = null;
     }

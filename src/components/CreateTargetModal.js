@@ -211,6 +211,7 @@ export default function CreateTargetModal({
         name,
         currency,
         depositAmount,
+        deposit: [],
         active: true
       })
     );

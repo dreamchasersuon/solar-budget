@@ -24,6 +24,7 @@ const targetSlice = createSlice({
     depositingToTarget(state, action) {
       state.map(target => {
         if (target.id === action.payload.targetId) {
+          target.deposit.push(action.payload);
           return (target.depositAmount = `${Number(target.depositAmount) -
             Number(action.payload.amount)}`);
         }

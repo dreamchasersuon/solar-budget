@@ -49,20 +49,15 @@ function Targets() {
 
   let activeTarget;
   let activeTargetPrice;
+  let transactions;
   if (targets.length) {
     activeTarget = targets.find(target => target.active);
+    transactions = activeTarget.deposit;
     activeTargetPrice = activeTarget.depositAmount;
   } else {
     activeTargetPrice = '0';
   }
 
-  const transactions = useSelector(state => state.wallet);
-  let activeTransactions = [];
-  if (targets.length) {
-    activeTransactions = transactions.filter(
-      transaction => transaction.targetId === activeTarget.id
-    );
-  }
   const [isCreateTargetModalVisible, makeTarget] = useState(false);
   const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
 
@@ -86,20 +81,21 @@ function Targets() {
           Создайте цель с помощью кнопки с плюсом в правом верхнем углу
         </Text>
       )}
-      {targets.length > 0 && !activeTransactions.length && (
+      {targets.length > 0 && !transactions && (
         <Text style={styles.clearHistory}>
           У цели нет ни одного платежа. Для создания платежа по цели необходимо
           указать название цели в поле "Назначение" транзакции
         </Text>
       )}
-      {activeTransactions.length > 0 ? (
+      {transactions ? (
         <FlatList
-          data={activeTransactions}
+          data={transactions}
+          extraData={transactions}
           contentContainerStyle={styles.transactionsContainer}
           renderItem={({ item }) => (
             <Transaction
-              purpose={item.purpose}
-              about={item.description}
+              purpose={activeTarget.name}
+              about="Платеж по цели"
               amount={item.amount}
               date={item.date}
               time={item.time}
