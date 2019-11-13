@@ -223,11 +223,13 @@ export default function TransactionModal({
   toggleTransactionModal
 }) {
   const dispatch = useDispatch();
+  const bills = useSelector(state => state.bill);
+  const targets = useSelector(state => state.target);
+
   const [isValid, setValidity] = useState(true);
   const [isValidPurpose, setPurposeValidity] = useState(true);
   const [isValidAmount, setAmountValidity] = useState(true);
-  const bills = useSelector(state => state.bill);
-  const targets = useSelector(state => state.target);
+
   const [purpose, selectPurpose] = useState('');
   const [type, setTransactionType] = useState('income');
   const [amount, setTransactionAmount] = useState('');

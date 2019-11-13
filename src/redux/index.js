@@ -7,8 +7,7 @@ const secureStore = createSecureStore();
 
 const persistConfig = {
   key: 'root',
-  storage: secureStore,
-  blacklist: ['wallet', 'target', 'rate', 'bill', 'user']
+  storage: secureStore
 };
 
 const rootReducer = combineReducers(reducers);

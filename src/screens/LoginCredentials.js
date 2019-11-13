@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
@@ -8,6 +8,8 @@ import CustomInput from '../components/Input';
 import MajorBlueButton from '../components/MajorBlueButton';
 import SecondaryButton from '../components/SecondaryButton';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { useDispatch } from 'react-redux';
+import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -61,8 +63,22 @@ const styles = StyleSheet.create({
 });
 
 export default function LoginCredentials() {
+  const dispatch = useDispatch();
+
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+
+  const authorize = () => {
+    try {
+      if (login.length && password.length) {
+        dispatch(authorizeUserByCredentials({ login, password }));
+        NavigationService.navigate('App');
+      }
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  };
   const goBack = () => NavigationService.goBack();
-  const authorize = () => NavigationService.replaceTo('App');
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -85,6 +101,8 @@ export default function LoginCredentials() {
           label="Имя аккаунта"
           labelStyle={styles.label}
           placeholder="Введите имя"
+          initial={login}
+          handleChange={value => setLogin(value)}
         />
         <CustomInput
           label="Пароль"
@@ -93,6 +111,8 @@ export default function LoginCredentials() {
           hasMargin
           labelStyle={[styles.label, styles.marginTop]}
           password
+          initial={password}
+          handleChange={value => setPassword(value)}
         />
       </View>
       <View style={styles.buttonsContainer}>

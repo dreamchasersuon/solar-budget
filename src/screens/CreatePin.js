@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
 
 export default function CreatePinCode() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.find(user => user.active));
 
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
@@ -64,9 +63,7 @@ export default function CreatePinCode() {
   };
 
   if (pinCode.length === 4) {
-    const pinHash = CryptoJS.enc.Hex.parse(`${pinCode} ${user.login}`);
-
-    dispatch(createPinCode({ pinCode, pinHash }));
+    dispatch(createPinCode({ pinCode }));
     setPin('');
     NavigationService.navigate('AcceptPin');
   }

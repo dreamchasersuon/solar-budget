@@ -8,6 +8,8 @@ import NumericBoard from '../components/NumericBoard';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
 import { $BLUE } from '../constants/colorLiterals';
+import { authorizeUserByPinCode } from '../redux/features/userFeatureSlice';
+import { useDispatch } from 'react-redux';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -63,6 +65,8 @@ const styles = StyleSheet.create({
 });
 
 export default function LoginPinCode() {
+  const dispatch = useDispatch();
+
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
   const goTo = routeName => () => NavigationService.navigate(routeName);
@@ -78,6 +82,7 @@ export default function LoginPinCode() {
 
   if (pinCode.length === 4) {
     setPin('');
+    dispatch(authorizeUserByPinCode({ pinCode }));
     NavigationService.navigate('App');
   }
 

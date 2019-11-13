@@ -1,5 +1,6 @@
 import { createSlice } from 'redux-starter-kit';
 import uuid from 'uuid';
+import NavigationService from '../../navigation/service';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
 
@@ -19,7 +20,7 @@ const userSlice = createSlice({
       }
 
       const id = uuid(login);
-      const passwordHash = CryptoJS.enc.Hex.parse(password);
+      const passwordHash = CryptoJS.AES.encrypt(password, login).toString();
 
       state.push({
         id,
@@ -29,20 +30,70 @@ const userSlice = createSlice({
         active: true,
         notifications: true,
         pinCode: null,
+        pinHash: null,
         fingerprint: null,
         avatar: null
       });
     },
     createPinCode(state, action) {
+      const { pinCode } = action.payload;
+
       state.map(user => {
+        if (user.pinCode === pinCode) {
+          throw new Error('Данный PIN-CODE уже используется');
+        }
         if (user.active) {
-          return (user.pinCode = action.payload.pinCode);
+          const pinHash = CryptoJS.AES.encrypt(pinCode, user.login).toString();
+          user.pinCode = pinCode;
+          return (user.pinHash = pinHash);
         }
         return user;
       });
+    },
+    authorizeUserByCredentials(state, action) {
+      const { login, password } = action.payload;
+      const user = state.find(user => user.login === login);
+
+      if (!user) {
+        throw new Error('Пользователя с данным логином не существует.');
+      }
+      const realPassword = CryptoJS.AES.decrypt(
+        user.passwordHash,
+        login
+      ).toString(CryptoJS.enc.Utf8);
+
+      if (realPassword === password) {
+        state.map(user => {
+          if (user.active) {
+            user.active = false;
+          }
+          if (user.login === login) {
+            return (user.active = true);
+          }
+          return user;
+        });
+      }
+    },
+    authorizeUserByPinCode(state, action) {
+      const { pinCode } = action.payload;
+
+      const user = state.find(user => user.pinCode === pinCode);
+      if (!user) {
+        throw new Error('Неверный PIN-CODE.');
+      }
+
+      state.map(user => {
+        user.active = false;
+      });
+      user.active = true;
     }
   }
 });
 
-export const { createByCredentials, createPinCode } = userSlice.actions;
+export const {
+  createByCredentials,
+  createPinCode,
+  authorizeUserByCredentials,
+  authorizeUserByPinCode
+} = userSlice.actions;
 export default userSlice.reducer;
