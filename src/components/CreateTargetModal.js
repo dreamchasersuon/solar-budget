@@ -12,7 +12,7 @@ import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import SecondaryButton from './SecondaryButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addTarget,
   setTargetActive
@@ -170,6 +170,7 @@ export default function CreateTargetModal({
   toggleCreateTargetModal
 }) {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [isValidName, setNameValidity] = useState(true);
   const [isValidAmount, setAmountValidity] = useState(true);
@@ -208,6 +209,7 @@ export default function CreateTargetModal({
     dispatch(
       addTarget({
         id,
+        userId: user.id,
         name,
         currency,
         depositAmount,

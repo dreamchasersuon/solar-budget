@@ -22,6 +22,7 @@ const userSlice = createSlice({
       const id = uuid(login);
       const passwordHash = CryptoJS.AES.encrypt(password, login).toString();
 
+      state.forEach(user => (user.active = false));
       state.push({
         id,
         login,
@@ -82,9 +83,7 @@ const userSlice = createSlice({
         throw new Error('Неверный PIN-CODE.');
       }
 
-      state.map(user => {
-        user.active = false;
-      });
+      state.forEach(user => (user.active = false));
       user.active = true;
     }
   }

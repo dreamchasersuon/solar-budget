@@ -12,7 +12,7 @@ import SecondaryButton from './SecondaryButton';
 import CustomInput from './Input';
 import NumericBoard from './NumericBoard';
 import ModalHeader from './ModalHeader';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addBill, setBillActive } from '../redux/features/billFeatureSlice';
 import uuid from 'uuid';
 import bringInCash from '../utils/dotSeparation';
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
 
 export default function BillModal({ isVisible, toggleBillModal }) {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
@@ -170,7 +171,14 @@ export default function BillModal({ isVisible, toggleBillModal }) {
       return setValidity(false);
     }
     dispatch(
-      addBill({ id, name: currency, currency, depositAmount, active: true })
+      addBill({
+        id,
+        name: currency,
+        userId: user.id,
+        currency,
+        depositAmount,
+        active: true
+      })
     );
     dispatch(setBillActive({ id, depositAmount }));
     setDeposit('');

@@ -225,6 +225,7 @@ export default function TransactionModal({
   const dispatch = useDispatch();
   const bills = useSelector(state => state.bill);
   const targets = useSelector(state => state.target);
+  const user = useSelector(state => state.user.find(user => user.active));
 
   const [isValid, setValidity] = useState(true);
   const [isValidPurpose, setPurposeValidity] = useState(true);
@@ -315,6 +316,7 @@ export default function TransactionModal({
     dispatch(
       addTransaction({
         id,
+        userId: user.id,
         billId,
         targetId: isTarget ? purpose : null,
         purpose: isTarget ? targetName : purpose,

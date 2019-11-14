@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
 function Wallet() {
   const dispatch = useDispatch();
   const transactions = useSelector(state => state.wallet);
-  const bills = useSelector(state => state.bill);
+  const user = useSelector(state => state.user.find(user => user.active));
+  const billState = useSelector(state => state.bill);
+  const bills = billState.filter(bill => bill.userId === user.id);
 
   let activeBill;
   let activeBillDeposit;

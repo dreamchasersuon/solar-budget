@@ -46,7 +46,10 @@ const styles = StyleSheet.create({
 });
 
 function Rates() {
-  const rates = useSelector(state => state.rate);
+  const rateState = useSelector(state => state.rate);
+  const user = useSelector(state => state.user.find(user => user.active));
+  const rates = rateState.filter(rate => rate.userId === user.id);
+
   const [isAddRatePairModalVisible, makeTarget] = useState(false);
   const toggleAddRatePairModal = () => makeTarget(!isAddRatePairModalVisible);
   return (

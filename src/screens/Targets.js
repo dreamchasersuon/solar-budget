@@ -45,7 +45,9 @@ const styles = StyleSheet.create({
 function Targets() {
   const dispatch = useDispatch();
 
-  const targets = useSelector(state => state.target);
+  const targetState = useSelector(state => state.target);
+  const user = useSelector(state => state.user.find(user => user.active));
+  const targets = targetState.filter(target => target.userId === user.id);
 
   let activeTarget;
   let activeTargetPrice;

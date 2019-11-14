@@ -35,6 +35,7 @@ export default function ModalRatePair({
   rateNote
 }) {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.find(user => user.active));
   const rate = useSelector(state => state.rate);
   const currentRate = rate.find(rate => rate.pair === title);
 
@@ -51,6 +52,7 @@ export default function ModalRatePair({
       ? dispatch(removeRate({ pair: title }))
       : dispatch(
           addRate({
+            userId: user.id,
             pair: title,
             percent: ratePercent,
             value: rateValue,
