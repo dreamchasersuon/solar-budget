@@ -4,10 +4,8 @@ import NavigationService from '../navigation/service';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createPinCode } from '../redux/features/userFeatureSlice';
-// eslint-disable-next-line import/no-commonjs
-const CryptoJS = require('crypto-js');
 
 const styles = StyleSheet.create({
   backArrow: {

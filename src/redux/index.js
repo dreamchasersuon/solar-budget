@@ -3,11 +3,13 @@ import { combineReducers } from 'redux';
 import reducers from './reducers';
 import { persistStore, persistReducer } from 'redux-persist';
 import createSecureStore from 'redux-persist-expo-securestore';
+import devToolsEnhancer from 'remote-redux-devtools';
 const secureStore = createSecureStore();
 
 const persistConfig = {
   key: 'root',
-  storage: secureStore
+  storage: secureStore,
+  blacklist: ['user']
 };
 
 const rootReducer = combineReducers(reducers);
@@ -19,6 +21,8 @@ const store = configureStore({
    *   between packages redux-persist and redux-starter-kit
    *   https://github.com/rt2zz/redux-persist/issues/988
    */
+  devTools: false,
+  enhancers: [devToolsEnhancer({ realtime: true })],
   middleware: getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: ['persist/PERSIST']
