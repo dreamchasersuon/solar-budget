@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
+  Image,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -11,6 +12,13 @@ import Header from '../components/Header';
 import Language from '../../assets/language.svg';
 import NavigationService from '../navigation/service';
 import withSideScreen from '../components/SideScreenHOC';
+// eslint-disable-next-line import/no-namespace
+import * as ImagePicker from 'expo-image-picker';
+// eslint-disable-next-line import/no-namespace
+import * as Permissions from 'expo-permissions';
+import DropdownAlert from 'react-native-dropdownalert';
+import { useSelector, useDispatch } from 'react-redux';
+import { addAvatar } from '../redux/features/userFeatureSlice';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -71,6 +79,28 @@ const styles = StyleSheet.create({
 
 //TODO: refactor into smaller components
 function Settings() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.find(user => user.active));
+  const image = user.avatar;
+
+  const askPermissions = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== 'granted') {
+      return this.dropDownAlertRef.alertWithType(
+        'error',
+        'Отклонено',
+        'Для загрузки изображения необходим доступ к камере и галерее.'
+      );
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+    dispatch(addAvatar({ uri: result.uri, userId: user.id }));
+  };
+
   const logout = () => NavigationService.navigate('Auth');
   return (
     <View style={styles.container}>
@@ -82,7 +112,9 @@ function Settings() {
             hasLeftMenu
           />
         </View>
-        <View style={styles.avatar} />
+        <TouchableOpacity onPress={askPermissions}>
+          <Image source={{ uri: image }} style={styles.avatar} />
+        </TouchableOpacity>
       </View>
       <ScrollView>
         <View style={styles.settingsUnitContainer}>
@@ -159,6 +191,9 @@ function Settings() {
       <TouchableOpacity onPress={logout}>
         <Text style={styles.logout}>Выйти</Text>
       </TouchableOpacity>
+      <View>
+        <DropdownAlert ref={ref => (this.dropDownAlertRe = ref)} />
+      </View>
     </View>
   );
 }

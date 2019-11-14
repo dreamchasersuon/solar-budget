@@ -85,6 +85,15 @@ const userSlice = createSlice({
 
       state.forEach(user => (user.active = false));
       user.active = true;
+    },
+    addAvatar(state, action) {
+      const { uri, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          user.avatar = uri;
+        }
+        return user;
+      });
     }
   }
 });
@@ -93,6 +102,7 @@ export const {
   createByCredentials,
   createPinCode,
   authorizeUserByCredentials,
-  authorizeUserByPinCode
+  authorizeUserByPinCode,
+  addAvatar
 } = userSlice.actions;
 export default userSlice.reducer;
