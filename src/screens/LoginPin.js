@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Vibration } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
@@ -7,7 +7,7 @@ import InfoPost from '../components/InfoPost';
 import NumericBoard from '../components/NumericBoard';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
-import { $BLUE } from '../constants/colorLiterals';
+import { $BLUE, $RED } from '../constants/colorLiterals';
 import { authorizeUserByPinCode } from '../redux/features/userFeatureSlice';
 import { useDispatch } from 'react-redux';
 
@@ -61,6 +61,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     width: 240
+  },
+  paginationActive: {
+    backgroundColor: $BLUE,
+    borderRadius: 50,
+    height: 10,
+    width: 10
   }
 });
 
@@ -81,9 +87,13 @@ export default function LoginPinCode() {
   };
 
   if (pinCode.length === 4) {
-    setPin('');
-    dispatch(authorizeUserByPinCode({ pinCode }));
-    NavigationService.navigate('App');
+    try {
+      dispatch(authorizeUserByPinCode({ pinCode }));
+      NavigationService.navigate('App');
+    } catch (e) {
+      setPin('');
+      Vibration.vibrate(500);
+    }
   }
 
   return (
@@ -95,7 +105,11 @@ export default function LoginPinCode() {
         <InfoPost title="Добрый вечер">
           <Pros />
         </InfoPost>
-        <SecurePin noMargins pinCodeLength={pinCode.length} />
+        <SecurePin
+          paginationIndicatorStyle={styles.paginationActive}
+          noMargins
+          pinCodeLength={pinCode.length}
+        />
       </View>
       <NumericBoard
         onPressNumber={value => setPinCode(value)}

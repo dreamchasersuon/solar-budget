@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Vibration } from 'react-native';
 import NavigationService from '../navigation/service';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import { useDispatch } from 'react-redux';
 import { createPinCode } from '../redux/features/userFeatureSlice';
+import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -42,6 +43,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     width: 240
+  },
+  paginationActive: {
+    backgroundColor: $BLUE,
+    borderRadius: 50,
+    height: 10,
+    width: 10
   }
 });
 
@@ -61,15 +68,23 @@ export default function CreatePinCode() {
   };
 
   if (pinCode.length === 4) {
-    dispatch(createPinCode({ pinCode }));
     setPin('');
-    NavigationService.navigate('AcceptPin');
+    try {
+      dispatch(createPinCode({ pinCode }));
+      NavigationService.navigate('AcceptPin');
+    } catch (e) {
+      Vibration.vibrate(500);
+    }
   }
 
   return (
     <View style={styles.container}>
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
-      <SecurePin pinCodeLength={pinCode.length} title="Придумайте PIN-CODE" />
+      <SecurePin
+        paginationIndicatorStyle={styles.paginationActive}
+        pinCodeLength={pinCode.length}
+        title="Придумайте PIN-CODE"
+      />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}
         containerStyle={styles.numericBoardContainerStyle}

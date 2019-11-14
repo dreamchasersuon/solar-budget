@@ -1,4 +1,11 @@
-import { Modal, Text, ScrollView, View, StyleSheet } from 'react-native';
+import {
+  Modal,
+  Text,
+  ScrollView,
+  View,
+  StyleSheet,
+  Vibration
+} from 'react-native';
 import {
   $BLUE,
   $MEDIUMSILVER,
@@ -203,6 +210,7 @@ export default function CreateTargetModal({
       setNameValidity(false);
     }
     if (!depositAmount.length || !name.length) {
+      Vibration.vibrate(500);
       return setValidity(false);
     }
     const id = uuid(name);

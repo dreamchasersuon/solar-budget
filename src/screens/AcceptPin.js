@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Vibration } from 'react-native';
 import NavigationService from '../navigation/service';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import { useSelector } from 'react-redux';
+import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -41,6 +42,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     width: 240
+  },
+  paginationActive: {
+    backgroundColor: $BLUE,
+    borderRadius: 50,
+    height: 10,
+    width: 10
   }
 });
 
@@ -62,9 +69,7 @@ export default function AcceptPinCode() {
   if (pinCode.length === 4) {
     setPin('');
     if (activeUser.pinCode !== pinCode) {
-      throw new Error(
-        `PIN-CODE ${activeUser.pinCode} и ${pinCode} не совпадает`
-      );
+      Vibration.vibrate(500);
     }
 
     NavigationService.navigate('AddFingerprint');
@@ -73,7 +78,11 @@ export default function AcceptPinCode() {
   return (
     <View style={styles.container}>
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
-      <SecurePin pinCodeLength={pinCode.length} title="Подтвердите PIN-CODE" />
+      <SecurePin
+        paginationIndicatorStyle={styles.paginationActive}
+        pinCodeLength={pinCode.length}
+        title="Подтвердите PIN-CODE"
+      />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}
         containerStyle={styles.numericBoardContainerStyle}

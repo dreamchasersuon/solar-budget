@@ -19,12 +19,6 @@ const styles = StyleSheet.create({
     height: 10,
     width: 10
   },
-  paginationActive: {
-    backgroundColor: $BLUE,
-    borderRadius: 50,
-    height: 10,
-    width: 10
-  },
   paginationContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -41,7 +35,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function SecurePin({ title, noMargins, pinCodeLength }) {
+export default function SecurePin({
+  title,
+  noMargins,
+  pinCodeLength,
+  paginationIndicatorStyle
+}) {
   return (
     <View
       style={
@@ -60,22 +59,22 @@ export default function SecurePin({ title, noMargins, pinCodeLength }) {
       >
         <View
           style={
-            pinCodeLength > 0 ? styles.paginationActive : styles.pagination
+            pinCodeLength > 0 ? paginationIndicatorStyle : styles.pagination
           }
         />
         <View
           style={
-            pinCodeLength > 1 ? styles.paginationActive : styles.pagination
+            pinCodeLength > 1 ? paginationIndicatorStyle : styles.pagination
           }
         />
         <View
           style={
-            pinCodeLength > 2 ? styles.paginationActive : styles.pagination
+            pinCodeLength > 2 ? paginationIndicatorStyle : styles.pagination
           }
         />
         <View
           style={
-            pinCodeLength > 3 ? styles.paginationActive : styles.pagination
+            pinCodeLength > 3 ? paginationIndicatorStyle : styles.pagination
           }
         />
       </View>

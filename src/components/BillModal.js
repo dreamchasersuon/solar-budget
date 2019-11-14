@@ -1,4 +1,11 @@
-import { Modal, Text, StyleSheet, ScrollView, View } from 'react-native';
+import {
+  Modal,
+  Text,
+  StyleSheet,
+  ScrollView,
+  View,
+  Vibration
+} from 'react-native';
 import {
   $BLUE,
   $MEDIUMSILVER,
@@ -168,6 +175,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
   const createBill = () => {
     const id = uuid(currency + depositAmount);
     if (!isValid || !depositAmount.length) {
+      Vibration.vibrate(500);
       return setValidity(false);
     }
     dispatch(

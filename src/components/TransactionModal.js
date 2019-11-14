@@ -8,7 +8,8 @@ import {
   // eslint-disable-next-line react-native/split-platform-components
   TimePickerAndroid,
   // eslint-disable-next-line react-native/split-platform-components
-  DatePickerAndroid
+  DatePickerAndroid,
+  Vibration
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {
@@ -291,6 +292,7 @@ export default function TransactionModal({
       setPurposeValidity(false);
     }
     if (!amount.length || !purpose.length) {
+      Vibration.vibrate(500);
       return setValidity(false);
     }
     const id = uuid(date);

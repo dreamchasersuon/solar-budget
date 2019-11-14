@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Vibration
+} from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
@@ -75,7 +81,7 @@ export default function LoginCredentials() {
         NavigationService.navigate('App');
       }
     } catch (e) {
-      throw new Error(e.message);
+      Vibration.vibrate(500);
     }
   };
   const goBack = () => NavigationService.goBack();
