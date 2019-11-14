@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Image,
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  StatusBar
 } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
@@ -80,13 +81,14 @@ const styles = StyleSheet.create({
 //TODO: refactor into smaller components
 function Settings() {
   const dispatch = useDispatch();
+  const dropDownRef = useRef(null);
   const user = useSelector(state => state.user.find(user => user.active));
   const image = user.avatar;
 
   const askPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status !== 'granted') {
-      return this.dropDownAlertRef.alertWithType(
+      return dropDownRef.alertWithType(
         'error',
         'Отклонено',
         'Для загрузки изображения необходим доступ к камере и галерее.'
@@ -191,9 +193,15 @@ function Settings() {
       <TouchableOpacity onPress={logout}>
         <Text style={styles.logout}>Выйти</Text>
       </TouchableOpacity>
-      <View>
-        <DropdownAlert ref={ref => (this.dropDownAlertRe = ref)} />
-      </View>
+      <DropdownAlert
+        defaultContainer={{
+          padding: 8,
+          paddingTop: StatusBar.currentHeight,
+          flexDirection: 'row'
+        }}
+        updateStatusBar={false}
+        ref={dropDownRef}
+      />
     </View>
   );
 }

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Vibration } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, Vibration, StatusBar } from 'react-native';
 import NavigationService from '../navigation/service';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import { useSelector } from 'react-redux';
 import { $BLUE } from '../constants/colorLiterals';
+import DropdownAlert from 'react-native-dropdownalert';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -55,6 +56,8 @@ export default function AcceptPinCode() {
   const users = useSelector(state => state.user);
   const activeUser = users.find(user => user.active);
 
+  const dropDownRef = useRef(null);
+
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
 
@@ -69,7 +72,8 @@ export default function AcceptPinCode() {
   if (pinCode.length === 4) {
     setPin('');
     if (activeUser.pinCode !== pinCode) {
-      Vibration.vibrate(500);
+      dropDownRef.current.alertWithType('error', 'Неверный PIN-CODE', '');
+      return Vibration.vibrate(500);
     }
 
     NavigationService.navigate('AddFingerprint');
@@ -92,6 +96,15 @@ export default function AcceptPinCode() {
         bigDelete
         needNullAlignment
         numberStyle={styles.numberStyle}
+      />
+      <DropdownAlert
+        defaultContainer={{
+          padding: 8,
+          paddingTop: StatusBar.currentHeight,
+          flexDirection: 'row'
+        }}
+        updateStatusBar={false}
+        ref={dropDownRef}
       />
     </View>
   );

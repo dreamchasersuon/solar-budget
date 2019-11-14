@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  Vibration
+  Vibration,
+  StatusBar
 } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
@@ -16,6 +17,7 @@ import SecondaryButton from '../components/SecondaryButton';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
+import DropdownAlert from 'react-native-dropdownalert';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -71,6 +73,7 @@ const styles = StyleSheet.create({
 export default function LoginCredentials() {
   const dispatch = useDispatch();
 
+  const dropDownRef = useRef(null);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
@@ -81,6 +84,11 @@ export default function LoginCredentials() {
         NavigationService.navigate('App');
       }
     } catch (e) {
+      dropDownRef.current.alertWithType(
+        'error',
+        'Пароли не совпадают',
+        e.message
+      );
       Vibration.vibrate(500);
     }
   };
@@ -128,6 +136,15 @@ export default function LoginCredentials() {
           buttonText="Забыли пароль?"
         />
       </View>
+      <DropdownAlert
+        defaultContainer={{
+          padding: 8,
+          paddingTop: StatusBar.currentHeight,
+          flexDirection: 'row'
+        }}
+        updateStatusBar={false}
+        ref={dropDownRef}
+      />
     </KeyboardAvoidingView>
   );
 }

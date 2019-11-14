@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar
+} from 'react-native';
 import NavigationService from '../navigation/service';
 import CreationHeader from '../components/CreationHeader';
 import InfoPost from '../components/InfoPost';
@@ -10,6 +16,7 @@ import CustomInput from '../components/Input';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { createByCredentials } from '../redux/features/userFeatureSlice';
+import DropdownAlert from 'react-native-dropdownalert';
 
 const styles = StyleSheet.create({
   buttonTextWithNote: {
@@ -55,6 +62,8 @@ const styles = StyleSheet.create({
 
 export default function Creation() {
   const dispatch = useDispatch();
+
+  const dropDownRef = useRef(null);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [repeatedPassword, setRepeatedPassword] = useState('');
@@ -63,8 +72,11 @@ export default function Creation() {
     password.length && repeatedPassword.length && password === repeatedPassword;
   const createUser = () => {
     if (!validatePasswords()) {
-      console.log(`Пароли ${password} и ${repeatedPassword} не совпадают`);
-      return;
+      return dropDownRef.current.alertWithType(
+        'error',
+        'Пароли не совпадают',
+        ''
+      );
     }
     dispatch(
       createByCredentials({
@@ -130,6 +142,15 @@ export default function Creation() {
           noteText="Уже зарегистрированы?"
         />
       </View>
+      <DropdownAlert
+        defaultContainer={{
+          padding: 8,
+          paddingTop: StatusBar.currentHeight,
+          flexDirection: 'row'
+        }}
+        updateStatusBar={false}
+        ref={dropDownRef}
+      />
     </KeyboardAvoidingView>
   );
 }

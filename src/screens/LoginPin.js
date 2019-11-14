@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Vibration } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, Vibration, StatusBar } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
@@ -7,9 +7,10 @@ import InfoPost from '../components/InfoPost';
 import NumericBoard from '../components/NumericBoard';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
-import { $BLUE, $RED } from '../constants/colorLiterals';
+import { $BLUE } from '../constants/colorLiterals';
 import { authorizeUserByPinCode } from '../redux/features/userFeatureSlice';
 import { useDispatch } from 'react-redux';
+import DropdownAlert from 'react-native-dropdownalert';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
 export default function LoginPinCode() {
   const dispatch = useDispatch();
 
+  const dropDownRef = useRef(null);
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
   const goTo = routeName => () => NavigationService.navigate(routeName);
@@ -87,11 +89,16 @@ export default function LoginPinCode() {
   };
 
   if (pinCode.length === 4) {
+    setPin('');
     try {
       dispatch(authorizeUserByPinCode({ pinCode }));
       NavigationService.navigate('App');
     } catch (e) {
-      setPin('');
+      dropDownRef.current.alertWithType(
+        'error',
+        'Пароли не совпадают',
+        e.message
+      );
       Vibration.vibrate(500);
     }
   }
@@ -134,6 +141,15 @@ export default function LoginPinCode() {
           noteText="Не зарегистрированы?"
         />
       </View>
+      <DropdownAlert
+        defaultContainer={{
+          padding: 8,
+          paddingTop: StatusBar.currentHeight,
+          flexDirection: 'row'
+        }}
+        updateStatusBar={false}
+        ref={dropDownRef}
+      />
     </View>
   );
 }
