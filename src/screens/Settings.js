@@ -20,6 +20,8 @@ import * as Permissions from 'expo-permissions';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';
 import { addAvatar } from '../redux/features/userFeatureSlice';
+// eslint-disable-next-line import/no-namespace
+import * as MailComposer from 'expo-mail-composer';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -103,6 +105,11 @@ function Settings() {
     dispatch(addAvatar({ uri: result.uri, userId: user.id }));
   };
 
+  const mailTechnicalSupport = async () => {
+    const supportEmail = 'formulatim@gmail.com';
+    await MailComposer.composeAsync({ recipients: [supportEmail] });
+  };
+
   const logout = () => NavigationService.navigate('Auth');
   return (
     <View style={styles.container}>
@@ -173,7 +180,10 @@ function Settings() {
               <Text>Оценить приложение</Text>
             </React.Fragment>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity
+            style={styles.settingsUnit}
+            onPress={mailTechnicalSupport}
+          >
             <React.Fragment>
               <Text>Техническая поддержка</Text>
             </React.Fragment>
