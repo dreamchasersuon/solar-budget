@@ -37,40 +37,37 @@ export default function ModalRatePair({
 }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.find(user => user.active));
-  const rate = useSelector(state => state.rate);
-  const currentRate = rate.find(rate => rate.pair === title);
+  const rateState = useSelector(state => state.rate);
 
-  const onSelectRatePair = () => {
-    let select;
-    const id = uuid(rateValue);
-
-    if (!currentRate) {
-      select = true;
-    } else {
-      select = !currentRate.selected;
+  function onSelectRatePair() {
+    if (rateState.length) {
+      if (
+        rateState.find(rate => rate.pair === title && rate.userId === user.id)
+      ) {
+        return dispatch(removeRate({ pair: title, userId: user.id }));
+      }
     }
+    dispatch(
+      addRate({
+        id: uuid(title),
+        userId: user.id,
+        pair: title,
+        percent: ratePercent,
+        value: rateValue,
+        note: rateNote
+      })
+    );
+  }
 
-    !select
-      ? dispatch(removeRate({ pair: title }))
-      : dispatch(
-          addRate({
-            id,
-            userId: user.id,
-            pair: title,
-            percent: ratePercent,
-            value: rateValue,
-            note: rateNote,
-            selected: select
-          })
-        );
-  };
-
-  const renderSelectButton = () => {
-    if (currentRate === undefined) {
-      return <UnselectedRatePair />;
-    }
-    return currentRate ? <SelectedRatePair /> : <UnselectedRatePair />;
-  };
+  function renderSelectButton() {
+    return rateState.find(
+      rate => rate.pair === title && rate.userId === user.id
+    ) ? (
+      <SelectedRatePair />
+    ) : (
+      <UnselectedRatePair />
+    );
+  }
 
   return (
     <View style={styles.container}>

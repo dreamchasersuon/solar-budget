@@ -8,7 +8,8 @@ const rateSlice = createSlice({
       state.push(action.payload);
     },
     removeRate(state, action) {
-      return state.filter(rate => rate.pair !== action.payload.pair);
+      const { pair, userId } = action.payload;
+      state.pop(rate => rate.pair === pair && rate.userId === userId);
     }
   }
 });

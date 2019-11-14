@@ -337,11 +337,13 @@ export default function TransactionModal({
 
   const mappedTargetsForPicker = [];
   targets.forEach(target => {
-    const pickerItem = {
-      label: target.name,
-      value: target.id
-    };
-    return mappedTargetsForPicker.push(pickerItem);
+    if (target.userId === user.id) {
+      const pickerItem = {
+        label: target.name,
+        value: target.id
+      };
+      return mappedTargetsForPicker.push(pickerItem);
+    }
   });
 
   return (
