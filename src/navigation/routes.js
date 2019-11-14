@@ -20,6 +20,7 @@ import CreatePinCode from '../screens/CreatePin';
 import AcceptPinCode from '../screens/AcceptPin';
 import Fingerprint from '../screens/Fingerprint';
 import LoginPin from '../screens/LoginPin';
+import SelectAccount from '../screens/SelectAccount';
 import { $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
@@ -193,6 +194,9 @@ const AuthStack = createStackNavigator(
     Welcome: {
       screen: Welcome
     },
+    Accounts: {
+      screen: SelectAccount
+    },
     LoginCredentials: {
       screen: LoginCredentials
     },
@@ -213,7 +217,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'Accounts',
     headerMode: 'none',
     transitionConfig
   }
@@ -230,7 +234,7 @@ const AppStack = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'App'
+    initialRouteName: 'Auth'
   }
 );
 

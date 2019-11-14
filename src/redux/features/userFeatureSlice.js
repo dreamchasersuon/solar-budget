@@ -33,7 +33,8 @@ const userSlice = createSlice({
         pinCode: null,
         pinHash: null,
         fingerprint: false,
-        avatar: null
+        avatar: null,
+        multiAccountSelect: false
       });
     },
     createPinCode(state, action) {
@@ -103,6 +104,19 @@ const userSlice = createSlice({
         }
         return user;
       });
+    },
+    multiAccountSelect(state, action) {
+      const { userId } = action.payload;
+
+      state.map(user => {
+        if (user.multiAccountSelect) {
+          user.multiAccountSelect = false;
+        }
+        if (user.id === userId) {
+          user.multiAccountSelect = true;
+        }
+        return user;
+      });
     }
   }
 });
@@ -113,6 +127,7 @@ export const {
   authorizeUserByCredentials,
   authorizeUserByPinCode,
   addAvatar,
-  enableFingerprint
+  enableFingerprint,
+  multiAccountSelect
 } = userSlice.actions;
 export default userSlice.reducer;

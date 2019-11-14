@@ -1,9 +1,9 @@
-'use strict';
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import NavigationService from '../navigation/service';
 import MajorBlueButton from '../components/MajorBlueButton';
 import Slider from '../components/Slider';
+import { useSelector } from 'react-redux';
 
 const styles = StyleSheet.create({
   buttonsContainer: {
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Welcome() {
+  const users = useSelector(state => state.user);
   const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
     <View style={styles.container}>
@@ -45,7 +46,10 @@ export default function Welcome() {
           handleOnPress={goTo('Creation')}
           buttonText="Создать аккаунт"
         />
-        <MajorBlueButton handleOnPress={goTo('LoginPin')} buttonText="Войти" />
+        <MajorBlueButton
+          handleOnPress={users.length > 1 ? goTo('Accounts') : goTo('LoginPin')}
+          buttonText="Войти"
+        />
       </View>
     </View>
   );
