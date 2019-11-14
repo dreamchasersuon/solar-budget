@@ -213,7 +213,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'LoginPin',
     headerMode: 'none',
     transitionConfig
   }

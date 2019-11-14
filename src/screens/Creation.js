@@ -57,6 +57,13 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: 30
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 10,
+    maxWidth: 220,
+    textAlign: 'center'
   }
 });
 
@@ -99,6 +106,7 @@ export default function Creation() {
         title="Анонимность"
         note="Только вы можете просматривать свои данные. Никакой привязки к соц.
         сетям и сквозной аналитики"
+        titleStyle={styles.title}
       >
         <Pros />
       </InfoPost>

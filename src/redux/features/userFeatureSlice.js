@@ -94,6 +94,15 @@ const userSlice = createSlice({
         }
         return user;
       });
+    },
+    enableFingerprint(state, action) {
+      const { userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          user.fingerprint = true;
+        }
+        return user;
+      });
     }
   }
 });
@@ -103,6 +112,7 @@ export const {
   createPinCode,
   authorizeUserByCredentials,
   authorizeUserByPinCode,
-  addAvatar
+  addAvatar,
+  enableFingerprint
 } = userSlice.actions;
 export default userSlice.reducer;

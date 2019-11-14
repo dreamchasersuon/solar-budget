@@ -12,7 +12,9 @@ export default function NumericBoard({
   bigDelete,
   hasFingerprint,
   needNullAlignment,
-  onPressNumber
+  onPressNumber,
+  onPressFingerprint,
+  isFingerprintEnabled
 }) {
   return (
     <View style={wrapperStyle}>
@@ -71,7 +73,11 @@ export default function NumericBoard({
         number="9"
       />
       {hasFingerprint && (
-        <NumericUnit containerStyle={containerStyle} iconFingerprint />
+        <NumericUnit
+          containerStyle={containerStyle}
+          onPress={onPressFingerprint}
+          iconFingerprint
+        />
       )}
       <NumericUnit
         containerStyle={

@@ -67,6 +67,13 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: 30
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 10,
+    maxWidth: 220,
+    textAlign: 'center'
   }
 });
 
@@ -106,6 +113,7 @@ export default function LoginCredentials() {
         note="Войдите с помощью логина и пароля. Если вы забыли пароль -
           воспользуйтесь формой"
         extendedNote="восстановления пароля"
+        titleStyle={styles.title}
       >
         <Pros />
       </InfoPost>

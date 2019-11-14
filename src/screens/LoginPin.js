@@ -9,8 +9,10 @@ import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
 import { $BLUE } from '../constants/colorLiterals';
 import { authorizeUserByPinCode } from '../redux/features/userFeatureSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DropdownAlert from 'react-native-dropdownalert';
+// eslint-disable-next-line import/no-namespace
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -68,16 +70,25 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 10,
     width: 10
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 10,
+    maxWidth: 220,
+    textAlign: 'center'
   }
 });
 
 export default function LoginPinCode() {
   const dispatch = useDispatch();
 
+  const user = useSelector(state => state.user.find(user => user.active));
+
   const dropDownRef = useRef(null);
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
-  const goTo = routeName => () => NavigationService.navigate(routeName);
+  const goTo = routeName => NavigationService.navigate(routeName);
 
   const setPinCode = value => () => {
     if (pinCode.length === 4) return;
@@ -103,13 +114,46 @@ export default function LoginPinCode() {
     }
   }
 
+  const useFingerprint = async () => {
+    if (user.fingerprint !== null) {
+      dropDownRef.current.alertWithType(
+        'info',
+        'Сканирование запущено',
+        'Пожалуйста, приложите отпечаток пальца к сенсору.'
+      );
+      await scanFingerprint();
+    } else {
+      return dropDownRef.current.alertWithType(
+        'error',
+        'Несовместимое устройство',
+        'На данном устройстве нет возможности сканирования отпечатка пальца.'
+      );
+    }
+  };
+
+  const scanFingerprint = async () => {
+    const result = await LocalAuthentication.authenticateAsync();
+    if (result.success) {
+      dropDownRef.current.alertWithType('success', 'Отпечаток распознан', '');
+      setTimeout(() => {
+        goTo('App');
+      }, 1000);
+    } else {
+      dropDownRef.current.alertWithType(
+        'error',
+        'Отпечаток не распознан',
+        'Попробуйте отсканировать еще раз.'
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
       <View>
-        <InfoPost title="Добрый вечер">
+        <InfoPost title="Добрый вечер" titleStyle={styles.title}>
           <Pros />
         </InfoPost>
         <SecurePin
@@ -120,9 +164,11 @@ export default function LoginPinCode() {
       </View>
       <NumericBoard
         onPressNumber={value => setPinCode(value)}
+        onPressFingerprint={useFingerprint}
         hasDelete
         bigDelete
         hasFingerprint
+        isFingerprintEnabled
         wrapperStyle={styles.numericBoardWrapperStyle}
         containerStyle={styles.numericBoardContainerStyle}
         numberStyle={styles.numberStyle}
@@ -130,12 +176,12 @@ export default function LoginPinCode() {
       <View style={styles.buttonsContainer}>
         <SecondaryButton
           buttonTextStyle={styles.buttonText}
-          handleOnPress={goTo('LoginCredentials')}
+          handleOnPress={() => goTo('LoginCredentials')}
           buttonText="Использовать логин и пароль"
         />
         <SecondaryButton
           buttonTextStyle={styles.buttonTextWithNote}
-          handleOnPress={goTo('Creation')}
+          handleOnPress={() => goTo('Creation')}
           buttonText="РЕГИСТРАЦИЯ"
           hasNote
           noteText="Не зарегистрированы?"

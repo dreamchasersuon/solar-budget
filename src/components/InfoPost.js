@@ -16,21 +16,20 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     textAlign: 'center',
     width: 250
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginTop: 10,
-    maxWidth: 220,
-    textAlign: 'center'
   }
 });
 
-export default function InfoPost({ children, title, note, extendedNote }) {
+export default function InfoPost({
+  children,
+  title,
+  note,
+  extendedNote,
+  titleStyle
+}) {
   return (
     <View style={styles.container}>
       {children}
-      <Text style={styles.title}>{title}</Text>
+      <Text style={titleStyle}>{title}</Text>
       {note && <Text style={styles.note}>{note}</Text>}
       {extendedNote && <Text style={styles.extendedNote}>{extendedNote}</Text>}
     </View>
