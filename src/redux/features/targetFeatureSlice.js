@@ -8,14 +8,16 @@ const targetSlice = createSlice({
       state.push(action.payload);
     },
     setTargetActive(state, action) {
+      const { id, userId } = action.payload;
+
       state.forEach(target => {
-        if (target.active) {
+        if (target.active && target.userId === userId) {
           target.active = false;
         }
         return target;
       });
       state.forEach(target => {
-        if (target.id === action.payload.id) {
+        if (target.id === id) {
           target.active = true;
         }
         return target;

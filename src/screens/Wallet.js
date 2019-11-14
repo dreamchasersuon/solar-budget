@@ -80,7 +80,7 @@ function Wallet() {
   const toggleBillModal = () => makeBill(!isBillModalVisible);
 
   const selectBill = id => {
-    dispatch(setBillActive({ id }));
+    dispatch(setBillActive({ id, userId: user.id }));
   };
   return (
     <View style={styles.container}>

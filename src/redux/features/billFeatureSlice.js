@@ -21,14 +21,15 @@ const billSlice = createSlice({
       });
     },
     setBillActive(state, action) {
+      const { id, userId } = action.payload;
       state.forEach(bill => {
-        if (bill.active) {
+        if (bill.active && bill.userId === userId) {
           bill.active = false;
         }
         return bill;
       });
       state.forEach(bill => {
-        if (bill.id === action.payload.id) {
+        if (bill.id === id) {
           bill.active = true;
         }
         return bill;

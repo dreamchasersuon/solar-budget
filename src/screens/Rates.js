@@ -71,7 +71,7 @@ function Rates() {
               ratePercent={item.percent}
             />
           )}
-          keyExtractor={transaction => transaction.time}
+          keyExtractor={item => item.userId}
         />
       ) : (
         <Text style={styles.clearHistory}>

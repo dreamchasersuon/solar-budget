@@ -7,6 +7,7 @@ import SelectedRatePair from '../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRate, removeRate } from '../redux/features/rateFeatureSlice';
+import uuid from 'uuid';
 
 const styles = StyleSheet.create({
   button: {
@@ -41,6 +42,7 @@ export default function ModalRatePair({
 
   const onSelectRatePair = () => {
     let select;
+    const id = uuid(rateValue);
 
     if (!currentRate) {
       select = true;
@@ -52,6 +54,7 @@ export default function ModalRatePair({
       ? dispatch(removeRate({ pair: title }))
       : dispatch(
           addRate({
+            id,
             userId: user.id,
             pair: title,
             percent: ratePercent,

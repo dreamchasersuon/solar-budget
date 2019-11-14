@@ -180,7 +180,7 @@ export default function BillModal({ isVisible, toggleBillModal }) {
         active: true
       })
     );
-    dispatch(setBillActive({ id, depositAmount }));
+    dispatch(setBillActive({ id, userId: user.id }));
     setDeposit('');
     toggleBillModal();
   };

@@ -51,7 +51,7 @@ function Targets() {
 
   let activeTarget;
   let activeTargetPrice;
-  let transactions;
+  let transactions = [];
   if (targets.length) {
     activeTarget = targets.find(target => target.active);
     transactions = activeTarget.deposit;
@@ -83,13 +83,13 @@ function Targets() {
           Создайте цель с помощью кнопки с плюсом в правом верхнем углу
         </Text>
       )}
-      {targets.length > 0 && !transactions && (
+      {targets.length > 0 && !transactions.length && (
         <Text style={styles.clearHistory}>
           У цели нет ни одного платежа. Для создания платежа по цели необходимо
           указать название цели в поле "Назначение" транзакции
         </Text>
       )}
-      {transactions ? (
+      {transactions.length ? (
         <FlatList
           data={transactions}
           extraData={transactions}

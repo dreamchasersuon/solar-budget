@@ -217,7 +217,7 @@ export default function CreateTargetModal({
         active: true
       })
     );
-    dispatch(setTargetActive({ id }));
+    dispatch(setTargetActive({ id, userId: user.id }));
     setTargetPrice('');
     setTargetName('');
     toggleCreateTargetModal();
