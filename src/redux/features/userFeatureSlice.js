@@ -1,8 +1,9 @@
 import { createSlice } from 'redux-starter-kit';
 import uuid from 'uuid';
-import NavigationService from '../../navigation/service';
+import { useDispatch } from 'react-redux';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
+const dispatch = useDispatch();
 
 const userSlice = createSlice({
   name: 'user',
@@ -39,25 +40,23 @@ const userSlice = createSlice({
     },
     createPinCode(state, action) {
       const { pinCode } = action.payload;
-
       state.map(user => {
         if (user.pinCode === pinCode) {
           throw new Error('Данный PIN-CODE уже используется');
         }
         if (user.active) {
-          const pinHash = CryptoJS.AES.encrypt(pinCode, user.login).toString();
-          user.pinCode = pinCode;
-          return (user.pinHash = pinHash);
+          return (user.pinCode = pinCode);
         }
         return user;
       });
     },
+    // TODO: extract encryption
     authorizeUserByCredentials(state, action) {
       const { login, password } = action.payload;
       const user = state.find(user => user.login === login);
 
       if (!user) {
-        throw new Error('Пользователя с данным логином не существует.');
+        throw new Error('Пользователь не найден.');
       }
       const decryptedPassword = CryptoJS.AES.decrypt(
         user.passwordHash,
@@ -77,37 +76,23 @@ const userSlice = createSlice({
       }
     },
     authorizeUserByPinCode(state, action) {
-      const { pinCode } = action.payload;
-      const { user } = state;
-      const multiAccountSelectedUser = user.find(
-        user => user.multiAccountSelect
+      const { pinCode, login } = action.payload;
+      const user = state.find(
+        user => user.login === login && user.pinCode === pinCode
       );
-      const userPinHash = multiAccountSelectedUser
-        ? multiAccountSelectedUser.pinHash
-        : user[0].pinHash;
-      const userLogin = multiAccountSelectedUser
-        ? multiAccountSelectedUser.login
-        : user[0].login;
-
-      const decryptedPin = CryptoJS.AES.decrypt(
-        userPinHash,
-        userLogin
-      ).toString(CryptoJS.enc.Utf8);
-
-      if (decryptedPin === pinCode) {
-        state.map(user => {
-          if (user.active) {
-            user.active = false;
-          }
-          if (user.login === user[0].login) {
-            return (user.active = true);
-          }
-          return user;
-        });
+      if (!user) {
+        throw new Error('Пользователь не найден.');
       }
 
-      state.forEach(user => (user.active = false));
-      user.active = true;
+      state.map(user => {
+        if (user.active) {
+          user.active = false;
+        }
+        if (user.login === login) {
+          return (user.active = true);
+        }
+        return user;
+      });
     },
     addAvatar(state, action) {
       const { uri, userId } = action.payload;
@@ -128,12 +113,12 @@ const userSlice = createSlice({
       });
     },
     fingerprintScanning(state, action) {
-      const { userLogin } = action.payload;
+      const { login } = action.payload;
       state.map(user => {
         if (user.active) {
           user.active = false;
         }
-        if (user.login === userLogin) {
+        if (user.login === login) {
           user.active = true;
         }
         return user;
@@ -141,13 +126,42 @@ const userSlice = createSlice({
     },
     multiAccountSelect(state, action) {
       const { userId } = action.payload;
-
       state.map(user => {
         if (user.multiAccountSelect) {
           user.multiAccountSelect = false;
         }
         if (user.id === userId) {
-          user.multiAccountSelect = true;
+          return (user.multiAccountSelect = true);
+        }
+        return user;
+      });
+    },
+    updateUserLogin(state, action) {
+      const { login, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          dispatch(updateUserPasswordHash({ login, password: user.password }));
+          return (user.login = login);
+        }
+        return user;
+      });
+    },
+    updateUserPassword(state, action) {
+      const { password, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          dispatch(updateUserPasswordHash({ login: user.login, password }));
+          return (user.password = password);
+        }
+        return user;
+      });
+    },
+    updateUserPasswordHash(state, action) {
+      const { login, password } = action.payload;
+      state.map(user => {
+        if (user.login === login) {
+          const passwordHash = CryptoJS.AES.encrypt(password, login).toString();
+          return (user.passwordHash = passwordHash);
         }
         return user;
       });
@@ -163,6 +177,9 @@ export const {
   addAvatar,
   enableFingerprint,
   multiAccountSelect,
-  fingerprintScanning
+  fingerprintScanning,
+  updateUserPasswordHash,
+  updateUserLogin,
+  updateUserPassword
 } = userSlice.actions;
 export default userSlice.reducer;

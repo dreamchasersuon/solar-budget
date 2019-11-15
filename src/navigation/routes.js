@@ -33,10 +33,13 @@ const transitionConfig = () => {
     },
     screenInterpolator: sceneProps => {
       const { position, layout, scene, index, scenes } = sceneProps;
-      const toIndex = index;
+
       const thisSceneIndex = scene.index;
       const height = layout.initHeight;
       const width = layout.initWidth;
+
+      // We can access our navigation params on the scene's 'route' property
+      const thisSceneParams = scene.route.params || {};
 
       const translateX = position.interpolate({
         inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
@@ -44,24 +47,30 @@ const transitionConfig = () => {
       });
 
       const translateY = position.interpolate({
-        inputRange: [0, thisSceneIndex],
-        outputRange: [height, 0]
+        inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+        outputRange: [height, 0, 0]
+      });
+
+      const opacity = position.interpolate({
+        inputRange: [thisSceneIndex - 1, thisSceneIndex - 0.5, thisSceneIndex],
+        outputRange: [0, 1, 1]
+      });
+
+      const scale = position.interpolate({
+        inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+        outputRange: [4, 1, 1]
       });
 
       const slideFromRight = { transform: [{ translateX }] };
-      const slideFromBottom = { transform: [{ translateY }] };
+      const scaleWithOpacity = {
+        opacity,
+        transform: [{ scaleX: scale }, { scaleY: scale }]
+      };
+      const slideInFromBottom = { transform: [{ translateY }] };
 
-      const lastSceneIndex = scenes[scenes.length - 1].index;
-
-      if (lastSceneIndex - toIndex > 1) {
-        if (scene.index === toIndex) return;
-
-        if (scene.index !== lastSceneIndex) return { opacity: 0 };
-
-        return slideFromBottom;
-      }
-
-      return slideFromRight;
+      if (thisSceneParams.plain) return slideFromRight;
+      else if (index < 5) return slideInFromBottom;
+      return scaleWithOpacity;
     }
   };
 };

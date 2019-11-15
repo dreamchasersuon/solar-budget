@@ -145,7 +145,7 @@ export default function LoginPinCode() {
     const result = await LocalAuthentication.authenticateAsync();
     if (result.success) {
       dropDownRef.current.alertWithType('success', 'Отпечаток распознан', '');
-      dispatch(fingerprintScanning({ userLogin: user.login }));
+      dispatch(fingerprintScanning({ login: user.login }));
       setTimeout(() => {
         goTo('App');
       }, 1000);

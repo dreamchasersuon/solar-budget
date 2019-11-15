@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Image,
@@ -8,12 +8,7 @@ import {
   ScrollView,
   StatusBar
 } from 'react-native';
-import {
-  $BLUE,
-  $LIGHTSILVER,
-  $MEDIUMSILVER,
-  $RED
-} from '../constants/colorLiterals';
+import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import Language from '../../assets/language.svg';
 import NavigationService from '../navigation/service';
@@ -27,7 +22,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addAvatar } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
-import SettingsImg from '../../assets/settings.svg';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -86,7 +80,6 @@ const styles = StyleSheet.create({
   }
 });
 
-//TODO: refactor into smaller components
 function Settings({ navigation }) {
   const dispatch = useDispatch();
   const dropDownRef = useRef(null);
