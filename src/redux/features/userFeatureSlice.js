@@ -59,12 +59,12 @@ const userSlice = createSlice({
       if (!user) {
         throw new Error('Пользователя с данным логином не существует.');
       }
-      const realPassword = CryptoJS.AES.decrypt(
+      const decryptedPassword = CryptoJS.AES.decrypt(
         user.passwordHash,
         login
       ).toString(CryptoJS.enc.Utf8);
 
-      if (realPassword === password) {
+      if (decryptedPassword === password) {
         state.map(user => {
           if (user.active) {
             user.active = false;
@@ -78,10 +78,32 @@ const userSlice = createSlice({
     },
     authorizeUserByPinCode(state, action) {
       const { pinCode } = action.payload;
+      const { user } = state;
+      const multiAccountSelectedUser = user.find(
+        user => user.multiAccountSelect
+      );
+      const userPinHash = multiAccountSelectedUser
+        ? multiAccountSelectedUser.pinHash
+        : user[0].pinHash;
+      const userLogin = multiAccountSelectedUser
+        ? multiAccountSelectedUser.login
+        : user[0].login;
 
-      const user = state.find(user => user.pinCode === pinCode);
-      if (!user) {
-        throw new Error('Неверный PIN-CODE.');
+      const decryptedPin = CryptoJS.AES.decrypt(
+        userPinHash,
+        userLogin
+      ).toString(CryptoJS.enc.Utf8);
+
+      if (decryptedPin === pinCode) {
+        state.map(user => {
+          if (user.active) {
+            user.active = false;
+          }
+          if (user.login === user[0].login) {
+            return (user.active = true);
+          }
+          return user;
+        });
       }
 
       state.forEach(user => (user.active = false));
@@ -101,6 +123,18 @@ const userSlice = createSlice({
       state.map(user => {
         if (user.id === userId) {
           user.fingerprint = true;
+        }
+        return user;
+      });
+    },
+    fingerprintScanning(state, action) {
+      const { userLogin } = action.payload;
+      state.map(user => {
+        if (user.active) {
+          user.active = false;
+        }
+        if (user.login === userLogin) {
+          user.active = true;
         }
         return user;
       });
@@ -128,6 +162,7 @@ export const {
   authorizeUserByPinCode,
   addAvatar,
   enableFingerprint,
-  multiAccountSelect
+  multiAccountSelect,
+  fingerprintScanning
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -8,7 +8,10 @@ import NumericBoard from '../components/NumericBoard';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
 import { $BLUE } from '../constants/colorLiterals';
-import { authorizeUserByPinCode } from '../redux/features/userFeatureSlice';
+import {
+  authorizeUserByPinCode,
+  fingerprintScanning
+} from '../redux/features/userFeatureSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import DropdownAlert from 'react-native-dropdownalert';
 // eslint-disable-next-line import/no-namespace
@@ -83,7 +86,14 @@ const styles = StyleSheet.create({
 export default function LoginPinCode() {
   const dispatch = useDispatch();
 
-  const user = useSelector(state => state.user.find(user => user.active));
+  const users = useSelector(state => state.user);
+  const userWithMultipleAccounts = users.find(user => user.multiAccountSelect);
+  let user;
+  if (!userWithMultipleAccounts) {
+    user = users[0];
+  } else {
+    user = userWithMultipleAccounts;
+  }
 
   const dropDownRef = useRef(null);
   const [pinCode, setPin] = useState('');
@@ -135,6 +145,7 @@ export default function LoginPinCode() {
     const result = await LocalAuthentication.authenticateAsync();
     if (result.success) {
       dropDownRef.current.alertWithType('success', 'Отпечаток распознан', '');
+      dispatch(fingerprintScanning({ userLogin: user.login }));
       setTimeout(() => {
         goTo('App');
       }, 1000);
