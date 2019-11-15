@@ -1,7 +1,5 @@
 import { createSlice } from 'redux-starter-kit';
 import uuid from 'uuid';
-import { store } from '../index';
-import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
 
@@ -139,7 +137,6 @@ const userSlice = createSlice({
     updateUserLogin(state, action) {
       const { login, userId } = action.payload;
       state.map(user => {
-        console.log(user, login);
         if (user.id === userId) {
           return (user.login = login);
         }
@@ -161,6 +158,39 @@ const userSlice = createSlice({
         if (user.login === login) {
           const passwordHash = CryptoJS.AES.encrypt(password, login).toString();
           return (user.passwordHash = passwordHash);
+        }
+        return user;
+      });
+    },
+    validateUserPassword(state, action) {
+      const { password, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          if (user.password === password) {
+            return user;
+          }
+          throw new Error('Неверный пароль');
+        }
+        return user;
+      });
+    },
+    validatePinCode(state, action) {
+      const { pinCode, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          if (user.pinCode === pinCode) {
+            return user;
+          }
+          throw new Error('Неверный PIN-CODE');
+        }
+        return user;
+      });
+    },
+    updateUserPinCode(state, action) {
+      const { pinCode, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          return (user.pinCode = pinCode);
         }
         return user;
       });
@@ -197,6 +227,9 @@ export const {
   fingerprintScanning,
   updateUserLogin,
   updateUserPassword,
-  updateUserPasswordHash
+  updateUserPasswordHash,
+  validateUserPassword,
+  updateUserPinCode,
+  validatePinCode
 } = userSlice.actions;
 export default userSlice.reducer;

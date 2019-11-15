@@ -86,6 +86,10 @@ function Settings() {
   const dispatch = useDispatch();
   const dropDownRef = useRef(null);
 
+  const [changePasswordPermissions, setChangePasswordPermissions] = useState(
+    false
+  );
+
   const [isLoginModalVisible, toggleLoginModal] = useState(false);
   const toggleUpdateLoginModal = () => toggleLoginModal(!isLoginModalVisible);
 
@@ -120,6 +124,7 @@ function Settings() {
   };
 
   const logout = () => NavigationService.navigate('Auth');
+  const goTo = route => NavigationService.navigate(route);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -182,7 +187,10 @@ function Settings() {
               <Text>Изменить пароль</Text>
             </React.Fragment>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity
+            style={styles.settingsUnit}
+            onPress={() => goTo('ChangePinCode')}
+          >
             <React.Fragment>
               <Text>Изменить PIN-CODE</Text>
             </React.Fragment>

@@ -21,6 +21,7 @@ import AcceptPinCode from '../screens/AcceptPin';
 import Fingerprint from '../screens/Fingerprint';
 import LoginPin from '../screens/LoginPin';
 import SelectAccount from '../screens/SelectAccount';
+import ChangePinCode from '../screens/ChangePinCode';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
@@ -140,6 +141,18 @@ const TargetsScreen = createStackNavigator({
 const SettingsScreen = createStackNavigator({
   Settings: {
     screen: Settings,
+    navigationOptions: {
+      header: null,
+      headerStyle: {
+        marginLeft: 30,
+        marginTop: 20,
+        borderBottomWidth: 0,
+        elevation: 0
+      }
+    }
+  },
+  ChangePinCode: {
+    screen: ChangePinCode,
     navigationOptions: {
       header: null,
       headerStyle: {
