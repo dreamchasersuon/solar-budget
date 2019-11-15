@@ -11,10 +11,7 @@ import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import SecondaryButton from './SecondaryButton';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  updateUserLogin,
-  updateUserPassword
-} from '../redux/features/userFeatureSlice';
+import { updateUserLogin } from '../redux/features/userFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
