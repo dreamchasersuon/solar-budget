@@ -24,14 +24,19 @@ export default function InfoPost({
   title,
   note,
   extendedNote,
-  titleStyle
+  titleStyle,
+  handleOnPress
 }) {
   return (
     <View style={styles.container}>
       {children}
       <Text style={titleStyle}>{title}</Text>
       {note && <Text style={styles.note}>{note}</Text>}
-      {extendedNote && <Text style={styles.extendedNote}>{extendedNote}</Text>}
+      {extendedNote && (
+        <Text onPress={handleOnPress} style={styles.extendedNote}>
+          {extendedNote}
+        </Text>
+      )}
     </View>
   );
 }

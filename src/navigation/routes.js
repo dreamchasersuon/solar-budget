@@ -22,6 +22,8 @@ import Fingerprint from '../screens/Fingerprint';
 import LoginPin from '../screens/LoginPin';
 import SelectAccount from '../screens/SelectAccount';
 import ChangePinCode from '../screens/ChangePinCode';
+import ForgotPassword from '../screens/ForgotPassword';
+import ValidatePinCode from '../screens/ValidatePinCode';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
@@ -234,6 +236,12 @@ const AuthStack = createStackNavigator(
     LoginCredentials: {
       screen: LoginCredentials
     },
+    ForgotPassword: {
+      screen: ForgotPassword
+    },
+    ValidatePinCode: {
+      screen: ValidatePinCode
+    },
     Creation: {
       screen: Creation
     },
@@ -268,7 +276,7 @@ const AppStack = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'App'
+    initialRouteName: 'Auth'
   }
 );
 

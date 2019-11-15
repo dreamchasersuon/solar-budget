@@ -114,8 +114,8 @@ export default function Creation() {
         <CustomInput
           inputStyle={styles.input}
           labelStyle={styles.label}
-          label="Имя аккаунта"
-          placeholder="Введите имя"
+          label="Логин"
+          placeholder="Введите логин"
           initial={login}
           handleChange={value => setLogin(value)}
         />

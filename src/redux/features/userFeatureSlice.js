@@ -176,15 +176,13 @@ const userSlice = createSlice({
     },
     validatePinCode(state, action) {
       const { pinCode, userId } = action.payload;
-      state.map(user => {
-        if (user.id === userId) {
-          if (user.pinCode === pinCode) {
-            return user;
-          }
-          throw new Error('Неверный PIN-CODE');
-        }
-        return user;
+      const user = state.find(user => {
+        return user.id === userId && user.pinCode === pinCode;
       });
+      if (user) {
+        return state;
+      }
+      throw new Error('Неверный PIN-CODE');
     },
     updateUserPinCode(state, action) {
       const { pinCode, userId } = action.payload;

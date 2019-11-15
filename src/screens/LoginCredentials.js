@@ -100,6 +100,7 @@ export default function LoginCredentials() {
     }
   };
   const goBack = () => NavigationService.goBack();
+  const goTo = route => NavigationService.navigate(route);
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -114,15 +115,16 @@ export default function LoginCredentials() {
           воспользуйтесь формой"
         extendedNote="восстановления пароля"
         titleStyle={styles.title}
+        handleOnPress={() => goTo('ForgotPassword')}
       >
         <Pros />
       </InfoPost>
       <View style={styles.form}>
         <CustomInput
           inputStyle={styles.input}
-          label="Имя аккаунта"
+          label="Логин"
           labelStyle={styles.label}
-          placeholder="Введите имя"
+          placeholder="Введите логин"
           initial={login}
           handleChange={value => setLogin(value)}
         />
@@ -142,6 +144,7 @@ export default function LoginCredentials() {
         <SecondaryButton
           buttonTextStyle={styles.buttonText}
           buttonText="Забыли пароль?"
+          handleOnPress={() => goTo('ForgotPassword')}
         />
       </View>
       <DropdownAlert
