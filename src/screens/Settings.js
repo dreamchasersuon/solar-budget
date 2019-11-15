@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   Image,
@@ -22,6 +22,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addAvatar } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
+import UpdateLoginModal from '../components/ModalUpdateLogin';
+import UpdatePasswordModal from '../components/ModalUpdatePassword';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -35,8 +37,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: $LIGHTSILVER,
-    elevation: 8,
-    height: '100%'
+    ...StyleSheet.absoluteFillObject,
+    elevation: 8
   },
   header: {
     alignItems: 'center',
@@ -80,9 +82,16 @@ const styles = StyleSheet.create({
   }
 });
 
-function Settings({ navigation }) {
+function Settings() {
   const dispatch = useDispatch();
   const dropDownRef = useRef(null);
+
+  const [isLoginModalVisible, toggleLoginModal] = useState(false);
+  const toggleUpdateLoginModal = () => toggleLoginModal(!isLoginModalVisible);
+
+  const [isPasswordModalVisible, togglePasswordModal] = useState(false);
+  const toggleUpdatePasswordModal = () =>
+    togglePasswordModal(!isPasswordModalVisible);
 
   const user = useSelector(state => state.user.find(user => user.active));
   const image = user.avatar;
@@ -157,12 +166,18 @@ function Settings({ navigation }) {
               <Text>Использовать отпечаток пальца</Text>
             </React.Fragment>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity
+            style={styles.settingsUnit}
+            onPress={toggleUpdateLoginModal}
+          >
             <React.Fragment>
               <Text>Изменить логин</Text>
             </React.Fragment>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity
+            style={styles.settingsUnit}
+            onPress={toggleUpdatePasswordModal}
+          >
             <React.Fragment>
               <Text>Изменить пароль</Text>
             </React.Fragment>
@@ -211,6 +226,14 @@ function Settings({ navigation }) {
         }}
         updateStatusBar={false}
         ref={dropDownRef}
+      />
+      <UpdateLoginModal
+        isVisible={isLoginModalVisible}
+        toggleUpdateLoginModal={toggleUpdateLoginModal}
+      />
+      <UpdatePasswordModal
+        isVisible={isPasswordModalVisible}
+        toggleUpdatePasswordModal={toggleUpdatePasswordModal}
       />
     </View>
   );

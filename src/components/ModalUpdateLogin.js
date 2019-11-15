@@ -11,14 +11,14 @@ import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import SecondaryButton from './SecondaryButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserLogin } from '../redux/features/userFeatureSlice';
+import { updateUserLoginThunk } from '../redux/features/userFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
-    marginBottom: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 20
+    marginTop: 20,
+    marginBottom: 20
   },
   buttonTextStyle: { color: $BLUE, fontSize: 16 },
   closeModal: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 30,
     justifyContent: 'center',
-    marginLeft: 110,
+    marginLeft: 60,
     width: 30
   },
   headerModalStyle: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
-    marginLeft: 150,
+    marginLeft: 80,
     marginTop: 20
   },
   label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     elevation: 8,
-    height: '95%',
+    height: '31%',
     width: '100%'
   },
   modalHiddenArea: {
@@ -107,7 +107,9 @@ export default function UpdateLoginModal({
       return setValidity(false);
     }
 
-    dispatch(updateUserLogin({ login, userId: user.id }));
+    dispatch(
+      updateUserLoginThunk({ password: user.password, login, userId: user.id })
+    );
 
     setLogin('');
     toggleUpdateLoginModal();
@@ -132,22 +134,22 @@ export default function UpdateLoginModal({
                   : [styles.purposeInput, { color: $RED, borderColor: $RED }]
               }
               placeholder="Введите новый логин"
-              label="Название"
+              label="Новый логин"
               labelStyle={isValidName ? styles.label : styles.labelInvalid}
               handleChange={value => onTypeLogin(value)}
             />
           </View>
+          <SecondaryButton
+            buttonTextStyle={
+              isValid
+                ? styles.buttonTextStyle
+                : [styles.buttonTextStyle, { color: $RED }]
+            }
+            handleOnPress={updateLogin}
+            buttonStyle={styles.buttonFinish}
+            buttonText="Обновить"
+          />
         </View>
-        <SecondaryButton
-          buttonTextStyle={
-            isValid
-              ? styles.buttonTextStyle
-              : [styles.buttonTextStyle, { color: $RED }]
-          }
-          handleOnPress={updateLogin}
-          buttonStyle={styles.buttonFinish}
-          buttonText="Обновить"
-        />
       </View>
     </Modal>
   );

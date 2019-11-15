@@ -1,9 +1,9 @@
 import { createSlice } from 'redux-starter-kit';
 import uuid from 'uuid';
-import { useDispatch } from 'react-redux';
+import { store } from '../index';
+import { useSelector } from 'react-redux';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
-const dispatch = useDispatch();
 
 const userSlice = createSlice({
   name: 'user',
@@ -139,8 +139,8 @@ const userSlice = createSlice({
     updateUserLogin(state, action) {
       const { login, userId } = action.payload;
       state.map(user => {
+        console.log(user, login);
         if (user.id === userId) {
-          dispatch(updateUserPasswordHash({ login, password: user.password }));
           return (user.login = login);
         }
         return user;
@@ -150,7 +150,6 @@ const userSlice = createSlice({
       const { password, userId } = action.payload;
       state.map(user => {
         if (user.id === userId) {
-          dispatch(updateUserPasswordHash({ login: user.login, password }));
           return (user.password = password);
         }
         return user;
@@ -169,6 +168,24 @@ const userSlice = createSlice({
   }
 });
 
+export const updateUserLoginThunk = ({
+  password,
+  login,
+  userId
+}) => dispatch => {
+  dispatch(updateUserLogin({ login, userId }));
+  dispatch(updateUserPasswordHash({ login, password }));
+};
+
+export const updateUserPasswordThunk = ({
+  login,
+  password,
+  userId
+}) => dispatch => {
+  dispatch(updateUserPassword({ password, userId }));
+  dispatch(updateUserPasswordHash({ login, password }));
+};
+
 export const {
   createByCredentials,
   createPinCode,
@@ -178,8 +195,8 @@ export const {
   enableFingerprint,
   multiAccountSelect,
   fingerprintScanning,
-  updateUserPasswordHash,
   updateUserLogin,
-  updateUserPassword
+  updateUserPassword,
+  updateUserPasswordHash
 } = userSlice.actions;
 export default userSlice.reducer;

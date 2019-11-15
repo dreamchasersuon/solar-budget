@@ -87,6 +87,7 @@ export default function LoginPinCode() {
   const dispatch = useDispatch();
 
   const users = useSelector(state => state.user);
+  console.log(users);
   const userWithMultipleAccounts = users.find(user => user.multiAccountSelect);
   let user;
   if (!userWithMultipleAccounts) {
@@ -125,18 +126,18 @@ export default function LoginPinCode() {
   }
 
   const useFingerprint = async () => {
-    if (user.fingerprint !== null) {
+    if (user.fingerprint) {
       dropDownRef.current.alertWithType(
         'info',
         'Сканирование запущено',
-        'Пожалуйста, приложите отпечаток пальца к сенсору.'
+        'Пожалуйста, приложите отпечаток пальца к сенсору'
       );
       await scanFingerprint();
     } else {
       return dropDownRef.current.alertWithType(
         'error',
-        'Несовместимое устройство',
-        'На данном устройстве нет возможности сканирования отпечатка пальца.'
+        'Отпечаток не настроен',
+        'Авторизуйтесь другим способом и включите авторизацию по отпечатку пальца в настройках'
       );
     }
   };
@@ -153,7 +154,7 @@ export default function LoginPinCode() {
       dropDownRef.current.alertWithType(
         'error',
         'Отпечаток не распознан',
-        'Попробуйте отсканировать еще раз.'
+        'Попробуйте отсканировать еще раз'
       );
     }
   };
