@@ -21,7 +21,7 @@ import AcceptPinCode from '../screens/AcceptPin';
 import Fingerprint from '../screens/Fingerprint';
 import LoginPin from '../screens/LoginPin';
 import SelectAccount from '../screens/SelectAccount';
-import { $WHITE } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
   return {
@@ -148,25 +148,37 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     Wallet: {
       screen: WalletScreen,
       navigationOptions: {
-        tabBarIcon: <WalletImg />
+        // eslint-disable-next-line react/display-name
+        tabBarIcon: ({ focused }) => (
+          <WalletImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+        )
       }
     },
     Targets: {
       screen: TargetsScreen,
       navigationOptions: {
-        tabBarIcon: <TargetsImg />
+        // eslint-disable-next-line react/display-name
+        tabBarIcon: ({ focused }) => (
+          <TargetsImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+        )
       }
     },
     Rates: {
       screen: RatesScreen,
       navigationOptions: {
-        tabBarIcon: <RatesImg />
+        // eslint-disable-next-line react/display-name
+        tabBarIcon: ({ focused }) => (
+          <RatesImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+        )
       }
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
-        tabBarIcon: <SettingsImg />
+        // eslint-disable-next-line react/display-name
+        tabBarIcon: ({ focused }) => (
+          <SettingsImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+        )
       }
     }
   },
@@ -217,7 +229,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Accounts',
+    initialRouteName: 'Welcome',
     headerMode: 'none',
     transitionConfig
   }
@@ -234,7 +246,7 @@ const AppStack = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Auth'
+    initialRouteName: 'App'
   }
 );
 
