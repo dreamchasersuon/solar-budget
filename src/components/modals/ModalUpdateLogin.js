@@ -90,17 +90,17 @@ export default function UpdateLoginModal({
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
-  const [isValidName, setNameValidity] = useState(true);
+  const [isValidLogin, setLoginValidity] = useState(true);
   const [login, setLogin] = useState('');
 
   function onTypeLogin(value) {
-    setNameValidity(true);
+    setLoginValidity(true);
     setLogin(value);
   }
 
   const updateLogin = () => {
     if (!login.length) {
-      setNameValidity(false);
+      setLoginValidity(false);
     }
     if (!login.length) {
       Vibration.vibrate(500);
@@ -129,13 +129,13 @@ export default function UpdateLoginModal({
           <View style={styles.purposeInputContainer}>
             <CustomInput
               inputStyle={
-                isValidName
+                isValidLogin
                   ? styles.purposeInput
                   : [styles.purposeInput, { color: $RED, borderColor: $RED }]
               }
               placeholder="Введите новый логин"
               label="Новый логин"
-              labelStyle={isValidName ? styles.label : styles.labelInvalid}
+              labelStyle={isValidLogin ? styles.label : styles.labelInvalid}
               handleChange={value => onTypeLogin(value)}
             />
           </View>
