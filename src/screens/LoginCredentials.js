@@ -74,6 +74,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     maxWidth: 220,
     textAlign: 'center'
+  },
+  buttonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
@@ -140,7 +148,11 @@ export default function LoginCredentials() {
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <ButtonWithFeedbackBlue handleOnPress={authorize} buttonText="Войти" />
+        <ButtonWithFeedbackBlue
+          buttonStyle={styles.buttonFeedback}
+          handleOnPress={authorize}
+          buttonText="Войти"
+        />
         <ButtonSecondary
           buttonTextStyle={styles.buttonText}
           buttonText="Забыли пароль?"

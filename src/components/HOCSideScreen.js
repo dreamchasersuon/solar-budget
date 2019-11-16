@@ -55,6 +55,14 @@ const styles = StyleSheet.create({
   },
   termsOfUseText: {
     fontSize: 16
+  },
+  buttonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
@@ -88,8 +96,14 @@ export default function withSideScreen(Component) {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonsContainer}>
-              <ButtonWithFeedbackBlue buttonText="Оставить отзыв" />
-              <ButtonWithFeedbackBlue buttonText="Техническая поддержка" />
+              <ButtonWithFeedbackBlue
+                buttonStyle={styles.buttonFeedback}
+                buttonText="Оставить отзыв"
+              />
+              <ButtonWithFeedbackBlue
+                buttonStyle={styles.buttonFeedback}
+                buttonText="Техническая поддержка"
+              />
               <ButtonSecondary
                 buttonText="Пожертвование"
                 buttonTextStyle={styles.buttonTextStyle}

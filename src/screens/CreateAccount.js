@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   StatusBar,
-  Text
+  Text,
+  Vibration
 } from 'react-native';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
@@ -13,7 +14,7 @@ import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/CustomInput';
-import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { createByCredentials } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -53,8 +54,20 @@ const styles = StyleSheet.create({
     height: 40,
     width: '100%'
   },
+  invalidInput: {
+    borderBottomWidth: 1,
+    borderColor: $RED,
+    color: $RED,
+    fontSize: 13,
+    height: 40,
+    width: '100%'
+  },
   label: {
     fontSize: 10
+  },
+  invalidLabel: {
+    fontSize: 10,
+    color: $RED
   },
   marginTop: {
     marginTop: 30
@@ -80,27 +93,78 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     marginLeft: 20
+  },
+  buttonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
+  },
+  invalidButtonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $RED,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
-export default function Creation() {
+export default function CreateAccount() {
   const dispatch = useDispatch();
 
   const dropDownRef = useRef(null);
+
+  const [isValid, setValidity] = useState(true);
+  const [isValidLogin, setLoginValidity] = useState(true);
+  const [isValidPassword, setPasswordValidity] = useState(true);
+  const [isValidRepeatedPassword, setRepeatedPasswordValidity] = useState(true);
+
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [repeatedPassword, setRepeatedPassword] = useState('');
 
-  const validatePasswords = () =>
-    password.length && repeatedPassword.length && password === repeatedPassword;
+  const handleLoginTyping = value => {
+    setLoginValidity(true);
+    setLogin(value);
+  };
+
+  const handlePasswordTyping = value => {
+    setPasswordValidity(true);
+    setPassword(value);
+  };
+
+  const validateLoginLength = () => login.length;
+  const validatePasswordLength = () => password.length;
+  const validatePasswordsIdentity = () => password === repeatedPassword;
+
   const createUser = () => {
-    if (!validatePasswords()) {
+    if (!validateLoginLength()) {
+      setLoginValidity(false);
+      setValidity(false);
+      return dropDownRef.current.alertWithType('error', 'Введите логин', '');
+    }
+    if (!validatePasswordLength()) {
+      setPasswordValidity(false);
+      setValidity(false);
+      return dropDownRef.current.alertWithType('error', 'Введите пароль', '');
+    }
+    if (
+      !validatePasswordsIdentity() ||
+      !validatePasswordLength() ||
+      !validateLoginLength()
+    ) {
+      Vibration.vibrate(500);
+      setValidity(false);
       return dropDownRef.current.alertWithType(
         'error',
         'Пароли не совпадают',
         ''
       );
     }
+    setValidity(true);
     dispatch(
       createByCredentials({
         login,
@@ -132,29 +196,39 @@ export default function Creation() {
       </AuthHeader>
       <View style={styles.form}>
         <CustomInput
-          inputStyle={styles.input}
-          labelStyle={styles.label}
+          inputStyle={isValidLogin ? styles.input : styles.invalidInput}
+          labelStyle={isValidLogin ? styles.label : styles.invalidInput}
           label="Логин"
           placeholder="Введите логин"
           initial={login}
-          handleChange={value => setLogin(value)}
+          handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
-          inputStyle={styles.input}
+          inputStyle={isValidPassword ? styles.input : styles.invalidInput}
           label="Пароль"
           placeholder="Создайте пароль"
           hasMargin
-          labelStyle={[styles.label, styles.marginTop]}
+          labelStyle={
+            isValidPassword
+              ? [styles.label, styles.marginTop]
+              : [styles.invalidLabel, styles.marginTop]
+          }
           password
           initial={password}
-          handleChange={value => setPassword(value)}
+          handleChange={value => handlePasswordTyping(value)}
         />
         <CustomInput
-          inputStyle={styles.input}
+          inputStyle={
+            isValidRepeatedPassword ? styles.input : styles.invalidInput
+          }
           label="Подтверждение"
           placeholder="Подтвердите пароль"
           hasMargin
-          labelStyle={[styles.label, styles.marginTop]}
+          labelStyle={
+            isValidRepeatedPassword
+              ? [styles.label, styles.marginTop]
+              : [styles.invalidLabel, styles.marginTop]
+          }
           password
           initial={repeatedPassword}
           handleChange={value => setRepeatedPassword(value)}
@@ -162,8 +236,11 @@ export default function Creation() {
       </View>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
+          buttonStyle={
+            isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
+          }
           buttonText="Создать"
-          handleOnPress={createUser}
+          handleOnPress={isValid ? createUser : null}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('LoginCredentials')}

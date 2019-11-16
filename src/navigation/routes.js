@@ -15,7 +15,7 @@ import Settings from '../screens/Settings';
 import Statistics from '../screens/Stats';
 import Welcome from '../screens/Welcome';
 import LoginCredentials from '../screens/LoginCredentials';
-import Creation from '../screens/Creation';
+import CreateAccount from '../screens/CreateAccount';
 import CreatePinCode from '../screens/CreatePin';
 import AcceptPinCode from '../screens/AcceptPin';
 import Fingerprint from '../screens/Fingerprint';
@@ -243,7 +243,7 @@ const AuthStack = createStackNavigator(
       screen: ValidatePinCode
     },
     Creation: {
-      screen: Creation
+      screen: CreateAccount
     },
     CreatePin: {
       screen: CreatePinCode

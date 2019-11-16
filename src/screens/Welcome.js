@@ -4,6 +4,7 @@ import NavigationService from '../navigation/service';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import Slider from '../components/Slider';
 import { useSelector } from 'react-redux';
+import { $BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   buttonsContainer: {
@@ -29,6 +30,14 @@ const styles = StyleSheet.create({
   language: {
     fontSize: 16,
     marginRight: 30
+  },
+  buttonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
@@ -43,10 +52,12 @@ export default function Welcome() {
       <Slider />
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
+          buttonStyle={styles.buttonFeedback}
           handleOnPress={goTo('Creation')}
           buttonText="Создать аккаунт"
         />
         <ButtonWithFeedbackBlue
+          buttonStyle={styles.buttonFeedback}
           handleOnPress={users.length > 1 ? goTo('Accounts') : goTo('LoginPin')}
           buttonText="Войти"
         />

@@ -4,26 +4,22 @@ import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { $BLUE, $WHITE } from '../../constants/colorLiterals';
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: $BLUE,
-    borderRadius: 5,
-    height: 45,
-    justifyContent: 'center',
-    width: '100%'
-  },
   text: {
     color: $WHITE
   }
 });
 
-export default function ButtonWithFeedbackBlue({ handleOnPress, buttonText }) {
+export default function ButtonWithFeedbackBlue({
+  handleOnPress,
+  buttonText,
+  buttonStyle
+}) {
   return (
     <TouchableNativeFeedback
       background={TouchableNativeFeedback.SelectableBackground()}
       onPress={handleOnPress}
     >
-      <View style={styles.container}>
+      <View style={buttonStyle}>
         <Text style={styles.text}>{buttonText}</Text>
       </View>
     </TouchableNativeFeedback>
