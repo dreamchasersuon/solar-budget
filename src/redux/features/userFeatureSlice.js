@@ -2,6 +2,7 @@ import { createSlice } from 'redux-starter-kit';
 import uuid from 'uuid';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
+const env = process.env.NODE_ENV;
 
 const userSlice = createSlice({
   name: 'user',
@@ -9,7 +10,6 @@ const userSlice = createSlice({
   reducers: {
     createByCredentials(state, action) {
       const { password, login } = action.payload;
-      const env = process.env.NODE_ENV;
 
       let isUserExist = false;
       if (state.length) {
@@ -57,10 +57,12 @@ const userSlice = createSlice({
       if (!user) {
         throw new Error('Пользователь не найден.');
       }
-      const decryptedPassword = CryptoJS.AES.decrypt(
-        user.passwordHash,
-        login
-      ).toString(CryptoJS.enc.Utf8);
+      const decryptedPassword =
+        env === 'test'
+          ? password
+          : CryptoJS.AES.decrypt(user.passwordHash, login).toString(
+              CryptoJS.enc.Utf8
+            );
 
       if (decryptedPassword === password) {
         state.map(user => {

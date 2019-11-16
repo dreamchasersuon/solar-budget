@@ -226,3 +226,257 @@ describe('Create users', () => {
     ]);
   });
 });
+
+describe('Authorize users', () => {
+  it('should authorize only user by credentials', () => {
+    const login1 = 'Luke';
+    const password1 = 'skywalker';
+
+    const authorize_luke_skywalker = {
+      type: authorizeUserByCredentials.type,
+      payload: {
+        login: login1,
+        password: password1
+      }
+    };
+
+    expect(
+      user(
+        [
+          {
+            login: login1,
+            password: password1,
+            passwordHash: `test-${password1}`,
+            id: `test-${login1}`,
+            active: false,
+            notifications: true,
+            pinCode: null,
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        authorize_luke_skywalker
+      )
+    ).toEqual([
+      {
+        login: login1,
+        password: password1,
+        passwordHash: `test-${password1}`,
+        id: `test-${login1}`,
+        active: true,
+        notifications: true,
+        pinCode: null,
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+
+  it('should authorize user by credentials with two users existed', () => {
+    const login1 = 'Luke';
+    const password1 = 'skywalker';
+
+    const login2 = 'Obi-Van';
+    const password2 = 'kenobi';
+
+    const authorize_luke_skywalker = {
+      type: authorizeUserByCredentials.type,
+      payload: {
+        login: login1,
+        password: password1
+      }
+    };
+
+    expect(
+      user(
+        [
+          {
+            login: login1,
+            password: password1,
+            passwordHash: `test-${password1}`,
+            id: `test-${login1}`,
+            active: false,
+            notifications: true,
+            pinCode: null,
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          },
+          {
+            login: login2,
+            password: password2,
+            passwordHash: `test-${password2}`,
+            id: `test-${login2}`,
+            active: false,
+            notifications: true,
+            pinCode: null,
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        authorize_luke_skywalker
+      )
+    ).toEqual([
+      {
+        login: login1,
+        password: password1,
+        passwordHash: `test-${password1}`,
+        id: `test-${login1}`,
+        active: true,
+        notifications: true,
+        pinCode: null,
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      },
+      {
+        login: login2,
+        password: password2,
+        passwordHash: `test-${password2}`,
+        id: `test-${login2}`,
+        active: false,
+        notifications: true,
+        pinCode: null,
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+
+  it('should authorize user by PIN-CODE', () => {
+    const login = 'Luke';
+    const password = 'skywalker';
+    const pinCode = '0000';
+
+    const authorize_luke_skywalker_pin = {
+      type: authorizeUserByPinCode.type,
+      payload: {
+        login,
+        pinCode
+      }
+    };
+
+    expect(
+      user(
+        [
+          {
+            login,
+            password,
+            passwordHash: `test-${password}`,
+            id: `test-${login}`,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        authorize_luke_skywalker_pin
+      )
+    ).toEqual([
+      {
+        login,
+        password,
+        passwordHash: `test-${password}`,
+        id: `test-${login}`,
+        active: true,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+
+  it('should authorize user by PIN-CODE with 2 users', () => {
+    const login1 = 'Luke';
+    const password1 = 'skywalker';
+    const pinCode = '0000';
+
+    const login2 = 'Obi-Van';
+    const password2 = 'kenobi';
+
+    const authorize_luke_skywalker_pin = {
+      type: authorizeUserByPinCode.type,
+      payload: {
+        login: login1,
+        pinCode
+      }
+    };
+
+    expect(
+      user(
+        [
+          {
+            login: login1,
+            password: password1,
+            passwordHash: `test-${password1}`,
+            id: `test-${login1}`,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          },
+          {
+            login: login2,
+            password: password2,
+            passwordHash: `test-${password2}`,
+            id: `test-${login2}`,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        authorize_luke_skywalker_pin
+      )
+    ).toEqual([
+      {
+        login: login1,
+        password: password1,
+        passwordHash: `test-${password1}`,
+        id: `test-${login1}`,
+        active: true,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      },
+      {
+        login: login2,
+        password: password2,
+        passwordHash: `test-${password2}`,
+        id: `test-${login2}`,
+        active: false,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+});
