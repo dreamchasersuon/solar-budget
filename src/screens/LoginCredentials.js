@@ -183,7 +183,7 @@ export default function LoginCredentials() {
           labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
           placeholder="Введите логин"
           initial={login}
-          handleChange={value => setLogin(value)}
+          handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
           label="Пароль"
@@ -197,7 +197,7 @@ export default function LoginCredentials() {
           }
           password
           initial={password}
-          handleChange={value => setPassword(value)}
+          handleChange={value => handlePasswordTyping(value)}
         />
       </View>
       <View style={styles.buttonsContainer}>
