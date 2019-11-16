@@ -56,6 +56,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     maxWidth: 220,
     textAlign: 'center'
+  },
+  buttonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $BLUE,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
@@ -129,6 +137,7 @@ export default function AddFingerprint() {
       </AuthHeader>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
+          buttonStyle={styles.buttonFeedback}
           handleOnPress={useFingerprint}
           buttonText="Использовать"
         />
