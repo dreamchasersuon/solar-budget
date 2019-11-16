@@ -3,7 +3,7 @@ import { View, StyleSheet, Vibration, StatusBar } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
-import InfoPost from '../components/InfoPost';
+import AuthHeader from '../components/AuthHeader';
 import NumericBoard from '../components/NumericBoard';
 import SecondaryButton from '../components/SecondaryButton';
 import SecurePin from '../components/SecurePin';
@@ -164,9 +164,9 @@ export default function LoginPinCode() {
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
       <View>
-        <InfoPost title="Добрый вечер" titleStyle={styles.title}>
+        <AuthHeader title="Добрый вечер" titleStyle={styles.title}>
           <Pros />
-        </InfoPost>
+        </AuthHeader>
         <SecurePin
           paginationIndicatorStyle={styles.paginationActive}
           noMargins

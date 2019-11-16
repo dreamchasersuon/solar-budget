@@ -4,10 +4,10 @@ import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
-import BlueButton from '../components/BlueButton';
+import ButtonMainBlue from './ButtonMainBlue';
 import PropTypes from 'prop-types';
-import CreateBillButton from './CreateBillButton';
-import BackButton from './BackButton';
+import ButtonCreateBill from './ButtonCreateBill';
+import NavigationBackArrow from './NavigationBackArrow';
 import NavigationService from '../navigation/service';
 import bringInCash from '../utils/dotSeparation';
 
@@ -132,7 +132,7 @@ export default function Header({
               />
             </View>
           ) : (
-            <BackButton />
+            <NavigationBackArrow />
           )}
           <Text style={styles.titleText}>{title}</Text>
         </View>
@@ -143,7 +143,7 @@ export default function Header({
                 <StatsBtn />
               </View>
             )}
-            <BlueButton
+            <ButtonMainBlue
               iconStyle={styles.iconBalance}
               title={bringInCash(deposit)}
               icon
@@ -163,7 +163,7 @@ export default function Header({
               data={list}
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
-                <BlueButton
+                <ButtonMainBlue
                   title={item.name}
                   icon={item.currency}
                   iconStyle={styles.icon}
@@ -184,7 +184,7 @@ export default function Header({
           </View>
           {hasLeftMenu && (
             <React.Fragment>
-              <CreateBillButton onPressCreateBill={toggleModal} />
+              <ButtonCreateBill onPressCreateBill={toggleModal} />
             </React.Fragment>
           )}
         </View>

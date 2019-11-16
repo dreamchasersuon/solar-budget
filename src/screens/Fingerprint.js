@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
 import NavigationService from '../navigation/service';
-import InfoPost from '../components/InfoPost';
-import MajorBlueButton from '../components/MajorBlueButton';
+import AuthHeader from '../components/AuthHeader';
+import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
 import SecondaryButton from '../components/SecondaryButton';
 // eslint-disable-next-line import/no-namespace
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -117,7 +117,7 @@ export default function AddFingerprint() {
   return (
     <View style={styles.container}>
       <View style={styles.header} />
-      <InfoPost
+      <AuthHeader
         title={'Использовать отпечаток пальца для входа?'}
         note="Используйте отпечаток пальца для более быстрого и легкого доступа к
           своей учетной записи"
@@ -126,9 +126,9 @@ export default function AddFingerprint() {
         <TouchableOpacity style={styles.fingerprint}>
           <Fingerprint />
         </TouchableOpacity>
-      </InfoPost>
+      </AuthHeader>
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton
+        <ButtonWithFeedbackBlue
           handleOnPress={useFingerprint}
           buttonText="Использовать"
         />

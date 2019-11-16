@@ -10,9 +10,9 @@ import {
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
-import InfoPost from '../components/InfoPost';
-import CustomInput from '../components/Input';
-import MajorBlueButton from '../components/MajorBlueButton';
+import AuthHeader from '../components/AuthHeader';
+import CustomInput from '../components/CustomInput';
+import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
 import { $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';
@@ -152,7 +152,7 @@ export default function LoginCredentials() {
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
-      <InfoPost
+      <AuthHeader
         title={
           userCredentials.password !== undefined
             ? 'Пароль восстановлен'
@@ -166,7 +166,7 @@ export default function LoginCredentials() {
         titleStyle={styles.title}
       >
         <Pros />
-      </InfoPost>
+      </AuthHeader>
       <View style={styles.form}>
         <CustomInput
           inputStyle={
@@ -184,7 +184,7 @@ export default function LoginCredentials() {
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton
+        <ButtonWithFeedbackBlue
           handleOnPress={
             userCredentials.password !== undefined
               ? updatePassword

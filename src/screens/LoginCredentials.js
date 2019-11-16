@@ -10,9 +10,9 @@ import {
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
-import InfoPost from '../components/InfoPost';
-import CustomInput from '../components/Input';
-import MajorBlueButton from '../components/MajorBlueButton';
+import AuthHeader from '../components/AuthHeader';
+import CustomInput from '../components/CustomInput';
+import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
 import SecondaryButton from '../components/SecondaryButton';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
@@ -109,7 +109,7 @@ export default function LoginCredentials() {
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
-      <InfoPost
+      <AuthHeader
         title="Добрый вечер"
         note="Войдите с помощью логина и пароля. Если вы забыли пароль -
           воспользуйтесь формой"
@@ -118,7 +118,7 @@ export default function LoginCredentials() {
         handleOnPress={() => goTo('ForgotPassword')}
       >
         <Pros />
-      </InfoPost>
+      </AuthHeader>
       <View style={styles.form}>
         <CustomInput
           inputStyle={styles.input}
@@ -140,7 +140,7 @@ export default function LoginCredentials() {
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton handleOnPress={authorize} buttonText="Войти" />
+        <ButtonWithFeedbackBlue handleOnPress={authorize} buttonText="Войти" />
         <SecondaryButton
           buttonTextStyle={styles.buttonText}
           buttonText="Забыли пароль?"

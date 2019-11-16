@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
-import OpenOperationModalBtn from '../components/OpenOperationModalBtn';
-import TransactionModal from '../components/TransactionModal';
-import BillModal from '../components/BillModal';
+import ButtonOpenModalRound from '../components/ButtonOpenModalRound';
+import ModalCreateTransaction from '../components/modals/ModalCreateTransaction';
+import ModalCreateBill from '../components/modals/ModalCreateBill';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
-import withSideScreen from '../components/SideScreenHOC';
+import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBillActive } from '../redux/features/billFeatureSlice';
 
@@ -124,16 +124,16 @@ function Wallet() {
           keyExtractor={item => item.id}
         />
       ) : null}
-      <OpenOperationModalBtn
+      <ButtonOpenModalRound
         isActive={!!bills.length}
         expandModal={toggleTransactionModal}
       />
 
-      <TransactionModal
+      <ModalCreateTransaction
         isVisible={isTransactionModalVisible}
         toggleTransactionModal={toggleTransactionModal}
       />
-      <BillModal
+      <ModalCreateBill
         isVisible={isBillModalVisible}
         toggleBillModal={toggleBillModal}
       />

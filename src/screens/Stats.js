@@ -9,8 +9,8 @@ import {
   $SILVER
 } from '../constants/colorLiterals';
 import Header from '../components/Header';
-import ProgressBar from '../components/ProgressBar';
-import OperationsContainer from '../components/OperationsContainer';
+import FROZEN_ProgressBar from '../components/FROZEN_ProgressBar';
+import FROZEN_OperationsContainer from '../components/FROZEN_OperationsContainer';
 import Saldo from '../components/Saldo';
 
 const styles = StyleSheet.create({
@@ -70,15 +70,18 @@ export default function Statistics() {
         billTitle="Счет"
         hasBudget
       />
-      <ProgressBar circleTitle="май" circleTitleStyle={styles.circleTitle} />
+      <FROZEN_ProgressBar
+        circleTitle="май"
+        circleTitleStyle={styles.circleTitle}
+      />
       <View style={styles.operationsContainer}>
-        <OperationsContainer
+        <FROZEN_OperationsContainer
           operationsContainerStyle={styles.leftOperationsContainer}
           operationAmountStyle={styles.operationAmountDebit}
           operationType="+ 1200"
           operationTitle="Входящие переводы"
         />
-        <OperationsContainer
+        <FROZEN_OperationsContainer
           operationsContainerStyle={styles.rightOperationsContainer}
           operationAmountStyle={styles.operationAmountCredit}
           operationType="- 1200"

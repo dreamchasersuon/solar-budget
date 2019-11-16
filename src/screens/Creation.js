@@ -4,19 +4,20 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  StatusBar
+  StatusBar,
+  Text
 } from 'react-native';
 import NavigationService from '../navigation/service';
-import CreationHeader from '../components/CreationHeader';
-import InfoPost from '../components/InfoPost';
-import MajorBlueButton from '../components/MajorBlueButton';
+import AuthHeader from '../components/AuthHeader';
+import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
 import SecondaryButton from '../components/SecondaryButton';
 import Pros from '../../assets/pros.svg';
-import CustomInput from '../components/Input';
+import CustomInput from '../components/CustomInput';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { createByCredentials } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
+import ArrowLeft from '../../assets/left-arrow.svg';
 
 const styles = StyleSheet.create({
   buttonTextWithNote: {
@@ -64,6 +65,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
     maxWidth: 220,
     textAlign: 'center'
+  },
+  backArrow: {
+    marginLeft: 20
+  },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginTop: 50,
+    width: '100%'
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginLeft: 20
   }
 });
 
@@ -102,15 +118,18 @@ export default function Creation() {
       style={styles.container}
       behavior={Platform.OS === 'android' ? 'height' : 'padding'}
     >
-      <CreationHeader goBack={goBack} />
-      <InfoPost
+      <View style={styles.header}>
+        <ArrowLeft onPress={goBack} style={styles.backArrow} />
+        <Text style={styles.headerText}>Новый аккаунт</Text>
+      </View>
+      <AuthHeader
         title="Анонимность"
         note="Только вы можете просматривать свои данные. Никакой привязки к соц.
         сетям и сквозной аналитики"
         titleStyle={styles.title}
       >
         <Pros />
-      </InfoPost>
+      </AuthHeader>
       <View style={styles.form}>
         <CustomInput
           inputStyle={styles.input}
@@ -142,7 +161,10 @@ export default function Creation() {
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton buttonText="Создать" handleOnPress={createUser} />
+        <ButtonWithFeedbackBlue
+          buttonText="Создать"
+          handleOnPress={createUser}
+        />
         <SecondaryButton
           handleOnPress={() => goTo('LoginCredentials')}
           buttonText="ВОЙТИ"

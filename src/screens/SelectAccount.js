@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
-import InfoPost from '../components/InfoPost';
+import AuthHeader from '../components/AuthHeader';
 import DropdownAlert from 'react-native-dropdownalert';
 import { $BLUE, $TRANSPARENT, $WHITE } from '../constants/colorLiterals';
 // eslint-disable-next-line import/default
@@ -122,7 +122,7 @@ export default function SelectAccount() {
   return (
     <View style={styles.container}>
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
-      <InfoPost title="Выберите аккаунт" titleStyle={styles.title} />
+      <AuthHeader title="Выберите аккаунт" titleStyle={styles.title} />
       <Swiper
         showsPagination={false}
         width={400}

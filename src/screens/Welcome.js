@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import NavigationService from '../navigation/service';
-import MajorBlueButton from '../components/MajorBlueButton';
+import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
 import Slider from '../components/Slider';
 import { useSelector } from 'react-redux';
 
@@ -42,11 +42,11 @@ export default function Welcome() {
       </View>
       <Slider />
       <View style={styles.buttonsContainer}>
-        <MajorBlueButton
+        <ButtonWithFeedbackBlue
           handleOnPress={goTo('Creation')}
           buttonText="Создать аккаунт"
         />
-        <MajorBlueButton
+        <ButtonWithFeedbackBlue
           handleOnPress={users.length > 1 ? goTo('Accounts') : goTo('LoginPin')}
           buttonText="Войти"
         />

@@ -3,8 +3,8 @@ import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
-import CreateTargetModal from '../components/CreateTargetModal';
-import withSideScreen from '../components/SideScreenHOC';
+import ModalCreateTarget from '../components/modals/ModalCreateTarget';
+import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTargetActive } from '../redux/features/targetFeatureSlice';
 
@@ -107,7 +107,7 @@ function Targets() {
           keyExtractor={item => item.id}
         />
       ) : null}
-      <CreateTargetModal
+      <ModalCreateTarget
         isVisible={isCreateTargetModalVisible}
         toggleCreateTargetModal={toggleCreateTargetModal}
       />

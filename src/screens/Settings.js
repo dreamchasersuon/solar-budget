@@ -12,7 +12,7 @@ import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import Language from '../../assets/language.svg';
 import NavigationService from '../navigation/service';
-import withSideScreen from '../components/SideScreenHOC';
+import withSideScreen from '../components/HOCSideScreen';
 // eslint-disable-next-line import/no-namespace
 import * as ImagePicker from 'expo-image-picker';
 // eslint-disable-next-line import/no-namespace
@@ -22,9 +22,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addAvatar } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
-import UpdateLoginModal from '../components/ModalUpdateLogin';
-import UpdatePasswordModal from '../components/ModalUpdatePassword';
-import ValidatePasswordModal from '../components/ModalValidatePassword';
+import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
+import UpdatePasswordModal from '../components/modals/ModalUpdatePassword';
+import ValidatePasswordModal from '../components/modals/ModalValidatePassword';
 
 const styles = StyleSheet.create({
   avatar: {
