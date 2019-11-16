@@ -98,7 +98,7 @@ export default function ValidatePinCode({ navigation }) {
       dropDownRef.current.alertWithType(
         'error',
         'Неверный PIN-CODE',
-        e.message
+        'Попробуйте еще раз'
       );
       Vibration.vibrate(500);
     }

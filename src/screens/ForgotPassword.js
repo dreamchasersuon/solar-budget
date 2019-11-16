@@ -87,7 +87,9 @@ export default function LoginCredentials() {
   const remindPassword = () => {
     try {
       if (login.length) {
-        const user = users.find(user => user.login === login);
+        const user = users.find(
+          user => user.login === login && user.multiAccountSelect
+        );
         if (user) {
           setLoginValidity(true);
           dropDownRef.current.alertWithType(
@@ -99,7 +101,7 @@ export default function LoginCredentials() {
             goTo('ValidatePinCode', { userId: user.id });
           }, 500);
         }
-        throw new Error('Пользователь не найден');
+        throw new Error('Неверный логин');
       }
       setLoginValidity(false);
       throw new Error('Введите логин');
@@ -149,13 +151,13 @@ export default function LoginCredentials() {
       <InfoPost
         title={
           userCredentials.password !== undefined
-            ? 'Восстановление пароля'
-            : 'Пароль восстановлен'
+            ? 'Пароль восстановлен'
+            : 'Восстановление пароля'
         }
         note={
           userCredentials.password !== undefined
-            ? 'Введите имя'
-            : 'Для обновления пароля нажмите на кнопку'
+            ? 'Для обновления пароля нажмите на кнопку'
+            : 'Введите имя'
         }
         titleStyle={styles.title}
       >
