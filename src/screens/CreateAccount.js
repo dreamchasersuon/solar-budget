@@ -153,12 +153,9 @@ export default function CreateAccount() {
       Vibration.vibrate(500);
       return dropDownRef.current.alertWithType('error', 'Введите пароль', '');
     }
-    if (
-      !validatePasswordsIdentity() ||
-      !validatePasswordLength() ||
-      !validateLoginLength()
-    ) {
+    if (!validatePasswordsIdentity()) {
       Vibration.vibrate(500);
+      setRepeatedPasswordValidity(false);
       setValidity(false);
       return dropDownRef.current.alertWithType(
         'error',

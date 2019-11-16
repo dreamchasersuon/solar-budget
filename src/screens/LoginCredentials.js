@@ -14,7 +14,7 @@ import AuthHeader from '../components/AuthHeader';
 import CustomInput from '../components/CustomInput';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
-import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -62,8 +62,20 @@ const styles = StyleSheet.create({
     height: 40,
     width: '100%'
   },
+  invalidInput: {
+    borderBottomWidth: 1,
+    borderColor: $RED,
+    color: $RED,
+    fontSize: 13,
+    height: 40,
+    width: '100%'
+  },
   label: {
     fontSize: 10
+  },
+  invalidLabel: {
+    fontSize: 10,
+    color: $RED
   },
   marginTop: {
     marginTop: 30
@@ -82,6 +94,14 @@ const styles = StyleSheet.create({
     height: 45,
     justifyContent: 'center',
     width: '100%'
+  },
+  invalidButtonFeedback: {
+    alignItems: 'center',
+    backgroundColor: $RED,
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
@@ -92,9 +112,38 @@ export default function LoginCredentials() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isValid, setValidity] = useState(true);
+  const [isValidLogin, setLoginValidity] = useState(true);
+  const [isValidPassword, setPasswordValidity] = useState(true);
+
+  const handleLoginTyping = value => {
+    setLoginValidity(true);
+    setLogin(value);
+  };
+
+  const handlePasswordTyping = value => {
+    setPasswordValidity(true);
+    setPassword(value);
+  };
+
+  const validateLoginLength = () => login.length;
+  const validatePasswordLength = () => password.length;
+
   const authorize = () => {
     try {
-      if (login.length && password.length) {
+      if (!validateLoginLength()) {
+        setLoginValidity(false);
+        setValidity(false);
+        Vibration.vibrate(500);
+        return dropDownRef.current.alertWithType('error', 'Введите логин', '');
+      }
+      if (!validatePasswordLength()) {
+        setPasswordValidity(false);
+        setValidity(false);
+        Vibration.vibrate(500);
+        return dropDownRef.current.alertWithType('error', 'Введите пароль', '');
+      }
+      if (validateLoginLength() && validatePasswordLength()) {
         dispatch(authorizeUserByCredentials({ login, password }));
         NavigationService.navigate('App');
       }
@@ -129,19 +178,23 @@ export default function LoginCredentials() {
       </AuthHeader>
       <View style={styles.form}>
         <CustomInput
-          inputStyle={styles.input}
+          inputStyle={isValidLogin ? styles.input : styles.invalidInput}
           label="Логин"
-          labelStyle={styles.label}
+          labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
           placeholder="Введите логин"
           initial={login}
           handleChange={value => setLogin(value)}
         />
         <CustomInput
           label="Пароль"
-          inputStyle={styles.input}
+          inputStyle={isValidPassword ? styles.input : styles.invalidInput}
           placeholder="Введите пароль"
           hasMargin
-          labelStyle={[styles.label, styles.marginTop]}
+          labelStyle={
+            isValidPassword
+              ? [styles.label, styles.marginTop]
+              : [styles.invalidLabel, styles.marginTop]
+          }
           password
           initial={password}
           handleChange={value => setPassword(value)}
@@ -149,8 +202,10 @@ export default function LoginCredentials() {
       </View>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
-          buttonStyle={styles.buttonFeedback}
-          handleOnPress={authorize}
+          buttonStyle={
+            isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
+          }
+          handleOnPress={isValid ? authorize : null}
           buttonText="Войти"
         />
         <ButtonSecondary
