@@ -15,8 +15,8 @@ import {
   $MEDIUMSILVER,
   $WHITE
 } from '../constants/colorLiterals';
-import ButtonWithFeedbackBlue from './ButtonWithFeedbackBlue';
-import SecondaryButton from './SecondaryButton';
+import ButtonWithFeedbackBlue from './buttons/ButtonWithFeedbackBlue';
+import ButtonSecondary from './buttons/ButtonSecondary';
 
 const styles = StyleSheet.create({
   buttonTextStyle: {
@@ -90,7 +90,7 @@ export default function withSideScreen(Component) {
             <View style={styles.buttonsContainer}>
               <ButtonWithFeedbackBlue buttonText="Оставить отзыв" />
               <ButtonWithFeedbackBlue buttonText="Техническая поддержка" />
-              <SecondaryButton
+              <ButtonSecondary
                 buttonText="Пожертвование"
                 buttonTextStyle={styles.buttonTextStyle}
               />

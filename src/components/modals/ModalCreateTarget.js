@@ -13,12 +13,12 @@ import {
   $TRANSPARENT,
   $WHITE
 } from '../../constants/colorLiterals';
-import ButtonMainBlue from '../ButtonMainBlue';
+import ButtonMainBlue from '../buttons/ButtonMainBlue';
 import React, { useState } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
 import NumericBoard from '../NumericBoard';
-import SecondaryButton from '../SecondaryButton';
+import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addTarget,
@@ -338,7 +338,7 @@ export default function ModalCreateTarget({
               </View>
             </View>
           </ScrollView>
-          <SecondaryButton
+          <ButtonSecondary
             buttonTextStyle={
               isValid
                 ? styles.buttonTextStyle

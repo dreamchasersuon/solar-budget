@@ -12,8 +12,8 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
 import CustomInput from '../components/CustomInput';
-import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
-import SecondaryButton from '../components/SecondaryButton';
+import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
+import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
@@ -141,7 +141,7 @@ export default function LoginCredentials() {
       </View>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue handleOnPress={authorize} buttonText="Войти" />
-        <SecondaryButton
+        <ButtonSecondary
           buttonTextStyle={styles.buttonText}
           buttonText="Забыли пароль?"
           handleOnPress={() => goTo('ForgotPassword')}

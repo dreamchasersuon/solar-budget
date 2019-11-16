@@ -4,8 +4,8 @@ import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
-import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
-import SecondaryButton from '../components/SecondaryButton';
+import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
+import ButtonSecondary from '../components/buttons/ButtonSecondary';
 // eslint-disable-next-line import/no-namespace
 import * as LocalAuthentication from 'expo-local-authentication';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -132,7 +132,7 @@ export default function AddFingerprint() {
           handleOnPress={useFingerprint}
           buttonText="Использовать"
         />
-        <SecondaryButton
+        <ButtonSecondary
           handleOnPress={() => goTo('App')}
           buttonTextStyle={styles.buttonText}
           buttonText="Позже"

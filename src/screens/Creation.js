@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
-import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
-import SecondaryButton from '../components/SecondaryButton';
+import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
+import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/CustomInput';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
@@ -165,7 +165,7 @@ export default function Creation() {
           buttonText="Создать"
           handleOnPress={createUser}
         />
-        <SecondaryButton
+        <ButtonSecondary
           handleOnPress={() => goTo('LoginCredentials')}
           buttonText="ВОЙТИ"
           hasNote

@@ -1,4 +1,4 @@
-import { Modal, View, StyleSheet, Vibration, StatusBar } from 'react-native';
+import { Modal, View, StyleSheet, Vibration } from 'react-native';
 import {
   $BLUE,
   $MEDIUMSILVER,
@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
-import SecondaryButton from '../SecondaryButton';
+import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
 import { validateUserPassword } from '../../redux/features/userFeatureSlice';
 
@@ -146,7 +146,7 @@ export default function ValidatePasswordModal({
               handleChange={value => onTypePassword(value)}
             />
           </View>
-          <SecondaryButton
+          <ButtonSecondary
             buttonTextStyle={
               isValid
                 ? styles.buttonTextStyle

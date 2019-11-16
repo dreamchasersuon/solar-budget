@@ -12,7 +12,7 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
 import CustomInput from '../components/CustomInput';
-import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
+import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import { $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import NavigationService from '../navigation/service';
-import ButtonWithFeedbackBlue from '../components/ButtonWithFeedbackBlue';
+import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import Slider from '../components/Slider';
 import { useSelector } from 'react-redux';
 

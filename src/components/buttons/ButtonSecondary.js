@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $MEDIUMSILVER } from '../../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function SecondaryButton({
+export default function ButtonSecondary({
   hasNote,
   handleOnPress,
   buttonText,

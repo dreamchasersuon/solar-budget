@@ -13,9 +13,9 @@ import {
   $TRANSPARENT,
   $WHITE
 } from '../../constants/colorLiterals';
-import ButtonMainBlue from '../ButtonMainBlue';
+import ButtonMainBlue from '../buttons/ButtonMainBlue';
 import React, { useState } from 'react';
-import SecondaryButton from '../SecondaryButton';
+import ButtonSecondary from '../buttons/ButtonSecondary';
 import CustomInput from '../CustomInput';
 import NumericBoard from '../NumericBoard';
 import ModalHeader from './ModalHeader';
@@ -290,7 +290,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
               </View>
             </View>
           </ScrollView>
-          <SecondaryButton
+          <ButtonSecondary
             buttonTextStyle={
               isValid
                 ? styles.buttonTextStyle

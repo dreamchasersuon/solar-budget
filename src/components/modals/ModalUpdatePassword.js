@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
-import SecondaryButton from '../SecondaryButton';
+import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   updateUserPasswordThunk,
@@ -188,7 +188,7 @@ export default function UpdatePasswordModal({
               handleChange={value => onTypeRepeatedPassword(value)}
             />
           </View>
-          <SecondaryButton
+          <ButtonSecondary
             buttonTextStyle={
               isValid
                 ? styles.buttonTextStyle

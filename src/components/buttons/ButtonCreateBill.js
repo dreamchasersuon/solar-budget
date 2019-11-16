@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
-import { $WHITE, $BLUE } from '../constants/colorLiterals';
+import { $WHITE, $BLUE } from '../../constants/colorLiterals';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({

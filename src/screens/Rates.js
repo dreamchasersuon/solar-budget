@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
-import ButtonOpenModalRound from '../components/ButtonOpenModalRound';
+import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
 import RatePair from '../components/RatePair';
 import ModalCreateRatePair from '../components/modals/ModalCreateRatePair';
 import withSideScreen from '../components/HOCSideScreen';

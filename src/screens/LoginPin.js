@@ -5,7 +5,7 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
 import NumericBoard from '../components/NumericBoard';
-import SecondaryButton from '../components/SecondaryButton';
+import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import SecurePin from '../components/SecurePin';
 import { $BLUE } from '../constants/colorLiterals';
 import {
@@ -185,12 +185,12 @@ export default function LoginPinCode() {
         numberStyle={styles.numberStyle}
       />
       <View style={styles.buttonsContainer}>
-        <SecondaryButton
+        <ButtonSecondary
           buttonTextStyle={styles.buttonText}
           handleOnPress={() => goTo('LoginCredentials')}
           buttonText="Использовать логин и пароль"
         />
-        <SecondaryButton
+        <ButtonSecondary
           buttonTextStyle={styles.buttonTextWithNote}
           handleOnPress={() => goTo('Creation')}
           buttonText="РЕГИСТРАЦИЯ"

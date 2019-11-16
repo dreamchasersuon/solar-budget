@@ -19,10 +19,10 @@ import {
   $TRANSPARENT,
   $WHITE
 } from '../../constants/colorLiterals';
-import ButtonMainBlue from '../ButtonMainBlue';
+import ButtonMainBlue from '../buttons/ButtonMainBlue';
 import React, { useState } from 'react';
 import NumericBoard from '../NumericBoard';
-import SecondaryButton from '../SecondaryButton';
+import ButtonSecondary from '../buttons/ButtonSecondary';
 import CustomInput from '../CustomInput';
 import ModalHeader from './ModalHeader';
 import { useDispatch, useSelector } from 'react-redux';
@@ -257,7 +257,7 @@ export default function ModalCreateTransaction({
 
   async function timepicker() {
     try {
-      const { action, hour, minute } = await TimePickerAndroid.open({
+      const { hour, minute } = await TimePickerAndroid.open({
         hour: 12,
         minute: 0,
         is24Hour: false
@@ -270,7 +270,7 @@ export default function ModalCreateTransaction({
 
   async function datepicker() {
     try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
+      const { year, month, day } = await DatePickerAndroid.open({
         date: new Date()
       });
       chooseDate(`${day}.${month}.${year}`);
@@ -375,7 +375,7 @@ export default function ModalCreateTransaction({
                 }
               >
                 <RNPickerSelect
-                  onValueChange={(value, index) => onSelectPurpose(value)}
+                  onValueChange={value => onSelectPurpose(value)}
                   style={{
                     inputAndroid: {
                       backgroundColor: 'transparent',
@@ -483,7 +483,7 @@ export default function ModalCreateTransaction({
               </View>
             </View>
           </ScrollView>
-          <SecondaryButton
+          <ButtonSecondary
             buttonTextStyle={
               isValid
                 ? styles.buttonTextStyle

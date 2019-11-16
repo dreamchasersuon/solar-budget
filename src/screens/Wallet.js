@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
-import ButtonOpenModalRound from '../components/ButtonOpenModalRound';
+import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
 import ModalCreateTransaction from '../components/modals/ModalCreateTransaction';
 import ModalCreateBill from '../components/modals/ModalCreateBill';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
