@@ -1,9 +1,12 @@
 import user, {
-  createByCredentials,
+  createUser,
   createPinCode,
   authorizeUserByCredentials,
   authorizeUserByPinCode,
-  multiAccountSelect
+  multiAccountSelect,
+  updateUserLogin,
+  updateUserPassword,
+  updateUserPinCode
 } from '../src/redux/features/userFeatureSlice';
 
 describe('Create users', () => {
@@ -12,7 +15,7 @@ describe('Create users', () => {
     const password1 = 'skywalker';
 
     const luke_skywalker = {
-      type: createByCredentials.type,
+      type: createUser.type,
       payload: {
         login: login1,
         password: password1
@@ -44,7 +47,7 @@ describe('Create users', () => {
     const password2 = 'kenobi';
 
     const obi_van_kenobi = {
-      type: createByCredentials.type,
+      type: createUser.type,
       payload: {
         login: login2,
         password: password2
@@ -469,6 +472,319 @@ describe('Authorize users', () => {
         password: password2,
         passwordHash: `test-${password2}`,
         id: `test-${login2}`,
+        active: false,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+
+  it('should select user between few accounts', () => {
+    const id1 = 'test-id';
+    const id2 = 'test-id2';
+
+    const select_multi_account_user = {
+      type: multiAccountSelect.type,
+      payload: {
+        userId: id1
+      }
+    };
+    expect(
+      user(
+        [
+          {
+            login: 'Luke',
+            password: 'skywalker',
+            passwordHash: `test-luke`,
+            id: id1,
+            active: true,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: true,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          },
+          {
+            login: 'Obi-Van',
+            password: 'kenobi',
+            passwordHash: `test-obi`,
+            id: id2,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        select_multi_account_user
+      )
+    ).toEqual([
+      {
+        login: 'Luke',
+        password: 'skywalker',
+        passwordHash: `test-luke`,
+        id: id1,
+        active: true,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: true,
+        avatar: null,
+        multiAccountSelect: true,
+        permissionsToUpdatePassword: false
+      },
+      {
+        login: 'Obi-Van',
+        password: 'kenobi',
+        passwordHash: `test-obi`,
+        id: id2,
+        active: false,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+});
+
+describe('Update user login/password/PIN-CODE', () => {
+  it('should update user login', () => {
+    const login1 = 'Luke';
+    const password1 = 'skywalker';
+    const userId1 = 'id1';
+    const newLogin = 'new_login';
+
+    const login2 = 'Obi-Van';
+    const password2 = 'Kenobi';
+    const userId2 = 'id2';
+
+    const update_luke_login = {
+      type: updateUserLogin.type,
+      payload: {
+        userId: userId1,
+        login: newLogin,
+        password: password1
+      }
+    };
+    expect(
+      user(
+        [
+          {
+            login: login1,
+            password: password1,
+            passwordHash: `test-${password1}`,
+            id: userId1,
+            active: true,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: true,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          },
+          {
+            login: login2,
+            password: password2,
+            passwordHash: `test-${password2}`,
+            id: userId2,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        update_luke_login
+      )
+    ).toEqual([
+      {
+        login: newLogin,
+        password: password1,
+        passwordHash: `test-${password1}`,
+        id: userId1,
+        active: true,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: true,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      },
+      {
+        login: login2,
+        password: password2,
+        passwordHash: `test-${password2}`,
+        id: userId2,
+        active: false,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+
+  it('should update user password', () => {
+    const login1 = 'Luke';
+    const password1 = 'skywalker';
+    const userId1 = 'id1';
+    const newPassword = 'new_password';
+
+    const login2 = 'Obi-Van';
+    const password2 = 'Kenobi';
+    const userId2 = 'id2';
+
+    const update_luke_password = {
+      type: updateUserPassword.type,
+      payload: {
+        userId: userId1,
+        login: login1,
+        password: newPassword
+      }
+    };
+    expect(
+      user(
+        [
+          {
+            login: login1,
+            password: password1,
+            passwordHash: `test-${password1}`,
+            id: userId1,
+            active: true,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: true,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          },
+          {
+            login: login2,
+            password: password2,
+            passwordHash: `test-${password2}`,
+            id: userId2,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        update_luke_password
+      )
+    ).toEqual([
+      {
+        login: login1,
+        password: newPassword,
+        passwordHash: `test-${password1}`,
+        id: userId1,
+        active: true,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: true,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      },
+      {
+        login: login2,
+        password: password2,
+        passwordHash: `test-${password2}`,
+        id: userId2,
+        active: false,
+        notifications: true,
+        pinCode: '0000',
+        fingerprint: false,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      }
+    ]);
+  });
+
+  it('should update user PIN-CODE', () => {
+    const login1 = 'Luke';
+    const password1 = 'skywalker';
+    const userId1 = 'id1';
+    const newPinCode = 'new_pinCode';
+
+    const login2 = 'Obi-Van';
+    const password2 = 'Kenobi';
+    const userId2 = 'id2';
+
+    const update_luke_pinCode = {
+      type: updateUserPinCode.type,
+      payload: {
+        userId: userId1,
+        pinCode: newPinCode
+      }
+    };
+    expect(
+      user(
+        [
+          {
+            login: login1,
+            password: password1,
+            passwordHash: `test-${password1}`,
+            id: userId1,
+            active: true,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: true,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          },
+          {
+            login: login2,
+            password: password2,
+            passwordHash: `test-${password2}`,
+            id: userId2,
+            active: false,
+            notifications: true,
+            pinCode: '0000',
+            fingerprint: false,
+            avatar: null,
+            multiAccountSelect: false,
+            permissionsToUpdatePassword: false
+          }
+        ],
+        update_luke_pinCode
+      )
+    ).toEqual([
+      {
+        login: login1,
+        password: password1,
+        passwordHash: `test-${password1}`,
+        id: userId1,
+        active: true,
+        notifications: true,
+        pinCode: newPinCode,
+        fingerprint: true,
+        avatar: null,
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
+      },
+      {
+        login: login2,
+        password: password2,
+        passwordHash: `test-${password2}`,
+        id: userId2,
         active: false,
         notifications: true,
         pinCode: '0000',

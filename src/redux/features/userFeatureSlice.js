@@ -19,7 +19,7 @@ const userSlice = createSlice({
         throw new Error('Пользователь с данным логином уже существует');
       }
 
-      const id = uuid(login);
+      const id = env === 'test' ? `test-${login}` : uuid(login);
 
       const passwordHash =
         env === 'test'
@@ -160,7 +160,10 @@ const userSlice = createSlice({
       const { login, password } = action.payload;
       state.map(user => {
         if (user.login === login) {
-          const passwordHash = CryptoJS.AES.encrypt(password, login).toString();
+          const passwordHash =
+            env === test
+              ? `test-${password}`
+              : CryptoJS.AES.encrypt(password, login).toString();
           return (user.passwordHash = passwordHash);
         }
         return user;
