@@ -16,7 +16,7 @@ import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/CustomInput';
 import { $BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
-import { createByCredentials } from '../redux/features/userFeatureSlice';
+import { createUser } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import ArrowLeft from '../../assets/left-arrow.svg';
 
@@ -165,7 +165,7 @@ export default function CreateAccount() {
     }
     setValidity(true);
     dispatch(
-      createByCredentials({
+      createUser({
         login,
         password
       })

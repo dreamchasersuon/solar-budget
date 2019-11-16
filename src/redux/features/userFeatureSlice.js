@@ -8,7 +8,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: [],
   reducers: {
-    createByCredentials(state, action) {
+    createUser(state, action) {
       const { password, login } = action.payload;
 
       let isUserExist = false;
@@ -19,7 +19,8 @@ const userSlice = createSlice({
         throw new Error('Пользователь с данным логином уже существует');
       }
 
-      const id = env === 'test' ? `test-${login}` : uuid(login);
+      const id = uuid(login);
+
       const passwordHash =
         env === 'test'
           ? `test-${password}`
@@ -31,9 +32,9 @@ const userSlice = createSlice({
         login,
         password,
         passwordHash,
+        pinCode: null,
         active: true,
         notifications: true,
-        pinCode: null,
         fingerprint: false,
         avatar: null,
         multiAccountSelect: false,
@@ -233,7 +234,7 @@ export const updateUserPasswordThunk = ({
 };
 
 export const {
-  createByCredentials,
+  createUser,
   createPinCode,
   authorizeUserByCredentials,
   authorizeUserByPinCode,
