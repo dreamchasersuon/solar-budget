@@ -87,7 +87,6 @@ export default function LoginPinCode() {
   const dispatch = useDispatch();
 
   const users = useSelector(state => state.user);
-  console.log(users);
   const userWithMultipleAccounts = users.find(user => user.multiAccountSelect);
   let user;
   if (!userWithMultipleAccounts) {
@@ -118,8 +117,8 @@ export default function LoginPinCode() {
     } catch (e) {
       dropDownRef.current.alertWithType(
         'error',
-        'Пароли не совпадают',
-        e.message
+        'Неверный PIN-CODE',
+        'Попробуйте еще раз'
       );
       Vibration.vibrate(500);
     }

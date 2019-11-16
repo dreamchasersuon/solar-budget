@@ -135,11 +135,13 @@ export default function LoginCredentials() {
           password: userCredentials.password
         })
       );
+      goTo('App');
     }, 500);
   };
 
   const goBack = () => NavigationService.goBack();
-  const goTo = (route, params) => NavigationService.navigate(route, params);
+  const goTo = (route, params = {}) =>
+    NavigationService.navigate(route, params);
   return (
     <KeyboardAvoidingView
       style={styles.container}

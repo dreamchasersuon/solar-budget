@@ -84,7 +84,8 @@ export default function ValidatePinCode({ navigation }) {
       );
       setTimeout(async () => {
         const user = users.find(user => user.id === userId);
-        const password = CryptoJS.AES.encrypt(pinCode, 'Remind user password')
+        const date = `${new Date().getFullYear()}${new Date().getMonth()}${new Date().getMinutes()}}`;
+        const password = CryptoJS.AES.encrypt(pinCode, date)
           .toString()
           .substr(3, 6);
         await Notifications.presentLocalNotificationAsync({
