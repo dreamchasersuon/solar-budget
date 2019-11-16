@@ -9,6 +9,7 @@ const userSlice = createSlice({
   reducers: {
     createByCredentials(state, action) {
       const { password, login } = action.payload;
+      const env = process.env.NODE_ENV;
 
       let isUserExist = false;
       if (state.length) {
@@ -18,8 +19,11 @@ const userSlice = createSlice({
         throw new Error('Пользователь с данным логином уже существует');
       }
 
-      const id = uuid(login);
-      const passwordHash = CryptoJS.AES.encrypt(password, login).toString();
+      const id = env === 'test' ? `test-${login}` : uuid(login);
+      const passwordHash =
+        env === 'test'
+          ? `test-${password}`
+          : CryptoJS.AES.encrypt(password, login).toString();
 
       state.forEach(user => (user.active = false));
       state.push({
@@ -30,7 +34,6 @@ const userSlice = createSlice({
         active: true,
         notifications: true,
         pinCode: null,
-        pinHash: null,
         fingerprint: false,
         avatar: null,
         multiAccountSelect: false,
