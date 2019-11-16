@@ -76,7 +76,9 @@ export default function LoginCredentials() {
   const dropDownRef = useRef(null);
 
   const [isValidLogin, setLoginValidity] = useState(true);
-  const [login, setLogin] = useState('');
+  const [login, setLogin] = useState(
+    users.find(user => user.multiAccountSelect).login
+  );
 
   const [userCredentials, setUserCredentials] = useState({
     password: undefined,

@@ -112,7 +112,7 @@ export default function LoginPinCode() {
   if (pinCode.length === 4) {
     setPin('');
     try {
-      dispatch(authorizeUserByPinCode({ pinCode }));
+      dispatch(authorizeUserByPinCode({ login: user.login, pinCode }));
       NavigationService.navigate('App');
     } catch (e) {
       dropDownRef.current.alertWithType(
