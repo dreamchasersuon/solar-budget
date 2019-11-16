@@ -53,14 +53,22 @@ describe('billReducer', () => {
       bill([], {
         type: addBill.type,
         payload: {
+          id: '1',
+          name: 'rub',
+          userId: 'user-1',
           currency: 'rub',
-          depositAmount: '4000000'
+          depositAmount: '200',
+          active: true
         }
       })
     ).toEqual([
       {
+        id: '1',
+        name: 'rub',
+        userId: 'user-1',
         currency: 'rub',
-        depositAmount: '4000000'
+        depositAmount: '200',
+        active: true
       }
     ]);
   });

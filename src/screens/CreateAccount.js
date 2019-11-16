@@ -140,7 +140,7 @@ export default function CreateAccount() {
   const validatePasswordLength = () => password.length;
   const validatePasswordsIdentity = () => password === repeatedPassword;
 
-  const createUser = () => {
+  const createUserByCredentials = () => {
     if (!validateLoginLength()) {
       setLoginValidity(false);
       setValidity(false);
@@ -239,7 +239,7 @@ export default function CreateAccount() {
             isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
           }
           buttonText="Создать"
-          handleOnPress={isValid ? createUser : null}
+          handleOnPress={isValid ? createUserByCredentials : null}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('LoginCredentials')}
