@@ -31,7 +31,8 @@ module.exports = {
     'react/no-unused-prop-types': 1,
     'react/require-render-return': 1,
     'react/jsx-no-undef': 1,
-    'react-native/no-unused-styles': 2
+    'react-native/no-unused-styles': 2,
+    'react-hooks/exhaustive-deps': 0
   },
   globals: {
     fetch: false

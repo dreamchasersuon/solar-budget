@@ -33,16 +33,14 @@ const userSlice = createSlice({
         pinHash: null,
         fingerprint: false,
         avatar: null,
-        multiAccountSelect: false
+        multiAccountSelect: false,
+        permissionsToUpdatePassword: false
       });
     },
     createPinCode(state, action) {
-      const { pinCode } = action.payload;
+      const { pinCode, login } = action.payload;
       state.map(user => {
-        if (user.pinCode === pinCode) {
-          throw new Error('Данный PIN-CODE уже используется');
-        }
-        if (user.active) {
+        if (user.login === login) {
           return (user.pinCode = pinCode);
         }
         return user;
@@ -164,12 +162,27 @@ const userSlice = createSlice({
     },
     validateUserPassword(state, action) {
       const { password, userId } = action.payload;
+      const isValidPassword = state.find(
+        user => user.id === userId && user.password === password
+      );
+      if (!isValidPassword) {
+        throw new Error('Неверный пароль');
+      }
       state.map(user => {
         if (user.id === userId) {
           if (user.password === password) {
-            return user;
+            return (user.permissionsToUpdatePassword = true);
           }
-          throw new Error('Неверный пароль');
+          return user;
+        }
+        return user;
+      });
+    },
+    setPasswordUpdatePermissionsDenied(state, action) {
+      const { login } = action.payload;
+      state.map(user => {
+        if (user.login === login) {
+          return (user.permissionsToUpdatePassword = false);
         }
         return user;
       });
@@ -228,6 +241,7 @@ export const {
   updateUserPasswordHash,
   validateUserPassword,
   updateUserPinCode,
-  validatePinCode
+  validatePinCode,
+  setPasswordUpdatePermissionsDenied
 } = userSlice.actions;
 export default userSlice.reducer;

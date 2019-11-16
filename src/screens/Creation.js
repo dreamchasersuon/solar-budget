@@ -92,10 +92,11 @@ export default function Creation() {
       })
     );
 
-    goTo('CreatePin');
+    goTo('CreatePin', { login });
   };
   const goBack = () => NavigationService.goBack();
-  const goTo = routeName => NavigationService.navigate(routeName);
+  const goTo = (routeName, params = {}) =>
+    NavigationService.navigate(routeName, params);
   return (
     <KeyboardAvoidingView
       style={styles.container}

@@ -6,13 +6,12 @@ import {
   $TRANSPARENT,
   $WHITE
 } from '../constants/colorLiterals';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import SecondaryButton from './SecondaryButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { validateUserPassword } from '../redux/features/userFeatureSlice';
-import DropdownAlert from 'react-native-dropdownalert';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -89,7 +88,6 @@ export default function ValidatePasswordModal({
   toggleValidatePasswordModal
 }) {
   const dispatch = useDispatch();
-  const dropDownRef = useRef(null);
 
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
@@ -114,17 +112,12 @@ export default function ValidatePasswordModal({
           userId: user.id
         })
       );
-      dropDownRef.alertWithType('success', 'Обновление разрешено', '');
+      toggleValidatePasswordModal();
     } catch (e) {
-      dropDownRef.alertWithType(
-        'error',
-        'Неверный пароль',
-        'Попробуйте еще раз.'
-      );
+      Vibration.vibrate(500);
     }
 
     setPassword('');
-    toggleValidatePasswordModal();
   };
 
   return (
@@ -164,15 +157,6 @@ export default function ValidatePasswordModal({
             buttonText="Проверить"
           />
         </View>
-        <DropdownAlert
-          defaultContainer={{
-            padding: 8,
-            paddingTop: StatusBar.currentHeight,
-            flexDirection: 'row'
-          }}
-          updateStatusBar={false}
-          ref={dropDownRef}
-        />
       </View>
     </Modal>
   );

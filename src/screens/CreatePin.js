@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function CreatePinCode() {
+export default function CreatePinCode({ navigation }) {
   const dispatch = useDispatch();
 
   const [pinCode, setPin] = useState('');
@@ -70,7 +70,8 @@ export default function CreatePinCode() {
   if (pinCode.length === 4) {
     setPin('');
     try {
-      dispatch(createPinCode({ pinCode }));
+      const login = navigation.getParam('login', {});
+      dispatch(createPinCode({ pinCode, login }));
       NavigationService.navigate('AcceptPin');
     } catch (e) {
       Vibration.vibrate(500);

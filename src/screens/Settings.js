@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   Image,
@@ -24,6 +24,7 @@ import { addAvatar } from '../redux/features/userFeatureSlice';
 import * as MailComposer from 'expo-mail-composer';
 import UpdateLoginModal from '../components/ModalUpdateLogin';
 import UpdatePasswordModal from '../components/ModalUpdatePassword';
+import ValidatePasswordModal from '../components/ModalValidatePassword';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -85,10 +86,22 @@ const styles = StyleSheet.create({
 function Settings() {
   const dispatch = useDispatch();
   const dropDownRef = useRef(null);
+  const user = useSelector(state => state.user.find(user => user.active));
+  const isUserHasUpdatePasswordPermissions = user.permissionsToUpdatePassword;
+  const image = user.avatar;
 
-  const [changePasswordPermissions, setChangePasswordPermissions] = useState(
+  const [isValidatePasswordModalVisible, toggleValidatePassword] = useState(
     false
   );
+
+  useEffect(() => {
+    if (isUserHasUpdatePasswordPermissions) {
+      toggleUpdatePasswordModal();
+    }
+  }, [isUserHasUpdatePasswordPermissions]);
+
+  const toggleValidatePasswordModal = () =>
+    toggleValidatePassword(!isValidatePasswordModalVisible);
 
   const [isLoginModalVisible, toggleLoginModal] = useState(false);
   const toggleUpdateLoginModal = () => toggleLoginModal(!isLoginModalVisible);
@@ -96,9 +109,6 @@ function Settings() {
   const [isPasswordModalVisible, togglePasswordModal] = useState(false);
   const toggleUpdatePasswordModal = () =>
     togglePasswordModal(!isPasswordModalVisible);
-
-  const user = useSelector(state => state.user.find(user => user.active));
-  const image = user.avatar;
 
   const askPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -181,7 +191,7 @@ function Settings() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.settingsUnit}
-            onPress={toggleUpdatePasswordModal}
+            onPress={toggleValidatePasswordModal}
           >
             <React.Fragment>
               <Text>Изменить пароль</Text>
@@ -242,6 +252,10 @@ function Settings() {
       <UpdatePasswordModal
         isVisible={isPasswordModalVisible}
         toggleUpdatePasswordModal={toggleUpdatePasswordModal}
+      />
+      <ValidatePasswordModal
+        isVisible={isValidatePasswordModalVisible}
+        toggleValidatePasswordModal={toggleValidatePasswordModal}
       />
     </View>
   );

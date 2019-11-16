@@ -11,7 +11,10 @@ import ModalHeader from './ModalHeader';
 import CustomInput from './Input';
 import SecondaryButton from './SecondaryButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserPasswordThunk } from '../redux/features/userFeatureSlice';
+import {
+  updateUserPasswordThunk,
+  setPasswordUpdatePermissionsDenied
+} from '../redux/features/userFeatureSlice';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -133,6 +136,12 @@ export default function UpdatePasswordModal({
 
     setPassword('');
     setRepeatedPassword('');
+    dispatch(setPasswordUpdatePermissionsDenied({ login: user.login }));
+    toggleUpdatePasswordModal();
+  };
+
+  const closeModal = () => {
+    dispatch(setPasswordUpdatePermissionsDenied({ login: user.login }));
     toggleUpdatePasswordModal();
   };
 
@@ -144,7 +153,7 @@ export default function UpdatePasswordModal({
             containerStyle={styles.headerModalStyle}
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
-            handleOnClose={toggleUpdatePasswordModal}
+            handleOnClose={closeModal}
             title="Изменение пароля"
           />
           <View style={styles.purposeInputContainer}>
