@@ -7,6 +7,7 @@ import {
   Vibration
 } from 'react-native';
 import {
+  $BLACK_FADE,
   $BLUE,
   $MEDIUMSILVER,
   $RED,
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   modalHiddenArea: {
     alignItems: 'flex-end',
-    backgroundColor: $TRANSPARENT,
+    backgroundColor: $BLACK_FADE,
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'flex-end'
@@ -194,7 +195,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
   };
 
   return (
-    <Modal animationType="slide" transparent visible={isVisible}>
+    <Modal animationType="fade" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
         <View style={styles.modalActiveArea}>
           <ModalHeader

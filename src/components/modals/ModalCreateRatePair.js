@@ -1,5 +1,5 @@
 import { Modal, ScrollView, View, StyleSheet } from 'react-native';
-import { $BLUE, $TRANSPARENT, $WHITE } from '../../constants/colorLiterals';
+import { $BLACK_FADE, $BLUE, $WHITE } from '../../constants/colorLiterals';
 import React from 'react';
 import ModalHeader from './ModalHeader';
 import ModalRatePair from './ModalRatePair';
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   modalHiddenArea: {
     alignItems: 'flex-end',
-    backgroundColor: $TRANSPARENT,
+    backgroundColor: $BLACK_FADE,
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'flex-end'
@@ -52,7 +52,7 @@ export default function ModalCreateRatePair({
   toggleAddRatePairModal
 }) {
   return (
-    <Modal animationType="slide" transparent visible={isVisible}>
+    <Modal animationType="fade" transparent visible={isVisible}>
       <View style={[styles.modalHiddenArea]}>
         <View style={styles.modalActiveArea}>
           <ModalHeader

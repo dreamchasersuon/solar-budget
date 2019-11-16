@@ -1,9 +1,9 @@
 import { Modal, View, StyleSheet, Vibration } from 'react-native';
 import {
+  $BLACK_FADE,
   $BLUE,
   $MEDIUMSILVER,
   $RED,
-  $TRANSPARENT,
   $WHITE
 } from '../../constants/colorLiterals';
 import React, { useState } from 'react';
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   modalHiddenArea: {
     alignItems: 'flex-end',
-    backgroundColor: $TRANSPARENT,
+    backgroundColor: $BLACK_FADE,
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'flex-end'
@@ -146,7 +146,7 @@ export default function UpdatePasswordModal({
   };
 
   return (
-    <Modal animationType="slide" transparent visible={isVisible}>
+    <Modal animationType="fade" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
         <View style={styles.modalActiveArea}>
           <ModalHeader

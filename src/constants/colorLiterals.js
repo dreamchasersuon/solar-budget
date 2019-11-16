@@ -6,3 +6,4 @@ export const $LIGHTSILVER = '#FDFDFD';
 export const $TRANSPARENT = 'transparent';
 export const $RED = '#FF1F00';
 export const $WHITE = 'white';
+export const $BLACK_FADE = 'rgba(0,0,0,0.4)';
