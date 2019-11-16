@@ -144,11 +144,13 @@ export default function CreateAccount() {
     if (!validateLoginLength()) {
       setLoginValidity(false);
       setValidity(false);
+      Vibration.vibrate(500);
       return dropDownRef.current.alertWithType('error', 'Введите логин', '');
     }
     if (!validatePasswordLength()) {
       setPasswordValidity(false);
       setValidity(false);
+      Vibration.vibrate(500);
       return dropDownRef.current.alertWithType('error', 'Введите пароль', '');
     }
     if (
