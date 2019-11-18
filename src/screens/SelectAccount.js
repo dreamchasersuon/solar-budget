@@ -104,7 +104,7 @@ export default function SelectAccount() {
             style={styles.cardGradient}
           >
             <Image
-              source={user.avatar !== null ? user.avatar : ''}
+              source={user.avatar !== null ? { uri: user.avatar } : { uri: '' }}
               style={
                 user.avatar
                   ? styles.cardImage
