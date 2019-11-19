@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  snyk: snyk/snyk@0.0.3
 publish: &publish
   working_directory: ~/loplop-native
   docker:
@@ -48,9 +50,8 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: v1-cache-dependencies-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
-      - run:
-          name: Find vulnarabilities
-          command: yarn snyk-protect:js
+      - snyk/scan:
+          - token-variable: SNYK_TOKEN
       - run:
           name: Run tests
           command: yarn test:js --ci
