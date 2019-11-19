@@ -1,0 +1,10 @@
+/node_modules/
+/.expo/
+/.expo-shared/
+/.expo-source/
+*.log
+/coverage/
+/.idea/
+yarn-error.log
+/.circleci/
+/coverage/
