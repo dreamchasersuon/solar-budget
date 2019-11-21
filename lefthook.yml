@@ -5,3 +5,5 @@ pre-commit:
       run: circleci config validate -c .circleci/config.yml
     eslint:
       run: yarn lint
+    prettier:
+      run: yarn format

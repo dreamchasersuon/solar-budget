@@ -64,6 +64,9 @@ jobs:
       - run:
           name: Run linting
           command: yarn lint
+      - run:
+          name: Formatting code with Prettier
+          command: yarn format
 
   publish_to_expo:
     <<: *publish
