@@ -12,7 +12,7 @@ publish: &publish
         key: v1-cache-dependencies-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
     - run:
         name: Install dependencies
-        command: yarn install --frozen-lockfile
+        command: yarn install
     - run:
         name: Install Expo Cli
         command: yarn add --dev expo-cli
@@ -47,7 +47,7 @@ jobs:
           key: v1-cache-dependencies-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
       - run:
           name: Install dependencies
-          command: yarn install --frozen-lockfile
+          command: yarn install
       - snyk/scan:
           fail-on-issues: false
           protect: true
