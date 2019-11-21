@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  snyk: snyk/snyk@0.0.3
+  snyk: snyk/snyk@0.0.8
 publish: &publish
   working_directory: ~/solar-budget
   docker:
@@ -49,7 +49,6 @@ jobs:
           fail-on-issues: false
           monitor-on-build: true
           severity-threshold: high
-          token-variable: $SNYK_TOKEN
       - save_cache:
           name: Save yarn package cache
           paths:
