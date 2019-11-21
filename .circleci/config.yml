@@ -50,8 +50,7 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: v1-cache-dependencies-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
-      - snyk/scan:
-          token-variable: $SNYK_TOKEN
+      - snyk/scan
       - run:
           name: Run tests
           command: yarn test:js --ci
