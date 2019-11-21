@@ -4,5 +4,4 @@ pre-commit:
     circleci:
       run: circleci config validate -c .circleci/config.yml
     eslint:
-      glob: "*.{js,ts}"
-      run: yarn eslint {staged_files}
+      run: yarn lint
