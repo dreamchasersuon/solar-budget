@@ -13,6 +13,9 @@ publish: &publish
     - run:
         name: Install dependencies
         command: yarn install --frozen-lockfile
+    - run:
+        name: Install Expo Cli
+        command: yarn add --dev expo-cli
     - save_cache:
         name: Save yarn package cache
         paths:
