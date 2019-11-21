@@ -47,6 +47,7 @@ jobs:
           command: yarn install --frozen-lockfile
       - snyk/scan:
           fail-on-issues: false
+          protect: true
           monitor-on-build: true
           severity-threshold: high
       - save_cache:
@@ -56,10 +57,10 @@ jobs:
           key: v1-cache-dependencies-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
       - run:
           name: Run tests
-          command: yarn test:js --ci
+          command: yarn test
       - run:
           name: Run linting
-          command: yarn lint:js
+          command: yarn lint
 
   publish_to_expo:
     <<: *publish
