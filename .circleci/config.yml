@@ -45,12 +45,16 @@ jobs:
       - run:
           name: Install dependencies
           command: yarn install --frozen-lockfile
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: true
+          severity-threshold: high
+          token-variable: $SNYK_TOKEN
       - save_cache:
           name: Save yarn package cache
           paths:
             - ~/.cache/yarn
           key: v1-cache-dependencies-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
-      - snyk/scan
       - run:
           name: Run tests
           command: yarn test:js --ci
