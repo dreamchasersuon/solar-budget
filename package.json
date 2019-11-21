@@ -57,7 +57,7 @@
     "redux-persist": "^6.0.0",
     "redux-persist-expo-securestore": "^2.0.0",
     "redux-starter-kit": "^0.9.1",
-    "snyk": "^1.248.0",
+    "snyk": "^1.250.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
