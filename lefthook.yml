@@ -3,3 +3,7 @@ pre-commit:
   commands:
     circleci:
       run: circleci config validate -c .circleci/config.yml
+    eslint:
+      run: npx eslint *.js
+    prettier:
+      run: npx prettier-eslint --write "{,!(node_modules)/**/}*.{js,jsx}"
