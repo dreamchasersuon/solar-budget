@@ -18,3 +18,4 @@ If you want to complete the issue add a comment like 'Working on it' and label "
 
 Here is a link to design: https://www.figma.com/file/KNJUkfyRk3Wdc9GNmdUW92Mo/Solar-Budget?node-id=0%3A1 (WIP).
 
+Apache license 2.0
