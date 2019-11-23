@@ -2,8 +2,8 @@ pre-commit:
   parallel: true
   commands:
     circleci:
-      run: circleci config validate -c .circleci/config.yml
+      run: yarn validate-ci-config
     eslint:
-      run: npx eslint *.js
+      run: yarn lint
     prettier:
-      run: npx prettier-eslint --write "{,!(node_modules)/**/}*.{js,jsx}"
+      run: yarn format

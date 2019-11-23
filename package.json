@@ -6,9 +6,10 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "test": "jest",
-    "lint": "eslint  *.js",
-    "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
-    "snyk-protect": "snyk protect"
+    "lint": "npx eslint *.js",
+    "format": "npx prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
+    "snyk-protect": "snyk protect",
+    "validate-ci-config": "circleci config validate -c .circleci/config.yml"
   },
   "jest": {
     "preset": "jest-expo",
