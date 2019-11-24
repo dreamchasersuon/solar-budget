@@ -4,6 +4,18 @@
     "slug": "solar-budget",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "solar-3y",
+            "project": "solar-budget",
+            "authToken": "219724d5d06c4ab79173f9c65b7cd41d37ce17ca173b45159e05ee072b98673d"
+          }
+        }
+      ]
+    },
     "platforms": [
       "ios",
       "android"

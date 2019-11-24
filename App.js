@@ -8,6 +8,14 @@ import { AppLoading, Linking } from 'expo';
 import * as Font from 'expo-font';
 import RootProvider from './src/navigation/root';
 import { store, persistor } from './src/redux';
+// eslint-disable-next-line import/no-namespace
+import * as Sentry from 'sentry-expo';
+
+Sentry.init({
+  dsn: 'https://90dc28b2dacb49c5906e84bbd221816d@sentry.io/1832573',
+  enableInExpoDevelopment: true,
+  debug: true
+});
 
 export default class App extends React.Component {
   constructor(props) {
