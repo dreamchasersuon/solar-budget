@@ -25,6 +25,7 @@ import * as MailComposer from 'expo-mail-composer';
 import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
 import UpdatePasswordModal from '../components/modals/ModalUpdatePassword';
 import ValidatePasswordModal from '../components/modals/ModalValidatePassword';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -85,6 +86,9 @@ const styles = StyleSheet.create({
 
 function Settings() {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('SettingsScreen');
+
   const dropDownRef = useRef(null);
   const user = useSelector(state => state.user.find(user => user.active));
   const isUserHasUpdatePasswordPermissions = user.permissionsToUpdatePassword;
@@ -141,7 +145,7 @@ function Settings() {
         <View style={styles.headerContainer}>
           <Header
             headerTopLeftSideStyle={styles.headerTopLeftSide}
-            title="Настройки"
+            title={t('screenName')}
             hasLeftMenu
           />
         </View>
@@ -151,34 +155,34 @@ function Settings() {
       </View>
       <ScrollView>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>Основные</Text>
+          <Text style={styles.title}>{t('mainHeaderTitle')}</Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Язык</Text>
+              <Text>{t('languageSettings')}</Text>
               <Language />
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Облачная копия</Text>
+              <Text>{t('cloudSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Пригласить партнера</Text>
+              <Text>{t('inviteFriendSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Переключить тему</Text>
+              <Text>{t('themeSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>Безопасность</Text>
+          <Text style={styles.title}>{t('securityHeaderTitleText')}</Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Использовать отпечаток пальца</Text>
+              <Text>{t('enableFingerprintSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -186,7 +190,7 @@ function Settings() {
             onPress={toggleUpdateLoginModal}
           >
             <React.Fragment>
-              <Text>Изменить логин</Text>
+              <Text>{t('changeLoginSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -194,7 +198,7 @@ function Settings() {
             onPress={toggleValidatePasswordModal}
           >
             <React.Fragment>
-              <Text>Изменить пароль</Text>
+              <Text>{t('changePasswordSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -202,15 +206,15 @@ function Settings() {
             onPress={() => goTo('ChangePinCode')}
           >
             <React.Fragment>
-              <Text>Изменить PIN-CODE</Text>
+              <Text>{t('changePinSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>Обратная связь</Text>
+          <Text style={styles.title}>{t('feedbackHeaderTitle')}</Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Оценить приложение</Text>
+              <Text>{t('rateUsSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -218,23 +222,23 @@ function Settings() {
             onPress={mailTechnicalSupport}
           >
             <React.Fragment>
-              <Text>Техническая поддержка</Text>
+              <Text>{t('techSupportSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Условия использования</Text>
+              <Text>{t('termsOfUseSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>Политика конфиденциальности</Text>
+              <Text>{t('privacyPolicySettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
       </ScrollView>
       <TouchableOpacity onPress={logout}>
-        <Text style={styles.logout}>Выйти</Text>
+        <Text style={styles.logout}>{t('logoutButtonLabel')}</Text>
       </TouchableOpacity>
       <DropdownAlert
         defaultContainer={{

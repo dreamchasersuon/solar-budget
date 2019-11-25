@@ -59,7 +59,7 @@ function Rates() {
     <View style={styles.container}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
-        title={t('headerTitle')}
+        title={t('screenName')}
         hasLeftMenu
       />
       {rates.length ? (

@@ -83,9 +83,28 @@ const resources = {
       headerTitle: 'Enter PIN-CODE'
     },
     RatesScreen: {
-      headerTitle: 'Exchange rates',
+      screenName: 'Exchange rates',
       ratesNotSelectedNote:
         'No exchange rates selected. To select a course, click on the button below'
+    },
+    SettingsScreen: {
+      screenName: 'Settings',
+      mainHeaderTitle: 'Main',
+      languageSettings: 'Language',
+      cloudSettings: 'Cloud copy',
+      inviteFriendSettings: 'Invite a partner',
+      themeSettings: 'Switch theme',
+      securityHeaderTitle: 'Security',
+      enableFingerprintSettings: 'Enable Fingerprint',
+      changeLoginSettings: 'Change login',
+      changePasswordSettings: 'Change password',
+      changePinSettings: 'Change PIN-CODE',
+      feedbackHeaderTitle: 'Feedback',
+      rateUsSettings: 'Rate us',
+      techSupportSettings: 'Technical support',
+      termsOfUseSettings: 'Terms of use',
+      privacyPolicySettings: 'Privacy policy',
+      logoutButton: 'Logout'
     }
   },
   ru: {
@@ -171,9 +190,28 @@ const resources = {
       headerTitle: 'Введите PIN-CODE'
     },
     RatesScreen: {
-      headerTitle: 'Курсы валют',
+      screenName: 'Курсы валют',
       ratesNotSelectedNote:
         'Курсы валют не выбраны. Для выбора курса нажмите на кнопку снизу'
+    },
+    SettingsScreen: {
+      screenName: 'Настройки',
+      mainHeaderTitle: 'Основные',
+      languageSettingsText: 'Язык',
+      cloudSettingsText: 'Облачная копия',
+      inviteFriendSettingsText: 'Пригласить партнера',
+      themeSettingsText: 'Переключить тему',
+      securityHeaderTitleText: 'Безопасность',
+      enableFingerprintSettingsText: 'Использовать отпечаток пальца',
+      changeLoginSettingsText: 'Изменить логин',
+      changePasswordSettingsText: 'Изменить пароль',
+      changePinSettingsText: 'Изменить PIN-CODE',
+      feedbackHeaderTitle: 'Обратная связь',
+      rateUsSettingsText: 'Оценить приложение',
+      techSupportSettingsText: 'Техническая поддержка',
+      termsOfUseSettingsText: 'Условия использования',
+      privacyPolicySettingsText: 'Политика конфиденциальности',
+      logoutButtonLabel: 'Выйти'
     }
   }
 };
