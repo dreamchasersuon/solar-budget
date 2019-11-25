@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DropdownAlert from 'react-native-dropdownalert';
 // eslint-disable-next-line import/no-namespace
 import * as LocalAuthentication from 'expo-local-authentication';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -85,6 +86,8 @@ const styles = StyleSheet.create({
 
 export default function LoginPinCode() {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('LoginPinScreen');
 
   const users = useSelector(state => state.user);
   const userWithMultipleAccounts = users.find(user => user.multiAccountSelect);
@@ -164,7 +167,7 @@ export default function LoginPinCode() {
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
       <View>
-        <AuthHeader title="Добрый вечер" titleStyle={styles.title}>
+        <AuthHeader title={t('greeting')} titleStyle={styles.title}>
           <Pros />
         </AuthHeader>
         <SecurePin
@@ -188,14 +191,14 @@ export default function LoginPinCode() {
         <ButtonSecondary
           buttonTextStyle={styles.buttonText}
           handleOnPress={() => goTo('LoginCredentials')}
-          buttonText="Использовать логин и пароль"
+          buttonText={t('redirectToAuthByLoginAndPasswordText')}
         />
         <ButtonSecondary
           buttonTextStyle={styles.buttonTextWithNote}
           handleOnPress={() => goTo('Creation')}
-          buttonText="РЕГИСТРАЦИЯ"
+          buttonText={t('redirectToCreateAccountText')}
           hasNote
-          noteText="Не зарегистрированы?"
+          noteText={t('notRegisteredText')}
         />
       </View>
       <DropdownAlert

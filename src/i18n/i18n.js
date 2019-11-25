@@ -30,6 +30,12 @@ const resources = {
       createButtonLabel: 'Create',
       redirectToLoginText: 'LOGIN',
       alreadyRegisteredRedirectText: 'Already registered?'
+    },
+    LoginPinScreen: {
+      greeting: 'Good evening',
+      redirectToAuthByLoginAndPasswordText: 'Use login and password',
+      redirectToCreateAccountText: 'REGISTER',
+      notRegisteredText: 'Not registered?'
     }
   },
   ru: {
@@ -63,6 +69,12 @@ const resources = {
       createButtonLabel: 'Создать',
       redirectToLoginText: 'ВОЙТИ',
       alreadyRegisteredRedirectText: 'Уже зарегистрированы?'
+    },
+    LoginPinScreen: {
+      greeting: 'Добрый вечер',
+      redirectToAuthByLoginAndPasswordText: 'Используйте логин и пароль',
+      redirectToCreateAccountText: 'РЕГИСТРАЦИЯ',
+      notRegisteredText: 'Не зарегистрированы?'
     }
   }
 };
