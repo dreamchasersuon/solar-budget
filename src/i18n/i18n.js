@@ -46,6 +46,13 @@ const resources = {
     ChangePinScreen: {
       newPinText: 'New PIN-CODE',
       oldPinText: 'Old PIN-CODE'
+    },
+    FingerprintScreen: {
+      headerTitle: 'Use fingerprint to login?',
+      headerNote:
+        'Use your fingerprint for faster and easier access to your account.',
+      useFingerprintButtonLabel: 'Enable',
+      useFingerprintLaterButtonLabel: 'Later'
     }
   },
   ru: {
@@ -95,6 +102,13 @@ const resources = {
     ChangePinScreen: {
       newPinText: 'Новый PIN-CODE',
       oldPinText: 'Старый PIN-CODE'
+    },
+    FingerprintScreen: {
+      headerTitle: 'Использовать отпечаток пальца для входа?',
+      headerNote:
+        'Используйте отпечаток пальца для более быстрого и легкого доступа к своей учетной записи',
+      useFingerprintButtonLabel: 'Использовать',
+      useFingerprintLaterButtonLabel: 'Позже'
     }
   }
 };

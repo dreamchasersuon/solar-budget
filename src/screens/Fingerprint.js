@@ -11,6 +11,7 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useDispatch, useSelector } from 'react-redux';
 import { enableFingerprint } from '../redux/features/userFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonText: {
@@ -69,6 +70,9 @@ const styles = StyleSheet.create({
 
 export default function AddFingerprint() {
   const dropDownRef = useRef(null);
+
+  const { t, i18n } = useTranslation('FingerprintScreen');
+
   const user = useSelector(state => state.user.find(user => user.active));
   const dispatch = useDispatch();
 
@@ -126,9 +130,8 @@ export default function AddFingerprint() {
     <View style={styles.container}>
       <View style={styles.header} />
       <AuthHeader
-        title={'Использовать отпечаток пальца для входа?'}
-        note="Используйте отпечаток пальца для более быстрого и легкого доступа к
-          своей учетной записи"
+        title={t('headerTitle')}
+        note={t('headerNote')}
         titleStyle={styles.title}
       >
         <TouchableOpacity style={styles.fingerprint}>
@@ -139,12 +142,12 @@ export default function AddFingerprint() {
         <ButtonWithFeedbackBlue
           buttonStyle={styles.buttonFeedback}
           handleOnPress={useFingerprint}
-          buttonText="Использовать"
+          buttonText={t('useFingerprintButtonLabel')}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('App')}
           buttonTextStyle={styles.buttonText}
-          buttonText="Позже"
+          buttonText={t('useFingerprintLaterButtonLabel')}
         />
       </View>
       <DropdownAlert
