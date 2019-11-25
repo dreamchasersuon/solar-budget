@@ -105,6 +105,14 @@ const resources = {
       termsOfUseSettings: 'Terms of use',
       privacyPolicySettings: 'Privacy policy',
       logoutButton: 'Logout'
+    },
+    TargetsScreen: {
+      screenName: 'Targets',
+      noteToCreateTargetText:
+        'Create a target using the plus button in the upper right corner',
+      noteToAddPayment:
+        'The target has no payments. To create a payment for a target, you must specify the name of the target in the "Purpose" field of the transaction',
+      transactionAboutText: 'Payment to target'
     }
   },
   ru: {
@@ -212,6 +220,14 @@ const resources = {
       termsOfUseSettingsText: 'Условия использования',
       privacyPolicySettingsText: 'Политика конфиденциальности',
       logoutButtonLabel: 'Выйти'
+    },
+    TargetsScreen: {
+      screenName: 'Цели',
+      noteToCreateTargetText:
+        'Создайте цель с помощью кнопки с плюсом в правом верхнем углу',
+      noteToAddPayment:
+        'У цели нет ни одного платежа. Для создания платежа по цели необходимо указать название цели в поле "Назначение" транзакции',
+      transactionAboutText: 'Платеж по цели'
     }
   }
 };

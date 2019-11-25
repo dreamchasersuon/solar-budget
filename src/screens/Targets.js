@@ -7,6 +7,7 @@ import ModalCreateTarget from '../components/modals/ModalCreateTarget';
 import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTargetActive } from '../redux/features/targetFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,6 +46,8 @@ const styles = StyleSheet.create({
 function Targets() {
   const dispatch = useDispatch();
 
+  const { t, i18n } = useTranslation('TargetsScreen');
+
   const targetState = useSelector(state => state.target);
   const user = useSelector(state => state.user.find(user => user.active));
   const targets = targetState.filter(target => target.userId === user.id);
@@ -71,7 +74,7 @@ function Targets() {
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu
-        title="Цели"
+        title={t('screenName')}
         hasBudget
         toggleModal={toggleCreateTargetModal}
         handleOnPress={selectTarget}
@@ -79,15 +82,10 @@ function Targets() {
         deposit={activeTargetPrice}
       />
       {targets.length === 0 && (
-        <Text style={styles.clearHistory}>
-          Создайте цель с помощью кнопки с плюсом в правом верхнем углу
-        </Text>
+        <Text style={styles.clearHistory}>{t('noteToCreateTargetText')}</Text>
       )}
       {targets.length > 0 && !transactions.length && (
-        <Text style={styles.clearHistory}>
-          У цели нет ни одного платежа. Для создания платежа по цели необходимо
-          указать название цели в поле "Назначение" транзакции
-        </Text>
+        <Text style={styles.clearHistory}>{t('noteToAddPayment')}</Text>
       )}
       {transactions.length ? (
         <FlatList
@@ -97,7 +95,7 @@ function Targets() {
           renderItem={({ item }) => (
             <Transaction
               purpose={activeTarget.name}
-              about="Платеж по цели"
+              about={t('transactionAboutText')}
               amount={item.amount}
               date={item.date}
               time={item.time}
