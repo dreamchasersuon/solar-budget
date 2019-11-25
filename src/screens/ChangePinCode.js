@@ -11,6 +11,7 @@ import {
 } from '../redux/features/userFeatureSlice';
 import { $BLUE } from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -58,6 +59,9 @@ const styles = StyleSheet.create({
 
 export default function ChangePinCode() {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ChangePinScreen');
+
   const dropDownRef = useRef(null);
 
   const user = useSelector(state => state.user.find(user => user.active));
@@ -101,9 +105,7 @@ export default function ChangePinCode() {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title={
-          permissionsToUpdatePinCode ? 'Новый PIN-CODE' : 'Старый PIN-CODE'
-        }
+        title={permissionsToUpdatePinCode ? t('newPinText') : t('oldPinText')}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}

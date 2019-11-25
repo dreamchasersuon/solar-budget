@@ -42,6 +42,10 @@ const resources = {
     },
     AcceptPinScreen: {
       headerTitle: 'Confirm PIN-CODE'
+    },
+    ChangePinScreen: {
+      newPinText: 'New PIN-CODE',
+      oldPinText: 'Old PIN-CODE'
     }
   },
   ru: {
@@ -87,6 +91,10 @@ const resources = {
     },
     AcceptPinScreen: {
       headerTitle: 'Подтвердите PIN-CODE'
+    },
+    ChangePinScreen: {
+      newPinText: 'Новый PIN-CODE',
+      oldPinText: 'Старый PIN-CODE'
     }
   }
 };
