@@ -9,6 +9,7 @@ import RatePair from '../components/RatePair';
 import ModalCreateRatePair from '../components/modals/ModalCreateRatePair';
 import withSideScreen from '../components/HOCSideScreen';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,6 +47,8 @@ const styles = StyleSheet.create({
 });
 
 function Rates() {
+  const { t, i18n } = useTranslation('RatesScreen');
+
   const rateState = useSelector(state => state.rate);
   const user = useSelector(state => state.user.find(user => user.active));
   const rates = rateState.filter(rate => rate.userId === user.id);
@@ -56,7 +59,7 @@ function Rates() {
     <View style={styles.container}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
-        title="Курсы валют"
+        title={t('headerTitle')}
         hasLeftMenu
       />
       {rates.length ? (
@@ -74,9 +77,7 @@ function Rates() {
           keyExtractor={item => item.id}
         />
       ) : (
-        <Text style={styles.clearHistory}>
-          Курсы валют не выбраны. Для выбора курса нажмите на кнопку снизу
-        </Text>
+        <Text style={styles.clearHistory}>{t('ratesNotSelectedNote')}</Text>
       )}
       <ButtonOpenModalRound isActive expandModal={toggleAddRatePairModal} />
       <ModalCreateRatePair

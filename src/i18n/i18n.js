@@ -81,6 +81,11 @@ const resources = {
     },
     ValidatePinCodeScreen: {
       headerTitle: 'Enter PIN-CODE'
+    },
+    RatesScreen: {
+      headerTitle: 'Exchange rates',
+      ratesNotSelectedNote:
+        'No exchange rates selected. To select a course, click on the button below'
     }
   },
   ru: {
@@ -164,6 +169,11 @@ const resources = {
     },
     ValidatePinScreen: {
       headerTitle: 'Введите PIN-CODE'
+    },
+    RatesScreen: {
+      headerTitle: 'Курсы валют',
+      ratesNotSelectedNote:
+        'Курсы валют не выбраны. Для выбора курса нажмите на кнопку снизу'
     }
   }
 };
