@@ -113,6 +113,13 @@ const resources = {
       noteToAddPayment:
         'The target has no payments. To create a payment for a target, you must specify the name of the target in the "Purpose" field of the transaction',
       transactionAboutText: 'Payment to target'
+    },
+    WalletScreen: {
+      screenName: 'Wallet',
+      noteToCreateBill:
+        'To use the wallet, create an bill using the plus button in the upper right corner',
+      noteAboutTransactions:
+        'Billing history is clean. To add a payment - click on the button below'
     }
   },
   ru: {
@@ -205,20 +212,20 @@ const resources = {
     SettingsScreen: {
       screenName: 'Настройки',
       mainHeaderTitle: 'Основные',
-      languageSettingsText: 'Язык',
-      cloudSettingsText: 'Облачная копия',
-      inviteFriendSettingsText: 'Пригласить партнера',
-      themeSettingsText: 'Переключить тему',
-      securityHeaderTitleText: 'Безопасность',
-      enableFingerprintSettingsText: 'Использовать отпечаток пальца',
-      changeLoginSettingsText: 'Изменить логин',
-      changePasswordSettingsText: 'Изменить пароль',
-      changePinSettingsText: 'Изменить PIN-CODE',
+      languageSettings: 'Язык',
+      cloudSettings: 'Облачная копия',
+      inviteFriendSettings: 'Пригласить партнера',
+      themeSettings: 'Переключить тему',
+      securityHeaderTitle: 'Безопасность',
+      enableFingerprintSettings: 'Использовать отпечаток пальца',
+      changeLoginSettings: 'Изменить логин',
+      changePasswordSettings: 'Изменить пароль',
+      changePinSettings: 'Изменить PIN-CODE',
       feedbackHeaderTitle: 'Обратная связь',
-      rateUsSettingsText: 'Оценить приложение',
-      techSupportSettingsText: 'Техническая поддержка',
-      termsOfUseSettingsText: 'Условия использования',
-      privacyPolicySettingsText: 'Политика конфиденциальности',
+      rateUsSettings: 'Оценить приложение',
+      techSupportSettings: 'Техническая поддержка',
+      termsOfUseSettings: 'Условия использования',
+      privacyPolicySettings: 'Политика конфиденциальности',
       logoutButtonLabel: 'Выйти'
     },
     TargetsScreen: {
@@ -228,6 +235,13 @@ const resources = {
       noteToAddPayment:
         'У цели нет ни одного платежа. Для создания платежа по цели необходимо указать название цели в поле "Назначение" транзакции',
       transactionAboutText: 'Платеж по цели'
+    },
+    WalletScreen: {
+      screenName: 'Кошелёк',
+      noteToCreateBill:
+        'Для использования кошелька создайте счет с помощью кнопки с плюсом в правом верхнем углу',
+      noteAboutTransactions:
+        'Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку снизу'
     }
   }
 };

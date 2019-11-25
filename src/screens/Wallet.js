@@ -11,6 +11,7 @@ import { StyleSheet, View, FlatList, Text } from 'react-native';
 import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBillActive } from '../redux/features/billFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,6 +50,9 @@ const styles = StyleSheet.create({
 
 function Wallet() {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('WalletScreen');
+
   const transactions = useSelector(state => state.wallet);
   const user = useSelector(state => state.user.find(user => user.active));
   const billState = useSelector(state => state.bill);
@@ -87,7 +91,7 @@ function Wallet() {
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasStats
-        title="Кошелёк"
+        title={t('screenName')}
         hasLeftMenu
         hasBudget
         toggleModal={toggleBillModal}
@@ -96,16 +100,10 @@ function Wallet() {
         deposit={activeBillDeposit}
       />
       {bills.length === 0 && (
-        <Text style={styles.clearHistory}>
-          Для использования кошелька создайте счет с помощью кнопки с плюсом в
-          правом верхнем углу
-        </Text>
+        <Text style={styles.clearHistory}>{t('noteToCreateBill')}</Text>
       )}
       {bills.length > 0 && !activeBillTransactions.length && (
-        <Text style={styles.clearHistory}>
-          Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку
-          снизу.
-        </Text>
+        <Text style={styles.clearHistory}>{t('noteAboutTransactions')}</Text>
       )}
       {bills.length > 0 && activeBillTransactions.length ? (
         <FlatList
