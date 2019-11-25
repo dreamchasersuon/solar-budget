@@ -22,7 +22,6 @@ export default function CustomInput({
   handleChange
 }) {
   const [isHiddenPassword, togglePassword] = useState(true);
-
   const setSecureOnPassword = () => {
     togglePassword(!isHiddenPassword);
   };

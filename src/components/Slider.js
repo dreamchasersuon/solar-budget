@@ -5,6 +5,7 @@ import Pros from '../../assets/pros.svg';
 // eslint-disable-next-line import/default
 import Swiper from 'react-native-swiper';
 import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   aboutContainer: {
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Slider() {
+  const { t, i18n } = useTranslation('SliderComponent');
   return (
     <Swiper
       width={400}
@@ -46,25 +48,18 @@ export default function Slider() {
     >
       <View style={styles.slideContainer}>
         <Pros />
-        <Text style={styles.slideTitle}>Анализируйте статистику</Text>
-        <Text style={styles.slideNote}>
-          Получайте точные статистические данные по вашему бюджету в реальном
-          времени
-        </Text>
+        <Text style={styles.slideTitle}>{t('firstSlideHeaderTitle')}</Text>
+        <Text style={styles.slideNote}>{t('firstSlideNote')}</Text>
       </View>
       <View style={styles.slideContainer}>
         <Pros />
-        <Text style={styles.slideTitle}>Следите за своими операциями</Text>
-        <Text style={styles.slideNote}>
-          Контроль за приходом и расходом средств полностью в ваших руках
-        </Text>
+        <Text style={styles.slideTitle}>{t('secondSlideHeaderTitle')}</Text>
+        <Text style={styles.slideNote}>{t('secondSlideNote')}</Text>
       </View>
       <View style={styles.slideContainer}>
         <Pros />
-        <Text style={styles.slideTitle}>Контролируйте свои финансы</Text>
-        <Text style={styles.slideNote}>
-          Ведите учет своих финансов. Научитесь сберегать свои деньги вместе с
-        </Text>
+        <Text style={styles.slideTitle}>{t('thirdSlideHeaderTitle')}</Text>
+        <Text style={styles.slideNote}>{t('thirdSlideNote')}</Text>
         <Text style={styles.bold}>Solar Budget</Text>
       </View>
     </Swiper>

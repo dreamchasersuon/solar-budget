@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { createUser } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import ArrowLeft from '../../assets/left-arrow.svg';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonTextWithNote: {
@@ -115,6 +116,8 @@ const styles = StyleSheet.create({
 export default function CreateAccount() {
   const dispatch = useDispatch();
 
+  const { t, i18n } = useTranslation('CreateAccountScreen');
+
   const dropDownRef = useRef(null);
 
   const [isValid, setValidity] = useState(true);
@@ -183,12 +186,11 @@ export default function CreateAccount() {
     >
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
-        <Text style={styles.headerText}>Новый аккаунт</Text>
+        <Text style={styles.headerText}>{t('screenName')}</Text>
       </View>
       <AuthHeader
-        title="Анонимность"
-        note="Только вы можете просматривать свои данные. Никакой привязки к соц.
-        сетям и сквозной аналитики"
+        title={t('headerTitle')}
+        note={t('headerNote')}
         titleStyle={styles.title}
       >
         <Pros />
@@ -197,15 +199,15 @@ export default function CreateAccount() {
         <CustomInput
           inputStyle={isValidLogin ? styles.input : styles.invalidInput}
           labelStyle={isValidLogin ? styles.label : styles.invalidInput}
-          label="Логин"
-          placeholder="Введите логин"
+          label={t('loginInputLabel')}
+          placeholder={t('loginInputText')}
           initial={login}
           handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
           inputStyle={isValidPassword ? styles.input : styles.invalidInput}
-          label="Пароль"
-          placeholder="Создайте пароль"
+          label={t('passwordInputLabel')}
+          placeholder={t('passwordInputText')}
           hasMargin
           labelStyle={
             isValidPassword
@@ -220,8 +222,8 @@ export default function CreateAccount() {
           inputStyle={
             isValidRepeatedPassword ? styles.input : styles.invalidInput
           }
-          label="Подтверждение"
-          placeholder="Подтвердите пароль"
+          label={t('confirmPasswordInputLabel')}
+          placeholder={t('confirmPasswordInputText')}
           hasMargin
           labelStyle={
             isValidRepeatedPassword
@@ -238,15 +240,15 @@ export default function CreateAccount() {
           buttonStyle={
             isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
           }
-          buttonText="Создать"
+          buttonText={t('createButtonLabel')}
           handleOnPress={isValid ? createUserByCredentials : null}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('LoginCredentials')}
-          buttonText="ВОЙТИ"
+          buttonText={t('redirectToLoginText')}
           hasNote
           buttonTextStyle={styles.buttonTextWithNote}
-          noteText="Уже зарегистрированы?"
+          noteText={t('alreadyRegisteredRedirectText')}
         />
       </View>
       <DropdownAlert
