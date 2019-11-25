@@ -17,6 +17,7 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSelector, useDispatch } from 'react-redux';
 import { multiAccountSelect } from '../redux/features/userFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   container: {
@@ -77,6 +78,9 @@ const styles = StyleSheet.create({
 
 export default function SelectAccount() {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('SelectAccountScreen');
+
   const users = useSelector(state => state.user);
   const dropDownRef = useRef(null);
 
@@ -122,7 +126,7 @@ export default function SelectAccount() {
   return (
     <View style={styles.container}>
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
-      <AuthHeader title="Выберите аккаунт" titleStyle={styles.title} />
+      <AuthHeader title={t('headerTitle')} titleStyle={styles.title} />
       <Swiper
         showsPagination={false}
         width={400}

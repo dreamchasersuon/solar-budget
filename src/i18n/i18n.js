@@ -75,6 +75,9 @@ const resources = {
       passwordInputText: 'Enter password',
       loginButtonLabel: 'Login',
       redirectToRemindPasswordText: 'Forgot password?'
+    },
+    SelectAccountScreen: {
+      headerTitle: 'Select account'
     }
   },
   ru: {
@@ -85,8 +88,7 @@ const resources = {
     SliderComponent: {
       firstSlideHeaderTitle: 'Анализируйте статистику',
       firstSlideNote:
-        'Получайте точные статистические данные по вашему бюджету в реальном\n' +
-        '          времени',
+        'Получайте точные статистические данные по вашему бюджету в реальном времени',
       secondSlideHeaderTitle: 'Следите за своими операциями',
       secondSlideNote:
         'Контроль за приходом и расходом средств полностью в ваших руках',
@@ -153,6 +155,9 @@ const resources = {
       passwordInputText: 'Введите пароль',
       loginButtonLabel: 'Войти',
       redirectToRemindPasswordText: 'Забыли пароль?'
+    },
+    SelectAccountScreen: {
+      headerTitle: 'Выберите аккаунт'
     }
   }
 };
