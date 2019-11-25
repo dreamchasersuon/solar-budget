@@ -53,6 +53,16 @@ const resources = {
         'Use your fingerprint for faster and easier access to your account.',
       useFingerprintButtonLabel: 'Enable',
       useFingerprintLaterButtonLabel: 'Later'
+    },
+    ForgotPasswordScreen: {
+      headerTitleStartReminder: 'Reset password',
+      headerNoteStartReminder: 'Enter your login',
+      headerTitleSuccessReminder: 'Password reset',
+      headerNoteSuccessReminder: 'To update the password, click on the button',
+      loginInputLabel: 'Login',
+      loginInputText: 'Enter login',
+      remindPasswordButton: 'Remind password',
+      updatePasswordButton: 'Update password'
     }
   },
   ru: {
@@ -109,6 +119,16 @@ const resources = {
         'Используйте отпечаток пальца для более быстрого и легкого доступа к своей учетной записи',
       useFingerprintButtonLabel: 'Использовать',
       useFingerprintLaterButtonLabel: 'Позже'
+    },
+    ForgotPasswordScreen: {
+      headerTitleStartReminder: 'Восстановление пароля',
+      headerNoteStartReminder: 'Введите логин',
+      headerTitleSuccessReminder: 'Пароль восстановлен',
+      headerNoteSuccessReminder: 'Для обновления пароля нажмите на кнопку',
+      loginInputLabel: 'Логин',
+      loginInputText: 'Введите логин',
+      remindPasswordButton: 'Напомнить пароль',
+      updatePasswordButton: 'Обновить'
     }
   }
 };

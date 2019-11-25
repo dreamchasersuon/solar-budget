@@ -21,6 +21,7 @@ import {
   updateUserPasswordThunk,
   authorizeUserByCredentials
 } from '../redux/features/userFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -73,6 +74,9 @@ const styles = StyleSheet.create({
 export default function LoginCredentials() {
   const users = useSelector(state => state.user);
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ForgotPasswordScreen');
+
   const dropDownRef = useRef(null);
 
   const [isValidLogin, setLoginValidity] = useState(true);
@@ -155,13 +159,13 @@ export default function LoginCredentials() {
       <AuthHeader
         title={
           userCredentials.password !== undefined
-            ? 'Пароль восстановлен'
-            : 'Восстановление пароля'
+            ? t('headerTitleSuccessReminder')
+            : t('headerTitleStartReminder')
         }
         note={
           userCredentials.password !== undefined
-            ? 'Для обновления пароля нажмите на кнопку'
-            : 'Введите имя'
+            ? t('headerNoteSuccessReminder')
+            : t('headerNoteStartReminder')
         }
         titleStyle={styles.title}
       >
@@ -174,11 +178,11 @@ export default function LoginCredentials() {
               ? styles.input
               : [styles.input, { color: $RED, borderColor: $RED }]
           }
-          label="Имя аккаунта"
+          label={t('loginInputLabel')}
           labelStyle={
             isValidLogin ? styles.label : [styles.label, { color: $RED }]
           }
-          placeholder="Введите имя"
+          placeholder={t('loginInputText')}
           initial={login}
           handleChange={value => setLogin(value)}
         />
@@ -192,8 +196,8 @@ export default function LoginCredentials() {
           }
           buttonText={
             userCredentials.password !== undefined
-              ? 'Обновить'
-              : 'Напомнить пароль'
+              ? t('updatePasswordButton')
+              : t('remindPasswordButton')
           }
         />
       </View>
