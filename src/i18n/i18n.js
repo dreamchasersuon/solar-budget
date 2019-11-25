@@ -78,6 +78,9 @@ const resources = {
     },
     SelectAccountScreen: {
       headerTitle: 'Select account'
+    },
+    ValidatePinCodeScreen: {
+      headerTitle: 'Enter PIN-CODE'
     }
   },
   ru: {
@@ -158,6 +161,9 @@ const resources = {
     },
     SelectAccountScreen: {
       headerTitle: 'Выберите аккаунт'
+    },
+    ValidatePinScreen: {
+      headerTitle: 'Введите PIN-CODE'
     }
   }
 };

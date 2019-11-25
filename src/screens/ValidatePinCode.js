@@ -9,6 +9,7 @@ import { $BLUE } from '../constants/colorLiterals';
 import { validatePinCode } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import { Notifications } from 'expo';
+import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
 
@@ -58,6 +59,9 @@ const styles = StyleSheet.create({
 
 export default function ValidatePinCode({ navigation }) {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ValidatePinScreen');
+
   const users = useSelector(state => state.user);
   const dropDownRef = useRef(null);
 
@@ -113,7 +117,7 @@ export default function ValidatePinCode({ navigation }) {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title="Введите PIN-CODE"
+        title={t('headerTitle')}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}
