@@ -63,6 +63,18 @@ const resources = {
       loginInputText: 'Enter login',
       remindPasswordButton: 'Remind password',
       updatePasswordButton: 'Update password'
+    },
+    LoginCredentialsScreen: {
+      headerTitle: 'Good evening',
+      headerNote:
+        'Log in with your username and password. If you forgot your password - use the form',
+      headerExtendedNote: 'password recovery',
+      loginInputLabel: 'Login',
+      loginInputText: 'Enter login',
+      passwordInputLabel: 'Password',
+      passwordInputText: 'Enter password',
+      loginButtonLabel: 'Login',
+      redirectToRemindPasswordText: 'Forgot password?'
     }
   },
   ru: {
@@ -129,6 +141,18 @@ const resources = {
       loginInputText: 'Введите логин',
       remindPasswordButton: 'Напомнить пароль',
       updatePasswordButton: 'Обновить'
+    },
+    LoginCredentialsScreen: {
+      headerTitle: 'Добрый вечер',
+      headerNote:
+        'Войдите с помощью логина и пароля. Если вы забыли пароль - воспользуйтесь формой',
+      headerExtendedNote: 'восстановления пароля',
+      loginInputLabel: 'Логин',
+      loginInputText: 'Введите логин',
+      passwordInputLabel: 'Пароль',
+      passwordInputText: 'Введите пароль',
+      loginButtonLabel: 'Войти',
+      redirectToRemindPasswordText: 'Забыли пароль?'
     }
   }
 };

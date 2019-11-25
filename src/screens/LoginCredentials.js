@@ -19,6 +19,7 @@ import { $BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -109,6 +110,8 @@ const styles = StyleSheet.create({
 export default function LoginCredentials() {
   const dispatch = useDispatch();
 
+  const { t, i18n } = useTranslation('LoginCredentialsScreen');
+
   const dropDownRef = useRef(null);
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -168,10 +171,9 @@ export default function LoginCredentials() {
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
       <AuthHeader
-        title="Добрый вечер"
-        note="Войдите с помощью логина и пароля. Если вы забыли пароль -
-          воспользуйтесь формой"
-        extendedNote="восстановления пароля"
+        title={t('headerTitle')}
+        note={t('headerNote')}
+        extendedNote={t('headerExtendedNote')}
         titleStyle={styles.title}
         handleOnPress={() => goTo('ForgotPassword')}
       >
@@ -180,16 +182,16 @@ export default function LoginCredentials() {
       <View style={styles.form}>
         <CustomInput
           inputStyle={isValidLogin ? styles.input : styles.invalidInput}
-          label="Логин"
+          label={t('loginInputLabel')}
           labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
-          placeholder="Введите логин"
+          placeholder={t('loginInputText')}
           initial={login}
           handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
-          label="Пароль"
+          label={t('passwordInputLabel')}
           inputStyle={isValidPassword ? styles.input : styles.invalidInput}
-          placeholder="Введите пароль"
+          placeholder={t('passwordInputText')}
           hasMargin
           labelStyle={
             isValidPassword
@@ -207,11 +209,11 @@ export default function LoginCredentials() {
             isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
           }
           handleOnPress={isValid ? authorize : null}
-          buttonText="Войти"
+          buttonText={t('loginButtonLabel')}
         />
         <ButtonSecondary
           buttonTextStyle={styles.buttonText}
-          buttonText="Забыли пароль?"
+          buttonText={t('redirectToRemindPasswordText')}
           handleOnPress={() => goTo('ForgotPassword')}
         />
       </View>
