@@ -7,6 +7,7 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import { useDispatch } from 'react-redux';
 import { createPinCode } from '../redux/features/userFeatureSlice';
 import { $BLUE } from '../constants/colorLiterals';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -55,6 +56,8 @@ const styles = StyleSheet.create({
 export default function CreatePinCode({ navigation }) {
   const dispatch = useDispatch();
 
+  const { t, i18n } = useTranslation('CreatePinScreen');
+
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
 
@@ -84,7 +87,7 @@ export default function CreatePinCode({ navigation }) {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title="Придумайте PIN-CODE"
+        title={t('headerTitle')}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}

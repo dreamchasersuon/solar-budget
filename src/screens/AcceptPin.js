@@ -7,6 +7,7 @@ import NumericBoard from '../components/NumericBoard';
 import { useSelector } from 'react-redux';
 import { $BLUE } from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -53,6 +54,8 @@ const styles = StyleSheet.create({
 });
 
 export default function AcceptPinCode() {
+  const { t, i18n } = useTranslation('AcceptPinScreen');
+
   const users = useSelector(state => state.user);
   const activeUser = users.find(user => user.active);
 
@@ -85,7 +88,7 @@ export default function AcceptPinCode() {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title="Подтвердите PIN-CODE"
+        title={t('headerTitle')}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}

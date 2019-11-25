@@ -36,6 +36,12 @@ const resources = {
       redirectToAuthByLoginAndPasswordText: 'Use login and password',
       redirectToCreateAccountText: 'REGISTER',
       notRegisteredText: 'Not registered?'
+    },
+    CreatePinScreen: {
+      headerTitle: 'Dream up PIN-CODE'
+    },
+    AcceptPinScreen: {
+      headerTitle: 'Confirm PIN-CODE'
     }
   },
   ru: {
@@ -75,6 +81,12 @@ const resources = {
       redirectToAuthByLoginAndPasswordText: 'Используйте логин и пароль',
       redirectToCreateAccountText: 'РЕГИСТРАЦИЯ',
       notRegisteredText: 'Не зарегистрированы?'
+    },
+    CreatePinScreen: {
+      headerTitle: 'Придумайте PIN-CODE'
+    },
+    AcceptPinScreen: {
+      headerTitle: 'Подтвердите PIN-CODE'
     }
   }
 };
