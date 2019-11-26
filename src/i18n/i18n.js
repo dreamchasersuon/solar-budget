@@ -376,7 +376,8 @@ const resources = {
       userFoundedMsg: 'Пользователь найден',
       passwordUpdatedMsg: 'Пароль обновлён',
       pinAcceptedMsg: 'PIN-CODE подтверждён',
-      pinUpdatedMsg: 'PIN-CODE  обновлён'
+      pinUpdatedMsg: 'PIN-CODE  обновлён',
+      setLocaleSuccessMsg: 'Язык изменён'
     },
     ApplicationErrorMessages: {
       wrongPinMsg: 'Неверный PIN-CODE',
@@ -396,7 +397,8 @@ const resources = {
       wrongLoginMsg: 'Неверный логин',
       passwordNotEnteredMsg: 'Введите пароль',
       passwordsNotMatchMsg: 'Пароли не совпадают',
-      userNotFoundMsg: 'Пользователь не найден'
+      userNotFoundMsg: 'Пользователь не найден',
+      setLocaleFailedMsg: 'Изменить язык не удалось'
     }
   }
 };

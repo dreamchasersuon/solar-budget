@@ -6,7 +6,22 @@ const env = process.env.NODE_ENV;
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: [],
+  initialState: [
+    {
+      id: '777',
+      login: 'admin',
+      password: 'admin',
+      passwordHash: 'admin',
+      pinCode: '0000',
+      active: true,
+      notifications: true,
+      fingerprint: true,
+      avatar: null,
+      locale: 'en',
+      multiAccountSelect: false,
+      permissionsToUpdatePassword: false
+    }
+  ],
   reducers: {
     createUser(state, action) {
       const { password, login } = action.payload;
@@ -286,6 +301,15 @@ const userSlice = createSlice({
         }
         return user;
       });
+    },
+    setLocale(state, action) {
+      const { locale, userId } = action.payload;
+      state.map(user => {
+        if (user.id === userId) {
+          return (user.locale = locale);
+        }
+        return user;
+      });
     }
   }
 });
@@ -323,6 +347,7 @@ export const {
   validateUserPassword,
   updateUserPinCode,
   validatePinCode,
-  setPasswordUpdatePermissionsDenied
+  setPasswordUpdatePermissionsDenied,
+  setLocale
 } = userSlice.actions;
 export default userSlice.reducer;

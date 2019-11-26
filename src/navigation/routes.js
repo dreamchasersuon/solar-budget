@@ -259,7 +259,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'AcceptPin',
+    initialRouteName: 'Welcome',
     headerMode: 'none',
     transitionConfig
   }
@@ -276,7 +276,7 @@ const AppStack = createSwitchNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'App'
+    initialRouteName: 'Auth'
   }
 );
 
