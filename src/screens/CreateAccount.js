@@ -219,7 +219,7 @@ export default function CreateAccount() {
       <View style={styles.form}>
         <CustomInput
           inputStyle={isValidLogin ? styles.input : styles.invalidInput}
-          labelStyle={isValidLogin ? styles.label : styles.invalidInput}
+          labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
           label={t('CreateAccountScreen:loginInputLabel')}
           placeholder={t('CreateAccountScreen:loginInputText')}
           initial={login}
@@ -262,7 +262,7 @@ export default function CreateAccount() {
             isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
           }
           buttonText={t('CreateAccountScreen:createButtonLabel')}
-          handleOnPress={isValid ? createUserByCredentials : null}
+          handleOnPress={createUserByCredentials}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('LoginCredentials')}
