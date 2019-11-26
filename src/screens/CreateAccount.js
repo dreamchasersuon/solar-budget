@@ -178,12 +178,20 @@ export default function CreateAccount() {
       );
     }
     setValidity(true);
-    dispatch(
-      createUser({
-        login,
-        password
-      })
-    );
+    try {
+      dispatch(
+        createUser({
+          login,
+          password
+        })
+      );
+    } catch (e) {
+      dropDownRef.current.alertWithType(
+        'error',
+        `${t('ApplicationErrorMessages:loginIsBusyMsg')}`,
+        ''
+      );
+    }
 
     goTo('CreatePin', { login });
   };

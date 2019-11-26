@@ -91,23 +91,19 @@ export default function ChangePinCode() {
     if (!permissionsToUpdatePinCode) {
       try {
         dispatch(validatePinCode({ pinCode, userId: user.id }));
-        /*
         dropDownRef.alertWithType(
           'success',
           `${t('ApplicationSuccessMessages:pinAcceptedMsg')}`,
           ''
         );
-        */
         return grantPermissionsToUpdatePinCode(true);
       } catch (e) {
         Vibration.vibrate(500);
-        /*
         dropDownRef.alertWithType(
           'error',
           `${t('ApplicationSuccessMessages:pinUpdatedMsg')}`,
           ''
         );
-        */
       }
     }
     dispatch(updateUserPinCode({ pinCode, userId: user.id }));

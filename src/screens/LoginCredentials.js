@@ -166,7 +166,7 @@ export default function LoginCredentials() {
       dropDownRef.current.alertWithType(
         'error',
         `${t('ApplicationErrorMessages:passwordsNotMatchMsg')}`,
-        e.message
+        ''
       );
       Vibration.vibrate(500);
     }

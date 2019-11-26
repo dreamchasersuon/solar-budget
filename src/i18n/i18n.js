@@ -1,5 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
+export const supportedLanguages = ['en', 'ru'];
 const resources = {
   en: {
     WelcomeScreen: {
@@ -173,6 +175,45 @@ const resources = {
       loginInputLabel: 'Last password',
       loginInputText: 'Enter last password',
       updateButtonLabel: 'Update'
+    },
+    ApplicationMessages: {
+      passwordRecoveryMsg: 'Password recovery',
+      passwordRecoveryMsgNote: 'Your new password is:',
+      fingerprintScanningEnabledMsg: 'Scan started',
+      fingerprintScanningEnabledMsgNote:
+        'Please attach a fingerprint to the sensor'
+    },
+    ApplicationSuccessMessages: {
+      sendNewPasswordMsg: 'Sent a new password',
+      sendNewPasswordMsgNote: 'Wait for notification from the application',
+      fingerprintRecognizedMsg: 'Fingerprint recognized',
+      userFoundedMsg: 'User found',
+      passwordUpdatedMsg: 'Password updated',
+      pinAcceptedMsg: 'PIN-CODE accepted',
+      pinUpdatedMsg: 'PIN-CODE updated',
+      setLocaleSuccessMsg: 'Language changed'
+    },
+    ApplicationErrorMessages: {
+      wrongPinMsg: 'Wrong PIN-CODE',
+      wrongPinMsgNote: 'Please, try again',
+      cameraPermissionsMsg: 'Rejected',
+      cameraPermissionsMsgNote:
+        'Access to the camera and gallery is required to download the image',
+      fingerprintNotConfiguredMsg: 'Fingerprint not configured',
+      fingerprintNotConfiguredMsgNote:
+        'Log in in another way and enable fingerprint authentication in the settings',
+      fingerprintNotRecognizedMsg: 'Fingerprint not recognized',
+      fingerprintNotRecognizedMsgNote: 'Please, try to scan again',
+      notSupportedMsg: 'Incompatible device',
+      notSupportedFingerprintMsgNote:
+        'This device does not have the ability to scan a fingerprint',
+      loginNotEnteredMsg: 'Enter login',
+      wrongLoginMsg: 'Wrong login',
+      passwordNotEnteredMsg: 'Enter password',
+      passwordsNotMatchMsg: "Passwords don't match",
+      userNotFoundMsg: 'User not found',
+      loginIsBusyMsg: 'Sorry, this login is already taken',
+      setLocaleFailedMsg: 'Change language failed'
     }
   },
   ru: {
@@ -398,6 +439,7 @@ const resources = {
       passwordNotEnteredMsg: 'Введите пароль',
       passwordsNotMatchMsg: 'Пароли не совпадают',
       userNotFoundMsg: 'Пользователь не найден',
+      loginIsBusyMsg: 'Данный логин уже занят',
       setLocaleFailedMsg: 'Изменить язык не удалось'
     }
   }

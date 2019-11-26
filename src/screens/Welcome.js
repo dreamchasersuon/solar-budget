@@ -15,6 +15,7 @@ import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useTranslation } from 'react-i18next';
 import { setLocale } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
+import { supportedLanguages } from '../i18n/i18n';
 
 const styles = StyleSheet.create({
   buttonsContainer: {
@@ -77,9 +78,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// TODO: import from i18n config
-const languages = ['en', 'ru'];
-
 export default function Welcome() {
   const dispatch = useDispatch();
 
@@ -98,6 +96,7 @@ export default function Welcome() {
     'ApplicationSuccessMessages',
     'ApplicationErrorMessages'
   ]);
+  const languages = supportedLanguages;
 
   const [isLanguagesVisible, showLanguages] = useState(false);
 
@@ -108,6 +107,7 @@ export default function Welcome() {
     try {
       dispatch(setLocale({ locale: language, userId: activeUser.id }));
       await i18n.changeLanguage(language);
+      showLanguages(!isLanguagesVisible);
 
       dropDownRef.current.alertWithType(
         'success',

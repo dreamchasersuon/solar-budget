@@ -31,21 +31,7 @@ const userSlice = createSlice({
         isUserExist = state.find(user => user.login === login);
       }
       if (isUserExist) {
-        // TODO: extract translation
-        const activeUser = state.find(user => user.active);
-        const activeUserLocale = activeUser.locale;
-        let errorMsg;
-        switch (activeUserLocale) {
-          case 'en':
-            errorMsg = 'User with this login already exists';
-            break;
-          case 'ru':
-            errorMsg = 'Пользователь с данным логином уже существует';
-            break;
-          default:
-            errorMsg = 'Пользователь с данным логином уже существует';
-        }
-        throw new Error(errorMsg);
+        throw new Error('User with this login is already exists');
       }
 
       const id = env === 'test' ? `test-${login}` : uuid(login);
@@ -86,21 +72,7 @@ const userSlice = createSlice({
       const user = state.find(user => user.login === login);
 
       if (!user) {
-        // TODO: extract translation
-        const activeUser = state.find(user => user.active);
-        const activeUserLocale = activeUser.locale;
-        let errorMsg;
-        switch (activeUserLocale) {
-          case 'en':
-            errorMsg = 'User not found';
-            break;
-          case 'ru':
-            errorMsg = 'Пользователь не найден';
-            break;
-          default:
-            errorMsg = 'User not found';
-        }
-        throw new Error(errorMsg);
+        throw new Error('User not found');
       }
       const decryptedPassword =
         env === 'test'
@@ -127,21 +99,7 @@ const userSlice = createSlice({
         user => user.login === login && user.pinCode === pinCode
       );
       if (!user) {
-        // TODO: extract translation
-        const activeUser = state.find(user => user);
-        const activeUserLocale = activeUser.locale;
-        let errorMsg;
-        switch (activeUserLocale) {
-          case 'en':
-            errorMsg = 'User not found';
-            break;
-          case 'ru':
-            errorMsg = 'Пользователь не найден';
-            break;
-          default:
-            errorMsg = 'User not found';
-        }
-        throw new Error(errorMsg);
+        throw new Error('User not found');
       }
 
       state.map(user => {
@@ -233,21 +191,7 @@ const userSlice = createSlice({
         user => user.id === userId && user.password === password
       );
       if (!isValidPassword) {
-        // TODO: extract translation
-        const activeUser = state.find(user => user);
-        const activeUserLocale = activeUser.locale;
-        let errorMsg;
-        switch (activeUserLocale) {
-          case 'en':
-            errorMsg = 'Wrong password';
-            break;
-          case 'ru':
-            errorMsg = 'Неверный пароль';
-            break;
-          default:
-            errorMsg = 'Wrong password';
-        }
-        throw new Error(errorMsg);
+        throw new Error('Wrong password');
       }
       state.map(user => {
         if (user.id === userId) {
@@ -276,22 +220,7 @@ const userSlice = createSlice({
       if (user) {
         return state;
       }
-
-      // TODO: extract translation
-      const activeUser = state.find(user => user);
-      const activeUserLocale = activeUser.locale;
-      let errorMsg;
-      switch (activeUserLocale) {
-        case 'en':
-          errorMsg = 'Wrong PIN-CODE';
-          break;
-        case 'ru':
-          errorMsg = 'Неверный PIN-CODE';
-          break;
-        default:
-          errorMsg = 'Wrong PIN-CODE';
-      }
-      throw new Error(errorMsg);
+      throw new Error('Wrong PIN-CODE');
     },
     updateUserPinCode(state, action) {
       const { pinCode, userId } = action.payload;
