@@ -207,7 +207,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Wallet',
     resetOnBlur: true,
     tabBarOptions: {
       showLabel: false,
@@ -259,7 +259,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Creation',
+    initialRouteName: 'Welcome',
     headerMode: 'none',
     transitionConfig
   }
