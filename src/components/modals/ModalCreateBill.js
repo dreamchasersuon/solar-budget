@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBill, setBillActive } from '../../redux/features/billFeatureSlice';
 import uuid from 'uuid';
 import bringInCash from '../../utils/dotSeparation';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -156,6 +157,9 @@ const styles = StyleSheet.create({
 
 export default function ModalCreateBill({ isVisible, toggleBillModal }) {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ModalCreateBill');
+
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
@@ -203,14 +207,14 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={toggleBillModal}
-            title="Счет"
+            title={t('headerTitle')}
           />
           <ScrollView
             keyboardShouldPersistTaps="always"
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>Валюта</Text>
+              <Text style={styles.label}>{t('selectCurrencyLabel')}</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('rub')}
@@ -224,7 +228,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Рубли"
+                  title={t('selectCurrencyTextRub')}
                 />
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('usd')}
@@ -238,7 +242,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Доллары"
+                  title={t('selectCurrencyTextUsd')}
                 />
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('eur')}
@@ -252,13 +256,13 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Евро"
+                  title={t('selectCurrencyTextEur')}
                 />
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
               <Text style={isValid ? styles.label : styles.labelInvalid}>
-                Сумма
+                {t('billAmountLabel')}
               </Text>
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
@@ -299,7 +303,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
             }
             handleOnPress={createBill}
             buttonStyle={styles.buttonFinish}
-            buttonText="Создать"
+            buttonText={t('createBillButtonLabel')}
           />
         </View>
       </View>

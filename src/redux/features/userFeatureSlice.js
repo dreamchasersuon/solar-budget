@@ -16,7 +16,21 @@ const userSlice = createSlice({
         isUserExist = state.find(user => user.login === login);
       }
       if (isUserExist) {
-        throw new Error('Пользователь с данным логином уже существует');
+        // TODO: extract translation
+        const activeUser = state.find(user => user.active);
+        const activeUserLocale = activeUser.locale;
+        let errorMsg;
+        switch (activeUserLocale) {
+          case 'en':
+            errorMsg = 'User with this login already exists';
+            break;
+          case 'ru':
+            errorMsg = 'Пользователь с данным логином уже существует';
+            break;
+          default:
+            errorMsg = 'Пользователь с данным логином уже существует';
+        }
+        throw new Error(errorMsg);
       }
 
       const id = env === 'test' ? `test-${login}` : uuid(login);
@@ -37,6 +51,7 @@ const userSlice = createSlice({
         notifications: true,
         fingerprint: false,
         avatar: null,
+        locale: 'en',
         multiAccountSelect: false,
         permissionsToUpdatePassword: false
       });
@@ -56,7 +71,21 @@ const userSlice = createSlice({
       const user = state.find(user => user.login === login);
 
       if (!user) {
-        throw new Error('Пользователь не найден.');
+        // TODO: extract translation
+        const activeUser = state.find(user => user.active);
+        const activeUserLocale = activeUser.locale;
+        let errorMsg;
+        switch (activeUserLocale) {
+          case 'en':
+            errorMsg = 'User not found';
+            break;
+          case 'ru':
+            errorMsg = 'Пользователь не найден';
+            break;
+          default:
+            errorMsg = 'User not found';
+        }
+        throw new Error(errorMsg);
       }
       const decryptedPassword =
         env === 'test'
@@ -83,7 +112,21 @@ const userSlice = createSlice({
         user => user.login === login && user.pinCode === pinCode
       );
       if (!user) {
-        throw new Error('Пользователь не найден.');
+        // TODO: extract translation
+        const activeUser = state.find(user => user);
+        const activeUserLocale = activeUser.locale;
+        let errorMsg;
+        switch (activeUserLocale) {
+          case 'en':
+            errorMsg = 'User not found';
+            break;
+          case 'ru':
+            errorMsg = 'Пользователь не найден';
+            break;
+          default:
+            errorMsg = 'User not found';
+        }
+        throw new Error(errorMsg);
       }
 
       state.map(user => {
@@ -175,7 +218,21 @@ const userSlice = createSlice({
         user => user.id === userId && user.password === password
       );
       if (!isValidPassword) {
-        throw new Error('Неверный пароль');
+        // TODO: extract translation
+        const activeUser = state.find(user => user);
+        const activeUserLocale = activeUser.locale;
+        let errorMsg;
+        switch (activeUserLocale) {
+          case 'en':
+            errorMsg = 'Wrong password';
+            break;
+          case 'ru':
+            errorMsg = 'Неверный пароль';
+            break;
+          default:
+            errorMsg = 'Wrong password';
+        }
+        throw new Error(errorMsg);
       }
       state.map(user => {
         if (user.id === userId) {
@@ -204,7 +261,22 @@ const userSlice = createSlice({
       if (user) {
         return state;
       }
-      throw new Error('Неверный PIN-CODE');
+
+      // TODO: extract translation
+      const activeUser = state.find(user => user);
+      const activeUserLocale = activeUser.locale;
+      let errorMsg;
+      switch (activeUserLocale) {
+        case 'en':
+          errorMsg = 'Wrong PIN-CODE';
+          break;
+        case 'ru':
+          errorMsg = 'Неверный PIN-CODE';
+          break;
+        default:
+          errorMsg = 'Wrong PIN-CODE';
+      }
+      throw new Error(errorMsg);
     },
     updateUserPinCode(state, action) {
       const { pinCode, userId } = action.payload;

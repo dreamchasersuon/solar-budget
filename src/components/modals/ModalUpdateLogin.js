@@ -12,6 +12,7 @@ import CustomInput from '../CustomInput';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserLoginThunk } from '../../redux/features/userFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -88,6 +89,9 @@ export default function UpdateLoginModal({
   toggleUpdateLoginModal
 }) {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ModalUpdateLogin');
+
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [isValidLogin, setLoginValidity] = useState(true);
@@ -124,7 +128,7 @@ export default function UpdateLoginModal({
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={toggleUpdateLoginModal}
-            title="Изменение логина"
+            title={t('headerTitle')}
           />
           <View style={styles.purposeInputContainer}>
             <CustomInput
@@ -133,8 +137,8 @@ export default function UpdateLoginModal({
                   ? styles.purposeInput
                   : [styles.purposeInput, { color: $RED, borderColor: $RED }]
               }
-              placeholder="Введите новый логин"
-              label="Новый логин"
+              label={t('loginInputLabel')}
+              placeholder={t('loginInputText')}
               labelStyle={isValidLogin ? styles.label : styles.labelInvalid}
               handleChange={value => onTypeLogin(value)}
             />
@@ -147,7 +151,7 @@ export default function UpdateLoginModal({
             }
             handleOnPress={updateLogin}
             buttonStyle={styles.buttonFinish}
-            buttonText="Обновить"
+            buttonText={t('updateButtonLabel')}
           />
         </View>
       </View>

@@ -75,7 +75,11 @@ export default function LoginCredentials() {
   const users = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('ForgotPasswordScreen');
+  const { t, i18n } = useTranslation([
+    'ForgotPasswordScreen',
+    'ApplicationSuccessMessages',
+    'ApplicationErrorMessages'
+  ]);
 
   const dropDownRef = useRef(null);
 
@@ -100,22 +104,22 @@ export default function LoginCredentials() {
           setLoginValidity(true);
           dropDownRef.current.alertWithType(
             'success',
-            'Пользователь найден',
+            `${t('ApplicationSuccessMessages:userFoundedMsg')}`,
             ''
           );
           return setTimeout(() => {
             goTo('ValidatePinCode', { userId: user.id });
           }, 500);
         }
-        throw new Error('Неверный логин');
+        throw new Error(`${t('ApplicationErrorMessages:wrongLoginMsg')}`);
       }
       setLoginValidity(false);
-      throw new Error('Введите логин');
+      throw new Error(`${t('ApplicationErrorMessages:loginNotEnteredMsg')}`);
     } catch (e) {
       setLoginValidity(false);
       dropDownRef.current.alertWithType(
         'error',
-        'Пользователь не найден',
+        `${t('ApplicationErrorMessages:userNotFoundMsg')}`,
         e.message
       );
       Vibration.vibrate(500);
@@ -133,7 +137,11 @@ export default function LoginCredentials() {
 
   const updatePassword = () => {
     dispatch(updateUserPasswordThunk(userCredentials));
-    dropDownRef.current.alertWithType('success', 'Пароль обновлён', '');
+    dropDownRef.current.alertWithType(
+      'success',
+      `${t('ApplicationSuccessMessages:passwordUpdatedMsg')}`,
+      ''
+    );
     setTimeout(() => {
       dispatch(
         authorizeUserByCredentials({
@@ -159,13 +167,13 @@ export default function LoginCredentials() {
       <AuthHeader
         title={
           userCredentials.password !== undefined
-            ? t('headerTitleSuccessReminder')
-            : t('headerTitleStartReminder')
+            ? t('ForgotPasswordScreen:headerTitleSuccessReminder')
+            : t('ForgotPasswordScreen:headerTitleStartReminder')
         }
         note={
           userCredentials.password !== undefined
-            ? t('headerNoteSuccessReminder')
-            : t('headerNoteStartReminder')
+            ? t('ForgotPasswordScreen:headerNoteSuccessReminder')
+            : t('ForgotPasswordScreen:headerNoteStartReminder')
         }
         titleStyle={styles.title}
       >
@@ -178,11 +186,11 @@ export default function LoginCredentials() {
               ? styles.input
               : [styles.input, { color: $RED, borderColor: $RED }]
           }
-          label={t('loginInputLabel')}
+          label={t('ForgotPasswordScreen:loginInputLabel')}
           labelStyle={
             isValidLogin ? styles.label : [styles.label, { color: $RED }]
           }
-          placeholder={t('loginInputText')}
+          placeholder={t('ForgotPasswordScreen:loginInputText')}
           initial={login}
           handleChange={value => setLogin(value)}
         />
@@ -196,8 +204,8 @@ export default function LoginCredentials() {
           }
           buttonText={
             userCredentials.password !== undefined
-              ? t('updatePasswordButton')
-              : t('remindPasswordButton')
+              ? t('ForgotPasswordScreen:updatePasswordButton')
+              : t('ForgotPasswordScreen:remindPasswordButton')
           }
         />
       </View>

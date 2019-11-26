@@ -54,7 +54,10 @@ const styles = StyleSheet.create({
 });
 
 export default function AcceptPinCode() {
-  const { t, i18n } = useTranslation('AcceptPinScreen');
+  const { t, i18n } = useTranslation([
+    'AcceptPinScreen',
+    'ApplicationErrorMessages'
+  ]);
 
   const users = useSelector(state => state.user);
   const activeUser = users.find(user => user.active);
@@ -75,7 +78,11 @@ export default function AcceptPinCode() {
   if (pinCode.length === 4) {
     setPin('');
     if (activeUser.pinCode !== pinCode) {
-      dropDownRef.current.alertWithType('error', 'Неверный PIN-CODE', '');
+      dropDownRef.current.alertWithType(
+        'error',
+        `${t('ApplicationErrorMessages:wrongPinMsg')}`,
+        ''
+      );
       return Vibration.vibrate(500);
     }
 
@@ -88,7 +95,7 @@ export default function AcceptPinCode() {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title={t('headerTitle')}
+        title={t('AcceptPinScreen:headerTitle')}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}

@@ -15,6 +15,7 @@ import {
   updateUserPasswordThunk,
   setPasswordUpdatePermissionsDenied
 } from '../../redux/features/userFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -91,6 +92,9 @@ export default function UpdatePasswordModal({
   toggleUpdatePasswordModal
 }) {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ModalUpdatePassword');
+
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [isValidPassword, setPasswordValidity] = useState(true);
@@ -154,7 +158,7 @@ export default function UpdatePasswordModal({
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={closeModal}
-            title="Изменение пароля"
+            title={t('headerTitle')}
           />
           <View style={styles.purposeInputContainer}>
             <CustomInput
@@ -164,8 +168,8 @@ export default function UpdatePasswordModal({
                   : [styles.purposeInput, { color: $RED, borderColor: $RED }]
               }
               initial={password}
-              placeholder="Введите новый пароль"
-              label="Новый пароль"
+              label={t('passwordInputLabel')}
+              placeholder={t('passwordInputText')}
               password
               labelStyle={isValidPassword ? styles.label : styles.labelInvalid}
               handleChange={value => onTypePassword(value)}
@@ -179,8 +183,8 @@ export default function UpdatePasswordModal({
                   : [styles.purposeInput, { color: $RED, borderColor: $RED }]
               }
               initial={repeatedPassword}
-              placeholder="Подтвердите пароль"
-              label="Подтверждение пароля"
+              label={t('confirmPasswordInputLabel')}
+              placeholder={t('confirmPasswordInputText')}
               password
               labelStyle={
                 isValidRepeatedPassword ? styles.label : styles.labelInvalid
@@ -196,7 +200,7 @@ export default function UpdatePasswordModal({
             }
             handleOnPress={updatePassword}
             buttonStyle={styles.buttonFinish}
-            buttonText="Обновить"
+            buttonText={t('updateButtonLabel')}
           />
         </View>
       </View>

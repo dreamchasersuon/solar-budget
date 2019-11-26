@@ -3,6 +3,7 @@ import { $BLACK_FADE, $BLUE, $WHITE } from '../../constants/colorLiterals';
 import React from 'react';
 import ModalHeader from './ModalHeader';
 import ModalRatePair from './ModalRatePair';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   closeModal: {
@@ -51,6 +52,7 @@ export default function ModalCreateRatePair({
   isVisible,
   toggleAddRatePairModal
 }) {
+  const { t, i18n } = useTranslation('ModalCreateRatePair');
   return (
     <Modal animationType="fade" transparent visible={isVisible}>
       <View style={[styles.modalHiddenArea]}>
@@ -60,7 +62,7 @@ export default function ModalCreateRatePair({
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={toggleAddRatePairModal}
-            title="Валютная пара"
+            title={t('headerTitle')}
           />
           <ScrollView
             keyboardShouldPersistTaps="always"
@@ -70,43 +72,43 @@ export default function ModalCreateRatePair({
               <ModalRatePair
                 title="USD/RUB"
                 ratePercent="0.23%"
-                rateNote="Цена RUB"
+                rateNote={`${t('ratePairNote')} RUB`}
                 rateValue="1.23"
               />
               <ModalRatePair
                 title="USD/CAN"
                 ratePercent="0.63%"
-                rateNote="Цена CAN"
+                rateNote={`${t('ratePairNote')} CAN`}
                 rateValue="1.93"
               />
               <ModalRatePair
                 title="USD/EUR"
                 ratePercent="1.61%"
-                rateNote="Цена EUR"
+                rateNote={`${t('ratePairNote')} EUR`}
                 rateValue="1.74"
               />
               <ModalRatePair
                 title="USD/CRN"
                 ratePercent="0.02%"
-                rateNote="Цена CRN"
+                rateNote={`${t('ratePairNote')} CRN`}
                 rateValue="0.23"
               />
               <ModalRatePair
                 title="USD/GRV"
                 ratePercent="0.12%"
-                rateNote="Цена GRV"
+                rateNote={`${t('ratePairNote')} GRV`}
                 rateValue="0.2"
               />
               <ModalRatePair
                 title="USD/GBR"
                 ratePercent="0.56%"
-                rateNote="Цена GBR"
+                rateNote={`${t('ratePairNote')} GBR`}
                 rateValue="1.63"
               />
               <ModalRatePair
                 title="USD/MLD"
                 ratePercent="0.01%"
-                rateNote="Цена MLD"
+                rateNote={`${t('ratePairNote')} MLD`}
                 rateValue="0.22"
               />
             </View>

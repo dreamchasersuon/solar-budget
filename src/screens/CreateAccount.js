@@ -116,7 +116,10 @@ const styles = StyleSheet.create({
 export default function CreateAccount() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('CreateAccountScreen');
+  const { t, i18n } = useTranslation([
+    'CreateAccountScreen',
+    'ApplicationErrorMessages'
+  ]);
 
   const dropDownRef = useRef(null);
 
@@ -148,13 +151,21 @@ export default function CreateAccount() {
       setLoginValidity(false);
       setValidity(false);
       Vibration.vibrate(500);
-      return dropDownRef.current.alertWithType('error', 'Введите логин', '');
+      return dropDownRef.current.alertWithType(
+        'error',
+        `${t('ApplicationErrorMessages:loginNotEnteredMsg')}`,
+        ''
+      );
     }
     if (!validatePasswordLength()) {
       setPasswordValidity(false);
       setValidity(false);
       Vibration.vibrate(500);
-      return dropDownRef.current.alertWithType('error', 'Введите пароль', '');
+      return dropDownRef.current.alertWithType(
+        'error',
+        `${t('ApplicationErrorMessages:passwordNotEnteredMsg')}`,
+        ''
+      );
     }
     if (!validatePasswordsIdentity()) {
       Vibration.vibrate(500);
@@ -162,7 +173,7 @@ export default function CreateAccount() {
       setValidity(false);
       return dropDownRef.current.alertWithType(
         'error',
-        'Пароли не совпадают',
+        `${t('ApplicationErrorMessages:passwordsNotMatchMsg')}`,
         ''
       );
     }
@@ -186,11 +197,13 @@ export default function CreateAccount() {
     >
       <View style={styles.header}>
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
-        <Text style={styles.headerText}>{t('screenName')}</Text>
+        <Text style={styles.headerText}>
+          {t('CreateAccountScreen:screenName')}
+        </Text>
       </View>
       <AuthHeader
-        title={t('headerTitle')}
-        note={t('headerNote')}
+        title={t('CreateAccountScreen:headerTitle')}
+        note={t('CreateAccountScreen:headerNote')}
         titleStyle={styles.title}
       >
         <Pros />
@@ -199,15 +212,15 @@ export default function CreateAccount() {
         <CustomInput
           inputStyle={isValidLogin ? styles.input : styles.invalidInput}
           labelStyle={isValidLogin ? styles.label : styles.invalidInput}
-          label={t('loginInputLabel')}
-          placeholder={t('loginInputText')}
+          label={t('CreateAccountScreen:loginInputLabel')}
+          placeholder={t('CreateAccountScreen:loginInputText')}
           initial={login}
           handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
           inputStyle={isValidPassword ? styles.input : styles.invalidInput}
-          label={t('passwordInputLabel')}
-          placeholder={t('passwordInputText')}
+          label={t('CreateAccountScreen:passwordInputLabel')}
+          placeholder={t('CreateAccountScreen:passwordInputText')}
           hasMargin
           labelStyle={
             isValidPassword
@@ -222,8 +235,8 @@ export default function CreateAccount() {
           inputStyle={
             isValidRepeatedPassword ? styles.input : styles.invalidInput
           }
-          label={t('confirmPasswordInputLabel')}
-          placeholder={t('confirmPasswordInputText')}
+          label={t('CreateAccountScreen:confirmPasswordInputLabel')}
+          placeholder={t('CreateAccountScreen:confirmPasswordInputText')}
           hasMargin
           labelStyle={
             isValidRepeatedPassword
@@ -240,15 +253,15 @@ export default function CreateAccount() {
           buttonStyle={
             isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
           }
-          buttonText={t('createButtonLabel')}
+          buttonText={t('CreateAccountScreen:createButtonLabel')}
           handleOnPress={isValid ? createUserByCredentials : null}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('LoginCredentials')}
-          buttonText={t('redirectToLoginText')}
+          buttonText={t('CreateAccountScreen:redirectToLoginText')}
           hasNote
           buttonTextStyle={styles.buttonTextWithNote}
-          noteText={t('alreadyRegisteredRedirectText')}
+          noteText={t('CreateAccountScreen:alreadyRegisteredRedirectText')}
         />
       </View>
       <DropdownAlert

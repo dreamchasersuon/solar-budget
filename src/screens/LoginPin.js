@@ -87,7 +87,11 @@ const styles = StyleSheet.create({
 export default function LoginPinCode() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('LoginPinScreen');
+  const { t, i18n } = useTranslation([
+    'LoginPinScreen',
+    'ApplicationErrorMessages',
+    'ApplicationMessages'
+  ]);
 
   const users = useSelector(state => state.user);
   const userWithMultipleAccounts = users.find(user => user.multiAccountSelect);
@@ -120,8 +124,8 @@ export default function LoginPinCode() {
     } catch (e) {
       dropDownRef.current.alertWithType(
         'error',
-        'Неверный PIN-CODE',
-        'Попробуйте еще раз'
+        `${t('ApplicationErrorMessages:wrongPinMsg')}`,
+        `${t('ApplicationErrorMessages:wrongPinMsgNote')}`
       );
       Vibration.vibrate(500);
     }
@@ -131,15 +135,15 @@ export default function LoginPinCode() {
     if (user.fingerprint) {
       dropDownRef.current.alertWithType(
         'info',
-        'Сканирование запущено',
-        'Пожалуйста, приложите отпечаток пальца к сенсору'
+        `${t('ApplicationMessages:fingerprintScanningEnabledMsg')}`,
+        `${t('ApplicationMessages:fingerprintScanningEnabledMsgNote')}`
       );
       await scanFingerprint();
     } else {
       return dropDownRef.current.alertWithType(
         'error',
-        'Отпечаток не настроен',
-        'Авторизуйтесь другим способом и включите авторизацию по отпечатку пальца в настройках'
+        `${t('ApplicationErrorMessages:fingerprintNotConfiguredMsg')}`,
+        `${t('ApplicationErrorMessages:fingerprintNotConfiguredMsgNote')}`
       );
     }
   };
@@ -147,7 +151,11 @@ export default function LoginPinCode() {
   const scanFingerprint = async () => {
     const result = await LocalAuthentication.authenticateAsync();
     if (result.success) {
-      dropDownRef.current.alertWithType('success', 'Отпечаток распознан', '');
+      dropDownRef.current.alertWithType(
+        'success',
+        `${t('ApplicationSuccessMessages:fingerprintRecognizedMsg')}`,
+        ''
+      );
       dispatch(fingerprintScanning({ login: user.login }));
       setTimeout(() => {
         goTo('App');
@@ -155,8 +163,8 @@ export default function LoginPinCode() {
     } else {
       dropDownRef.current.alertWithType(
         'error',
-        'Отпечаток не распознан',
-        'Попробуйте отсканировать еще раз'
+        `${t('ApplicationErrorMessages:fingerprintNotRecognizedMsg')}`,
+        `${t('ApplicationErrorMessages:fingerprintNotRecognizedMsgNote')}`
       );
     }
   };
@@ -167,7 +175,10 @@ export default function LoginPinCode() {
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
       <View>
-        <AuthHeader title={t('greeting')} titleStyle={styles.title}>
+        <AuthHeader
+          title={t('LoginPinScreen:greeting')}
+          titleStyle={styles.title}
+        >
           <Pros />
         </AuthHeader>
         <SecurePin
@@ -191,14 +202,14 @@ export default function LoginPinCode() {
         <ButtonSecondary
           buttonTextStyle={styles.buttonText}
           handleOnPress={() => goTo('LoginCredentials')}
-          buttonText={t('redirectToAuthByLoginAndPasswordText')}
+          buttonText={t('LoginPinScreen:redirectToAuthByLoginAndPasswordText')}
         />
         <ButtonSecondary
           buttonTextStyle={styles.buttonTextWithNote}
           handleOnPress={() => goTo('Creation')}
-          buttonText={t('redirectToCreateAccountText')}
+          buttonText={t('LoginPinScreen:redirectToCreateAccountText')}
           hasNote
-          noteText={t('notRegisteredText')}
+          noteText={t('LoginPinScreen:notRegisteredText')}
         />
       </View>
       <DropdownAlert

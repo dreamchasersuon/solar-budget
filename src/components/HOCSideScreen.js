@@ -17,6 +17,7 @@ import {
 } from '../constants/colorLiterals';
 import ButtonWithFeedbackBlue from './buttons/ButtonWithFeedbackBlue';
 import ButtonSecondary from './buttons/ButtonSecondary';
+import { Translation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonTextStyle: {
@@ -81,33 +82,59 @@ export default function withSideScreen(Component) {
           <View style={styles.content}>
             <View>
               <Logo />
-              <Text style={styles.note}>
-                Следите за своими финансами и исполняйте мечты вместе с нами
-              </Text>
+              <Translation ns="HOCSideScreen">
+                {(t, { i18n }) => (
+                  <Text style={styles.note}>{t('headerTitle')}</Text>
+                )}
+              </Translation>
             </View>
             <View>
               <TouchableOpacity style={styles.termsOfUse}>
-                <Text style={styles.termsOfUseText}>Условия и положения</Text>
+                <Translation ns="HOCSideScreen">
+                  {(t, { i18n }) => (
+                    <Text style={styles.termsOfUseText}>
+                      {t('termsOfUseButtonLabel')}
+                    </Text>
+                  )}
+                </Translation>
               </TouchableOpacity>
               <TouchableOpacity style={styles.termsOfUse}>
                 <Text style={styles.termsOfUseText}>
-                  Политика конфиденциальности
+                  <Translation ns="HOCSideScreen">
+                    {(t, { i18n }) => (
+                      <Text style={styles.termsOfUseText}>
+                        {t('privacyPolicyButtonLabel')}
+                      </Text>
+                    )}
+                  </Translation>
                 </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.buttonsContainer}>
-              <ButtonWithFeedbackBlue
-                buttonStyle={styles.buttonFeedback}
-                buttonText="Оставить отзыв"
-              />
-              <ButtonWithFeedbackBlue
-                buttonStyle={styles.buttonFeedback}
-                buttonText="Техническая поддержка"
-              />
-              <ButtonSecondary
-                buttonText="Пожертвование"
-                buttonTextStyle={styles.buttonTextStyle}
-              />
+              <Translation ns="HOCSideScreen">
+                {(t, { i18n }) => (
+                  <ButtonWithFeedbackBlue
+                    buttonStyle={styles.buttonFeedback}
+                    buttonText={t('giveFeedbackButtonLabel')}
+                  />
+                )}
+              </Translation>
+              <Translation ns="HOCSideScreen">
+                {(t, { i18n }) => (
+                  <ButtonWithFeedbackBlue
+                    buttonStyle={styles.buttonFeedback}
+                    buttonText={t('techSupportButtonLabel')}
+                  />
+                )}
+              </Translation>
+              <Translation ns="HOCSideScreen">
+                {(t, { i18n }) => (
+                  <ButtonSecondary
+                    buttonText={t('donationButtonLabel')}
+                    buttonTextStyle={styles.buttonTextStyle}
+                  />
+                )}
+              </Translation>
             </View>
           </View>
         </Animated.View>

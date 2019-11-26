@@ -32,6 +32,7 @@ import { withdrawDepositing } from '../../redux/features/billFeatureSlice';
 import { depositingToTarget } from '../../redux/features/targetFeatureSlice';
 import uuid from 'uuid';
 import bringInCash from '../../utils/dotSeparation';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -225,6 +226,9 @@ export default function ModalCreateTransaction({
   toggleTransactionModal
 }) {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ModalCreateTransaction');
+
   const bills = useSelector(state => state.bill);
   const targets = useSelector(state => state.target);
   const user = useSelector(state => state.user.find(user => user.active));
@@ -242,7 +246,7 @@ export default function ModalCreateTransaction({
   const [time, chooseTime] = useState(
     `${new Date().getHours()}:${new Date().getMinutes()}`
   );
-  const [description, writeDescription] = useState('Описание');
+  const [description, writeDescription] = useState(t('descriptionInitialText'));
 
   const setAmount = value => () => {
     const updateOperationValue = amount + value;
@@ -349,6 +353,7 @@ export default function ModalCreateTransaction({
     }
   });
 
+  const purposeInputDefaultText = t('purposeInputDefaultText');
   return (
     <Modal animationType="fade" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
@@ -358,7 +363,7 @@ export default function ModalCreateTransaction({
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={toggleTransactionModal}
-            title="Транзакция"
+            title={t('headerTitle')}
           />
           <ScrollView
             keyboardShouldPersistTaps="always"
@@ -366,7 +371,7 @@ export default function ModalCreateTransaction({
           >
             <View style={styles.purposeInputContainer}>
               <Text style={isValidPurpose ? styles.label : styles.labelInvalid}>
-                Назначение
+                {t('purposeInputLabel')}
               </Text>
               <View
                 style={
@@ -394,7 +399,7 @@ export default function ModalCreateTransaction({
                     ...mappedTargetsForPicker
                   ]}
                   placeholder={{
-                    label: 'Выберите назначение',
+                    label: purposeInputDefaultText,
                     value: null
                   }}
                 />
@@ -403,15 +408,15 @@ export default function ModalCreateTransaction({
             <View style={styles.descriptionInputContainer}>
               <CustomInput
                 inputStyle={styles.descriptionInput}
-                placeholder="Добавьте описание"
+                label={t('descriptionInputLabel')}
+                placeholder={t('descriptionInputText')}
                 multiline
-                label="Описание"
                 labelStyle={styles.label}
                 handleChange={value => writeDescription(value)}
               />
             </View>
             <View style={styles.dateInputContainer}>
-              <Text style={styles.label}>Дата и время</Text>
+              <Text style={styles.label}>{t('dateAndTimeLabel')}</Text>
               <View style={styles.dateInputAlignment}>
                 <TouchableOpacity style={styles.dateInput} onPress={datepicker}>
                   <Text style={styles.dateInputLabel}>{date}</Text>
@@ -422,7 +427,7 @@ export default function ModalCreateTransaction({
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>Сумма</Text>
+              <Text style={styles.label}>{t('amountLabel')}</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <ButtonMainBlue
                   handleOnPress={() => setTransactionType('income')}
@@ -436,7 +441,7 @@ export default function ModalCreateTransaction({
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Доход"
+                  title={t('operationTypeIncomeText')}
                 />
                 <ButtonMainBlue
                   handleOnPress={() => setTransactionType('outcome')}
@@ -450,7 +455,7 @@ export default function ModalCreateTransaction({
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Расход"
+                  title={t('operationTypeOutcomeText')}
                 />
               </View>
               <View style={styles.transactionInputWrapper}>
@@ -492,7 +497,7 @@ export default function ModalCreateTransaction({
             }
             handleOnPress={createTransaction}
             buttonStyle={styles.buttonFinish}
-            buttonText="Создать"
+            buttonText={t('createButtonLabel')}
           />
         </View>
       </View>

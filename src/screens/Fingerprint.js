@@ -71,7 +71,12 @@ const styles = StyleSheet.create({
 export default function AddFingerprint() {
   const dropDownRef = useRef(null);
 
-  const { t, i18n } = useTranslation('FingerprintScreen');
+  const { t, i18n } = useTranslation([
+    'FingerprintScreen',
+    'ApplicationMessages',
+    'ApplicationSuccessMessages',
+    'ApplicationErrorMessages'
+  ]);
 
   const user = useSelector(state => state.user.find(user => user.active));
   const dispatch = useDispatch();
@@ -89,22 +94,22 @@ export default function AddFingerprint() {
         await LocalAuthentication.isEnrolledAsync();
         dropDownRef.current.alertWithType(
           'info',
-          'Сканирование запущено',
-          'Пожалуйста, приложите отпечаток пальца к сенсору.'
+          `${t('ApplicationMessages:fingerprintScanningEnabledMsg')}`,
+          `${t('ApplicationMessages:fingerprintScanningEnabledMsgNote')}`
         );
         await scanFingerprint();
       } catch (e) {
         dropDownRef.current.alertWithType(
           'error',
-          'Отпечаток не настроен',
-          'Пожалуйста, убедитесь, что отпечаток пальца настроен в настрйоках системы.'
+          `${t('ApplicationErrorMessages:fingerprintNotConfiguredMsg')}`,
+          `${t('ApplicationErrorMessages:fingerprintNotConfiguredMsgNote')}`
         );
       }
     } else {
       return dropDownRef.current.alertWithType(
         'error',
-        'Несовместимое устройство',
-        'На данном устройстве нет возможности сканирования отпечатка пальца.'
+        `${t('ApplicationErrorMessages:notSupportedMsg')}`,
+        `${t('ApplicationErrorMessages:notSupportedFingerprintMsgNote')}`
       );
     }
   };
@@ -113,15 +118,19 @@ export default function AddFingerprint() {
     const result = await LocalAuthentication.authenticateAsync();
     if (result.success) {
       dispatch(enableFingerprint({ userId: user.id }));
-      dropDownRef.current.alertWithType('success', 'Отпечаток распознан', '');
+      dropDownRef.current.alertWithType(
+        'success',
+        `${t('ApplicationMessages:fingerprintRecognizedMsg')}`,
+        ''
+      );
       setTimeout(() => {
         goTo('App');
       }, 1000);
     } else {
       dropDownRef.current.alertWithType(
         'error',
-        'Отпечаток не распознан',
-        'Попробуйте отсканировать еще раз.'
+        `${t('ApplicationErrorMessages:fingerprintNotRecognizedMsg')}`,
+        `${t('ApplicationErrorMessages:fingerprintNotRecognizedMsgNote')}`
       );
     }
   };
@@ -130,8 +139,8 @@ export default function AddFingerprint() {
     <View style={styles.container}>
       <View style={styles.header} />
       <AuthHeader
-        title={t('headerTitle')}
-        note={t('headerNote')}
+        title={t('FingerprintScreen:headerTitle')}
+        note={t('FingerprintScreen:headerNote')}
         titleStyle={styles.title}
       >
         <TouchableOpacity style={styles.fingerprint}>
@@ -142,12 +151,12 @@ export default function AddFingerprint() {
         <ButtonWithFeedbackBlue
           buttonStyle={styles.buttonFeedback}
           handleOnPress={useFingerprint}
-          buttonText={t('useFingerprintButtonLabel')}
+          buttonText={t('FingerprintScreen:useFingerprintButtonLabel')}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('App')}
           buttonTextStyle={styles.buttonText}
-          buttonText={t('useFingerprintLaterButtonLabel')}
+          buttonText={t('FingerprintScreen:useFingerprintLaterButtonLabel')}
         />
       </View>
       <DropdownAlert

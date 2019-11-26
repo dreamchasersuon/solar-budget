@@ -60,7 +60,12 @@ const styles = StyleSheet.create({
 export default function ValidatePinCode({ navigation }) {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('ValidatePinScreen');
+  const { t, i18n } = useTranslation([
+    'ValidatePinScreen',
+    'ApplicationMessages',
+    'ApplicationSuccessMessages',
+    'ApplicationErrorMessages'
+  ]);
 
   const users = useSelector(state => state.user);
   const dropDownRef = useRef(null);
@@ -83,8 +88,8 @@ export default function ValidatePinCode({ navigation }) {
       dispatch(validatePinCode({ pinCode, userId }));
       dropDownRef.current.alertWithType(
         'success',
-        'Отправили новый пароль',
-        'Дождитесь уведомления от приложения'
+        `${t('ApplicationSuccessMessages:sendNewPasswordMsg')}`,
+        `${t('ApplicationSuccessMessages:sendNewPasswordMsgNote')}`
       );
       setTimeout(async () => {
         const user = users.find(user => user.id === userId);
@@ -93,8 +98,10 @@ export default function ValidatePinCode({ navigation }) {
           .toString()
           .substr(3, 6);
         await Notifications.presentLocalNotificationAsync({
-          title: 'Восстановление пароля',
-          body: `Ваш пароль: ${password}`,
+          title: `${t('ApplicationMessages:passwordRecoveryMsg')}`,
+          body: `${t(
+            'ApplicationMessages:passwordRecoveryMsgNote'
+          )} ${password}`,
           data: { password, login: user.login, userId: user.id }
         });
         goBack();
@@ -102,8 +109,8 @@ export default function ValidatePinCode({ navigation }) {
     } catch (e) {
       dropDownRef.current.alertWithType(
         'error',
-        'Неверный PIN-CODE',
-        'Попробуйте еще раз'
+        `${t('ApplicationErrorMessages:wrongPinMsg')}`,
+        `${t('ApplicationErrorMessages:wrongPinMsgNote')}`
       );
       Vibration.vibrate(500);
     }
@@ -117,7 +124,7 @@ export default function ValidatePinCode({ navigation }) {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title={t('headerTitle')}
+        title={t('ValidatePinScreen:headerTitle')}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}

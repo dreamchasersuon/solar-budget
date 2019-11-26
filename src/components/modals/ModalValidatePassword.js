@@ -4,7 +4,6 @@ import {
   $BLUE,
   $MEDIUMSILVER,
   $RED,
-  $TRANSPARENT,
   $WHITE
 } from '../../constants/colorLiterals';
 import React, { useState } from 'react';
@@ -13,6 +12,7 @@ import CustomInput from '../CustomInput';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
 import { validateUserPassword } from '../../redux/features/userFeatureSlice';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -90,6 +90,8 @@ export default function ValidatePasswordModal({
 }) {
   const dispatch = useDispatch();
 
+  const { t, i18n } = useTranslation('ModalValidatePassword');
+
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [isValidPassword, setPasswordValidity] = useState(true);
@@ -130,7 +132,7 @@ export default function ValidatePasswordModal({
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={toggleValidatePasswordModal}
-            title="Подтвердите пароль"
+            title={t('headerTitle')}
           />
           <View style={styles.purposeInputContainer}>
             <CustomInput
@@ -140,8 +142,8 @@ export default function ValidatePasswordModal({
                   : [styles.purposeInput, { color: $RED, borderColor: $RED }]
               }
               initial={password}
-              placeholder="Введите старый пароль"
-              label="Старый пароль"
+              label={t('passwordInputLabel')}
+              placeholder={t('passwordInputText')}
               password
               labelStyle={isValidPassword ? styles.label : styles.labelInvalid}
               handleChange={value => onTypePassword(value)}
@@ -155,7 +157,7 @@ export default function ValidatePasswordModal({
             }
             handleOnPress={validatePassword}
             buttonStyle={styles.buttonFinish}
-            buttonText="Проверить"
+            buttonText={t('validateButtonLabel')}
           />
         </View>
       </View>

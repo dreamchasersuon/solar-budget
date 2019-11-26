@@ -60,7 +60,11 @@ const styles = StyleSheet.create({
 export default function ChangePinCode() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('ChangePinScreen');
+  const { t, i18n } = useTranslation([
+    'ChangePinScreen',
+    'ApplicationSuccessMessages',
+    'ApplicationErrorMessages'
+  ]);
 
   const dropDownRef = useRef(null);
 
@@ -87,15 +91,27 @@ export default function ChangePinCode() {
     if (!permissionsToUpdatePinCode) {
       try {
         dispatch(validatePinCode({ pinCode, userId: user.id }));
-        // dropDownRef.alertWithType('success', 'PIN-CODE подтверждён', '');
+        /*
+        dropDownRef.alertWithType(
+          'success',
+          `${t('ApplicationSuccessMessages:pinAcceptedMsg')}`,
+          ''
+        );
+        */
         return grantPermissionsToUpdatePinCode(true);
       } catch (e) {
         Vibration.vibrate(500);
-        // dropDownRef.alertWithType('error', 'Неверный PIN-CODE', '');
+        /*
+        dropDownRef.alertWithType(
+          'error',
+          `${t('ApplicationSuccessMessages:pinUpdatedMsg')}`,
+          ''
+        );
+        */
       }
     }
     dispatch(updateUserPinCode({ pinCode, userId: user.id }));
-    // dropDownRef.alertWithType('success', 'PIN-CODE обновлён', '');
+    // dropDownRef.alertWithType('success', `${t('ApplicationSuccessMessages:wrongPinMsg')}`, '');
     return grantPermissionsToUpdatePinCode(false);
   }
 
@@ -105,7 +121,11 @@ export default function ChangePinCode() {
       <SecurePin
         paginationIndicatorStyle={styles.paginationActive}
         pinCodeLength={pinCode.length}
-        title={permissionsToUpdatePinCode ? t('newPinText') : t('oldPinText')}
+        title={
+          permissionsToUpdatePinCode
+            ? t('ChangePinScreen:newPinText')
+            : t('ChangePinScreen:oldPinText')
+        }
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}

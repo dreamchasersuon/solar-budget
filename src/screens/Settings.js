@@ -87,7 +87,10 @@ const styles = StyleSheet.create({
 function Settings() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('SettingsScreen');
+  const { t, i18n } = useTranslation([
+    'SettingsScreen',
+    'ApplicationErrorMessages'
+  ]);
 
   const dropDownRef = useRef(null);
   const user = useSelector(state => state.user.find(user => user.active));
@@ -119,8 +122,8 @@ function Settings() {
     if (status !== 'granted') {
       return dropDownRef.alertWithType(
         'error',
-        'Отклонено',
-        'Для загрузки изображения необходим доступ к камере и галерее.'
+        `${t('ApplicationErrorMessages:cameraPermissionsMsg')}`,
+        `${t('ApplicationErrorMessages:cameraPermissionsMsgNote')}`
       );
     }
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -145,7 +148,7 @@ function Settings() {
         <View style={styles.headerContainer}>
           <Header
             headerTopLeftSideStyle={styles.headerTopLeftSide}
-            title={t('screenName')}
+            title={t('SettingsScreen:screenName')}
             hasLeftMenu
           />
         </View>
@@ -155,34 +158,38 @@ function Settings() {
       </View>
       <ScrollView>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>{t('mainHeaderTitle')}</Text>
+          <Text style={styles.title}>
+            {t('SettingsScreen:mainHeaderTitle')}
+          </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('languageSettings')}</Text>
+              <Text>{t('SettingsScreen:languageSettings')}</Text>
               <Language />
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('cloudSettings')}</Text>
+              <Text>{t('SettingsScreen:cloudSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('inviteFriendSettings')}</Text>
+              <Text>{t('SettingsScreen:inviteFriendSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('themeSettings')}</Text>
+              <Text>{t('SettingsScreen:themeSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>{t('securityHeaderTitleText')}</Text>
+          <Text style={styles.title}>
+            {t('SettingsScreen:securityHeaderTitleText')}
+          </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('enableFingerprintSettingsText')}</Text>
+              <Text>{t('SettingsScreen:enableFingerprintSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -190,7 +197,7 @@ function Settings() {
             onPress={toggleUpdateLoginModal}
           >
             <React.Fragment>
-              <Text>{t('changeLoginSettingsText')}</Text>
+              <Text>{t('SettingsScreen:changeLoginSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -198,23 +205,25 @@ function Settings() {
             onPress={toggleValidatePasswordModal}
           >
             <React.Fragment>
-              <Text>{t('changePasswordSettingsText')}</Text>
+              <Text>{t('SettingsScreen:changePasswordSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.settingsUnit}
-            onPress={() => goTo('ChangePinCode')}
+            onPress={() => goTo('SettingsScreen:ChangePinCode')}
           >
             <React.Fragment>
-              <Text>{t('changePinSettingsText')}</Text>
+              <Text>{t('SettingsScreen:changePinSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>{t('feedbackHeaderTitle')}</Text>
+          <Text style={styles.title}>
+            {t('SettingsScreen:feedbackHeaderTitle')}
+          </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('rateUsSettingsText')}</Text>
+              <Text>{t('SettingsScreen:rateUsSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -222,23 +231,25 @@ function Settings() {
             onPress={mailTechnicalSupport}
           >
             <React.Fragment>
-              <Text>{t('techSupportSettingsText')}</Text>
+              <Text>{t('SettingsScreen:techSupportSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('termsOfUseSettingsText')}</Text>
+              <Text>{t('SettingsScreen:termsOfUseSettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('privacyPolicySettingsText')}</Text>
+              <Text>{t('SettingsScreen:privacyPolicySettingsText')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
       </ScrollView>
       <TouchableOpacity onPress={logout}>
-        <Text style={styles.logout}>{t('logoutButtonLabel')}</Text>
+        <Text style={styles.logout}>
+          {t('SettingsScreen:logoutButtonLabel')}
+        </Text>
       </TouchableOpacity>
       <DropdownAlert
         defaultContainer={{

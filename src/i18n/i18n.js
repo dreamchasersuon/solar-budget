@@ -120,6 +120,59 @@ const resources = {
         'To use the wallet, create an bill using the plus button in the upper right corner',
       noteAboutTransactions:
         'Billing history is clean. To add a payment - click on the button below'
+    },
+    HOCSideScreen: {
+      headerTitle:
+        'Keep track of your finances and fulfill your dreams with us',
+      termsOfUseButtonLabel: 'Terms of use',
+      privacyPolicyButtonLabel: 'Privacy policy',
+      giveFeedbackButtonLabel: 'Give feedback',
+      techSupportButtonLabel: 'Technical support',
+      donationButtonLabel: 'Donation'
+    },
+    ModalCreateBill: {
+      headerTitle: 'Bill',
+      selectCurrencyLabel: 'Currency',
+      selectCurrencyTextRub: 'Rubles',
+      selectCurrencyTextUsd: 'Dollars',
+      selectCurrencyTextEur: 'Euro',
+      billAmountLabel: 'Amount',
+      createBillButtonLabel: 'Create'
+    },
+    ModalCreateRatePair: {
+      headerTitle: 'Currency pair',
+      ratePairNote: 'Price'
+    },
+    ModalCreateTarget: {
+      headerTitle: 'Target',
+      targetNameInputLabel: 'Name',
+      targetNameInputText: 'Write the name of the target',
+      currencyCheckBoxesLabel: 'Currency',
+      currencyCheckBoxRUBText: 'Rubles',
+      currencyCheckBoxUSDText: 'Dollars',
+      currencyCheckBoxEURText: 'Euro',
+      amountLabel: 'Amount',
+      createButtonLabel: 'Create'
+    },
+    ModalUpdateLogin: {
+      headerTitle: 'Login change',
+      loginInputLabel: 'New login',
+      loginInputText: 'Enter new login',
+      updateButtonLabel: 'Update'
+    },
+    ModalUpdatePassword: {
+      headerTitle: 'Password change',
+      passwordInputLabel: 'New password',
+      passwordInputText: 'Enter new password',
+      confirmPasswordInputLabel: 'Confirm password',
+      confirmPasswordInputText: 'Password confirmation',
+      updateButtonLabel: 'Update'
+    },
+    ModalValidatePassword: {
+      headerTitle: 'Confirm password',
+      loginInputLabel: 'Last password',
+      loginInputText: 'Enter last password',
+      updateButtonLabel: 'Update'
     }
   },
   ru: {
@@ -242,6 +295,108 @@ const resources = {
         'Для использования кошелька создайте счет с помощью кнопки с плюсом в правом верхнем углу',
       noteAboutTransactions:
         'Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку снизу'
+    },
+    HOCSideScreen: {
+      headerTitle:
+        'Следите за своими финансами и исполняйте мечты вместе с нами',
+      termsOfUseButtonLabel: 'Условия и положения',
+      privacyPolicyButtonLabel: 'Политика конфиденциальности',
+      giveFeedbackButtonLabel: 'Оставить отзыв',
+      techSupportButtonLabel: 'Техническая поддержка',
+      donationButtonLabel: 'Пожертвование'
+    },
+    ModalCreateBill: {
+      headerTitle: 'Счет',
+      selectCurrencyLabel: 'Валюта',
+      selectCurrencyTextRub: 'Рубли',
+      selectCurrencyTextUsd: 'Доллары',
+      selectCurrencyTextEur: 'Евро',
+      billAmountLabel: 'Сумма',
+      createBillButtonLabel: 'Создать'
+    },
+    ModalCreateRatePair: {
+      headerTitle: 'Валютная пара',
+      ratePairNote: 'Цена'
+    },
+    ModalCreateTarget: {
+      headerTitle: 'Цель',
+      targetNameInputLabel: 'Название',
+      targetNameInputText: 'Напишите название цели',
+      currencyCheckBoxesLabel: 'Валюта',
+      currencyCheckBoxRUBText: 'Рубли',
+      currencyCheckBoxUSDText: 'Доллары',
+      currencyCheckBoxEURText: 'Евро',
+      amountLabel: 'Сумма',
+      createButtonLabel: 'Создать'
+    },
+    ModalCreateTransaction: {
+      descriptionInitialText: 'Описание',
+      headerTitle: 'Транзакция',
+      purposeInputLabel: 'Назначение',
+      purposeInputDefaultText: 'Выберите назначение',
+      descriptionInputLabel: 'Описание',
+      descriptionInputText: 'Добавьте описание',
+      dateAndTimeLabel: 'Дата и время',
+      amountLabel: 'Сумма',
+      operationTypeIncomeText: 'Доход',
+      operationTypeOutcomeText: 'Расход',
+      createButtonLabel: 'Создать'
+    },
+    ModalUpdateLogin: {
+      headerTitle: 'Изменение логина',
+      loginInputLabel: 'Новый логин',
+      loginInputText: 'Введите новый логин',
+      updateButtonLabel: 'Обновить'
+    },
+    ModalUpdatePassword: {
+      headerTitle: 'Изменение пароля',
+      passwordInputLabel: 'Новый пароль',
+      passwordInputText: 'Введите новый пароль',
+      confirmPasswordInputLabel: 'Подтвердите пароль',
+      confirmPasswordInputText: 'Подтверждение пароля',
+      updateButtonLabel: 'Обновить'
+    },
+    ModalValidatePassword: {
+      headerTitle: 'Подтвердите пароль',
+      passwordInputLabel: 'Старый пароль',
+      passwordInputText: 'Введите старый пароль',
+      validateButtonLabel: 'Проверить'
+    },
+    ApplicationMessages: {
+      passwordRecoveryMsg: 'Восстановление пароля',
+      passwordRecoveryMsgNote: 'Ваш пароль:',
+      fingerprintScanningEnabledMsg: 'Сканирование запущено',
+      fingerprintScanningEnabledMsgNote:
+        'Пожалуйста, приложите отпечаток пальца к сенсору'
+    },
+    ApplicationSuccessMessages: {
+      sendNewPasswordMsg: 'Отправили новый пароль',
+      sendNewPasswordMsgNote: 'Дождитесь уведомления от приложения',
+      fingerprintRecognizedMsg: 'Отпечаток распознан',
+      userFoundedMsg: 'Пользователь найден',
+      passwordUpdatedMsg: 'Пароль обновлён',
+      pinAcceptedMsg: 'PIN-CODE подтверждён',
+      pinUpdatedMsg: 'PIN-CODE  обновлён'
+    },
+    ApplicationErrorMessages: {
+      wrongPinMsg: 'Неверный PIN-CODE',
+      wrongPinMsgNote: 'Попробуйте еще раз',
+      cameraPermissionsMsg: 'Отклонено',
+      cameraPermissionsMsgNote:
+        'Для загрузки изображения необходим доступ к камере и галерее',
+      fingerprintNotConfiguredMsg: 'Отпечаток не настроен',
+      fingerprintNotConfiguredMsgNote:
+        'Авторизуйтесь другим способом и включите авторизацию по отпечатку пальца в настройках',
+      fingerprintNotRecognizedMsg: 'Отпечаток не распознан',
+      fingerprintNotRecognizedMsgNote: 'Попробуйте отсканировать еще раз',
+      notSupportedMsg: 'Несовместимое устройство',
+      notSupportedFingerprintMsgNote:
+        'На данном устройстве нет возможности сканирования отпечатка пальца',
+      loginNotEnteredMsg: 'Введите логин',
+      wrongLoginMsg: 'Неверный логин',
+      passwordNotEnteredMsg: 'Введите пароль',
+      passwordsNotMatchMsg: 'Пароли не совпадают',
+      userNotFoundMsg: 'Пользователь не найден'
     }
   }
 };

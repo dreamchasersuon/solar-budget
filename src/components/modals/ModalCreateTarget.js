@@ -27,6 +27,7 @@ import {
 } from '../../redux/features/targetFeatureSlice';
 import uuid from 'uuid';
 import bringInCash from '../../utils/dotSeparation';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonFinish: {
@@ -178,6 +179,9 @@ export default function ModalCreateTarget({
   toggleCreateTargetModal
 }) {
   const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('ModalCreateTarget');
+
   const user = useSelector(state => state.user.find(user => user.active));
   const [isValid, setValidity] = useState(true);
   const [isValidName, setNameValidity] = useState(true);
@@ -241,7 +245,7 @@ export default function ModalCreateTarget({
             titleStyle={styles.headerTitleModalStyle}
             closeModalStyle={styles.closeModal}
             handleOnClose={toggleCreateTargetModal}
-            title="Цель"
+            title={t('headerTitle')}
           />
           <ScrollView
             keyboardShouldPersistTaps="always"
@@ -254,14 +258,14 @@ export default function ModalCreateTarget({
                     ? styles.purposeInput
                     : [styles.purposeInput, { color: $RED, borderColor: $RED }]
                 }
-                placeholder="Напишите название цели"
-                label="Название"
+                label={t('targetNameInputLabel')}
+                placeholder={t('targetNameInputText')}
                 labelStyle={isValidName ? styles.label : styles.labelInvalid}
                 handleChange={value => onTypeName(value)}
               />
             </View>
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>Валюта</Text>
+              <Text style={styles.label}>{t('currencyCheckBoxesLabel')}</Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('rub')}
@@ -275,7 +279,7 @@ export default function ModalCreateTarget({
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Рубли"
+                  title={t('currencyCheckBoxRUBText')}
                 />
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('usd')}
@@ -289,7 +293,7 @@ export default function ModalCreateTarget({
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Доллары"
+                  title={t('currencyCheckBoxUSDText')}
                 />
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('eur')}
@@ -303,13 +307,13 @@ export default function ModalCreateTarget({
                       ? styles.operationTypeTextActive
                       : styles.operationTypeTextInactive
                   }
-                  title="Евро"
+                  title={t('currencyCheckBoxEURText')}
                 />
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
               <Text style={isValidAmount ? styles.label : styles.labelInvalid}>
-                Сумма
+                {t('amountLabel')}
               </Text>
               <View style={styles.transactionInputWrapper}>
                 <CustomInput
@@ -347,7 +351,7 @@ export default function ModalCreateTarget({
             }
             handleOnPress={createTarget}
             buttonStyle={styles.buttonFinish}
-            buttonText="Создать"
+            buttonText={t('createButtonLabel')}
           />
         </View>
       </View>

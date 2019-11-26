@@ -110,7 +110,10 @@ const styles = StyleSheet.create({
 export default function LoginCredentials() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('LoginCredentialsScreen');
+  const { t, i18n } = useTranslation([
+    'LoginCredentialsScreen',
+    'ApplicationErrorMessages'
+  ]);
 
   const dropDownRef = useRef(null);
   const [login, setLogin] = useState('');
@@ -139,13 +142,21 @@ export default function LoginCredentials() {
         setLoginValidity(false);
         setValidity(false);
         Vibration.vibrate(500);
-        return dropDownRef.current.alertWithType('error', 'Введите логин', '');
+        return dropDownRef.current.alertWithType(
+          'error',
+          `${t('ApplicationErrorMessages:loginNotEnteredMsg')}`,
+          ''
+        );
       }
       if (!validatePasswordLength()) {
         setPasswordValidity(false);
         setValidity(false);
         Vibration.vibrate(500);
-        return dropDownRef.current.alertWithType('error', 'Введите пароль', '');
+        return dropDownRef.current.alertWithType(
+          'error',
+          `${t('ApplicationErrorMessages:passwordNotEnteredMsg')}`,
+          ''
+        );
       }
       if (validateLoginLength() && validatePasswordLength()) {
         dispatch(authorizeUserByCredentials({ login, password }));
@@ -154,7 +165,7 @@ export default function LoginCredentials() {
     } catch (e) {
       dropDownRef.current.alertWithType(
         'error',
-        'Пароли не совпадают',
+        `${t('ApplicationErrorMessages:passwordsNotMatchMsg')}`,
         e.message
       );
       Vibration.vibrate(500);
@@ -171,9 +182,9 @@ export default function LoginCredentials() {
         <ArrowLeft onPress={goBack} style={styles.backArrow} />
       </View>
       <AuthHeader
-        title={t('headerTitle')}
-        note={t('headerNote')}
-        extendedNote={t('headerExtendedNote')}
+        title={t('LoginCredentialsScreen:headerTitle')}
+        note={t('LoginCredentialsScreen:headerNote')}
+        extendedNote={t('LoginCredentials:headerExtendedNote')}
         titleStyle={styles.title}
         handleOnPress={() => goTo('ForgotPassword')}
       >
@@ -182,16 +193,16 @@ export default function LoginCredentials() {
       <View style={styles.form}>
         <CustomInput
           inputStyle={isValidLogin ? styles.input : styles.invalidInput}
-          label={t('loginInputLabel')}
+          label={t('LoginCredentialsScreen:loginInputLabel')}
           labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
-          placeholder={t('loginInputText')}
+          placeholder={t('LoginCredentialsScreen:loginInputText')}
           initial={login}
           handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
-          label={t('passwordInputLabel')}
+          label={t('LoginCredentialsScreen:passwordInputLabel')}
           inputStyle={isValidPassword ? styles.input : styles.invalidInput}
-          placeholder={t('passwordInputText')}
+          placeholder={t('LoginCredentialsScreen:passwordInputText')}
           hasMargin
           labelStyle={
             isValidPassword
@@ -209,11 +220,11 @@ export default function LoginCredentials() {
             isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
           }
           handleOnPress={isValid ? authorize : null}
-          buttonText={t('loginButtonLabel')}
+          buttonText={t('LoginCredentialsScreen:loginButtonLabel')}
         />
         <ButtonSecondary
           buttonTextStyle={styles.buttonText}
-          buttonText={t('redirectToRemindPasswordText')}
+          buttonText={t('LoginCredentialsScreen:redirectToRemindPasswordText')}
           handleOnPress={() => goTo('ForgotPassword')}
         />
       </View>
