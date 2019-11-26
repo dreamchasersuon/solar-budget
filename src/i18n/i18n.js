@@ -106,7 +106,7 @@ const resources = {
       techSupportSettings: 'Technical support',
       termsOfUseSettings: 'Terms of use',
       privacyPolicySettings: 'Privacy policy',
-      logoutButton: 'Logout'
+      logoutButtonLabel: 'Logout'
     },
     TargetsScreen: {
       screenName: 'Targets',

@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  StatusBar
+  StatusBar,
+  FlatList
 } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
@@ -19,13 +20,14 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAvatar } from '../redux/features/userFeatureSlice';
+import { addAvatar, setLocale } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
 import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
 import UpdatePasswordModal from '../components/modals/ModalUpdatePassword';
 import ValidatePasswordModal from '../components/modals/ModalValidatePassword';
 import { useTranslation } from 'react-i18next';
+import { supportedLanguages } from '../i18n/i18n';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -81,21 +83,54 @@ const styles = StyleSheet.create({
     color: $BLUE,
     fontSize: 16,
     marginBottom: 10
+  },
+  languageSelection: {
+    alignItems: 'center',
+    marginLeft: 220,
+    height: 80,
+    marginTop: -20,
+    ...StyleSheet.absoluteFillObject
+  },
+  language: {
+    fontSize: 16,
+    width: 30,
+    textAlign: 'center'
+  },
+  activeLanguage: {
+    fontSize: 16,
+    width: 30,
+    textAlign: 'center',
+    color: $BLUE
+  },
+  languagesContainer: {
+    width: 30,
+    height: 'auto',
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderRightColor: $MEDIUMSILVER,
+    borderLeftColor: $MEDIUMSILVER,
+    borderBottomColor: $MEDIUMSILVER,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    paddingBottom: 5
   }
 });
 
 function Settings() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation([
-    'SettingsScreen',
-    'ApplicationErrorMessages'
-  ]);
-
   const dropDownRef = useRef(null);
   const user = useSelector(state => state.user.find(user => user.active));
   const isUserHasUpdatePasswordPermissions = user.permissionsToUpdatePassword;
   const image = user.avatar;
+
+  const { t, i18n } = useTranslation([
+    'SettingsScreen',
+    'ApplicationErrorMessages'
+  ]);
+  const locale = user.locale;
 
   const [isValidatePasswordModalVisible, toggleValidatePassword] = useState(
     false
@@ -140,6 +175,33 @@ function Settings() {
     await MailComposer.composeAsync({ recipients: [supportEmail] });
   };
 
+  const languages = supportedLanguages;
+
+  const [isLanguagesVisible, showLanguages] = useState(false);
+
+  const changeLanguage = language => async () => {
+    if (language === locale) {
+      return null;
+    }
+    try {
+      dispatch(setLocale({ locale: language, userId: user.id }));
+      await i18n.changeLanguage(language);
+      showLanguages(!isLanguagesVisible);
+
+      dropDownRef.current.alertWithType(
+        'success',
+        `${t('ApplicationSuccessMessages:setLocaleSuccessMsg')}`,
+        ''
+      );
+    } catch (e) {
+      dropDownRef.current.alertWithType(
+        'error',
+        `${t('ApplicationErrorMessages:setLocaleFailedMsg')}`,
+        ''
+      );
+    }
+  };
+
   const logout = () => NavigationService.navigate('Auth');
   const goTo = route => NavigationService.navigate(route);
   return (
@@ -163,8 +225,33 @@ function Settings() {
           </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:languageSettings')}</Text>
+              <Text onPress={() => showLanguages(!isLanguagesVisible)}>
+                {t('SettingsScreen:languageSettings')}
+              </Text>
               <Language />
+              <View style={styles.languageSelection}>
+                {isLanguagesVisible && (
+                  <FlatList
+                    data={languages}
+                    extraData={locale}
+                    contentContainerStyle={styles.languagesContainer}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity onPress={changeLanguage(item)}>
+                        <Text
+                          style={
+                            locale === item
+                              ? styles.activeLanguage
+                              : styles.language
+                          }
+                        >
+                          {item.toUpperCase()}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item}
+                  />
+                )}
+              </View>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
@@ -185,11 +272,11 @@ function Settings() {
         </View>
         <View style={styles.settingsUnitContainer}>
           <Text style={styles.title}>
-            {t('SettingsScreen:securityHeaderTitleText')}
+            {t('SettingsScreen:securityHeaderTitle')}
           </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:enableFingerprintSettingsText')}</Text>
+              <Text>{t('SettingsScreen:enableFingerprintSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -197,7 +284,7 @@ function Settings() {
             onPress={toggleUpdateLoginModal}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:changeLoginSettingsText')}</Text>
+              <Text>{t('SettingsScreen:changeLoginSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -205,7 +292,7 @@ function Settings() {
             onPress={toggleValidatePasswordModal}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:changePasswordSettingsText')}</Text>
+              <Text>{t('SettingsScreen:changePasswordSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -213,7 +300,7 @@ function Settings() {
             onPress={() => goTo('SettingsScreen:ChangePinCode')}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:changePinSettingsText')}</Text>
+              <Text>{t('SettingsScreen:changePinSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
@@ -223,7 +310,7 @@ function Settings() {
           </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:rateUsSettingsText')}</Text>
+              <Text>{t('SettingsScreen:rateUsSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -231,17 +318,17 @@ function Settings() {
             onPress={mailTechnicalSupport}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:techSupportSettingsText')}</Text>
+              <Text>{t('SettingsScreen:techSupportSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:termsOfUseSettingsText')}</Text>
+              <Text>{t('SettingsScreen:termsOfUseSettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:privacyPolicySettingsText')}</Text>
+              <Text>{t('SettingsScreen:privacyPolicySettings')}</Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
