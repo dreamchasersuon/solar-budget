@@ -184,7 +184,7 @@ export default function LoginCredentials() {
       <AuthHeader
         title={t('LoginCredentialsScreen:headerTitle')}
         note={t('LoginCredentialsScreen:headerNote')}
-        extendedNote={t('LoginCredentials:headerExtendedNote')}
+        extendedNote={t('LoginCredentialsScreen:headerExtendedNote')}
         titleStyle={styles.title}
         handleOnPress={() => goTo('ForgotPassword')}
       >

@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   titleText: {
-    fontSize: 20
+    fontSize: 20,
+    marginLeft: 25
   }
 });
 

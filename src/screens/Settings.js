@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 144
+    width: 'auto'
   },
   logout: {
     color: $BLUE,

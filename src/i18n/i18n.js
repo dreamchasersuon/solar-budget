@@ -156,6 +156,19 @@ const resources = {
       amountLabel: 'Amount',
       createButtonLabel: 'Create'
     },
+    ModalCreateTransaction: {
+      descriptionInitialText: 'Description',
+      headerTitle: 'Transaction',
+      purposeInputLabel: 'Purpose',
+      purposeInputDefaultText: 'Choose purpose',
+      descriptionInputLabel: 'Description',
+      descriptionInputText: 'Add description',
+      dateAndTimeLabel: 'Date and time',
+      amountLabel: 'Amount',
+      operationTypeIncomeText: 'Income',
+      operationTypeOutcomeText: 'Outcome',
+      createButtonLabel: 'Create'
+    },
     ModalUpdateLogin: {
       headerTitle: 'Login change',
       loginInputLabel: 'New login',
