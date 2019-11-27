@@ -1,94 +1,185 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import {
-  $GREEN,
-  $LIGHTSILVER,
-  $RED,
-  $SILVER
-} from '../constants/colorLiterals';
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList
+} from 'react-native';
+import { $BLUE, $LIGHTSILVER, $WHITE } from '../constants/colorLiterals';
 import Header from '../components/Header';
-import FROZEN_ProgressBar from '../components/FROZEN_ProgressBar';
-import FROZEN_OperationsContainer from '../components/FROZEN_OperationsContainer';
-import Saldo from '../components/Saldo';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBillActive } from '../redux/features/billFeatureSlice';
+import dotSeparation from '../utils/dotSeparation';
+import Transaction from '../components/Transaction';
 
 const styles = StyleSheet.create({
-  circleTitle: {
-    color: $SILVER,
-    fontSize: 16,
-    marginLeft: 75,
-    marginTop: 75
-  },
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER
-  },
-  leftOperationsContainer: {
-    borderColor: $SILVER,
-    borderRightWidth: 1,
-    paddingRight: 5,
-    width: '50%'
-  },
-  operationAmountCredit: {
-    color: $RED,
-    fontSize: 20
-  },
-  operationAmountDebit: {
-    color: $GREEN,
-    fontSize: 20
-  },
-  operationsContainer: {
-    flexDirection: 'row',
-    height: '31%',
-    justifyContent: 'space-between',
-    marginTop: -20,
-    padding: 10,
+    backgroundColor: $LIGHTSILVER,
     width: '100%'
   },
-  rightOperationsContainer: {
-    borderColor: $SILVER,
-    borderLeftWidth: 1,
-    paddingLeft: 5,
-    width: '50%'
-  },
-  statsHeaderTopLeftSide: {
+  headerTopLeftSide: {
     alignItems: 'center',
     flexDirection: 'row',
     height: 50,
     justifyContent: 'space-between',
     width: 160
+  },
+  moneyFlowContainer: {
+    paddingRight: 20,
+    paddingLeft: 20,
+    width: '100%'
+  },
+  moneyFlowInfo: {
+    width: '100%',
+    justifyContent: 'space-between',
+    minHeight: 80,
+    borderRadius: 10,
+    backgroundColor: $WHITE,
+    elevation: 5,
+    marginBottom: 15
+  },
+  moneyFlowDropDownHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingTop: 10,
+    paddingLeft: 15,
+    paddingRight: 15
+  },
+  moneyFlowHeaderTitle: {
+    fontSize: 18
+  },
+  moneyFlowByCategoryContainer: {
+    padding: 15
+  },
+  moneyFlowTransaction: {
+    height: 40,
+    borderWidth: 1,
+    borderBottomColor: $LIGHTSILVER,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  flexRow: {
+    flexDirection: 'row'
+  },
+  moneyFlowAverageAndAmount: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: 15
+  },
+  moneyFlowAverageAndAmountText: {
+    fontSize: 14,
+    marginRight: 5
+  },
+  blueColor: {
+    color: $BLUE
   }
 });
 
 export default function Statistics() {
+  const dispatch = useDispatch();
+
+  const { t, i18n } = useTranslation('StatsScreen');
+
+  const transactions = useSelector(state => state.wallet);
+  const user = useSelector(state => state.user.find(user => user.active));
+  const billState = useSelector(state => state.bill);
+  const bills = billState.filter(bill => bill.userId === user.id);
+
+  const [isVisibleMoneyFlow, toggleMoneyFlowVisibility] = useState(false);
+
+  let activeBill;
+  let activeBillDeposit;
+
+  if (bills.length) {
+    activeBill = bills.find(bill => bill.active);
+    activeBillDeposit = activeBill.depositAmount;
+  } else {
+    activeBillDeposit = '0';
+  }
+
+  let activeBillId;
+  let activeBillTransactions = [];
+  if (bills.length) {
+    activeBillId = activeBill.id;
+    activeBillTransactions = transactions.filter(
+      transaction => transaction.billId === activeBillId
+    );
+  }
+
+  const selectBill = id => {
+    dispatch(setBillActive({ id, userId: user.id }));
+  };
   return (
     <View style={styles.container}>
       <Header
-        headerTopLeftSideStyle={styles.statsHeaderTopLeftSide}
-        title="Статистика"
-        billTitle="Счет"
+        headerTopLeftSideStyle={styles.headerTopLeftSide}
+        hasStats
+        blueBackgroundStyle
+        title={t('screenName')}
         hasBudget
+        periodOfTime={t('periodOfTime')}
+        hasCalendar
+        handleOnPress={selectBill}
+        list={bills}
+        deposit={activeBillDeposit}
       />
-      <FROZEN_ProgressBar
-        circleTitle="май"
-        circleTitleStyle={styles.circleTitle}
-      />
-      <View style={styles.operationsContainer}>
-        <FROZEN_OperationsContainer
-          operationsContainerStyle={styles.leftOperationsContainer}
-          operationAmountStyle={styles.operationAmountDebit}
-          operationType="+ 1200"
-          operationTitle="Входящие переводы"
-        />
-        <FROZEN_OperationsContainer
-          operationsContainerStyle={styles.rightOperationsContainer}
-          operationAmountStyle={styles.operationAmountCredit}
-          operationType="- 1200"
-          operationTitle="Исходящие переводы"
-        />
+      <View style={styles.moneyFlowContainer}>
+        <View style={styles.moneyFlowInfo}>
+          <TouchableOpacity
+            onPress={() => toggleMoneyFlowVisibility(!isVisibleMoneyFlow)}
+            style={styles.moneyFlowDropDownHeader}
+          >
+            <Text style={styles.moneyFlowHeaderTitle}>{t('outcome')}</Text>
+          </TouchableOpacity>
+          {isVisibleMoneyFlow && (
+            <FlatList
+              data={activeBillTransactions}
+              contentContainerStyle={styles.moneyFlowByCategoryContainer}
+              renderItem={({ item }) => {
+                if (item.type === 'outcome') {
+                  return (
+                    <View style={styles.moneyFlowTransaction}>
+                      <Text>{item.purpose}</Text>
+                      <Text>{dotSeparation(item.amount) + ' Р'}</Text>
+                    </View>
+                  );
+                }
+              }}
+              keyExtractor={item => item.id}
+            />
+          )}
+          <View style={styles.moneyFlowAverageAndAmount}>
+            <View style={styles.flexRow}>
+              <Text style={styles.moneyFlowAverageAndAmountText}>
+                {t('average')}
+              </Text>
+              <Text
+                style={[styles.moneyFlowAverageAndAmountText, styles.blueColor]}
+              >
+                {dotSeparation('3000')}
+              </Text>
+            </View>
+            <View style={styles.flexRow}>
+              <Text style={styles.moneyFlowAverageAndAmountText}>
+                {t('common')}
+              </Text>
+              <Text
+                style={[styles.moneyFlowAverageAndAmountText, styles.blueColor]}
+              >
+                {dotSeparation('6000')}
+              </Text>
+            </View>
+          </View>
+        </View>
       </View>
-      <Saldo creditAmount={1200} debitAmount={1200} saldo={0} />
     </View>
   );
 }

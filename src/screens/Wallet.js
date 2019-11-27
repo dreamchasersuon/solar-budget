@@ -12,6 +12,7 @@ import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBillActive } from '../redux/features/billFeatureSlice';
 import { useTranslation } from 'react-i18next';
+import NavigationService from '../navigation/service';
 
 const styles = StyleSheet.create({
   container: {
@@ -86,6 +87,7 @@ function Wallet() {
   const selectBill = id => {
     dispatch(setBillActive({ id, userId: user.id }));
   };
+  const goToStats = () => NavigationService.navigate('Statistics');
   return (
     <View style={styles.container}>
       <Header
@@ -95,6 +97,7 @@ function Wallet() {
         hasLeftMenu
         hasBudget
         toggleModal={toggleBillModal}
+        handleOnPressDeposit={goToStats}
         handleOnPress={selectBill}
         list={bills}
         deposit={activeBillDeposit}

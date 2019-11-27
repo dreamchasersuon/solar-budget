@@ -130,6 +130,9 @@ const resources = {
       noteAboutTransactions:
         'Billing history is clean. To add a payment - click on the button below'
     },
+    StatsScreen: {
+      screenName: 'Statistics'
+    },
     HOCSideScreen: {
       headerTitle:
         'Keep track of your finances and fulfill your dreams with us',
@@ -168,6 +171,7 @@ const resources = {
       headerTitle: 'Transaction',
       purposeInputLabel: 'Purpose',
       purposeInputDefaultText: 'Choose purpose',
+      addNewPurposeText: 'Add new purpose',
       descriptionInputLabel: 'Description',
       descriptionInputText: 'Add description',
       dateAndTimeLabel: 'Date and time',
@@ -361,6 +365,14 @@ const resources = {
       noteAboutTransactions:
         'Платежная история чиста. Чтобы добавить платеж - нажмите на кнопку снизу'
     },
+    StatsScreen: {
+      screenName: 'Статистика',
+      periodOfTime: 'Октябрь',
+      income: 'Доход',
+      outcome: 'Расход',
+      average: 'Средний',
+      common: 'Общий'
+    },
     HOCSideScreen: {
       headerTitle:
         'Следите за своими финансами и исполняйте мечты вместе с нами',
@@ -399,6 +411,7 @@ const resources = {
       headerTitle: 'Транзакция',
       purposeInputLabel: 'Назначение',
       purposeInputDefaultText: 'Выберите назначение',
+      addNewPurposeText: 'Создайте новое назначение',
       descriptionInputLabel: 'Описание',
       descriptionInputText: 'Добавьте описание',
       dateAndTimeLabel: 'Дата и время',

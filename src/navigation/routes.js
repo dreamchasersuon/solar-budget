@@ -111,6 +111,17 @@ const WalletScreen = createStackNavigator(
   }
 );
 
+WalletScreen.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible
+  };
+};
+
 const RatesScreen = createStackNavigator({
   Rates: {
     screen: Rates,
@@ -232,7 +243,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Wallet',
     resetOnBlur: true,
     tabBarOptions: {
       showLabel: false,

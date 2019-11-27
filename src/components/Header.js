@@ -3,13 +3,20 @@ import React from 'react';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  TouchableOpacity
+} from 'react-native';
 import ButtonMainBlue from './buttons/ButtonMainBlue';
 import PropTypes from 'prop-types';
 import ButtonCreateBill from './buttons/ButtonCreateBill';
 import NavigationBackArrow from './NavigationBackArrow';
 import NavigationService from '../navigation/service';
 import bringInCash from '../utils/dotSeparation';
+import Calendar from '../../assets/calendar.svg';
 
 const styles = StyleSheet.create({
   billsContainer: {
@@ -59,6 +66,16 @@ const styles = StyleSheet.create({
     marginTop: 45,
     width: '100%'
   },
+  blueContainer: {
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingTop: 45,
+    paddingBottom: 15,
+    width: '100%',
+    backgroundColor: $BLUE,
+    elevation: 8
+  },
   headerBottomContainer: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -105,6 +122,33 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     marginLeft: 25
+  },
+  whiteText: {
+    color: $WHITE
+  },
+  blueText: {
+    color: $BLUE
+  },
+  whiteBackground: {
+    backgroundColor: $WHITE
+  },
+  calendarContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingLeft: 52,
+    paddingRight: 52
+  },
+  calendarGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  periodOfTime: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: $WHITE
   }
 });
 
@@ -117,11 +161,15 @@ export default function Header({
   toggleModal,
   list,
   handleOnPress,
-  deposit
+  deposit,
+  blueBackgroundStyle,
+  handleOnPressDeposit,
+  hasCalendar,
+  periodOfTime
 }) {
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
-    <View style={styles.container}>
+    <View style={blueBackgroundStyle ? styles.blueContainer : styles.container}>
       <View style={styles.headerTopContainer}>
         <View style={headerTopLeftSideStyle}>
           {hasLeftMenu ? (
@@ -133,23 +181,44 @@ export default function Header({
               />
             </View>
           ) : (
-            <NavigationBackArrow />
+            <NavigationBackArrow white={blueBackgroundStyle} />
           )}
-          <Text style={styles.titleText}>{title}</Text>
+          <Text
+            style={
+              blueBackgroundStyle
+                ? [styles.whiteText, styles.titleText]
+                : styles.titleText
+            }
+          >
+            {title}
+          </Text>
         </View>
         {hasBudget && (
           <View style={styles.headerTopRightSide}>
             {hasStats && (
-              <View style={styles.statsBtnWrapper}>
+              <TouchableOpacity
+                onPress={goToStats}
+                style={styles.statsBtnWrapper}
+              >
                 <StatsBtn />
-              </View>
+              </TouchableOpacity>
             )}
             <ButtonMainBlue
               iconStyle={styles.iconBalance}
+              handleOnPress={handleOnPressDeposit}
               title={bringInCash(deposit)}
+              isBlue={blueBackgroundStyle}
               icon
-              buttonStyle={styles.buttonStyle}
-              buttonTextStyle={styles.buttonTextStyle}
+              buttonStyle={
+                blueBackgroundStyle
+                  ? [styles.buttonStyle, styles.whiteBackground]
+                  : styles.buttonStyle
+              }
+              buttonTextStyle={
+                blueBackgroundStyle
+                  ? [styles.buttonTextStyle, styles.blueText]
+                  : styles.buttonTextStyle
+              }
             />
           </View>
         )}
@@ -188,6 +257,15 @@ export default function Header({
               <ButtonCreateBill onPressCreateBill={toggleModal} />
             </React.Fragment>
           )}
+        </View>
+      )}
+      {hasCalendar && (
+        <View style={styles.calendarContainer}>
+          <View style={styles.calendarGroup}>
+            <Calendar />
+            <Text style={styles.periodOfTime}>{periodOfTime}</Text>
+          </View>
+          <Text style={styles.periodOfTime}>{bringInCash('1400')}</Text>
         </View>
       )}
     </View>

@@ -286,9 +286,12 @@ export default function ModalCreateTransaction({
     }
   }
 
-  function onSelectPurpose(value) {
+  function onSelectPurpose(purpose) {
     setPurposeValidity(true);
-    selectPurpose(value);
+    if (purpose !== 'addNew') {
+      return selectPurpose(purpose);
+    }
+    selectPurpose(purpose);
   }
 
   const createTransaction = () => {
@@ -420,7 +423,8 @@ export default function ModalCreateTransaction({
                   useNativeAndroidPickerStyle={false}
                   items={[
                     ...mappedPurposesDependOnLanguage,
-                    ...mappedTargetsForPicker
+                    ...mappedTargetsForPicker,
+                    { value: 'addNew', label: t('addNewPurposeText') }
                   ]}
                   placeholder={{
                     label: purposeInputDefaultText,
