@@ -11,7 +11,7 @@ import NavigationService from '../navigation/service';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import Slider from '../components/Slider';
 import { useDispatch, useSelector } from 'react-redux';
-import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import { useTranslation } from 'react-i18next';
 import { setLocale } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -41,12 +41,14 @@ const styles = StyleSheet.create({
   languageSelection: {
     alignItems: 'center',
     marginRight: 30,
-    height: 80
+    minHeight: 100,
+    width: 40
   },
   language: {
     fontSize: 16,
     width: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 5
   },
   activeLanguage: {
     fontSize: 16,
@@ -56,17 +58,16 @@ const styles = StyleSheet.create({
   },
   languagesContainer: {
     width: 30,
+    marginLeft: 5,
+    marginRight: 5,
+    justifyContent: 'space-between',
     height: 'auto',
     alignItems: 'center',
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderBottomWidth: 1,
-    borderRightColor: $MEDIUMSILVER,
-    borderLeftColor: $MEDIUMSILVER,
-    borderBottomColor: $MEDIUMSILVER,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
-    paddingBottom: 5
+    paddingBottom: 5,
+    backgroundColor: $WHITE,
+    elevation: 6
   },
   buttonFeedback: {
     alignItems: 'center',
@@ -85,10 +86,8 @@ export default function Welcome() {
 
   const users = useSelector(state => state.user);
   let activeUser;
-  let locale = 'en';
   if (users.length) {
     activeUser = users.find(user => user.active);
-    locale = activeUser.locale;
   }
 
   const { t, i18n } = useTranslation([
@@ -96,8 +95,8 @@ export default function Welcome() {
     'ApplicationSuccessMessages',
     'ApplicationErrorMessages'
   ]);
+  const locale = i18n.languages[0].slice(0, 2);
   const languages = supportedLanguages;
-
   const [isLanguagesVisible, showLanguages] = useState(false);
 
   const changeLanguage = language => async () => {

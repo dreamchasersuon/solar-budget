@@ -87,6 +87,10 @@ const resources = {
     ValidatePinCodeScreen: {
       headerTitle: 'Enter PIN-CODE'
     },
+    ChangeLanguageScreen: {
+      englishLanguage: 'English',
+      russianLanguage: 'Russian'
+    },
     RatesScreen: {
       screenName: 'Exchange rates',
       ratesNotSelectedNote:
@@ -313,6 +317,10 @@ const resources = {
     },
     ValidatePinScreen: {
       headerTitle: 'Введите PIN-CODE'
+    },
+    ChangeLanguageScreen: {
+      englishLanguage: 'Английский',
+      russianLanguage: 'Русский'
     },
     RatesScreen: {
       screenName: 'Курсы валют',

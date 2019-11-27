@@ -6,8 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  StatusBar,
-  FlatList
+  StatusBar
 } from 'react-native';
 import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
@@ -20,14 +19,13 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAvatar, setLocale } from '../redux/features/userFeatureSlice';
+import { addAvatar } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
 import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
 import UpdatePasswordModal from '../components/modals/ModalUpdatePassword';
 import ValidatePasswordModal from '../components/modals/ModalValidatePassword';
 import { useTranslation } from 'react-i18next';
-import { supportedLanguages } from '../i18n/i18n';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -83,38 +81,6 @@ const styles = StyleSheet.create({
     color: $BLUE,
     fontSize: 16,
     marginBottom: 10
-  },
-  languageSelection: {
-    alignItems: 'center',
-    marginLeft: 220,
-    height: 80,
-    marginTop: -20,
-    ...StyleSheet.absoluteFillObject
-  },
-  language: {
-    fontSize: 16,
-    width: 30,
-    textAlign: 'center'
-  },
-  activeLanguage: {
-    fontSize: 16,
-    width: 30,
-    textAlign: 'center',
-    color: $BLUE
-  },
-  languagesContainer: {
-    width: 30,
-    height: 'auto',
-    alignItems: 'center',
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderBottomWidth: 1,
-    borderRightColor: $MEDIUMSILVER,
-    borderLeftColor: $MEDIUMSILVER,
-    borderBottomColor: $MEDIUMSILVER,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    paddingBottom: 5
   }
 });
 
@@ -130,7 +96,6 @@ function Settings() {
     'SettingsScreen',
     'ApplicationErrorMessages'
   ]);
-  const locale = user.locale;
 
   const [isValidatePasswordModalVisible, toggleValidatePassword] = useState(
     false
@@ -175,33 +140,6 @@ function Settings() {
     await MailComposer.composeAsync({ recipients: [supportEmail] });
   };
 
-  const languages = supportedLanguages;
-
-  const [isLanguagesVisible, showLanguages] = useState(false);
-
-  const changeLanguage = language => async () => {
-    if (language === locale) {
-      return null;
-    }
-    try {
-      dispatch(setLocale({ locale: language, userId: user.id }));
-      await i18n.changeLanguage(language);
-      showLanguages(!isLanguagesVisible);
-
-      dropDownRef.current.alertWithType(
-        'success',
-        `${t('ApplicationSuccessMessages:setLocaleSuccessMsg')}`,
-        ''
-      );
-    } catch (e) {
-      dropDownRef.current.alertWithType(
-        'error',
-        `${t('ApplicationErrorMessages:setLocaleFailedMsg')}`,
-        ''
-      );
-    }
-  };
-
   const logout = () => NavigationService.navigate('Auth');
   const goTo = route => NavigationService.navigate(route);
   return (
@@ -223,35 +161,13 @@ function Settings() {
           <Text style={styles.title}>
             {t('SettingsScreen:mainHeaderTitle')}
           </Text>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity
+            onPress={() => goTo('ChangeLanguage')}
+            style={styles.settingsUnit}
+          >
             <React.Fragment>
-              <Text onPress={() => showLanguages(!isLanguagesVisible)}>
-                {t('SettingsScreen:languageSettings')}
-              </Text>
+              <Text>{t('SettingsScreen:languageSettings')}</Text>
               <Language />
-              <View style={styles.languageSelection}>
-                {isLanguagesVisible && (
-                  <FlatList
-                    data={languages}
-                    extraData={locale}
-                    contentContainerStyle={styles.languagesContainer}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity onPress={changeLanguage(item)}>
-                        <Text
-                          style={
-                            locale === item
-                              ? styles.activeLanguage
-                              : styles.language
-                          }
-                        >
-                          {item.toUpperCase()}
-                        </Text>
-                      </TouchableOpacity>
-                    )}
-                    keyExtractor={item => item}
-                  />
-                )}
-              </View>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
@@ -297,7 +213,7 @@ function Settings() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.settingsUnit}
-            onPress={() => goTo('SettingsScreen:ChangePinCode')}
+            onPress={() => goTo('ChangePinCode')}
           >
             <React.Fragment>
               <Text>{t('SettingsScreen:changePinSettings')}</Text>
