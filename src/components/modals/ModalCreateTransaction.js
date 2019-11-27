@@ -379,7 +379,6 @@ export default function ModalCreateTransaction({
       label: purposes[key][language]
     });
   });
-  console.log(mappedPurposesDependOnLanguage);
   const purposeInputDefaultText = t('purposeInputDefaultText');
   return (
     <Modal animationType="fade" transparent visible={isVisible}>

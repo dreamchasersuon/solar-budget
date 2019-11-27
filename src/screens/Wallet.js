@@ -52,12 +52,14 @@ const styles = StyleSheet.create({
 function Wallet() {
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('WalletScreen');
-
   const transactions = useSelector(state => state.wallet);
   const user = useSelector(state => state.user.find(user => user.active));
   const billState = useSelector(state => state.bill);
   const bills = billState.filter(bill => bill.userId === user.id);
+  const purposes = useSelector(state => state.purposes);
+
+  const { t, i18n } = useTranslation('WalletScreen');
+  const language = user.locale;
 
   let activeBill;
   let activeBillDeposit;
@@ -112,16 +114,19 @@ function Wallet() {
         <FlatList
           data={activeBillTransactions}
           contentContainerStyle={styles.transactionsContainer}
-          renderItem={({ item }) => (
-            <Transaction
-              purpose={item.purpose}
-              about={item.description}
-              amount={item.amount}
-              date={item.date}
-              time={item.time}
-              type={item.type}
-            />
-          )}
+          renderItem={({ item }) => {
+            const purposeLabel = purposes[item.purpose][language];
+            return (
+              <Transaction
+                purpose={purposeLabel}
+                about={item.description}
+                amount={item.amount}
+                date={item.date}
+                time={item.time}
+                type={item.type}
+              />
+            );
+          }}
           keyExtractor={item => item.id}
         />
       ) : null}

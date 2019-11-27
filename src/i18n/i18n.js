@@ -131,7 +131,15 @@ const resources = {
         'Billing history is clean. To add a payment - click on the button below'
     },
     StatsScreen: {
-      screenName: 'Statistics'
+      screenName: 'Statistics',
+      income: 'Income',
+      outcome: 'Outcome',
+      average: 'Average',
+      total: 'Total',
+      noteAboutTransactions:
+        'The payment history is clean, to see the statistics go back and make a payment',
+      noIncomeTransactions: 'Income history is clean',
+      noOutcomeTransactions: 'Outcome history is clean'
     },
     HOCSideScreen: {
       headerTitle:
@@ -367,11 +375,14 @@ const resources = {
     },
     StatsScreen: {
       screenName: 'Статистика',
-      periodOfTime: 'Октябрь',
-      income: 'Доход',
-      outcome: 'Расход',
+      income: 'Доходы',
+      outcome: 'Расходы',
       average: 'Средний',
-      common: 'Общий'
+      total: 'Общий',
+      noteAboutTransactions:
+        'Платежная история чиста, чтобы увидеть статистику вернитесь назад и совершите платёж',
+      noIncomeTransactions: 'История доходов чиста',
+      noOutcomeTransactions: 'История расходов чиста'
     },
     HOCSideScreen: {
       headerTitle:

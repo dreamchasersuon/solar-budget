@@ -7,7 +7,7 @@ import user, {
   updateUserLogin,
   updateUserPassword,
   updateUserPinCode
-} from '../src/redux/features/userFeatureSlice';
+} from '../redux/features/userFeatureSlice';
 
 describe('Create users', () => {
   it('should create new user', () => {

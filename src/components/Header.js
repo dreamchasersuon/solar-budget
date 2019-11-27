@@ -11,7 +11,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 import ButtonMainBlue from './buttons/ButtonMainBlue';
-import PropTypes from 'prop-types';
 import ButtonCreateBill from './buttons/ButtonCreateBill';
 import NavigationBackArrow from './NavigationBackArrow';
 import NavigationService from '../navigation/service';
@@ -26,6 +25,11 @@ const styles = StyleSheet.create({
   },
   billsContainerWrapper: {
     marginLeft: 40,
+    width: '75%',
+    marginRight: 5
+  },
+  billsContainerWrapperStats: {
+    marginLeft: 50,
     width: '75%',
     marginRight: 5
   },
@@ -123,6 +127,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 25
   },
+  titleTextBlueBackground: {
+    fontSize: 20,
+    marginLeft: 10,
+    color: $WHITE
+  },
   whiteText: {
     color: $WHITE
   },
@@ -134,11 +143,12 @@ const styles = StyleSheet.create({
   },
   calendarContainer: {
     alignItems: 'center',
+    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    paddingLeft: 52,
-    paddingRight: 52
+    paddingLeft: 50,
+    paddingRight: 30
   },
   calendarGroup: {
     flexDirection: 'row',
@@ -186,7 +196,7 @@ export default function Header({
           <Text
             style={
               blueBackgroundStyle
-                ? [styles.whiteText, styles.titleText]
+                ? styles.titleTextBlueBackground
                 : styles.titleText
             }
           >
@@ -225,31 +235,70 @@ export default function Header({
       </View>
       {hasBudget && (
         <View style={styles.headerBottomContainer}>
-          <View style={styles.billsContainerWrapper}>
+          <View
+            style={
+              blueBackgroundStyle
+                ? styles.billsContainerWrapperStats
+                : styles.billsContainerWrapper
+            }
+          >
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal
               contentContainerStyle={styles.billsContainer}
               data={list}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => (
-                <ButtonMainBlue
-                  title={item.name}
-                  icon={item.currency}
-                  iconStyle={styles.icon}
-                  buttonStyle={
-                    item.active
-                      ? [styles.buttonStyle, styles.buttonBillsStyle]
-                      : [styles.buttonStyleUnselected, styles.buttonBillsStyle]
-                  }
-                  buttonTextStyle={
-                    item.active
-                      ? styles.buttonTextStyle
-                      : styles.buttonTextStyleUnselected
-                  }
-                  handleOnPress={() => handleOnPress(item.id)}
-                />
-              )}
+              renderItem={({ item }) => {
+                if (blueBackgroundStyle) {
+                  return (
+                    <ButtonMainBlue
+                      title={item.name}
+                      icon={item.currency}
+                      isBlue
+                      iconStyle={styles.icon}
+                      buttonStyle={
+                        item.active
+                          ? [
+                              styles.buttonStyle,
+                              styles.whiteBackground,
+                              styles.buttonBillsStyle
+                            ]
+                          : [
+                              styles.buttonStyleUnselected,
+                              styles.buttonBillsStyle
+                            ]
+                      }
+                      buttonTextStyle={
+                        item.active
+                          ? [styles.buttonTextStyle, styles.blueText]
+                          : [styles.buttonTextStyleUnselected, styles.whiteText]
+                      }
+                      handleOnPress={() => handleOnPress(item.id)}
+                    />
+                  );
+                }
+                return (
+                  <ButtonMainBlue
+                    title={item.name}
+                    icon={item.currency}
+                    iconStyle={styles.icon}
+                    buttonStyle={
+                      item.active
+                        ? [styles.buttonStyle, styles.buttonBillsStyle]
+                        : [
+                            styles.buttonStyleUnselected,
+                            styles.buttonBillsStyle
+                          ]
+                    }
+                    buttonTextStyle={
+                      item.active
+                        ? styles.buttonTextStyle
+                        : styles.buttonTextStyleUnselected
+                    }
+                    handleOnPress={() => handleOnPress(item.id)}
+                  />
+                );
+              }}
             />
           </View>
           {hasLeftMenu && (
@@ -271,8 +320,3 @@ export default function Header({
     </View>
   );
 }
-
-Header.propTypes = {
-  hasStats: PropTypes.bool,
-  title: PropTypes.string
-};

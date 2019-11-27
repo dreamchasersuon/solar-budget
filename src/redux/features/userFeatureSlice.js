@@ -1,13 +1,13 @@
 import { createSlice } from 'redux-starter-kit';
 import uuid from 'uuid';
 // eslint-disable-next-line import/no-namespace
-// import { locale } from '../../i18n/i18n';
+import { locale } from '../../i18n/i18n';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
 const env = process.env.NODE_ENV;
 
 // Testing only
-const language = 'en'; // locale.slice(0, 2);
+const language = locale.slice(0, 2);
 
 const userSlice = createSlice({
   name: 'user',
@@ -46,7 +46,7 @@ const userSlice = createSlice({
           ? `test-${password}`
           : CryptoJS.AES.encrypt(password, login).toString();
 
-      const language = 'en'; // locale.slice(0, 2);
+      const language = locale.slice(0, 2);
       state.forEach(user => (user.active = false));
       state.push({
         id,

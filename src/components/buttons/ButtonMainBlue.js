@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
 import Ruble from '../../../assets/ruble.svg';
 import RubleBlue from '../../../assets/rubleBlue.svg';
 
@@ -24,10 +23,3 @@ export default function ButtonMainBlue({
     </TouchableOpacity>
   );
 }
-
-ButtonMainBlue.propTypes = {
-  title: PropTypes.string,
-  iconStyle: PropTypes.object,
-  buttonStyle: PropTypes.object || PropTypes.array,
-  buttonTextStyle: PropTypes.object
-};
