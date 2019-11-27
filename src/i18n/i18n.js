@@ -1,6 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+// eslint-disable-next-line import/no-namespace
+import * as Localization from 'expo-localization';
 
+const locale = Localization.locale;
 export const supportedLanguages = ['en', 'ru'];
 const resources = {
   en: {
@@ -460,7 +463,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
+  lng: locale,
   fallbackLng: 'en',
   keySeparator: false,
   interpolation: {
