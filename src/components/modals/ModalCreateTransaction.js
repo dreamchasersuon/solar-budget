@@ -232,6 +232,8 @@ export default function ModalCreateTransaction({
   const bills = useSelector(state => state.bill);
   const targets = useSelector(state => state.target);
   const user = useSelector(state => state.user.find(user => user.active));
+  const purposes = useSelector(state => state.purposes);
+  const language = user.locale;
 
   const [isValid, setValidity] = useState(true);
   const [isValidPurpose, setPurposeValidity] = useState(true);
@@ -342,6 +344,7 @@ export default function ModalCreateTransaction({
     toggleTransactionModal();
   };
 
+  const mappedPurposesDependOnLanguage = [];
   const mappedTargetsForPicker = [];
   targets.forEach(target => {
     if (target.userId === user.id) {
@@ -353,6 +356,27 @@ export default function ModalCreateTransaction({
     }
   });
 
+  Object.keys(purposes).forEach(key => {
+    if (Array.isArray(purposes[key])) {
+      const userPurposes = purposes[key].find(
+        userPurposes => userPurposes.userId === user.id
+      );
+      if (!userPurposes) {
+        return;
+      }
+      userPurposes.purposes.forEach(purpose => {
+        mappedPurposesDependOnLanguage.push({
+          value: purposes.indexOf(purpose),
+          label: purpose
+        });
+      });
+    }
+    mappedPurposesDependOnLanguage.push({
+      value: key,
+      label: purposes[key][language]
+    });
+  });
+  console.log(mappedPurposesDependOnLanguage);
   const purposeInputDefaultText = t('purposeInputDefaultText');
   return (
     <Modal animationType="fade" transparent visible={isVisible}>
@@ -395,7 +419,7 @@ export default function ModalCreateTransaction({
                   }}
                   useNativeAndroidPickerStyle={false}
                   items={[
-                    { value: 'products', label: 'Продукты' },
+                    ...mappedPurposesDependOnLanguage,
                     ...mappedTargetsForPicker
                   ]}
                   placeholder={{
