@@ -24,6 +24,7 @@ import SelectAccount from '../screens/SelectAccount';
 import ChangePinCode from '../screens/ChangePinCode';
 import ForgotPassword from '../screens/ForgotPassword';
 import ValidatePinCode from '../screens/ValidatePinCode';
+import ChangeLanguage from '../screens/ChangeLanguage';
 import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
@@ -150,7 +151,8 @@ const SettingsScreen = createStackNavigator({
         marginTop: 20,
         borderBottomWidth: 0,
         elevation: 0
-      }
+      },
+      tabBarVisible: false
     }
   },
   ChangePinCode: {
@@ -164,8 +166,31 @@ const SettingsScreen = createStackNavigator({
         elevation: 0
       }
     }
+  },
+  ChangeLanguage: {
+    screen: ChangeLanguage,
+    navigationOptions: {
+      header: null,
+      headerStyle: {
+        marginLeft: 30,
+        marginTop: 20,
+        borderBottomWidth: 0,
+        elevation: 0
+      }
+    }
   }
 });
+
+SettingsScreen.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible
+  };
+};
 
 const BottomTabsBarNavigator = createBottomTabNavigator(
   {
@@ -207,7 +232,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Wallet',
+    initialRouteName: 'Settings',
     resetOnBlur: true,
     tabBarOptions: {
       showLabel: false,
