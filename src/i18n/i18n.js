@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 // eslint-disable-next-line import/no-namespace
 import * as Localization from 'expo-localization';
 
-const locale = Localization.locale;
+export const locale = Localization.locale;
 export const supportedLanguages = ['en', 'ru'];
 const resources = {
   en: {
