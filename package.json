@@ -71,7 +71,8 @@
     "redux-starter-kit": "^1.0.1",
     "sentry-expo": "^2.0.1",
     "snyk": "^1.250.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "victory-native": "^30.0.0"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.6.5",

@@ -2,12 +2,19 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
+import {
+  $BRANDY_PUNCH,
+  $LIGHTSILVER,
+  $MEDIUMSILVER,
+  $RED,
+  $WHITE
+} from '../constants/colorLiterals';
 import Header from '../components/Header';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBillActive } from '../redux/features/billFeatureSlice';
 import MoneyFlow from '../components/MoneyFlow';
+import { VictoryPie } from 'victory-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,6 +58,10 @@ export default function Statistics() {
     toggleOutcomeMoneyFlowVisibility
   ] = useState(false);
 
+  const [selectedTypeOfTransactions, changeTypeOfTransactions] = useState(
+    'outcome'
+  );
+
   let activeBill;
   let activeBillDeposit;
 
@@ -73,6 +84,20 @@ export default function Statistics() {
   const selectBill = id => {
     dispatch(setBillActive({ id, userId: user.id }));
   };
+
+  const filteredTransactionsByType = [];
+  const purposesColors = [];
+  if (activeBillTransactions.length) {
+    activeBillTransactions.forEach(transaction => {
+      if (transaction.type === selectedTypeOfTransactions) {
+        const transactionToPieDiagram = {
+          y: transaction.amount
+        };
+        filteredTransactionsByType.push(transactionToPieDiagram);
+        purposesColors.push(purposes[transaction.purpose].color);
+      }
+    });
+  }
   return (
     <View style={styles.container}>
       <Header
@@ -87,6 +112,15 @@ export default function Statistics() {
         list={bills}
         deposit={activeBillDeposit}
       />
+      {activeBillTransactions.length ? (
+        <VictoryPie
+          data={[...filteredTransactionsByType]}
+          colorScale={purposesColors.reverse()}
+          height={300}
+          innerRadius={50}
+          style={{ labels: { fill: $WHITE } }}
+        />
+      ) : null}
       {activeBillTransactions.length ? (
         <React.Fragment>
           <MoneyFlow

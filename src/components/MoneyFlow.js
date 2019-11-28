@@ -112,6 +112,13 @@ export default function MoneyFlow({
       return acc + Number(transaction.amount);
     }, 0);
     average = total / transactionsByType.length;
+    if (average.toString().length > 11) {
+      average = average
+        .toString()
+        .split('')
+        .splice(0, 4)
+        .join('');
+    }
   }
   function renderTransactions() {
     if (transactionsByType.length) {
