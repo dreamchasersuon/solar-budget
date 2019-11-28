@@ -112,7 +112,7 @@ export default function MoneyFlow({
       return acc + Number(transaction.amount);
     }, 0);
     average = total / transactionsByType.length;
-    if (average.toString().length > 11) {
+    if (average.toString().length > 4) {
       average = average
         .toString()
         .split('')

@@ -35,6 +35,22 @@ const styles = StyleSheet.create({
     marginTop: '50%',
     color: $MEDIUMSILVER,
     fontSize: 14
+  },
+  purposesTagsContainer: {
+    width: '100%',
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -40
+  },
+  purposesTags: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 15,
+    marginRight: 5
   }
 });
 
@@ -86,14 +102,16 @@ export default function Statistics() {
   };
 
   const filteredTransactionsByType = [];
+  const dataToPieDiagram = [];
   const purposesColors = [];
   if (activeBillTransactions.length) {
     activeBillTransactions.forEach(transaction => {
       if (transaction.type === selectedTypeOfTransactions) {
+        filteredTransactionsByType.push({ label: transaction.purpose });
         const transactionToPieDiagram = {
           y: transaction.amount
         };
-        filteredTransactionsByType.push(transactionToPieDiagram);
+        dataToPieDiagram.push(transactionToPieDiagram);
         purposesColors.push(purposes[transaction.purpose].color);
       }
     });
@@ -113,13 +131,33 @@ export default function Statistics() {
         deposit={activeBillDeposit}
       />
       {activeBillTransactions.length ? (
-        <VictoryPie
-          data={[...filteredTransactionsByType]}
-          colorScale={purposesColors.reverse()}
-          height={300}
-          innerRadius={50}
-          style={{ labels: { fill: $WHITE } }}
-        />
+        <React.Fragment>
+          <VictoryPie
+            data={dataToPieDiagram}
+            colorScale={purposesColors.reverse()}
+            height={300}
+            innerRadius={50}
+            style={{ labels: { fill: $WHITE } }}
+          />
+          <View style={styles.purposesTagsContainer}>
+            {filteredTransactionsByType.map(transaction => {
+              return (
+                <View
+                  key={transaction.label}
+                  style={[
+                    styles.purposesTags,
+                    { backgroundColor: purposes[transaction.label].color }
+                  ]}
+                >
+                  {/* eslint-disable-next-line react-native/no-inline-styles */}
+                  <Text style={{ color: $WHITE, fontSize: 12 }}>
+                    {purposes[transaction.label][language]}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        </React.Fragment>
       ) : null}
       {activeBillTransactions.length ? (
         <React.Fragment>
