@@ -3954,3 +3954,143 @@ patch:
         patched: '2019-11-21T15:29:00.378Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
         patched: '2019-11-21T15:29:00.378Z'
+    - victory-native > victory-scatter > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-stack > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-scatter > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-pie > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-line > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-legend > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-group > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-errorbar > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-zoom-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-voronoi-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-tooltip > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-selection-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-cursor-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-shared-events > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-polar-axis > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-candlestick > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-brush-line > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-brush-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-box-plot > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-bar > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-axis > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-area > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-area > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-cursor-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-shared-events > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-polar-axis > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-brush-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-axis > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-voronoi > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-stack > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-voronoi > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-pie > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-line > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-legend > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-group > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-errorbar > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-zoom-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-voronoi-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-tooltip > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-selection-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-cursor-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-selection-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-shared-events > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-polar-axis > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-candlestick > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-brush-line > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-brush-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-box-plot > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-bar > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-axis > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-voronoi-container > victory-tooltip > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-voronoi-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-zoom-container > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-polar-axis > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-zoom-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-selection-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-brush-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-cursor-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-voronoi-container > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-voronoi-container > victory-tooltip > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-axis > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-chart > victory-shared-events > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-voronoi-container > victory-tooltip > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'
+    - victory-native > victory-create-container > victory-voronoi-container > victory-tooltip > victory-core > lodash:
+        patched: '2019-11-28T17:56:32.079Z'

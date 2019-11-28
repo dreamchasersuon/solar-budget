@@ -9,7 +9,8 @@
     "lint": "npx eslint *.js",
     "format": "npx prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
     "snyk-protect": "snyk protect",
-    "validate-ci-config": "circleci config validate -c .circleci/config.yml"
+    "validate-ci-config": "circleci config validate -c .circleci/config.yml",
+    "prepare": "yarn run snyk-protect"
   },
   "jest": {
     "preset": "jest-expo",
@@ -70,7 +71,7 @@
     "redux-persist-expo-securestore": "^2.0.0",
     "redux-starter-kit": "^1.0.1",
     "sentry-expo": "^2.0.1",
-    "snyk": "^1.250.0",
+    "snyk": "^1.252.0",
     "uuid": "^3.3.3",
     "victory-native": "^30.0.0"
   },
