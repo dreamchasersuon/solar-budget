@@ -88,61 +88,38 @@ const styles = StyleSheet.create({
 export default function MoneyFlow({
   hasTransactions,
   transactions,
-  language,
-  purposes,
+  total,
+  average,
   handleOnPressToggleTransactions,
   headerTitle,
   averageTitle,
   totalTitle,
-  typeOfTransactions,
-  noTransactionsNote
+  noTransactionsNote,
+  language,
+  purposes
 }) {
-  let total = 0;
-  let average = 0;
-  const transactionsByType = [];
-  if (transactions.length) {
-    transactions.forEach(transaction => {
-      if (transaction.type === typeOfTransactions) {
-        transactionsByType.push(transaction);
-      }
-    });
-  }
-  if (transactionsByType.length) {
-    total = transactionsByType.reduce(function(acc, transaction) {
-      return acc + Number(transaction.amount);
-    }, 0);
-    average = total / transactionsByType.length;
-    if (average.toString().length > 4) {
-      average = average
-        .toString()
-        .split('')
-        .splice(0, 4)
-        .join('');
-    }
-  }
   function renderTransactions() {
-    if (transactionsByType.length) {
+    if (transactions.length) {
       return (
         <FlatList
-          data={transactionsByType}
+          data={transactions}
           contentContainerStyle={styles.moneyFlowByCategoryContainer}
           renderItem={({ item }) => {
-            const purposeLabel = purposes[item.purpose][language];
-            if (item.type === typeOfTransactions) {
-              return (
-                <View style={styles.moneyFlowTransaction}>
-                  <View style={styles.purposeWithIcon}>
-                    <TestPurposeIcon />
-                    <Text style={styles.moneyFlowPurpose}>{purposeLabel}</Text>
-                  </View>
+            return (
+              <View style={styles.moneyFlowTransaction}>
+                <View style={styles.purposeWithIcon}>
+                  <TestPurposeIcon />
                   <Text style={styles.moneyFlowPurpose}>
-                    {dotSeparation(item.amount) + ' Р'}
+                    {purposes[item.label][language]}
                   </Text>
                 </View>
-              );
-            }
+                <Text style={styles.moneyFlowPurpose}>
+                  {dotSeparation(item.amount) + ' Р'}
+                </Text>
+              </View>
+            );
           }}
-          keyExtractor={item => item.id}
+          keyExtractor={index => index}
         />
       );
     }

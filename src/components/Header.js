@@ -175,7 +175,8 @@ export default function Header({
   blueBackgroundStyle,
   handleOnPressDeposit,
   hasCalendar,
-  periodOfTime
+  periodOfTime,
+  saldo
 }) {
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
@@ -314,7 +315,9 @@ export default function Header({
             <Calendar />
             <Text style={styles.periodOfTime}>{periodOfTime}</Text>
           </View>
-          <Text style={styles.periodOfTime}>{bringInCash('1400')}</Text>
+          <Text style={styles.periodOfTime}>
+            {bringInCash(saldo.toString())}
+          </Text>
         </View>
       )}
     </View>

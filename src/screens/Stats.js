@@ -66,13 +66,7 @@ export default function Statistics() {
   const { t, i18n } = useTranslation('StatsScreen');
   const language = user.locale;
 
-  const [isVisibleIncomeMoneyFlow, toggleIncomeMoneyFlowVisibility] = useState(
-    false
-  );
-  const [
-    isVisibleOutcomeMoneyFlow,
-    toggleOutcomeMoneyFlowVisibility
-  ] = useState(false);
+  const [isVisibleMoneyFlow, toggleMoneyFlowVisibility] = useState(false);
 
   const [selectedTypeOfTransactions, changeTypeOfTransactions] = useState(
     'outcome'
@@ -102,9 +96,12 @@ export default function Statistics() {
   };
 
   const filteredTransactionsByType = [];
-  const groupedByTypeTransactions = [];
+  const groupedByPurposeTransactions = [];
   const dataToPieDiagram = [];
   const purposesColors = [];
+  let total = 0;
+  let average = 0;
+
   if (activeBillTransactions.length) {
     activeBillTransactions.forEach(transaction => {
       if (transaction.type === selectedTypeOfTransactions) {
@@ -115,29 +112,54 @@ export default function Statistics() {
       }
     });
     filteredTransactionsByType.forEach(transaction => {
-      const isExistInPieDataArray = groupedByTypeTransactions.find(
-        pieTransaction => pieTransaction.label !== transaction.label
+      if (!groupedByPurposeTransactions.length) {
+        groupedByPurposeTransactions.push({
+          label: transaction.label,
+          amount: transaction.amount
+        });
+        return purposesColors.push(purposes[transaction.label].color);
+      }
+      const isExistInPieDataArray = groupedByPurposeTransactions.find(
+        pieTransaction => {
+          return pieTransaction.label === transaction.label;
+        }
       );
-      if (!groupedByTypeTransactions.length || isExistInPieDataArray) {
-        groupedByTypeTransactions.push({
+
+      if (isExistInPieDataArray) {
+        groupedByPurposeTransactions.forEach(pieTransaction => {
+          if (pieTransaction.label === transaction.label) {
+            return (pieTransaction.amount = (
+              Number(pieTransaction.amount) + Number(transaction.amount)
+            ).toString());
+          }
+        });
+      } else {
+        groupedByPurposeTransactions.push({
           label: transaction.label,
           amount: transaction.amount
         });
         purposesColors.push(purposes[transaction.label].color);
       }
-      groupedByTypeTransactions.map(pieTransaction => {
-        if (transaction.label === pieTransaction.label) {
-          return pieTransaction.amount + transaction.amount;
-        }
-        return pieTransaction;
-      });
     });
-    groupedByTypeTransactions.forEach(transaction => {
+    groupedByPurposeTransactions.forEach(transaction => {
       const transactionToPieDiagram = {
         y: transaction.amount
       };
       dataToPieDiagram.push(transactionToPieDiagram);
     });
+  }
+  if (filteredTransactionsByType.length) {
+    total = filteredTransactionsByType.reduce(function(acc, transaction) {
+      return acc + Number(transaction.amount);
+    }, 0);
+    average = total / filteredTransactionsByType.length;
+    if (average.toString().length > 4) {
+      average = average
+        .toString()
+        .split('')
+        .splice(0, 3)
+        .join('');
+    }
   }
   return (
     <View style={styles.container}>
@@ -152,6 +174,7 @@ export default function Statistics() {
         handleOnPress={selectBill}
         list={bills}
         deposit={activeBillDeposit}
+        saldo={1000}
       />
       {activeBillTransactions.length ? (
         <React.Fragment>
@@ -163,7 +186,7 @@ export default function Statistics() {
             style={{ labels: { fill: $WHITE } }}
           />
           <View style={styles.purposesTagsContainer}>
-            {groupedByTypeTransactions.map(transaction => {
+            {groupedByPurposeTransactions.map(transaction => {
               return (
                 <View
                   key={transaction.label}
@@ -183,36 +206,29 @@ export default function Statistics() {
         </React.Fragment>
       ) : null}
       {activeBillTransactions.length ? (
-        <React.Fragment>
-          <MoneyFlow
-            hasTransactions={isVisibleOutcomeMoneyFlow}
-            transactions={activeBillTransactions}
-            typeOfTransactions={'outcome'}
-            language={language}
-            purposes={purposes}
-            handleOnPressToggleTransactions={() =>
-              toggleOutcomeMoneyFlowVisibility(!isVisibleOutcomeMoneyFlow)
-            }
-            headerTitle={t('outcome')}
-            averageTitle={t('average')}
-            totalTitle={t('total')}
-            noTransactionsNote={t('noOutcomeTransactions')}
-          />
-          <MoneyFlow
-            hasTransactions={isVisibleIncomeMoneyFlow}
-            typeOfTransactions={'income'}
-            transactions={activeBillTransactions}
-            language={language}
-            purposes={purposes}
-            handleOnPressToggleTransactions={() =>
-              toggleIncomeMoneyFlowVisibility(!isVisibleIncomeMoneyFlow)
-            }
-            headerTitle={t('income')}
-            averageTitle={t('average')}
-            totalTitle={t('total')}
-            noTransactionsNote={t('noIncomeTransactions')}
-          />
-        </React.Fragment>
+        <MoneyFlow
+          hasTransactions={isVisibleMoneyFlow}
+          transactions={filteredTransactionsByType}
+          language={language}
+          purposes={purposes}
+          handleOnPressToggleTransactions={() =>
+            toggleMoneyFlowVisibility(!isVisibleMoneyFlow)
+          }
+          headerTitle={
+            selectedTypeOfTransactions === 'outcome'
+              ? t('outcome')
+              : t('income')
+          }
+          averageTitle={t('average')}
+          totalTitle={t('total')}
+          noTransactionsNote={
+            selectedTypeOfTransactions === 'outcome'
+              ? t('noOutcomeTransactions')
+              : t('noIncomeTransactions')
+          }
+          total={total}
+          average={average}
+        />
       ) : (
         <Text style={styles.clearHistory}>{t('noteAboutTransactions')}</Text>
       )}
