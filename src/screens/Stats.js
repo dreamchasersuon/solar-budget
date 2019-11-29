@@ -102,18 +102,41 @@ export default function Statistics() {
   };
 
   const filteredTransactionsByType = [];
+  const groupedByTypeTransactions = [];
   const dataToPieDiagram = [];
   const purposesColors = [];
   if (activeBillTransactions.length) {
     activeBillTransactions.forEach(transaction => {
       if (transaction.type === selectedTypeOfTransactions) {
-        filteredTransactionsByType.push({ label: transaction.purpose });
-        const transactionToPieDiagram = {
-          y: transaction.amount
-        };
-        dataToPieDiagram.push(transactionToPieDiagram);
-        purposesColors.push(purposes[transaction.purpose].color);
+        filteredTransactionsByType.push({
+          label: transaction.purpose,
+          amount: transaction.amount
+        });
       }
+    });
+    filteredTransactionsByType.forEach(transaction => {
+      const isExistInPieDataArray = groupedByTypeTransactions.find(
+        pieTransaction => pieTransaction.label !== transaction.label
+      );
+      if (!groupedByTypeTransactions.length || isExistInPieDataArray) {
+        groupedByTypeTransactions.push({
+          label: transaction.label,
+          amount: transaction.amount
+        });
+        purposesColors.push(purposes[transaction.label].color);
+      }
+      groupedByTypeTransactions.map(pieTransaction => {
+        if (transaction.label === pieTransaction.label) {
+          return pieTransaction.amount + transaction.amount;
+        }
+        return pieTransaction;
+      });
+    });
+    groupedByTypeTransactions.forEach(transaction => {
+      const transactionToPieDiagram = {
+        y: transaction.amount
+      };
+      dataToPieDiagram.push(transactionToPieDiagram);
     });
   }
   return (
@@ -140,7 +163,7 @@ export default function Statistics() {
             style={{ labels: { fill: $WHITE } }}
           />
           <View style={styles.purposesTagsContainer}>
-            {filteredTransactionsByType.map(transaction => {
+            {groupedByTypeTransactions.map(transaction => {
               return (
                 <View
                   key={transaction.label}
