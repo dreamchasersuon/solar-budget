@@ -1,12 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, SafeAreaView } from 'react-native';
 import {
-  $BRANDY_PUNCH,
   $LIGHTSILVER,
   $MEDIUMSILVER,
-  $RED,
   $WHITE
 } from '../constants/colorLiterals';
 import Header from '../components/Header';
@@ -18,6 +16,15 @@ import { VictoryPie } from 'victory-native';
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
+    backgroundColor: $LIGHTSILVER,
+    width: '100%'
+  },
+  safeAreScrollView: {
+    width: '100%',
+    maxHeight: 530
+  },
+  scrollView: {
     alignItems: 'center',
     backgroundColor: $LIGHTSILVER,
     width: '100%'
@@ -40,17 +47,17 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -40
   },
   purposesTags: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginHorizontal: 5,
     borderRadius: 15,
-    marginRight: 5
+    marginVertical: 5
   }
 });
 
@@ -97,6 +104,7 @@ export default function Statistics() {
 
   const filteredTransactionsByType = [];
   const groupedByPurposeTransactions = [];
+  const groupedPurposes = [];
   const dataToPieDiagram = [];
   const purposesColors = [];
   let total = 0;
@@ -128,9 +136,8 @@ export default function Statistics() {
       if (isExistInPieDataArray) {
         groupedByPurposeTransactions.forEach(pieTransaction => {
           if (pieTransaction.label === transaction.label) {
-            return (pieTransaction.amount = (
-              Number(pieTransaction.amount) + Number(transaction.amount)
-            ).toString());
+            return (pieTransaction.amount =
+              Number(pieTransaction.amount) + Number(transaction.amount));
           }
         });
       } else {
@@ -143,8 +150,10 @@ export default function Statistics() {
     });
     groupedByPurposeTransactions.forEach(transaction => {
       const transactionToPieDiagram = {
+        x: transaction.label,
         y: transaction.amount
       };
+      groupedPurposes.push(transaction.label);
       dataToPieDiagram.push(transactionToPieDiagram);
     });
   }
@@ -176,62 +185,69 @@ export default function Statistics() {
         deposit={activeBillDeposit}
         saldo={1000}
       />
-      {activeBillTransactions.length ? (
-        <React.Fragment>
-          <VictoryPie
-            data={dataToPieDiagram}
-            colorScale={purposesColors.reverse()}
-            height={300}
-            innerRadius={50}
-            style={{ labels: { fill: $WHITE } }}
-          />
-          <View style={styles.purposesTagsContainer}>
-            {groupedByPurposeTransactions.map(transaction => {
-              return (
-                <View
-                  key={transaction.label}
-                  style={[
-                    styles.purposesTags,
-                    { backgroundColor: purposes[transaction.label].color }
-                  ]}
-                >
-                  {/* eslint-disable-next-line react-native/no-inline-styles */}
-                  <Text style={{ color: $WHITE, fontSize: 12 }}>
-                    {purposes[transaction.label][language]}
-                  </Text>
-                </View>
-              );
-            })}
-          </View>
-        </React.Fragment>
-      ) : null}
-      {activeBillTransactions.length ? (
-        <MoneyFlow
-          hasTransactions={isVisibleMoneyFlow}
-          transactions={filteredTransactionsByType}
-          language={language}
-          purposes={purposes}
-          handleOnPressToggleTransactions={() =>
-            toggleMoneyFlowVisibility(!isVisibleMoneyFlow)
-          }
-          headerTitle={
-            selectedTypeOfTransactions === 'outcome'
-              ? t('outcome')
-              : t('income')
-          }
-          averageTitle={t('average')}
-          totalTitle={t('total')}
-          noTransactionsNote={
-            selectedTypeOfTransactions === 'outcome'
-              ? t('noOutcomeTransactions')
-              : t('noIncomeTransactions')
-          }
-          total={total}
-          average={average}
-        />
-      ) : (
-        <Text style={styles.clearHistory}>{t('noteAboutTransactions')}</Text>
-      )}
+      <SafeAreaView style={styles.safeAreScrollView}>
+        <ScrollView bounces contentContainerStyle={styles.scrollView}>
+          {activeBillTransactions.length ? (
+            <React.Fragment>
+              <VictoryPie
+                categories={groupedPurposes}
+                data={dataToPieDiagram}
+                colorScale={purposesColors.reverse()}
+                height={300}
+                innerRadius={50}
+                style={{ labels: { fill: $WHITE } }}
+              />
+              <View style={styles.purposesTagsContainer}>
+                {groupedByPurposeTransactions.map(transaction => {
+                  return (
+                    <View
+                      key={transaction.label}
+                      style={[
+                        styles.purposesTags,
+                        { backgroundColor: purposes[transaction.label].color }
+                      ]}
+                    >
+                      {/* eslint-disable-next-line react-native/no-inline-styles */}
+                      <Text style={{ color: $WHITE, fontSize: 12 }}>
+                        {purposes[transaction.label][language]}
+                      </Text>
+                    </View>
+                  );
+                })}
+              </View>
+            </React.Fragment>
+          ) : null}
+          {activeBillTransactions.length ? (
+            <MoneyFlow
+              hasTransactions={isVisibleMoneyFlow}
+              transactions={filteredTransactionsByType}
+              language={language}
+              purposes={purposes}
+              handleOnPressToggleTransactions={() =>
+                toggleMoneyFlowVisibility(!isVisibleMoneyFlow)
+              }
+              headerTitle={
+                selectedTypeOfTransactions === 'outcome'
+                  ? t('outcome')
+                  : t('income')
+              }
+              averageTitle={t('average')}
+              totalTitle={t('total')}
+              noTransactionsNote={
+                selectedTypeOfTransactions === 'outcome'
+                  ? t('noOutcomeTransactions')
+                  : t('noIncomeTransactions')
+              }
+              total={total}
+              average={average}
+            />
+          ) : (
+            <Text style={styles.clearHistory}>
+              {t('noteAboutTransactions')}
+            </Text>
+          )}
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }

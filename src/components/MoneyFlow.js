@@ -114,12 +114,12 @@ export default function MoneyFlow({
                   </Text>
                 </View>
                 <Text style={styles.moneyFlowPurpose}>
-                  {dotSeparation(item.amount) + ' Р'}
+                  {'Р ' + dotSeparation(item.amount)}
                 </Text>
               </View>
             );
           }}
-          keyExtractor={index => index}
+          keyExtractor={(item, index) => `${index}`}
         />
       );
     }
@@ -148,7 +148,7 @@ export default function MoneyFlow({
             <Text
               style={[styles.moneyFlowAverageAndAmountText, styles.blueColor]}
             >
-              {dotSeparation(average.toString())}
+              {'Р ' + dotSeparation(average.toString())}
             </Text>
           </View>
           <View style={styles.flexRow}>
@@ -158,7 +158,7 @@ export default function MoneyFlow({
             <Text
               style={[styles.moneyFlowAverageAndAmountText, styles.blueColor]}
             >
-              {dotSeparation(total.toString())}
+              {'Р ' + dotSeparation(total.toString())}
             </Text>
           </View>
         </View>
