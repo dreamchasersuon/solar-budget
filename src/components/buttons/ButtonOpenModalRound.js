@@ -28,9 +28,21 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ButtonOpenModalRound({ expandModal, isActive }) {
+export default function ButtonOpenModalRound({
+  expandModal,
+  isActive,
+  hideOrShow
+}) {
+  console.log(hideOrShow);
+  const hideButton = hideOrShow === 'down';
   return (
-    <View style={styles.buttonContainer}>
+    <View
+      style={
+        hideButton
+          ? [styles.buttonContainer, { transform: [{ translateY: 120 }] }]
+          : styles.buttonContainer
+      }
+    >
       <TouchableOpacity
         style={styles.touchableArea}
         onPress={isActive ? expandModal : null}

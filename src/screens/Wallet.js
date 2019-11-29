@@ -80,6 +80,19 @@ function Wallet() {
     );
   }
 
+  const [scrollDirection, setScrollDirection] = useState('up');
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = event => {
+    const scrollOffsetY = event.contentOffset.y;
+    setScrollPosition(scrollOffsetY);
+    if (scrollPosition > scrollOffsetY) {
+      setScrollDirection('up');
+    } else {
+      setScrollDirection('down');
+    }
+  };
+
   const [isTransactionModalVisible, makeTransaction] = useState(false);
   const toggleTransactionModal = () =>
     makeTransaction(!isTransactionModalVisible);
@@ -114,6 +127,7 @@ function Wallet() {
         <FlatList
           data={activeBillTransactions}
           contentContainerStyle={styles.transactionsContainer}
+          onScroll={event => handleScroll(event.nativeEvent)}
           renderItem={({ item }) => {
             const purposeLabel = purposes[item.purpose][language];
             return (
@@ -131,6 +145,7 @@ function Wallet() {
         />
       ) : null}
       <ButtonOpenModalRound
+        hideOrShow={scrollDirection}
         isActive={!!bills.length}
         expandModal={toggleTransactionModal}
       />

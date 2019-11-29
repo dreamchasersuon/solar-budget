@@ -9,6 +9,7 @@ import {
 } from '../constants/colorLiterals';
 import { View, StyleSheet, Text } from 'react-native';
 import bringInCash from '../utils/dotSeparation';
+import TransactionIcon from '../../assets/test-big-logo.svg';
 
 const styles = StyleSheet.create({
   bodyData: {
@@ -23,7 +24,8 @@ const styles = StyleSheet.create({
   bodyTransactionValue: {
     color: $GREEN,
     fontSize: 25,
-    marginRight: 30
+    marginRight: 30,
+    marginLeft: 10
   },
   container: {
     alignItems: 'center',
@@ -63,6 +65,10 @@ const styles = StyleSheet.create({
   },
   headerTime: {
     flexDirection: 'row'
+  },
+  amountAndIcon: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
 
@@ -91,15 +97,18 @@ export default function Transaction({
       </View>
 
       <View style={styles.bodyData}>
-        {type === 'income' ? (
-          <Text style={styles.bodyTransactionValue}>
-            +{bringInCash(amount)}
-          </Text>
-        ) : (
-          <Text style={[styles.bodyTransactionValue, { color: $RED }]}>
-            -{bringInCash(amount)}
-          </Text>
-        )}
+        <View style={styles.amountAndIcon}>
+          <TransactionIcon />
+          {type === 'income' ? (
+            <Text style={styles.bodyTransactionValue}>
+              +{bringInCash(amount)}
+            </Text>
+          ) : (
+            <Text style={[styles.bodyTransactionValue, { color: $RED }]}>
+              -{bringInCash(amount)}
+            </Text>
+          )}
+        </View>
         <Text style={styles.bodyTransactionTarget}>{about}</Text>
       </View>
     </View>
