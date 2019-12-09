@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 import ArrowCollapseEnabled from '../../assets/arrow-collapse-enabled.svg';
 import ArrowCollapseDisabled from '../../assets/arrow-collapse-disabled.svg';
 import TestPurposeIcon from '../../assets/purpose-test-icon.svg';
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   blueColor: {
-    color: $BLUE
+    color: $LIGHT_BLUE
   },
   historyClean: {
     fontSize: 14,

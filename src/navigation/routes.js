@@ -25,7 +25,7 @@ import ChangePinCode from '../screens/ChangePinCode';
 import ForgotPassword from '../screens/ForgotPassword';
 import ValidatePinCode from '../screens/ValidatePinCode';
 import ChangeLanguage from '../screens/ChangeLanguage';
-import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
   return {
@@ -210,7 +210,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
       navigationOptions: {
         // eslint-disable-next-line react/display-name
         tabBarIcon: ({ focused }) => (
-          <WalletImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+          <WalletImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
         )
       }
     },
@@ -219,7 +219,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
       navigationOptions: {
         // eslint-disable-next-line react/display-name
         tabBarIcon: ({ focused }) => (
-          <TargetsImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+          <TargetsImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
         )
       }
     },
@@ -228,7 +228,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
       navigationOptions: {
         // eslint-disable-next-line react/display-name
         tabBarIcon: ({ focused }) => (
-          <RatesImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+          <RatesImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
         )
       }
     },
@@ -237,7 +237,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
       navigationOptions: {
         // eslint-disable-next-line react/display-name
         tabBarIcon: ({ focused }) => (
-          <SettingsImg fill={focused ? $BLUE : $MEDIUMSILVER} />
+          <SettingsImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
         )
       }
     }

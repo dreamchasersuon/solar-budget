@@ -14,7 +14,7 @@ import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/CustomInput';
-import { $BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { createUser } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonTextWithNote: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

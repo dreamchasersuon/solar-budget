@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   //$RED,
-  $GREEN,
+  $LIGHT_GREEN,
   $SILVER,
-  $BLUE,
+  $LIGHT_BLUE,
   $WHITE,
   $RED
 } from '../constants/colorLiterals';
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     color: $SILVER
   },
   bodyTransactionValue: {
-    color: $GREEN,
+    color: $LIGHT_GREEN,
     fontSize: 25,
     marginRight: 30,
     marginLeft: 10
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   headerDateTextLight: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 10
   },
   headerDateTextRegular: {

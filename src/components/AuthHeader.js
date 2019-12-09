@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { $BLUE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center'
   },
   extendedNote: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 11
   },
   note: {

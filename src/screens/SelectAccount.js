@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import AuthHeader from '../components/AuthHeader';
 import DropdownAlert from 'react-native-dropdownalert';
-import { $BLUE, $TRANSPARENT, $WHITE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $TRANSPARENT, $WHITE } from '../constants/colorLiterals';
 // eslint-disable-next-line import/default
 import Swiper from 'react-native-swiper';
 import NavigationService from '../navigation/service';
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     height: 60
   },
   cardText: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 12
   },
   backArrow: {

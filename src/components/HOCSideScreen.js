@@ -10,7 +10,7 @@ import {
 import Logo from '../../assets/logo.svg';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import {
-  $BLUE,
+  $LIGHT_BLUE,
   $LIGHTSILVER,
   $MEDIUMSILVER,
   $WHITE
@@ -21,7 +21,7 @@ import { Translation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonTextStyle: {
-    color: $BLUE
+    color: $LIGHT_BLUE
   },
   buttonsContainer: {
     alignItems: 'center',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

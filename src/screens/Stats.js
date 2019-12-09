@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBillActive } from '../redux/features/billFeatureSlice';
 import MoneyFlow from '../components/MoneyFlow';
-import { VictoryPie } from 'victory-native';
+import { PieChart } from 'react-native-chart-kit';
 
 const styles = StyleSheet.create({
   container: {
@@ -104,9 +104,7 @@ export default function Statistics() {
 
   const filteredTransactionsByType = [];
   const groupedByPurposeTransactions = [];
-  const groupedPurposes = [];
   const dataToPieDiagram = [];
-  const purposesColors = [];
   let total = 0;
   let average = 0;
 
@@ -125,7 +123,6 @@ export default function Statistics() {
           label: transaction.label,
           amount: transaction.amount
         });
-        return purposesColors.push(purposes[transaction.label].color);
       }
       const isExistInPieDataArray = groupedByPurposeTransactions.find(
         pieTransaction => {
@@ -145,15 +142,14 @@ export default function Statistics() {
           label: transaction.label,
           amount: transaction.amount
         });
-        purposesColors.push(purposes[transaction.label].color);
       }
     });
     groupedByPurposeTransactions.forEach(transaction => {
       const transactionToPieDiagram = {
-        x: transaction.label,
-        y: transaction.amount
+        name: transaction.label,
+        amount: transaction.amount,
+        color: purposes[transaction.label].color
       };
-      groupedPurposes.push(transaction.label);
       dataToPieDiagram.push(transactionToPieDiagram);
     });
   }
@@ -189,13 +185,23 @@ export default function Statistics() {
         <ScrollView bounces contentContainerStyle={styles.scrollView}>
           {activeBillTransactions.length ? (
             <React.Fragment>
-              <VictoryPie
-                categories={groupedPurposes}
+              <PieChart
                 data={dataToPieDiagram}
-                colorScale={purposesColors.reverse()}
+                width={300}
                 height={300}
-                innerRadius={50}
-                style={{ labels: { fill: $WHITE } }}
+                chartConfig={{
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
+                }}
+                bezier
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                }}
+                accessor="amount"
+                backgroundColor="transparent"
+                paddingLeft="15"
+                absolute
+                hasLegend={false}
               />
               <View style={styles.purposesTagsContainer}>
                 {groupedByPurposeTransactions.map(transaction => {

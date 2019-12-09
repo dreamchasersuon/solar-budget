@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {
   $BLACK_FADE,
-  $BLUE,
+  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $TRANSPARENT,
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { color: $BLUE, fontSize: 16 },
+  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
   closeModal: {
     alignItems: 'center',
-    borderColor: $BLUE,
+    borderColor: $LIGHT_BLUE,
     borderRadius: 50,
     borderWidth: 1,
     height: 30,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginLeft: 150,
     marginTop: 20
   },
-  label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
+  label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
   labelInvalid: {
     color: $RED,
     fontSize: 14,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   operationTypeBtnActive: {
     alignItems: 'center',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 4,
     flexDirection: 'row',
     height: 26,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   transactionInput: {
     borderBottomWidth: 1,
     borderColor: $MEDIUMSILVER,
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 28,
     height: 55,
     textAlign: 'right',
@@ -323,7 +323,7 @@ export default function ModalCreateTarget({
                       : [styles.transactionInput, { borderColor: $RED }]
                   }
                   placeholder="+ 0"
-                  placeholderColor={isValidAmount ? $BLUE : $RED}
+                  placeholderColor={isValidAmount ? $LIGHT_BLUE : $RED}
                   initial={bringInCash(depositAmount)}
                   isEditable={false}
                 />

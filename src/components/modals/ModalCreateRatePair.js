@@ -1,5 +1,9 @@
 import { Modal, ScrollView, View, StyleSheet } from 'react-native';
-import { $BLACK_FADE, $BLUE, $WHITE } from '../../constants/colorLiterals';
+import {
+  $BLACK_FADE,
+  $LIGHT_BLUE,
+  $WHITE
+} from '../../constants/colorLiterals';
 import React from 'react';
 import ModalHeader from './ModalHeader';
 import ModalRatePair from './ModalRatePair';
@@ -8,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 const styles = StyleSheet.create({
   closeModal: {
     alignItems: 'center',
-    borderColor: $BLUE,
+    borderColor: $LIGHT_BLUE,
     borderRadius: 50,
     borderWidth: 1,
     height: 30,

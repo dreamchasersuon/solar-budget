@@ -7,7 +7,7 @@ import AuthHeader from '../components/AuthHeader';
 import NumericBoard from '../components/NumericBoard';
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import SecurePin from '../components/SecurePin';
-import { $BLUE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE } from '../constants/colorLiterals';
 import {
   authorizeUserByPinCode,
   fingerprintScanning
@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   buttonText: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 12,
     textAlign: 'center'
   },
   buttonTextWithNote: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     width: 240
   },
   paginationActive: {
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 50,
     height: 10,
     width: 10

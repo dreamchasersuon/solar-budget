@@ -1,7 +1,7 @@
 import { Modal, View, StyleSheet, Vibration } from 'react-native';
 import {
   $BLACK_FADE,
-  $BLUE,
+  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $WHITE
@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { color: $BLUE, fontSize: 16 },
+  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
   closeModal: {
     alignItems: 'center',
-    borderColor: $BLUE,
+    borderColor: $LIGHT_BLUE,
     borderRadius: 50,
     borderWidth: 1,
     height: 30,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginLeft: 80,
     marginTop: 20
   },
-  label: { color: $BLUE, fontSize: 14, marginBottom: 10 },
+  label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
   labelInvalid: {
     color: $RED,
     fontSize: 14,

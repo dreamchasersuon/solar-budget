@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Pros from '../../assets/pros.svg';
 // eslint-disable-next-line import/default
 import Swiper from 'react-native-swiper';
-import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
@@ -44,7 +44,7 @@ export default function Slider() {
       bounces
       containerStyle={styles.aboutContainer}
       dotColor={$MEDIUMSILVER}
-      activeDotColor={$BLUE}
+      activeDotColor={$LIGHT_BLUE}
     >
       <View style={styles.slideContainer}>
         <Pros />

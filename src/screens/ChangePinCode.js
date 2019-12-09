@@ -9,7 +9,7 @@ import {
   validatePinCode,
   updateUserPinCode
 } from '../redux/features/userFeatureSlice';
-import { $BLUE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE } from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useTranslation } from 'react-i18next';
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: 240
   },
   paginationActive: {
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 50,
     height: 10,
     width: 10

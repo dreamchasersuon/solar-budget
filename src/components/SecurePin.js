@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { $BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import { $MEDIUMSILVER } from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   container: {

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text, TouchableNativeFeedback, View, StyleSheet } from 'react-native';
 import RateInfo from '../../../assets/rate_info.svg';
-import { $BLUE } from '../../constants/colorLiterals';
+import { $LIGHT_BLUE } from '../../constants/colorLiterals';
 import SelectedRatePair from '../../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../../assets/unselected_rate-pair.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,7 +76,7 @@ export default function ModalRatePair({
         <Text style={styles.title}>{title}</Text>
       </View>
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple($BLUE, true)}
+        background={TouchableNativeFeedback.Ripple($LIGHT_BLUE, true)}
         onPress={onSelectRatePair}
       >
         <View style={styles.button}>{renderSelectButton()}</View>

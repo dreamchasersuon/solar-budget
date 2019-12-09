@@ -1,12 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
   Vibration,
-  StatusBar,
-  Keyboard
+  StatusBar
 } from 'react-native';
 import Pros from '../../assets/pros.svg';
 import ArrowLeft from '../../assets/left-arrow.svg';
@@ -15,7 +14,7 @@ import AuthHeader from '../components/AuthHeader';
 import CustomInput from '../components/CustomInput';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
-import { $BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
 import { useDispatch } from 'react-redux';
 import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   buttonText: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

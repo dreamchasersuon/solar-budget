@@ -5,7 +5,7 @@ import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { $BLUE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE } from '../constants/colorLiterals';
 import { validatePinCode } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import { Notifications } from 'expo';
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: 240
   },
   paginationActive: {
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderRadius: 50,
     height: 10,
     width: 10
