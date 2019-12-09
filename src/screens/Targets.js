@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
-import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHTSILVER,
+  $MEDIUMSILVER
+} from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import ModalCreateTarget from '../components/modals/ModalCreateTarget';
@@ -51,6 +54,12 @@ function Targets() {
   const targetState = useSelector(state => state.target);
   const user = useSelector(state => state.user.find(user => user.active));
   const targets = targetState.filter(target => target.userId === user.id);
+  const { background_bottom } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_bottom
+    }
+  });
 
   let activeTarget;
   let activeTargetPrice;
@@ -70,7 +79,7 @@ function Targets() {
     dispatch(setTargetActive({ id }));
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.containerBackground]}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasLeftMenu
@@ -80,6 +89,7 @@ function Targets() {
         handleOnPress={selectTarget}
         list={targets}
         deposit={activeTargetPrice}
+        theme={user.theme}
       />
       {targets.length === 0 && (
         <Text style={styles.clearHistory}>{t('noteToCreateTargetText')}</Text>

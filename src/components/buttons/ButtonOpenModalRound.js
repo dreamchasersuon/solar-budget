@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { $WHITE, $BLUE } from '../../constants/colorLiterals';
+import mapColorsToTheme, {
+  $WHITE,
+  $LIGHT_BLUE
+} from '../../constants/colorLiterals';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
@@ -31,23 +34,34 @@ const styles = StyleSheet.create({
 export default function ButtonOpenModalRound({
   expandModal,
   isActive,
-  hideOrShow
+  hideOrShow,
+  theme
 }) {
-  console.log(hideOrShow);
+  const { background_top } = mapColorsToTheme(theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_top
+    }
+  });
+
   const hideButton = hideOrShow === 'down';
   return (
     <View
       style={
         hideButton
-          ? [styles.buttonContainer, { transform: [{ translateY: 120 }] }]
-          : styles.buttonContainer
+          ? [
+              styles.buttonContainer,
+              { transform: [{ translateY: 120 }] },
+              themeStyles.background
+            ]
+          : [styles.buttonContainer, themeStyles.background]
       }
     >
       <TouchableOpacity
         style={styles.touchableArea}
         onPress={isActive ? expandModal : null}
       >
-        <Ionicons name="ios-add" color={$BLUE} style={styles.icon} />
+        <Ionicons name="ios-add" color={$LIGHT_BLUE} style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

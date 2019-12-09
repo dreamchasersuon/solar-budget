@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
-import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHTSILVER,
+  $MEDIUMSILVER
+} from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
@@ -57,6 +60,12 @@ function Wallet() {
   const billState = useSelector(state => state.bill);
   const bills = billState.filter(bill => bill.userId === user.id);
   const purposes = useSelector(state => state.purposes);
+  const { background_bottom } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_bottom
+    }
+  });
 
   const { t, i18n } = useTranslation('WalletScreen');
   const language = user.locale;
@@ -104,7 +113,7 @@ function Wallet() {
   };
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.containerBackground]}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         hasStats
@@ -116,6 +125,7 @@ function Wallet() {
         handleOnPress={selectBill}
         list={bills}
         deposit={activeBillDeposit}
+        theme={user.theme}
       />
       {bills.length === 0 && (
         <Text style={styles.clearHistory}>{t('noteToCreateBill')}</Text>
@@ -148,6 +158,7 @@ function Wallet() {
         hideOrShow={scrollDirection}
         isActive={!!bills.length}
         expandModal={toggleTransactionModal}
+        theme={user.theme}
       />
 
       <ModalCreateTransaction

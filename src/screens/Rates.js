@@ -2,7 +2,10 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
-import { $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHTSILVER,
+  $MEDIUMSILVER
+} from '../constants/colorLiterals';
 import Header from '../components/Header';
 import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
 import RatePair from '../components/RatePair';
@@ -52,15 +55,22 @@ function Rates() {
   const rateState = useSelector(state => state.rate);
   const user = useSelector(state => state.user.find(user => user.active));
   const rates = rateState.filter(rate => rate.userId === user.id);
+  const { background_bottom } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_bottom
+    }
+  });
 
   const [isAddRatePairModalVisible, makeTarget] = useState(false);
   const toggleAddRatePairModal = () => makeTarget(!isAddRatePairModalVisible);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.background]}>
       <Header
         headerTopLeftSideStyle={styles.headerTopLeftSide}
         title={t('screenName')}
         hasLeftMenu
+        theme={user.theme}
       />
       {rates.length ? (
         <FlatList
@@ -79,7 +89,11 @@ function Rates() {
       ) : (
         <Text style={styles.clearHistory}>{t('ratesNotSelectedNote')}</Text>
       )}
-      <ButtonOpenModalRound isActive expandModal={toggleAddRatePairModal} />
+      <ButtonOpenModalRound
+        isActive
+        expandModal={toggleAddRatePairModal}
+        theme={user.theme}
+      />
       <ModalCreateRatePair
         isVisible={isAddRatePairModalVisible}
         toggleAddRatePairModal={toggleAddRatePairModal}

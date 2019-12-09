@@ -8,7 +8,11 @@ import {
   ScrollView,
   StatusBar
 } from 'react-native';
-import { $BLUE, $LIGHTSILVER, $MEDIUMSILVER } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $LIGHTSILVER,
+  $MEDIUMSILVER
+} from '../constants/colorLiterals';
 import Header from '../components/Header';
 import Language from '../../assets/language.svg';
 import NavigationService from '../navigation/service';
@@ -19,7 +23,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAvatar } from '../redux/features/userFeatureSlice';
+import { addAvatar, changeTheme } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
 import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     width: 'auto'
   },
   logout: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 16,
     paddingBottom: 20,
     paddingTop: 20
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   title: {
-    color: $BLUE,
+    color: $LIGHT_BLUE,
     fontSize: 16,
     marginBottom: 10
   }
@@ -91,6 +95,18 @@ function Settings() {
   const user = useSelector(state => state.user.find(user => user.active));
   const isUserHasUpdatePasswordPermissions = user.permissionsToUpdatePassword;
   const image = user.avatar;
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_bottom
+    },
+    textAccent: {
+      color: accent
+    },
+    textMain: {
+      color: text_main
+    }
+  });
 
   const { t, i18n } = useTranslation([
     'SettingsScreen',
@@ -140,16 +156,26 @@ function Settings() {
     await MailComposer.composeAsync({ recipients: [supportEmail] });
   };
 
+  const setTheme = () => {
+    const currentTheme = user.theme;
+    if (currentTheme === 'light') {
+      dispatch(changeTheme({ userId: user.id, theme: 'dark' }));
+    } else {
+      dispatch(changeTheme({ userId: user.id, theme: 'light' }));
+    }
+  };
+
   const logout = () => NavigationService.navigate('Auth');
   const goTo = route => NavigationService.navigate(route);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.containerBackground]}>
       <View style={styles.header}>
         <View style={styles.headerContainer}>
           <Header
             headerTopLeftSideStyle={styles.headerTopLeftSide}
             title={t('SettingsScreen:screenName')}
             hasLeftMenu
+            theme={user.theme}
           />
         </View>
         <TouchableOpacity onPress={askPermissions}>
@@ -158,7 +184,7 @@ function Settings() {
       </View>
       <ScrollView>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>
+          <Text style={[styles.title, themeStyles.textAccent]}>
             {t('SettingsScreen:mainHeaderTitle')}
           </Text>
           <TouchableOpacity
@@ -166,33 +192,43 @@ function Settings() {
             style={styles.settingsUnit}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:languageSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:languageSettings')}
+              </Text>
               <Language />
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:cloudSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:cloudSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:inviteFriendSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:inviteFriendSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity onPress={setTheme} style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:themeSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:themeSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>
+          <Text style={[styles.title, themeStyles.textAccent]}>
             {t('SettingsScreen:securityHeaderTitle')}
           </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:enableFingerprintSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:enableFingerprintSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -200,7 +236,9 @@ function Settings() {
             onPress={toggleUpdateLoginModal}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:changeLoginSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:changeLoginSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -208,7 +246,9 @@ function Settings() {
             onPress={toggleValidatePasswordModal}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:changePasswordSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:changePasswordSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -216,17 +256,21 @@ function Settings() {
             onPress={() => goTo('ChangePinCode')}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:changePinSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:changePinSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsUnitContainer}>
-          <Text style={styles.title}>
+          <Text style={[styles.title, themeStyles.textAccent]}>
             {t('SettingsScreen:feedbackHeaderTitle')}
           </Text>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:rateUsSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:rateUsSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity
@@ -234,23 +278,29 @@ function Settings() {
             onPress={mailTechnicalSupport}
           >
             <React.Fragment>
-              <Text>{t('SettingsScreen:techSupportSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:techSupportSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:termsOfUseSettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:termsOfUseSettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsUnit}>
             <React.Fragment>
-              <Text>{t('SettingsScreen:privacyPolicySettings')}</Text>
+              <Text style={themeStyles.textMain}>
+                {t('SettingsScreen:privacyPolicySettings')}
+              </Text>
             </React.Fragment>
           </TouchableOpacity>
         </View>
       </ScrollView>
       <TouchableOpacity onPress={logout}>
-        <Text style={styles.logout}>
+        <Text style={[styles.logout, themeStyles.textAccent]}>
           {t('SettingsScreen:logoutButtonLabel')}
         </Text>
       </TouchableOpacity>

@@ -1,6 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { $BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $MEDIUMSILVER,
+  $WHITE
+} from '../constants/colorLiterals';
 import { Ionicons } from '@expo/vector-icons';
 import StatsBtn from '../../assets/statsBtn.svg';
 import {
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderBottomLeftRadius: 4,
     borderTopLeftRadius: 4,
     flexDirection: 'row',
@@ -77,7 +81,7 @@ const styles = StyleSheet.create({
     paddingTop: 45,
     paddingBottom: 15,
     width: '100%',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     elevation: 8
   },
   headerBottomContainer: {
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
   },
   headerLeftSideMenu: {
     alignItems: 'center',
-    backgroundColor: $BLUE,
+    backgroundColor: $LIGHT_BLUE,
     borderBottomRightRadius: 20,
     borderTopRightRadius: 20,
     height: 60,
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
     color: $WHITE
   },
   blueText: {
-    color: $BLUE
+    color: $LIGHT_BLUE
   },
   whiteBackground: {
     backgroundColor: $WHITE
@@ -176,8 +180,19 @@ export default function Header({
   handleOnPressDeposit,
   hasCalendar,
   periodOfTime,
-  saldo
+  saldo,
+  theme
 }) {
+  const { accent, text_main } = mapColorsToTheme(theme);
+  const themeStyles = StyleSheet.create({
+    title: {
+      color: text_main
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    }
+  });
+
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
     <View style={blueBackgroundStyle ? styles.blueContainer : styles.container}>
@@ -198,7 +213,7 @@ export default function Header({
             style={
               blueBackgroundStyle
                 ? styles.titleTextBlueBackground
-                : styles.titleText
+                : [styles.titleText, themeStyles.title]
             }
           >
             {title}
@@ -222,7 +237,11 @@ export default function Header({
               icon
               buttonStyle={
                 blueBackgroundStyle
-                  ? [styles.buttonStyle, styles.whiteBackground]
+                  ? [
+                      styles.buttonStyle,
+                      styles.whiteBackground,
+                      themeStyles.backgroundAccent
+                    ]
                   : styles.buttonStyle
               }
               buttonTextStyle={
@@ -239,7 +258,10 @@ export default function Header({
           <View
             style={
               blueBackgroundStyle
-                ? styles.billsContainerWrapperStats
+                ? [
+                    styles.billsContainerWrapperStats,
+                    themeStyles.backgroundAccent
+                  ]
                 : styles.billsContainerWrapper
             }
           >

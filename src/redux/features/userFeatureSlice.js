@@ -22,6 +22,7 @@ const userSlice = createSlice({
       notifications: true,
       fingerprint: true,
       avatar: null,
+      theme: 'light',
       locale: language,
       multiAccountSelect: false,
       permissionsToUpdatePassword: false
@@ -245,6 +246,16 @@ const userSlice = createSlice({
         }
         return user;
       });
+    },
+    changeTheme(state, action) {
+      const { userId, theme } = action.payload;
+      state.map(user => {
+        console.log(user, userId, theme);
+        if (user.id === userId) {
+          return (user.theme = theme);
+        }
+        return user;
+      });
     }
   }
 });
@@ -283,6 +294,7 @@ export const {
   updateUserPinCode,
   validatePinCode,
   setPasswordUpdatePermissionsDenied,
-  setLocale
+  setLocale,
+  changeTheme
 } = userSlice.actions;
 export default userSlice.reducer;
