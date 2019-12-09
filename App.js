@@ -4,8 +4,8 @@
 /* eslint-disable react/jsx-no-bind */
 import React from "react";
 import { AppLoading, Font, Linking } from "expo";
-import RootProvider from './src/navigation/root';
-import { persistor, store } from './src/redux';
+import RootProvider from "./src/navigation/root";
+import { persistor, store } from "./src/redux";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,9 +20,9 @@ export default class App extends React.Component {
     const fonts = Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      MaterialCommunityIcons: require('native-base/Fonts/MaterialCommunityIcons.ttf'),
-      Ionicons: require('native-base/Fonts/Ionicons.ttf'),
-      FontAwesome: require('native-base/Fonts/FontAwesome.ttf')
+      MaterialCommunityIcons: require("native-base/Fonts/MaterialCommunityIcons.ttf"),
+      Ionicons: require("native-base/Fonts/Ionicons.ttf"),
+      FontAwesome: require("native-base/Fonts/FontAwesome.ttf")
     });
 
     // eslint-disable-next-line no-invalid-this
@@ -33,14 +33,20 @@ export default class App extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-          <AppLoading
-              startAsync={this.bootstrap}
-              onFinish={() => this.setState({ loading: false })}
-              onError={console.warn}
-          />
-      )
+        <AppLoading
+          startAsync={this.bootstrap}
+          onFinish={() => this.setState({ loading: false })}
+          onError={console.warn}
+        />
+      );
     }
 
-    return <RootProvider store={store} persistor={persistor} initialUrl={this.state.initialUrl} />
+    return (
+      <RootProvider
+        store={store}
+        persistor={persistor}
+        initialUrl={this.state.initialUrl}
+      />
+    );
   }
 }

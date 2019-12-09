@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, Text } from 'native-base';
+import React from "react";
+import { View, Text } from "native-base";
 
 export default function Rates() {
-    return (
-        <View>
-            <Text>Rates screen</Text>
-        </View>
-    )
+  return (
+    <View>
+      <Text>Rates screen</Text>
+    </View>
+  );
 }

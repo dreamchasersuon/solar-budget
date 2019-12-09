@@ -1,15 +1,15 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { persistStore, persistCombineReducers } from 'redux-persist';
+import { createStore, applyMiddleware, compose } from "redux";
+import { persistStore, persistCombineReducers } from "redux-persist";
 import reducers from "./reducers";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 import createSecureStore from "redux-persist-expo-securestore";
 
 const storage = createSecureStore();
 
 const config = {
-  key: 'root',
+  key: "root",
   storage,
-  blacklist: ['navigation']
+  blacklist: ["navigation"]
 };
 
 const reducer = persistCombineReducers(config, reducers);
@@ -21,13 +21,10 @@ const middleware = [thunk];
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-    rootReducer,
-    composeEnhancer(applyMiddleware(...middleware)),
+  rootReducer,
+  composeEnhancer(applyMiddleware(...middleware))
 );
 
-const persistor = persistStore(
-    store,
-    null
-);
+const persistor = persistStore(store, null);
 
 export { persistor, store };

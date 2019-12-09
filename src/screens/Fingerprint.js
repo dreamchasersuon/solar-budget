@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, Text } from 'native-base';
+import React from "react";
+import { View, Text } from "native-base";
 
 export default function Fingerprint() {
-    return (
-        <View>
-            <Text>Fingerprint screen</Text>
-        </View>
-    )
+  return (
+    <View>
+      <Text>Fingerprint screen</Text>
+    </View>
+  );
 }
