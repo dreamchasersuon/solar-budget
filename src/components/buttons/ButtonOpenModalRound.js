@@ -37,7 +37,7 @@ export default function ButtonOpenModalRound({
   hideOrShow,
   theme
 }) {
-  const { background_top } = mapColorsToTheme(theme);
+  const { background_top, accent } = mapColorsToTheme(theme);
   const themeStyles = StyleSheet.create({
     background: {
       backgroundColor: background_top
@@ -61,7 +61,7 @@ export default function ButtonOpenModalRound({
         style={styles.touchableArea}
         onPress={isActive ? expandModal : null}
       >
-        <Ionicons name="ios-add" color={$LIGHT_BLUE} style={styles.icon} />
+        <Ionicons name="ios-add" color={accent} style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

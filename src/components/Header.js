@@ -185,7 +185,7 @@ export default function Header({
 }) {
   const { accent, text_main } = mapColorsToTheme(theme);
   const themeStyles = StyleSheet.create({
-    title: {
+    textColorMain: {
       color: text_main
     },
     backgroundAccent: {
@@ -199,7 +199,9 @@ export default function Header({
       <View style={styles.headerTopContainer}>
         <View style={headerTopLeftSideStyle}>
           {hasLeftMenu ? (
-            <View style={styles.headerLeftSideMenu}>
+            <View
+              style={[styles.headerLeftSideMenu, themeStyles.backgroundAccent]}
+            >
               <Ionicons
                 name="ios-reorder"
                 color="white"
@@ -213,7 +215,7 @@ export default function Header({
             style={
               blueBackgroundStyle
                 ? styles.titleTextBlueBackground
-                : [styles.titleText, themeStyles.title]
+                : [styles.titleText, themeStyles.textColorMain]
             }
           >
             {title}
@@ -237,12 +239,8 @@ export default function Header({
               icon
               buttonStyle={
                 blueBackgroundStyle
-                  ? [
-                      styles.buttonStyle,
-                      styles.whiteBackground,
-                      themeStyles.backgroundAccent
-                    ]
-                  : styles.buttonStyle
+                  ? [styles.buttonStyle, styles.whiteBackground]
+                  : [styles.buttonStyle, themeStyles.backgroundAccent]
               }
               buttonTextStyle={
                 blueBackgroundStyle
@@ -258,10 +256,7 @@ export default function Header({
           <View
             style={
               blueBackgroundStyle
-                ? [
-                    styles.billsContainerWrapperStats,
-                    themeStyles.backgroundAccent
-                  ]
+                ? styles.billsContainerWrapperStats
                 : styles.billsContainerWrapper
             }
           >
@@ -307,7 +302,11 @@ export default function Header({
                     iconStyle={styles.icon}
                     buttonStyle={
                       item.active
-                        ? [styles.buttonStyle, styles.buttonBillsStyle]
+                        ? [
+                            styles.buttonStyle,
+                            styles.buttonBillsStyle,
+                            themeStyles.backgroundAccent
+                          ]
                         : [
                             styles.buttonStyleUnselected,
                             styles.buttonBillsStyle
@@ -326,7 +325,7 @@ export default function Header({
           </View>
           {hasLeftMenu && (
             <React.Fragment>
-              <ButtonCreateBill onPressCreateBill={toggleModal} />
+              <ButtonCreateBill theme={theme} onPressCreateBill={toggleModal} />
             </React.Fragment>
           )}
         </View>

@@ -6,7 +6,7 @@ import {
   View,
   Vibration
 } from 'react-native';
-import {
+import mapColorsToTheme, {
   $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
@@ -161,6 +161,25 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
   const { t, i18n } = useTranslation('ModalCreateBill');
 
   const user = useSelector(state => state.user.find(user => user.active));
+  const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    modalActiveAreaBackground: {
+      backgroundColor: background_top
+    },
+    textColorAccent: {
+      color: accent
+    },
+    borderColorAccent: {
+      borderColor: accent
+    },
+    backgroundColorAccent: {
+      backgroundColor: accent
+    },
+    textColorMain: {
+      color: text_main
+    }
+  });
+
   const [isValid, setValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
@@ -201,11 +220,19 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
   return (
     <Modal animationType="fade" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
-        <View style={styles.modalActiveArea}>
+        <View
+          style={[
+            styles.modalActiveArea,
+            themeStyles.modalActiveAreaBackground
+          ]}
+        >
           <ModalHeader
             containerStyle={styles.headerModalStyle}
-            titleStyle={styles.headerTitleModalStyle}
-            closeModalStyle={styles.closeModal}
+            titleStyle={[
+              styles.headerTitleModalStyle,
+              themeStyles.textColorMain
+            ]}
+            closeModalStyle={[styles.closeModal, themeStyles.borderColorAccent]}
             handleOnClose={toggleBillModal}
             title={t('headerTitle')}
           />
@@ -214,18 +241,26 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>{t('selectCurrencyLabel')}</Text>
+              <Text style={[styles.label, themeStyles.textColorAccent]}>
+                {t('selectCurrencyLabel')}
+              </Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <ButtonMainBlue
                   handleOnPress={() => setCurrency('rub')}
                   buttonStyle={
                     currency === 'rub'
-                      ? styles.operationTypeBtnActive
+                      ? [
+                          styles.operationTypeBtnActive,
+                          themeStyles.backgroundColorAccent
+                        ]
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
                     currency === 'rub'
-                      ? styles.operationTypeTextActive
+                      ? [
+                          styles.operationTypeTextActive,
+                          themeStyles.textColorMain
+                        ]
                       : styles.operationTypeTextInactive
                   }
                   title={t('selectCurrencyTextRub')}
@@ -234,12 +269,18 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                   handleOnPress={() => setCurrency('usd')}
                   buttonStyle={
                     currency === 'usd'
-                      ? styles.operationTypeBtnActive
+                      ? [
+                          styles.operationTypeBtnActive,
+                          themeStyles.backgroundColorAccent
+                        ]
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
                     currency === 'usd'
-                      ? styles.operationTypeTextActive
+                      ? [
+                          styles.operationTypeTextActive,
+                          themeStyles.textColorMain
+                        ]
                       : styles.operationTypeTextInactive
                   }
                   title={t('selectCurrencyTextUsd')}
@@ -248,12 +289,18 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                   handleOnPress={() => setCurrency('eur')}
                   buttonStyle={
                     currency === 'eur'
-                      ? styles.operationTypeBtnActive
+                      ? [
+                          styles.operationTypeBtnActive,
+                          themeStyles.backgroundColorAccent
+                        ]
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
                     currency === 'eur'
-                      ? styles.operationTypeTextActive
+                      ? [
+                          styles.operationTypeTextActive,
+                          themeStyles.textColorMain
+                        ]
                       : styles.operationTypeTextInactive
                   }
                   title={t('selectCurrencyTextEur')}
@@ -261,7 +308,13 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
-              <Text style={isValid ? styles.label : styles.labelInvalid}>
+              <Text
+                style={
+                  isValid
+                    ? [styles.label, themeStyles.textColorAccent]
+                    : styles.labelInvalid
+                }
+              >
                 {t('billAmountLabel')}
               </Text>
               <View style={styles.transactionInputWrapper}>
@@ -275,7 +328,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                         ]
                   }
                   placeholder="+ 0"
-                  placeholderColor={isValid ? $LIGHT_BLUE : $RED}
+                  placeholderColor={isValid ? themeStyles.textColorMain : $RED}
                   initial={bringInCash(depositAmount)}
                   isEditable={false}
                 />
@@ -286,7 +339,10 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
                     containerWithMarginStyle={
                       styles.numericBoardContainerWithMarginsStyle
                     }
-                    numberStyle={styles.numericBoardNumberStyle}
+                    numberStyle={[
+                      styles.numericBoardNumberStyle,
+                      themeStyles.textColorMain
+                    ]}
                     hasDelete
                     needNullAlignment
                     onPressNumber={value => setDepositAmount(value)}
@@ -298,7 +354,7 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
           <ButtonSecondary
             buttonTextStyle={
               isValid
-                ? styles.buttonTextStyle
+                ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
                 : [styles.buttonTextStyle, { color: $RED }]
             }
             handleOnPress={createBill}

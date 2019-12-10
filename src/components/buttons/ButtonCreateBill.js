@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
-import { $WHITE, $LIGHT_BLUE } from '../../constants/colorLiterals';
+import mapColorsToTheme, {
+  $WHITE,
+  $LIGHT_BLUE
+} from '../../constants/colorLiterals';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
@@ -21,10 +24,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ButtonCreateBill({ onPressCreateBill }) {
+export default function ButtonCreateBill({ onPressCreateBill, theme }) {
+  const { accent } = mapColorsToTheme(theme);
+  const themeStyles = StyleSheet.create({
+    backgroundAccent: {
+      backgroundColor: accent
+    }
+  });
   return (
     <TouchableOpacity
-      style={styles.buttonCreateBill}
+      style={[styles.buttonCreateBill, themeStyles.backgroundAccent]}
       onPress={onPressCreateBill}
     >
       <Ionicons name="ios-add" style={styles.createBillText} />
