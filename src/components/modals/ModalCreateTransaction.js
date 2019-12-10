@@ -12,7 +12,7 @@ import {
   Vibration
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {
+import mapColorsToTheme, {
   $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
@@ -234,6 +234,24 @@ export default function ModalCreateTransaction({
   const user = useSelector(state => state.user.find(user => user.active));
   const purposes = useSelector(state => state.purposes);
   const language = user.locale;
+  const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    modalActiveAreaBackground: {
+      backgroundColor: background_top
+    },
+    textColorAccent: {
+      color: accent
+    },
+    borderColorAccent: {
+      borderColor: accent
+    },
+    backgroundColorAccent: {
+      backgroundColor: accent
+    },
+    textColorMain: {
+      color: text_main
+    }
+  });
 
   const [isValid, setValidity] = useState(true);
   const [isValidPurpose, setPurposeValidity] = useState(true);
@@ -383,11 +401,19 @@ export default function ModalCreateTransaction({
   return (
     <Modal animationType="fade" transparent visible={isVisible}>
       <View style={styles.modalHiddenArea}>
-        <View style={styles.modalActiveArea}>
+        <View
+          style={[
+            styles.modalActiveArea,
+            themeStyles.modalActiveAreaBackground
+          ]}
+        >
           <ModalHeader
             containerStyle={styles.headerModalStyle}
-            titleStyle={styles.headerTitleModalStyle}
-            closeModalStyle={styles.closeModal}
+            titleStyle={[
+              styles.headerTitleModalStyle,
+              themeStyles.textColorMain
+            ]}
+            closeModalStyle={[styles.closeModal, themeStyles.borderColorAccent]}
             handleOnClose={toggleTransactionModal}
             title={t('headerTitle')}
           />
@@ -396,7 +422,13 @@ export default function ModalCreateTransaction({
             contentContainerStyle={styles.scrollView}
           >
             <View style={styles.purposeInputContainer}>
-              <Text style={isValidPurpose ? styles.label : styles.labelInvalid}>
+              <Text
+                style={
+                  isValidPurpose
+                    ? [styles.label, themeStyles.textColorAccent]
+                    : styles.labelInvalid
+                }
+              >
                 {t('purposeInputLabel')}
               </Text>
               <View
@@ -438,12 +470,14 @@ export default function ModalCreateTransaction({
                 label={t('descriptionInputLabel')}
                 placeholder={t('descriptionInputText')}
                 multiline
-                labelStyle={styles.label}
+                labelStyle={[styles.label, themeStyles.textColorAccent]}
                 handleChange={value => writeDescription(value)}
               />
             </View>
             <View style={styles.dateInputContainer}>
-              <Text style={styles.label}>{t('dateAndTimeLabel')}</Text>
+              <Text style={[styles.label, themeStyles.textColorAccent]}>
+                {t('dateAndTimeLabel')}
+              </Text>
               <View style={styles.dateInputAlignment}>
                 <TouchableOpacity style={styles.dateInput} onPress={datepicker}>
                   <Text style={styles.dateInputLabel}>{date}</Text>
@@ -454,18 +488,26 @@ export default function ModalCreateTransaction({
               </View>
             </View>
             <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>{t('amountLabel')}</Text>
+              <Text style={[styles.label, themeStyles.textColorAccent]}>
+                {t('amountLabel')}
+              </Text>
               <View style={styles.operationTypeBtnsContainer}>
                 <ButtonMainBlue
                   handleOnPress={() => setTransactionType('income')}
                   buttonStyle={
                     type === 'income'
-                      ? styles.operationTypeBtnActive
+                      ? [
+                          styles.operationTypeBtnActive,
+                          themeStyles.backgroundColorAccent
+                        ]
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
                     type === 'income'
-                      ? styles.operationTypeTextActive
+                      ? [
+                          styles.operationTypeTextActive,
+                          themeStyles.textColorMain
+                        ]
                       : styles.operationTypeTextInactive
                   }
                   title={t('operationTypeIncomeText')}
@@ -474,12 +516,18 @@ export default function ModalCreateTransaction({
                   handleOnPress={() => setTransactionType('outcome')}
                   buttonStyle={
                     type === 'outcome'
-                      ? styles.operationTypeBtnActive
+                      ? [
+                          styles.operationTypeBtnActive,
+                          themeStyles.backgroundColorAccent
+                        ]
                       : styles.operationTypeBtnInactive
                   }
                   buttonTextStyle={
                     type === 'outcome'
-                      ? styles.operationTypeTextActive
+                      ? [
+                          styles.operationTypeTextActive,
+                          themeStyles.textColorMain
+                        ]
                       : styles.operationTypeTextInactive
                   }
                   title={t('operationTypeOutcomeText')}
@@ -489,14 +537,16 @@ export default function ModalCreateTransaction({
                 <CustomInput
                   inputStyle={
                     isValidAmount
-                      ? styles.transactionInput
+                      ? [styles.transactionInput, themeStyles.textColorAccent]
                       : [
                           styles.transactionInput,
                           { color: $RED, borderColor: $RED }
                         ]
                   }
                   placeholder={type === 'income' ? '+ 0' : '- 0'}
-                  placeholderColor={isValidAmount ? $LIGHT_BLUE : $RED}
+                  placeholderColor={
+                    isValidAmount ? themeStyles.textColorAccent : $RED
+                  }
                   initial={bringInCash(amount)}
                   isEditable={false}
                 />
@@ -507,7 +557,10 @@ export default function ModalCreateTransaction({
                     containerWithMarginStyle={
                       styles.numericBoardContainerWithMarginsStyle
                     }
-                    numberStyle={styles.numericBoardNumberStyle}
+                    numberStyle={[
+                      styles.numericBoardNumberStyle,
+                      themeStyles.textColorMain
+                    ]}
                     hasDelete
                     needNullAlignment
                     onPressNumber={value => setAmount(value)}
@@ -519,7 +572,7 @@ export default function ModalCreateTransaction({
           <ButtonSecondary
             buttonTextStyle={
               isValid
-                ? styles.buttonTextStyle
+                ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
                 : [styles.buttonTextStyle, { color: $RED }]
             }
             handleOnPress={createTransaction}
