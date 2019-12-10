@@ -1,7 +1,5 @@
 # solar-budget
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dreamchasersuon/solar-budget.svg)](https://greenkeeper.io/)
-
 Solar Budget is mobile finance-flow management application.
 Currently in development.
 
