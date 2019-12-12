@@ -25,7 +25,8 @@ const userSlice = createSlice({
       theme: 'light',
       locale: language,
       multiAccountSelect: false,
-      permissionsToUpdatePassword: false
+      permissionsToUpdatePassword: false,
+      refs: []
     }
   ],
   reducers: {
@@ -250,7 +251,6 @@ const userSlice = createSlice({
     changeTheme(state, action) {
       const { userId, theme } = action.payload;
       state.map(user => {
-        console.log(user, userId, theme);
         if (user.id === userId) {
           return (user.theme = theme);
         }

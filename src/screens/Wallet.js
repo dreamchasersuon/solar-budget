@@ -8,14 +8,13 @@ import mapColorsToTheme, {
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
-import ModalCreateTransaction from '../components/modals/ModalCreateTransaction';
-import ModalCreateBill from '../components/modals/ModalCreateBill';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBillActive } from '../redux/features/billFeatureSlice';
 import { useTranslation } from 'react-i18next';
 import NavigationService from '../navigation/service';
+import { refs } from '../constants/refs';
 
 const styles = StyleSheet.create({
   container: {
@@ -102,11 +101,8 @@ function Wallet() {
     }
   };
 
-  const [isTransactionModalVisible, makeTransaction] = useState(false);
-  const toggleTransactionModal = () =>
-    makeTransaction(!isTransactionModalVisible);
-  const [isBillModalVisible, makeBill] = useState(false);
-  const toggleBillModal = () => makeBill(!isBillModalVisible);
+  const toggleTransactionModal = () => refs.transaction.ref.current.snapTo(1);
+  const toggleBillModal = () => refs.bill.ref.current.snapTo(1);
 
   const selectBill = id => {
     dispatch(setBillActive({ id, userId: user.id }));
@@ -159,15 +155,6 @@ function Wallet() {
         isActive={!!bills.length}
         expandModal={toggleTransactionModal}
         theme={user.theme}
-      />
-
-      <ModalCreateTransaction
-        isVisible={isTransactionModalVisible}
-        toggleTransactionModal={toggleTransactionModal}
-      />
-      <ModalCreateBill
-        isVisible={isBillModalVisible}
-        toggleBillModal={toggleBillModal}
       />
     </View>
   );

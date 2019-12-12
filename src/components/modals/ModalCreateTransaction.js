@@ -1,5 +1,4 @@
 import {
-  Modal,
   Text,
   StyleSheet,
   ScrollView,
@@ -13,7 +12,6 @@ import {
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import mapColorsToTheme, {
-  $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
@@ -21,11 +19,10 @@ import mapColorsToTheme, {
   $WHITE
 } from '../../constants/colorLiterals';
 import ButtonMainBlue from '../buttons/ButtonMainBlue';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import NumericBoard from '../NumericBoard';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import CustomInput from '../CustomInput';
-import ModalHeader from './ModalHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction } from '../../redux/features/walletFeatureSlice';
 import { withdrawDepositing } from '../../redux/features/billFeatureSlice';
@@ -33,8 +30,24 @@ import { depositingToTarget } from '../../redux/features/targetFeatureSlice';
 import uuid from 'uuid';
 import bringInCash from '../../utils/dotSeparation';
 import { useTranslation } from 'react-i18next';
+import setRef from '../../constants/refs';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 const styles = StyleSheet.create({
+  modalHeader: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    flexDirection: 'row',
+    backgroundColor: $WHITE,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalActiveArea: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
+    height: '100%',
+    width: '100%'
+  },
   buttonFinish: {
     marginBottom: 20,
     marginLeft: 'auto',
@@ -42,16 +55,6 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
-  closeModal: {
-    alignItems: 'center',
-    borderColor: $LIGHT_BLUE,
-    borderRadius: 50,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: 'center',
-    marginLeft: 80,
-    width: 30
-  },
   dateInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -93,16 +96,9 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     width: '100%'
   },
-  headerModalStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 5,
-    marginTop: 5
-  },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
-    marginLeft: 120,
     marginTop: 20
   },
   label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
@@ -110,22 +106,6 @@ const styles = StyleSheet.create({
     color: $RED,
     fontSize: 14,
     marginBottom: 10
-  },
-  modalActiveArea: {
-    alignItems: 'center',
-    backgroundColor: $WHITE,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    height: '80%',
-    width: '100%'
-  },
-  modalHiddenArea: {
-    alignItems: 'flex-end',
-    backgroundColor: $BLACK_FADE,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end'
   },
   numericBoard: {
     alignItems: 'center',
@@ -221,10 +201,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateTransaction({
-  isVisible,
-  toggleTransactionModal
-}) {
+export default function ModalCreateTransaction() {
+  const ref = useRef();
+  setRef({ name: 'transaction', ref });
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation('ModalCreateTransaction');
@@ -241,9 +221,6 @@ export default function ModalCreateTransaction({
     },
     textColorAccent: {
       color: accent
-    },
-    borderColorAccent: {
-      borderColor: accent
     },
     backgroundColorAccent: {
       backgroundColor: accent
@@ -362,7 +339,7 @@ export default function ModalCreateTransaction({
     );
     selectPurpose('');
     setTransactionAmount('');
-    toggleTransactionModal();
+    ref.current.snapTo(0);
   };
 
   const mappedPurposesDependOnLanguage = [];
@@ -398,189 +375,196 @@ export default function ModalCreateTransaction({
     });
   });
   const purposeInputDefaultText = t('purposeInputDefaultText');
-  return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={styles.modalHiddenArea}>
-        <View
-          style={[
-            styles.modalActiveArea,
-            themeStyles.modalActiveAreaBackground
-          ]}
+
+  const renderHeader = () => {
+    return (
+      <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
+        <Text style={[styles.headerTitleModalStyle, themeStyles.textColorMain]}>
+          {t('headerTitle')}
+        </Text>
+      </View>
+    );
+  };
+
+  function renderContent() {
+    return (
+      <View
+        style={[styles.modalActiveArea, themeStyles.modalActiveAreaBackground]}
+      >
+        <ScrollView
+          keyboardShouldPersistTaps="always"
+          contentContainerStyle={styles.scrollView}
         >
-          <ModalHeader
-            containerStyle={styles.headerModalStyle}
-            titleStyle={[
-              styles.headerTitleModalStyle,
-              themeStyles.textColorMain
-            ]}
-            closeModalStyle={[styles.closeModal, themeStyles.borderColorAccent]}
-            handleOnClose={toggleTransactionModal}
-            title={t('headerTitle')}
-          />
-          <ScrollView
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={styles.scrollView}
-          >
-            <View style={styles.purposeInputContainer}>
-              <Text
-                style={
-                  isValidPurpose
-                    ? [styles.label, themeStyles.textColorAccent]
-                    : styles.labelInvalid
-                }
-              >
-                {t('purposeInputLabel')}
-              </Text>
-              <View
-                style={
-                  isValidPurpose
-                    ? styles.purposeInput
-                    : [styles.purposeInput, { color: $RED, borderColor: $RED }]
-                }
-              >
-                <RNPickerSelect
-                  onValueChange={value => onSelectPurpose(value)}
-                  style={{
-                    inputAndroid: {
-                      backgroundColor: 'transparent',
-                      top: 2,
-                      fontSize: 10
-                    },
-                    iconContainer: {
-                      top: 5,
-                      right: 15
-                    }
-                  }}
-                  useNativeAndroidPickerStyle={false}
-                  items={[
-                    ...mappedPurposesDependOnLanguage,
-                    ...mappedTargetsForPicker,
-                    { value: 'addNew', label: t('addNewPurposeText') }
-                  ]}
-                  placeholder={{
-                    label: purposeInputDefaultText,
-                    value: null
-                  }}
-                />
-              </View>
-            </View>
-            <View style={styles.descriptionInputContainer}>
-              <CustomInput
-                inputStyle={styles.descriptionInput}
-                label={t('descriptionInputLabel')}
-                placeholder={t('descriptionInputText')}
-                multiline
-                labelStyle={[styles.label, themeStyles.textColorAccent]}
-                handleChange={value => writeDescription(value)}
+          <View style={styles.purposeInputContainer}>
+            <Text
+              style={
+                isValidPurpose
+                  ? [styles.label, themeStyles.textColorAccent]
+                  : styles.labelInvalid
+              }
+            >
+              {t('purposeInputLabel')}
+            </Text>
+            <View
+              style={
+                isValidPurpose
+                  ? styles.purposeInput
+                  : [styles.purposeInput, { color: $RED, borderColor: $RED }]
+              }
+            >
+              <RNPickerSelect
+                onValueChange={value => onSelectPurpose(value)}
+                style={{
+                  inputAndroid: {
+                    backgroundColor: 'transparent',
+                    top: 2,
+                    fontSize: 10
+                  },
+                  iconContainer: {
+                    top: 5,
+                    right: 15
+                  }
+                }}
+                useNativeAndroidPickerStyle={false}
+                items={[
+                  ...mappedPurposesDependOnLanguage,
+                  ...mappedTargetsForPicker,
+                  { value: 'addNew', label: t('addNewPurposeText') }
+                ]}
+                placeholder={{
+                  label: purposeInputDefaultText,
+                  value: null
+                }}
               />
             </View>
-            <View style={styles.dateInputContainer}>
-              <Text style={[styles.label, themeStyles.textColorAccent]}>
-                {t('dateAndTimeLabel')}
-              </Text>
-              <View style={styles.dateInputAlignment}>
-                <TouchableOpacity style={styles.dateInput} onPress={datepicker}>
-                  <Text style={styles.dateInputLabel}>{date}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.dateInput} onPress={timepicker}>
-                  <Text style={styles.dateInputLabel}>{time}</Text>
-                </TouchableOpacity>
+          </View>
+          <View style={styles.descriptionInputContainer}>
+            <CustomInput
+              inputStyle={styles.descriptionInput}
+              label={t('descriptionInputLabel')}
+              placeholder={t('descriptionInputText')}
+              multiline
+              labelStyle={[styles.label, themeStyles.textColorAccent]}
+              handleChange={value => writeDescription(value)}
+            />
+          </View>
+          <View style={styles.dateInputContainer}>
+            <Text style={[styles.label, themeStyles.textColorAccent]}>
+              {t('dateAndTimeLabel')}
+            </Text>
+            <View style={styles.dateInputAlignment}>
+              <TouchableOpacity style={styles.dateInput} onPress={datepicker}>
+                <Text style={styles.dateInputLabel}>{date}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.dateInput} onPress={timepicker}>
+                <Text style={styles.dateInputLabel}>{time}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.transactionFormWrapper}>
+            <Text style={[styles.label, themeStyles.textColorAccent]}>
+              {t('amountLabel')}
+            </Text>
+            <View style={styles.operationTypeBtnsContainer}>
+              <ButtonMainBlue
+                handleOnPress={() => setTransactionType('income')}
+                buttonStyle={
+                  type === 'income'
+                    ? [
+                        styles.operationTypeBtnActive,
+                        themeStyles.backgroundColorAccent
+                      ]
+                    : styles.operationTypeBtnInactive
+                }
+                buttonTextStyle={
+                  type === 'income'
+                    ? [
+                        styles.operationTypeTextActive,
+                        themeStyles.textColorMain
+                      ]
+                    : styles.operationTypeTextInactive
+                }
+                title={t('operationTypeIncomeText')}
+              />
+              <ButtonMainBlue
+                handleOnPress={() => setTransactionType('outcome')}
+                buttonStyle={
+                  type === 'outcome'
+                    ? [
+                        styles.operationTypeBtnActive,
+                        themeStyles.backgroundColorAccent
+                      ]
+                    : styles.operationTypeBtnInactive
+                }
+                buttonTextStyle={
+                  type === 'outcome'
+                    ? [
+                        styles.operationTypeTextActive,
+                        themeStyles.textColorMain
+                      ]
+                    : styles.operationTypeTextInactive
+                }
+                title={t('operationTypeOutcomeText')}
+              />
+            </View>
+            <View style={styles.transactionInputWrapper}>
+              <CustomInput
+                inputStyle={
+                  isValidAmount
+                    ? [styles.transactionInput, themeStyles.textColorAccent]
+                    : [
+                        styles.transactionInput,
+                        { color: $RED, borderColor: $RED }
+                      ]
+                }
+                placeholder={type === 'income' ? '+ 0' : '- 0'}
+                placeholderColor={
+                  isValidAmount ? themeStyles.textColorAccent : $RED
+                }
+                initial={bringInCash(amount)}
+                isEditable={false}
+              />
+              <View style={styles.numericBoard}>
+                <NumericBoard
+                  wrapperStyle={styles.numericBoardWrapperStyle}
+                  containerStyle={styles.numericBoardContainerStyle}
+                  containerWithMarginStyle={
+                    styles.numericBoardContainerWithMarginsStyle
+                  }
+                  numberStyle={[
+                    styles.numericBoardNumberStyle,
+                    themeStyles.textColorMain
+                  ]}
+                  hasDelete
+                  needNullAlignment
+                  onPressNumber={value => setAmount(value)}
+                />
               </View>
             </View>
-            <View style={styles.transactionFormWrapper}>
-              <Text style={[styles.label, themeStyles.textColorAccent]}>
-                {t('amountLabel')}
-              </Text>
-              <View style={styles.operationTypeBtnsContainer}>
-                <ButtonMainBlue
-                  handleOnPress={() => setTransactionType('income')}
-                  buttonStyle={
-                    type === 'income'
-                      ? [
-                          styles.operationTypeBtnActive,
-                          themeStyles.backgroundColorAccent
-                        ]
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    type === 'income'
-                      ? [
-                          styles.operationTypeTextActive,
-                          themeStyles.textColorMain
-                        ]
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('operationTypeIncomeText')}
-                />
-                <ButtonMainBlue
-                  handleOnPress={() => setTransactionType('outcome')}
-                  buttonStyle={
-                    type === 'outcome'
-                      ? [
-                          styles.operationTypeBtnActive,
-                          themeStyles.backgroundColorAccent
-                        ]
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    type === 'outcome'
-                      ? [
-                          styles.operationTypeTextActive,
-                          themeStyles.textColorMain
-                        ]
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('operationTypeOutcomeText')}
-                />
-              </View>
-              <View style={styles.transactionInputWrapper}>
-                <CustomInput
-                  inputStyle={
-                    isValidAmount
-                      ? [styles.transactionInput, themeStyles.textColorAccent]
-                      : [
-                          styles.transactionInput,
-                          { color: $RED, borderColor: $RED }
-                        ]
-                  }
-                  placeholder={type === 'income' ? '+ 0' : '- 0'}
-                  placeholderColor={
-                    isValidAmount ? themeStyles.textColorAccent : $RED
-                  }
-                  initial={bringInCash(amount)}
-                  isEditable={false}
-                />
-                <View style={styles.numericBoard}>
-                  <NumericBoard
-                    wrapperStyle={styles.numericBoardWrapperStyle}
-                    containerStyle={styles.numericBoardContainerStyle}
-                    containerWithMarginStyle={
-                      styles.numericBoardContainerWithMarginsStyle
-                    }
-                    numberStyle={[
-                      styles.numericBoardNumberStyle,
-                      themeStyles.textColorMain
-                    ]}
-                    hasDelete
-                    needNullAlignment
-                    onPressNumber={value => setAmount(value)}
-                  />
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-          <ButtonSecondary
-            buttonTextStyle={
-              isValid
-                ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
-                : [styles.buttonTextStyle, { color: $RED }]
-            }
-            handleOnPress={createTransaction}
-            buttonStyle={styles.buttonFinish}
-            buttonText={t('createButtonLabel')}
-          />
-        </View>
+          </View>
+        </ScrollView>
+        <ButtonSecondary
+          buttonTextStyle={
+            isValid
+              ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
+              : [styles.buttonTextStyle, { color: $RED }]
+          }
+          handleOnPress={createTransaction}
+          buttonStyle={styles.buttonFinish}
+          buttonText={t('createButtonLabel')}
+        />
       </View>
-    </Modal>
+    );
+  }
+  return (
+    <>
+      <BottomSheet
+        ref={ref}
+        enabledContentGestureInteraction={false}
+        snapPoints={[0, 300, 500]}
+        renderHeader={renderHeader}
+        renderContent={renderContent}
+      />
+    </>
   );
 }

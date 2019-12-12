@@ -1,13 +1,5 @@
-import {
-  Modal,
-  Text,
-  StyleSheet,
-  ScrollView,
-  View,
-  Vibration
-} from 'react-native';
+import { Text, StyleSheet, ScrollView, View, Vibration } from 'react-native';
 import mapColorsToTheme, {
-  $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
@@ -15,18 +7,33 @@ import mapColorsToTheme, {
   $WHITE
 } from '../../constants/colorLiterals';
 import ButtonMainBlue from '../buttons/ButtonMainBlue';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import CustomInput from '../CustomInput';
 import NumericBoard from '../NumericBoard';
-import ModalHeader from './ModalHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBill, setBillActive } from '../../redux/features/billFeatureSlice';
 import uuid from 'uuid';
 import bringInCash from '../../utils/dotSeparation';
 import { useTranslation } from 'react-i18next';
+import BottomSheet from 'reanimated-bottom-sheet';
+import setRef from '../../constants/refs';
 
 const styles = StyleSheet.create({
+  modalHeader: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    flexDirection: 'row',
+    backgroundColor: $WHITE,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalActiveArea: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
+    height: '100%',
+    width: '100%'
+  },
   buttonFinish: {
     marginBottom: 20,
     marginLeft: 'auto',
@@ -34,26 +41,9 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
-  closeModal: {
-    alignItems: 'center',
-    borderColor: $LIGHT_BLUE,
-    borderRadius: 50,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: 'center',
-    marginLeft: 110,
-    width: 30
-  },
-  headerModalStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 5,
-    marginTop: 5
-  },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
-    marginLeft: 150,
     marginTop: 20
   },
   label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
@@ -61,22 +51,6 @@ const styles = StyleSheet.create({
     color: $RED,
     fontSize: 14,
     marginBottom: 10
-  },
-  modalActiveArea: {
-    alignItems: 'center',
-    backgroundColor: $WHITE,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    height: '80%',
-    width: '100%'
-  },
-  modalHiddenArea: {
-    alignItems: 'flex-end',
-    backgroundColor: $BLACK_FADE,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end'
   },
   numericBoard: {
     alignItems: 'center',
@@ -155,7 +129,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateBill({ isVisible, toggleBillModal }) {
+export default function ModalCreateBill() {
+  const ref = useRef();
+  // eslint-disable-next-line no-unused-vars
+  setRef({ name: 'bill', ref });
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation('ModalCreateBill');
@@ -168,9 +146,6 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
     },
     textColorAccent: {
       color: accent
-    },
-    borderColorAccent: {
-      borderColor: accent
     },
     backgroundColorAccent: {
       backgroundColor: accent
@@ -214,155 +189,152 @@ export default function ModalCreateBill({ isVisible, toggleBillModal }) {
     );
     dispatch(setBillActive({ id, userId: user.id }));
     setDeposit('');
-    toggleBillModal();
+    ref.current.snapTo(0);
   };
 
-  return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={styles.modalHiddenArea}>
-        <View
-          style={[
-            styles.modalActiveArea,
-            themeStyles.modalActiveAreaBackground
-          ]}
-        >
-          <ModalHeader
-            containerStyle={styles.headerModalStyle}
-            titleStyle={[
-              styles.headerTitleModalStyle,
-              themeStyles.textColorMain
-            ]}
-            closeModalStyle={[styles.closeModal, themeStyles.borderColorAccent]}
-            handleOnClose={toggleBillModal}
-            title={t('headerTitle')}
-          />
-          <ScrollView
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={styles.scrollView}
-          >
-            <View style={styles.transactionFormWrapper}>
-              <Text style={[styles.label, themeStyles.textColorAccent]}>
-                {t('selectCurrencyLabel')}
-              </Text>
-              <View style={styles.operationTypeBtnsContainer}>
-                <ButtonMainBlue
-                  handleOnPress={() => setCurrency('rub')}
-                  buttonStyle={
-                    currency === 'rub'
-                      ? [
-                          styles.operationTypeBtnActive,
-                          themeStyles.backgroundColorAccent
-                        ]
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    currency === 'rub'
-                      ? [
-                          styles.operationTypeTextActive,
-                          themeStyles.textColorMain
-                        ]
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('selectCurrencyTextRub')}
-                />
-                <ButtonMainBlue
-                  handleOnPress={() => setCurrency('usd')}
-                  buttonStyle={
-                    currency === 'usd'
-                      ? [
-                          styles.operationTypeBtnActive,
-                          themeStyles.backgroundColorAccent
-                        ]
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    currency === 'usd'
-                      ? [
-                          styles.operationTypeTextActive,
-                          themeStyles.textColorMain
-                        ]
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('selectCurrencyTextUsd')}
-                />
-                <ButtonMainBlue
-                  handleOnPress={() => setCurrency('eur')}
-                  buttonStyle={
-                    currency === 'eur'
-                      ? [
-                          styles.operationTypeBtnActive,
-                          themeStyles.backgroundColorAccent
-                        ]
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    currency === 'eur'
-                      ? [
-                          styles.operationTypeTextActive,
-                          themeStyles.textColorMain
-                        ]
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('selectCurrencyTextEur')}
-                />
-              </View>
-            </View>
-            <View style={styles.transactionFormWrapper}>
-              <Text
-                style={
-                  isValid
-                    ? [styles.label, themeStyles.textColorAccent]
-                    : styles.labelInvalid
-                }
-              >
-                {t('billAmountLabel')}
-              </Text>
-              <View style={styles.transactionInputWrapper}>
-                <CustomInput
-                  inputStyle={
-                    isValid
-                      ? styles.transactionInput
-                      : [
-                          styles.transactionInput,
-                          { color: $RED, borderColor: $RED }
-                        ]
-                  }
-                  placeholder="+ 0"
-                  placeholderColor={isValid ? themeStyles.textColorMain : $RED}
-                  initial={bringInCash(depositAmount)}
-                  isEditable={false}
-                />
-                <View style={styles.numericBoard}>
-                  <NumericBoard
-                    wrapperStyle={styles.numericBoardWrapperStyle}
-                    containerStyle={styles.numericBoardContainerStyle}
-                    containerWithMarginStyle={
-                      styles.numericBoardContainerWithMarginsStyle
-                    }
-                    numberStyle={[
-                      styles.numericBoardNumberStyle,
-                      themeStyles.textColorMain
-                    ]}
-                    hasDelete
-                    needNullAlignment
-                    onPressNumber={value => setDepositAmount(value)}
-                  />
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-          <ButtonSecondary
-            buttonTextStyle={
-              isValid
-                ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
-                : [styles.buttonTextStyle, { color: $RED }]
-            }
-            handleOnPress={createBill}
-            buttonStyle={styles.buttonFinish}
-            buttonText={t('createBillButtonLabel')}
-          />
-        </View>
+  const renderHeader = () => {
+    return (
+      <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
+        <Text style={[styles.headerTitleModalStyle, themeStyles.textColorMain]}>
+          {t('headerTitle')}
+        </Text>
       </View>
-    </Modal>
+    );
+  };
+
+  const renderContent = () => {
+    return (
+      <View
+        style={[styles.modalActiveArea, themeStyles.modalActiveAreaBackground]}
+      >
+        <ScrollView
+          keyboardShouldPersistTaps="always"
+          contentContainerStyle={styles.scrollView}
+        >
+          <View style={styles.transactionFormWrapper}>
+            <Text style={[styles.label, themeStyles.textColorAccent]}>
+              {t('selectCurrencyLabel')}
+            </Text>
+            <View style={styles.operationTypeBtnsContainer}>
+              <ButtonMainBlue
+                handleOnPress={() => setCurrency('rub')}
+                buttonStyle={
+                  currency === 'rub'
+                    ? [
+                        styles.operationTypeBtnActive,
+                        themeStyles.backgroundColorAccent
+                      ]
+                    : styles.operationTypeBtnInactive
+                }
+                buttonTextStyle={
+                  currency === 'rub'
+                    ? styles.operationTypeTextActive
+                    : styles.operationTypeTextInactive
+                }
+                title={t('selectCurrencyTextRub')}
+              />
+              <ButtonMainBlue
+                handleOnPress={() => setCurrency('usd')}
+                buttonStyle={
+                  currency === 'usd'
+                    ? [
+                        styles.operationTypeBtnActive,
+                        themeStyles.backgroundColorAccent
+                      ]
+                    : styles.operationTypeBtnInactive
+                }
+                buttonTextStyle={
+                  currency === 'usd'
+                    ? styles.operationTypeTextActive
+                    : styles.operationTypeTextInactive
+                }
+                title={t('selectCurrencyTextUsd')}
+              />
+              <ButtonMainBlue
+                handleOnPress={() => setCurrency('eur')}
+                buttonStyle={
+                  currency === 'eur'
+                    ? [
+                        styles.operationTypeBtnActive,
+                        themeStyles.backgroundColorAccent
+                      ]
+                    : styles.operationTypeBtnInactive
+                }
+                buttonTextStyle={
+                  currency === 'eur'
+                    ? styles.operationTypeTextActive
+                    : styles.operationTypeTextInactive
+                }
+                title={t('selectCurrencyTextEur')}
+              />
+            </View>
+          </View>
+          <View style={styles.transactionFormWrapper}>
+            <Text
+              style={
+                isValid
+                  ? [styles.label, themeStyles.textColorAccent]
+                  : styles.labelInvalid
+              }
+            >
+              {t('billAmountLabel')}
+            </Text>
+            <View style={styles.transactionInputWrapper}>
+              <CustomInput
+                inputStyle={
+                  isValid
+                    ? styles.transactionInput
+                    : [
+                        styles.transactionInput,
+                        { color: $RED, borderColor: $RED }
+                      ]
+                }
+                placeholder="+ 0"
+                placeholderColor={isValid ? themeStyles.textColorMain : $RED}
+                initial={bringInCash(depositAmount)}
+                isEditable={false}
+              />
+              <View style={styles.numericBoard}>
+                <NumericBoard
+                  wrapperStyle={styles.numericBoardWrapperStyle}
+                  containerStyle={styles.numericBoardContainerStyle}
+                  containerWithMarginStyle={
+                    styles.numericBoardContainerWithMarginsStyle
+                  }
+                  numberStyle={[
+                    styles.numericBoardNumberStyle,
+                    themeStyles.textColorMain
+                  ]}
+                  hasDelete
+                  needNullAlignment
+                  onPressNumber={value => setDepositAmount(value)}
+                />
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+        <ButtonSecondary
+          buttonTextStyle={
+            isValid
+              ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
+              : [styles.buttonTextStyle, { color: $RED }]
+          }
+          handleOnPress={createBill}
+          buttonStyle={styles.buttonFinish}
+          buttonText={t('createBillButtonLabel')}
+        />
+      </View>
+    );
+  };
+  return (
+    <>
+      <BottomSheet
+        ref={ref}
+        enabledContentGestureInteraction={false}
+        snapPoints={[0, 300, 450]}
+        renderHeader={renderHeader}
+        renderContent={renderContent}
+      />
+    </>
   );
 }
