@@ -11,6 +11,9 @@ import ModalCreateBill from '../components/modals/ModalCreateBill';
 import ModalCreateTransaction from '../components/modals/ModalCreateTransaction';
 import ModalCreateTarget from '../components/modals/ModalCreateTarget';
 import ModalCreateRatePair from '../components/modals/ModalCreateRatePair';
+import ModalUpdateLogin from '../components/modals/ModalUpdateLogin';
+import ModalUpdatePassword from '../components/modals/ModalUpdatePassword';
+import ModalValidatePassword from '../components/modals/ModalValidatePassword';
 
 export default function RootProvider({ store, initialUrl, persistor }) {
   return (
@@ -27,6 +30,9 @@ export default function RootProvider({ store, initialUrl, persistor }) {
           <ModalCreateTransaction />
           <ModalCreateTarget />
           <ModalCreateRatePair />
+          <ModalUpdateLogin />
+          <ModalUpdatePassword />
+          <ModalValidatePassword />
         </PersistGate>
       </Provider>
     </Root>

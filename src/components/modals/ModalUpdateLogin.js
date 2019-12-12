@@ -1,20 +1,34 @@
-import { Modal, View, StyleSheet, Vibration } from 'react-native';
-import {
+import { Modal, View, StyleSheet, Vibration, Text } from 'react-native';
+import mapColorsToTheme, {
   $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $WHITE
 } from '../../constants/colorLiterals';
-import React, { useState } from 'react';
-import ModalHeader from './ModalHeader';
+import React, { useState, useRef } from 'react';
 import CustomInput from '../CustomInput';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserLoginThunk } from '../../redux/features/userFeatureSlice';
 import { useTranslation } from 'react-i18next';
+import setRef from '../../constants/refs';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 const styles = StyleSheet.create({
+  modalHeader: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalActiveArea: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
+    height: '100%',
+    width: '100%'
+  },
   buttonFinish: {
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -22,26 +36,9 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
-  closeModal: {
-    alignItems: 'center',
-    borderColor: $LIGHT_BLUE,
-    borderRadius: 50,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: 'center',
-    marginLeft: 60,
-    width: 30
-  },
-  headerModalStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 5,
-    marginTop: 5
-  },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
-    marginLeft: 80,
     marginTop: 20
   },
   label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
@@ -49,22 +46,6 @@ const styles = StyleSheet.create({
     color: $RED,
     fontSize: 14,
     marginBottom: 10
-  },
-  modalActiveArea: {
-    alignItems: 'center',
-    backgroundColor: $WHITE,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    height: '31%',
-    width: '100%'
-  },
-  modalHiddenArea: {
-    alignItems: 'flex-end',
-    backgroundColor: $BLACK_FADE,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end'
   },
   purposeInput: {
     borderColor: $MEDIUMSILVER,
@@ -84,10 +65,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function UpdateLoginModal({
-  isVisible,
-  toggleUpdateLoginModal
-}) {
+export default function UpdateLoginModal() {
+  const ref = useRef();
+  setRef({ name: 'update_login', ref });
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation('ModalUpdateLogin');
@@ -96,6 +77,18 @@ export default function UpdateLoginModal({
   const [isValid, setValidity] = useState(true);
   const [isValidLogin, setLoginValidity] = useState(true);
   const [login, setLogin] = useState('');
+  const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    modalActiveAreaBackground: {
+      backgroundColor: background_top
+    },
+    textColorMain: {
+      color: text_main
+    },
+    textColorAccent: {
+      color: accent
+    }
+  });
 
   function onTypeLogin(value) {
     setLoginValidity(true);
@@ -116,45 +109,64 @@ export default function UpdateLoginModal({
     );
 
     setLogin('');
-    toggleUpdateLoginModal();
+    ref.current.snapTo(0);
   };
 
-  return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={styles.modalHiddenArea}>
-        <View style={styles.modalActiveArea}>
-          <ModalHeader
-            containerStyle={styles.headerModalStyle}
-            titleStyle={styles.headerTitleModalStyle}
-            closeModalStyle={styles.closeModal}
-            handleOnClose={toggleUpdateLoginModal}
-            title={t('headerTitle')}
-          />
-          <View style={styles.purposeInputContainer}>
-            <CustomInput
-              inputStyle={
-                isValidLogin
-                  ? styles.purposeInput
-                  : [styles.purposeInput, { color: $RED, borderColor: $RED }]
-              }
-              label={t('loginInputLabel')}
-              placeholder={t('loginInputText')}
-              labelStyle={isValidLogin ? styles.label : styles.labelInvalid}
-              handleChange={value => onTypeLogin(value)}
-            />
-          </View>
-          <ButtonSecondary
-            buttonTextStyle={
-              isValid
-                ? styles.buttonTextStyle
-                : [styles.buttonTextStyle, { color: $RED }]
+  const clearInputs = () => {
+    setLogin('');
+  };
+  const renderHeader = () => {
+    return (
+      <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
+        <Text style={[styles.headerTitleModalStyle, themeStyles.textColorMain]}>
+          {t('headerTitle')}
+        </Text>
+      </View>
+    );
+  };
+  const renderContent = () => {
+    return (
+      <View
+        style={[styles.modalActiveArea, themeStyles.modalActiveAreaBackground]}
+      >
+        <View style={styles.purposeInputContainer}>
+          <CustomInput
+            inputStyle={
+              isValidLogin
+                ? styles.purposeInput
+                : [styles.purposeInput, { color: $RED, borderColor: $RED }]
             }
-            handleOnPress={updateLogin}
-            buttonStyle={styles.buttonFinish}
-            buttonText={t('updateButtonLabel')}
+            label={t('loginInputLabel')}
+            placeholder={t('loginInputText')}
+            labelStyle={
+              isValidLogin
+                ? [styles.label, themeStyles.textColorAccent]
+                : styles.labelInvalid
+            }
+            handleChange={value => onTypeLogin(value)}
           />
         </View>
+        <ButtonSecondary
+          buttonTextStyle={
+            isValid
+              ? [styles.buttonTextStyle, themeStyles.textColorAccent]
+              : [styles.buttonTextStyle, { color: $RED }]
+          }
+          handleOnPress={updateLogin}
+          buttonStyle={styles.buttonFinish}
+          buttonText={t('updateButtonLabel')}
+        />
       </View>
-    </Modal>
+    );
+  };
+  return (
+    <BottomSheet
+      ref={ref}
+      enabledContentGestureInteraction={false}
+      snapPoints={[0, 200]}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+      onCloseEnd={clearInputs}
+    />
   );
 }

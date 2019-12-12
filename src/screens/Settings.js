@@ -30,6 +30,7 @@ import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
 import UpdatePasswordModal from '../components/modals/ModalUpdatePassword';
 import ValidatePasswordModal from '../components/modals/ModalValidatePassword';
 import { useTranslation } from 'react-i18next';
+import { refs } from '../constants/refs';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -113,10 +114,6 @@ function Settings() {
     'ApplicationErrorMessages'
   ]);
 
-  const [isValidatePasswordModalVisible, toggleValidatePassword] = useState(
-    false
-  );
-
   useEffect(() => {
     if (isUserHasUpdatePasswordPermissions) {
       toggleUpdatePasswordModal();
@@ -124,14 +121,10 @@ function Settings() {
   }, [isUserHasUpdatePasswordPermissions]);
 
   const toggleValidatePasswordModal = () =>
-    toggleValidatePassword(!isValidatePasswordModalVisible);
-
-  const [isLoginModalVisible, toggleLoginModal] = useState(false);
-  const toggleUpdateLoginModal = () => toggleLoginModal(!isLoginModalVisible);
-
-  const [isPasswordModalVisible, togglePasswordModal] = useState(false);
+    refs.validate_password.current.snapTo(1);
+  const toggleUpdateLoginModal = () => refs.update_login.current.snapTo(1);
   const toggleUpdatePasswordModal = () =>
-    togglePasswordModal(!isPasswordModalVisible);
+    refs.update_password.current.snapTo(1);
 
   const askPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -312,18 +305,6 @@ function Settings() {
         }}
         updateStatusBar={false}
         ref={dropDownRef}
-      />
-      <UpdateLoginModal
-        isVisible={isLoginModalVisible}
-        toggleUpdateLoginModal={toggleUpdateLoginModal}
-      />
-      <UpdatePasswordModal
-        isVisible={isPasswordModalVisible}
-        toggleUpdatePasswordModal={toggleUpdatePasswordModal}
-      />
-      <ValidatePasswordModal
-        isVisible={isValidatePasswordModalVisible}
-        toggleValidatePasswordModal={toggleValidatePasswordModal}
       />
     </View>
   );

@@ -337,7 +337,7 @@ export default function ModalCreateTarget() {
                   : [styles.transactionInput, { borderColor: $RED }]
               }
               placeholder="+ 0"
-              placeholderColor={isValidAmount ? accent : $RED}
+              placeholderColor={isValidAmount ? text_main : $RED}
               initial={bringInCash(depositAmount)}
               isEditable={false}
             />
@@ -376,7 +376,7 @@ export default function ModalCreateTarget() {
     <BottomSheet
       ref={ref}
       enabledContentGestureInteraction={false}
-      snapPoints={[0, 300, 610]}
+      snapPoints={[0, 320, 610]}
       renderHeader={renderHeader}
       renderContent={renderContent}
     />

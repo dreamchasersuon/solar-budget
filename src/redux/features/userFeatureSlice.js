@@ -185,7 +185,7 @@ const userSlice = createSlice({
       state.map(user => {
         if (user.login === login) {
           const passwordHash =
-            env === test
+            env === 'test'
               ? `test-${password}`
               : CryptoJS.AES.encrypt(password, login).toString();
           return (user.passwordHash = passwordHash);

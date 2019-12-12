@@ -1,12 +1,12 @@
-import { Modal, View, StyleSheet, Vibration } from 'react-native';
-import {
+import { Modal, View, StyleSheet, Vibration, Text } from 'react-native';
+import mapColorsToTheme, {
   $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $WHITE
 } from '../../constants/colorLiterals';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
 import ButtonSecondary from '../buttons/ButtonSecondary';
@@ -16,8 +16,23 @@ import {
   setPasswordUpdatePermissionsDenied
 } from '../../redux/features/userFeatureSlice';
 import { useTranslation } from 'react-i18next';
+import setRef from '../../constants/refs';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 const styles = StyleSheet.create({
+  modalHeader: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalActiveArea: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
+    height: '100%',
+    width: '100%'
+  },
   buttonFinish: {
     marginBottom: 20,
     marginLeft: 'auto',
@@ -25,26 +40,10 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
-  closeModal: {
-    alignItems: 'center',
-    borderColor: $LIGHT_BLUE,
-    borderRadius: 50,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: 'center',
-    marginLeft: 60,
-    width: 30
-  },
-  headerModalStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 5,
-    marginTop: 5
-  },
   headerTitleModalStyle: {
+    alignItems: 'center',
     fontSize: 18,
     fontWeight: '700',
-    marginLeft: 80,
     marginTop: 20
   },
   label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
@@ -52,22 +51,6 @@ const styles = StyleSheet.create({
     color: $RED,
     fontSize: 14,
     marginBottom: 10
-  },
-  modalActiveArea: {
-    alignItems: 'center',
-    backgroundColor: $WHITE,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    height: '45%',
-    width: '100%'
-  },
-  modalHiddenArea: {
-    alignItems: 'flex-end',
-    backgroundColor: $BLACK_FADE,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end'
   },
   purposeInput: {
     borderColor: $MEDIUMSILVER,
@@ -87,10 +70,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function UpdatePasswordModal({
-  isVisible,
-  toggleUpdatePasswordModal
-}) {
+export default function ModalUpdatePassword() {
+  const ref = useRef();
+  setRef({ name: 'update_password', ref });
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation('ModalUpdatePassword');
@@ -99,9 +82,20 @@ export default function UpdatePasswordModal({
   const [isValid, setValidity] = useState(true);
   const [isValidPassword, setPasswordValidity] = useState(true);
   const [password, setPassword] = useState('');
-
   const [isValidRepeatedPassword, setRepeatedPasswordValidity] = useState(true);
   const [repeatedPassword, setRepeatedPassword] = useState('');
+  const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    modalActiveAreaBackground: {
+      backgroundColor: background_top
+    },
+    textColorMain: {
+      color: text_main
+    },
+    textColorAccent: {
+      color: accent
+    }
+  });
 
   function onTypePassword(value) {
     setPasswordValidity(true);
@@ -141,69 +135,87 @@ export default function UpdatePasswordModal({
     setPassword('');
     setRepeatedPassword('');
     dispatch(setPasswordUpdatePermissionsDenied({ login: user.login }));
-    toggleUpdatePasswordModal();
+    ref.current.snapTo(0);
   };
 
-  const closeModal = () => {
+  const denyPermissionsToUpdatePassword = () => {
+    setPassword('');
+    setRepeatedPassword('');
     dispatch(setPasswordUpdatePermissionsDenied({ login: user.login }));
-    toggleUpdatePasswordModal();
   };
-
-  return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={styles.modalHiddenArea}>
-        <View style={styles.modalActiveArea}>
-          <ModalHeader
-            containerStyle={styles.headerModalStyle}
-            titleStyle={styles.headerTitleModalStyle}
-            closeModalStyle={styles.closeModal}
-            handleOnClose={closeModal}
-            title={t('headerTitle')}
-          />
-          <View style={styles.purposeInputContainer}>
-            <CustomInput
-              inputStyle={
-                isValidPassword
-                  ? styles.purposeInput
-                  : [styles.purposeInput, { color: $RED, borderColor: $RED }]
-              }
-              initial={password}
-              label={t('passwordInputLabel')}
-              placeholder={t('passwordInputText')}
-              password
-              labelStyle={isValidPassword ? styles.label : styles.labelInvalid}
-              handleChange={value => onTypePassword(value)}
-            />
-          </View>
-          <View style={styles.purposeInputContainer}>
-            <CustomInput
-              inputStyle={
-                isValidRepeatedPassword
-                  ? styles.purposeInput
-                  : [styles.purposeInput, { color: $RED, borderColor: $RED }]
-              }
-              initial={repeatedPassword}
-              label={t('confirmPasswordInputLabel')}
-              placeholder={t('confirmPasswordInputText')}
-              password
-              labelStyle={
-                isValidRepeatedPassword ? styles.label : styles.labelInvalid
-              }
-              handleChange={value => onTypeRepeatedPassword(value)}
-            />
-          </View>
-          <ButtonSecondary
-            buttonTextStyle={
-              isValid
-                ? styles.buttonTextStyle
-                : [styles.buttonTextStyle, { color: $RED }]
+  const renderHeader = () => {
+    return (
+      <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
+        <Text style={[styles.headerTitleModalStyle, themeStyles.textColorMain]}>
+          {t('headerTitle')}
+        </Text>
+      </View>
+    );
+  };
+  const renderContent = () => {
+    return (
+      <View
+        style={[styles.modalActiveArea, themeStyles.modalActiveAreaBackground]}
+      >
+        <View style={styles.purposeInputContainer}>
+          <CustomInput
+            inputStyle={
+              isValidPassword
+                ? styles.purposeInput
+                : [styles.purposeInput, { color: $RED, borderColor: $RED }]
             }
-            handleOnPress={updatePassword}
-            buttonStyle={styles.buttonFinish}
-            buttonText={t('updateButtonLabel')}
+            initial={password}
+            label={t('passwordInputLabel')}
+            placeholder={t('passwordInputText')}
+            password
+            labelStyle={
+              isValidPassword
+                ? [styles.label, themeStyles.textColorAccent]
+                : styles.labelInvalid
+            }
+            handleChange={value => onTypePassword(value)}
           />
         </View>
+        <View style={styles.purposeInputContainer}>
+          <CustomInput
+            inputStyle={
+              isValidRepeatedPassword
+                ? styles.purposeInput
+                : [styles.purposeInput, { color: $RED, borderColor: $RED }]
+            }
+            initial={repeatedPassword}
+            label={t('confirmPasswordInputLabel')}
+            placeholder={t('confirmPasswordInputText')}
+            password
+            labelStyle={
+              isValidRepeatedPassword
+                ? [styles.label, themeStyles.textColorAccent]
+                : styles.labelInvalid
+            }
+            handleChange={value => onTypeRepeatedPassword(value)}
+          />
+        </View>
+        <ButtonSecondary
+          buttonTextStyle={
+            isValid
+              ? [styles.buttonTextStyle, themeStyles.textColorAccent]
+              : [styles.buttonTextStyle, { color: $RED }]
+          }
+          handleOnPress={updatePassword}
+          buttonStyle={styles.buttonFinish}
+          buttonText={t('updateButtonLabel')}
+        />
       </View>
-    </Modal>
+    );
+  };
+  return (
+    <BottomSheet
+      ref={ref}
+      enabledContentGestureInteraction={false}
+      snapPoints={[0, 300]}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+      onCloseEnd={denyPermissionsToUpdatePassword}
+    />
   );
 }

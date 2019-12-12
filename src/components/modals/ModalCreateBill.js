@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
   buttonFinish: {
     marginBottom: 20,
     marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 20
+    marginRight: 'auto'
   },
   buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
   headerTitleModalStyle: {

@@ -511,7 +511,7 @@ export default function ModalCreateTransaction() {
                       ]
                 }
                 placeholder={type === 'income' ? '+ 0' : '- 0'}
-                placeholderColor={isValidAmount ? accent : $RED}
+                placeholderColor={isValidAmount ? text_main : $RED}
                 initial={bringInCash(amount)}
                 isEditable={false}
               />
