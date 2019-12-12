@@ -1,6 +1,5 @@
-import { Modal, View, StyleSheet, Vibration, Text } from 'react-native';
+import { View, StyleSheet, Vibration, Text } from 'react-native';
 import mapColorsToTheme, {
-  $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,

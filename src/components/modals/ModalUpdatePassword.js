@@ -1,13 +1,11 @@
-import { Modal, View, StyleSheet, Vibration, Text } from 'react-native';
+import { View, StyleSheet, Vibration, Text } from 'react-native';
 import mapColorsToTheme, {
-  $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $WHITE
 } from '../../constants/colorLiterals';
 import React, { useState, useRef } from 'react';
-import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import { useDispatch, useSelector } from 'react-redux';
