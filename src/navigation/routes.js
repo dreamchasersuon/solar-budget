@@ -25,6 +25,7 @@ import ChangePinCode from '../screens/ChangePinCode';
 import ForgotPassword from '../screens/ForgotPassword';
 import ValidatePinCode from '../screens/ValidatePinCode';
 import ChangeLanguage from '../screens/ChangeLanguage';
+import BottomTabNavigator from '../components/BottomTabNavigator';
 import { $LIGHT_BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
 
 const transitionConfig = () => {
@@ -245,17 +246,13 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'Settings',
     resetOnBlur: true,
+    // eslint-disable-next-line react/display-name
+    tabBarComponent: props => <BottomTabNavigator {...props} />,
     tabBarOptions: {
       showLabel: false,
       showIcon: true,
       iconStyle: {
         marginTop: 4
-      },
-      style: {
-        elevation: 10,
-        borderTopWidth: 0,
-        backgroundColor: $WHITE,
-        height: 60
       }
     }
   }
