@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text, TouchableNativeFeedback, View, StyleSheet } from 'react-native';
 import RateInfo from '../../../assets/rate_info.svg';
-import { $LIGHT_BLUE } from '../../constants/colorLiterals';
+import mapColorsToTheme from '../../constants/colorLiterals';
 import SelectedRatePair from '../../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../../assets/unselected_rate-pair.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   left: { alignItems: 'center', flexDirection: 'row' },
   title: { fontSize: 14, marginLeft: 10 }
 });
-export default function ModalRatePair({
+export default function RatePairModal({
   title,
   ratePercent,
   rateValue,
@@ -38,6 +38,12 @@ export default function ModalRatePair({
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.find(user => user.active));
   const rateState = useSelector(state => state.rate);
+  const { text_main, accent } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    textColorMain: {
+      color: text_main
+    }
+  });
 
   function onSelectRatePair() {
     if (rateState.length) {
@@ -73,10 +79,10 @@ export default function ModalRatePair({
     <View style={styles.container}>
       <View style={styles.left}>
         <RateInfo />
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, themeStyles.textColorMain]}>{title}</Text>
       </View>
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple($LIGHT_BLUE, true)}
+        background={TouchableNativeFeedback.Ripple(accent, true)}
         onPress={onSelectRatePair}
       >
         <View style={styles.button}>{renderSelectButton()}</View>

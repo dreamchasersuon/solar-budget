@@ -1,6 +1,7 @@
 export const refs = {
   bill: {},
-  transaction: {}
+  transaction: {},
+  rate: {}
 };
 
 export default function setRef(ref) {

@@ -16,7 +16,6 @@ import mapColorsToTheme, {
 } from '../../constants/colorLiterals';
 import ButtonMainBlue from '../buttons/ButtonMainBlue';
 import React, { useState, useRef } from 'react';
-import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
 import NumericBoard from '../NumericBoard';
 import ButtonSecondary from '../buttons/ButtonSecondary';

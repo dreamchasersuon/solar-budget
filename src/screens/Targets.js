@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import mapColorsToTheme, {
   $LIGHTSILVER,

@@ -1,124 +1,124 @@
-import { Modal, ScrollView, View, StyleSheet } from 'react-native';
-import {
-  $BLACK_FADE,
-  $LIGHT_BLUE,
-  $WHITE
-} from '../../constants/colorLiterals';
-import React from 'react';
-import ModalHeader from './ModalHeader';
-import ModalRatePair from './ModalRatePair';
+import { View, StyleSheet, Text } from 'react-native';
+import mapColorsToTheme, { $WHITE } from '../../constants/colorLiterals';
+import React, { useRef } from 'react';
+import RatePairModal from '../components/RatePairModal';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import setRef from '../../constants/refs';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 const styles = StyleSheet.create({
-  closeModal: {
-    alignItems: 'center',
-    borderColor: $LIGHT_BLUE,
-    borderRadius: 50,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: 'center',
-    marginLeft: 60,
-    width: 30
-  },
-  headerModalStyle: {
-    alignItems: 'center',
+  modalHeader: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     flexDirection: 'row',
-    marginBottom: 5,
-    marginTop: 5
-  },
-  headerTitleModalStyle: {
-    fontSize: 18,
-    fontWeight: '700',
-    marginLeft: 110,
-    marginTop: 20
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   modalActiveArea: {
     alignItems: 'center',
     backgroundColor: $WHITE,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    height: '60%',
+    height: '100%',
     width: '100%'
   },
-  modalHiddenArea: {
-    alignItems: 'flex-end',
-    backgroundColor: $BLACK_FADE,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end'
+  headerTitleModalStyle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 20
   },
-  ratePairsContainer: { marginBottom: 20, marginTop: 15 },
-  scrollView: { alignItems: 'center', width: '100%' }
+  ratePairsContainer: {
+    marginBottom: 20,
+    marginTop: 15,
+    alignItems: 'center',
+    width: '100%'
+  }
 });
 
-export default function ModalCreateRatePair({
-  isVisible,
-  toggleAddRatePairModal
-}) {
+export default function ModalCreateRatePair() {
+  const ref = useRef();
+  setRef({ name: 'rate', ref });
+
   const { t, i18n } = useTranslation('ModalCreateRatePair');
-  return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={[styles.modalHiddenArea]}>
-        <View style={styles.modalActiveArea}>
-          <ModalHeader
-            containerStyle={styles.headerModalStyle}
-            titleStyle={styles.headerTitleModalStyle}
-            closeModalStyle={styles.closeModal}
-            handleOnClose={toggleAddRatePairModal}
-            title={t('headerTitle')}
+
+  const user = useSelector(state => state.user.find(user => user.active));
+  const { background_top, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    modalActiveAreaBackground: {
+      backgroundColor: background_top
+    },
+    textColorMain: {
+      color: text_main
+    }
+  });
+
+  const renderHeader = () => {
+    return (
+      <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
+        <Text style={[styles.headerTitleModalStyle, themeStyles.textColorMain]}>
+          {t('headerTitle')}
+        </Text>
+      </View>
+    );
+  };
+  const renderContent = () => {
+    return (
+      <View
+        style={[styles.modalActiveArea, themeStyles.modalActiveAreaBackground]}
+      >
+        <View style={styles.ratePairsContainer}>
+          <RatePairModal
+            title="USD/RUB"
+            ratePercent="0.23%"
+            rateNote={`${t('ratePairNote')} RUB`}
+            rateValue="1.23"
           />
-          <ScrollView
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={styles.scrollView}
-          >
-            <View style={styles.ratePairsContainer}>
-              <ModalRatePair
-                title="USD/RUB"
-                ratePercent="0.23%"
-                rateNote={`${t('ratePairNote')} RUB`}
-                rateValue="1.23"
-              />
-              <ModalRatePair
-                title="USD/CAN"
-                ratePercent="0.63%"
-                rateNote={`${t('ratePairNote')} CAN`}
-                rateValue="1.93"
-              />
-              <ModalRatePair
-                title="USD/EUR"
-                ratePercent="1.61%"
-                rateNote={`${t('ratePairNote')} EUR`}
-                rateValue="1.74"
-              />
-              <ModalRatePair
-                title="USD/CRN"
-                ratePercent="0.02%"
-                rateNote={`${t('ratePairNote')} CRN`}
-                rateValue="0.23"
-              />
-              <ModalRatePair
-                title="USD/GRV"
-                ratePercent="0.12%"
-                rateNote={`${t('ratePairNote')} GRV`}
-                rateValue="0.2"
-              />
-              <ModalRatePair
-                title="USD/GBR"
-                ratePercent="0.56%"
-                rateNote={`${t('ratePairNote')} GBR`}
-                rateValue="1.63"
-              />
-              <ModalRatePair
-                title="USD/MLD"
-                ratePercent="0.01%"
-                rateNote={`${t('ratePairNote')} MLD`}
-                rateValue="0.22"
-              />
-            </View>
-          </ScrollView>
+          <RatePairModal
+            title="USD/CAN"
+            ratePercent="0.63%"
+            rateNote={`${t('ratePairNote')} CAN`}
+            rateValue="1.93"
+          />
+          <RatePairModal
+            title="USD/EUR"
+            ratePercent="1.61%"
+            rateNote={`${t('ratePairNote')} EUR`}
+            rateValue="1.74"
+          />
+          <RatePairModal
+            title="USD/CRN"
+            ratePercent="0.02%"
+            rateNote={`${t('ratePairNote')} CRN`}
+            rateValue="0.23"
+          />
+          <RatePairModal
+            title="USD/GRV"
+            ratePercent="0.12%"
+            rateNote={`${t('ratePairNote')} GRV`}
+            rateValue="0.2"
+          />
+          <RatePairModal
+            title="USD/GBR"
+            ratePercent="0.56%"
+            rateNote={`${t('ratePairNote')} GBR`}
+            rateValue="1.63"
+          />
+          <RatePairModal
+            title="USD/MLD"
+            ratePercent="0.01%"
+            rateNote={`${t('ratePairNote')} MLD`}
+            rateValue="0.22"
+          />
         </View>
       </View>
-    </Modal>
+    );
+  };
+  return (
+    <BottomSheet
+      ref={ref}
+      enabledContentGestureInteraction={false}
+      snapPoints={[0, 230, 400]}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+    />
   );
 }
