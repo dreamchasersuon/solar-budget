@@ -2,7 +2,7 @@
 import React from 'react';
 import { BottomTabBar } from 'react-navigation-tabs';
 import { useSelector } from 'react-redux';
-import mapColorsToTheme, { $WHITE } from '../constants/colorLiterals';
+import mapColorsToTheme from '../constants/colorLiterals';
 import { StyleSheet } from 'react-native';
 
 export default function BottomTabNavigator(props) {

@@ -3,10 +3,6 @@ import { Animated, Easing } from 'react-native';
 // eslint-disable-next-line import/named
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import TargetsImg from '../../assets/target.svg';
-import SettingsImg from '../../assets/settings.svg';
-import RatesImg from '../../assets/rates.svg';
-import WalletImg from '../../assets/wallet.svg';
 import React from 'react';
 import Wallet from '../screens/Wallet';
 import Targets from '../screens/Targets';
@@ -26,7 +22,13 @@ import ForgotPassword from '../screens/ForgotPassword';
 import ValidatePinCode from '../screens/ValidatePinCode';
 import ChangeLanguage from '../screens/ChangeLanguage';
 import BottomTabNavigator from '../components/BottomTabNavigator';
-import { $LIGHT_BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import {
+  WalletIcon,
+  RatesIcon,
+  SettingsIcon,
+  TargetsIcon
+} from '../components/TabIcons';
 
 const transitionConfig = () => {
   return {
@@ -210,36 +212,28 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
       screen: WalletScreen,
       navigationOptions: {
         // eslint-disable-next-line react/display-name
-        tabBarIcon: ({ focused }) => (
-          <WalletImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
-        )
+        tabBarIcon: ({ focused }) => <WalletIcon focused={focused} />
       }
     },
     Targets: {
       screen: TargetsScreen,
       navigationOptions: {
         // eslint-disable-next-line react/display-name
-        tabBarIcon: ({ focused }) => (
-          <TargetsImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
-        )
+        tabBarIcon: ({ focused }) => <TargetsIcon focused={focused} />
       }
     },
     Rates: {
       screen: RatesScreen,
       navigationOptions: {
         // eslint-disable-next-line react/display-name
-        tabBarIcon: ({ focused }) => (
-          <RatesImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
-        )
+        tabBarIcon: ({ focused }) => <RatesIcon focused={focused} />
       }
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
         // eslint-disable-next-line react/display-name
-        tabBarIcon: ({ focused }) => (
-          <SettingsImg fill={focused ? $LIGHT_BLUE : $MEDIUMSILVER} />
-        )
+        tabBarIcon: ({ focused }) => <SettingsIcon focused={focused} />
       }
     }
   },
