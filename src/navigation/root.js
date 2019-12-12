@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import NavigationService from './service';
 import ModalCreateBill from '../components/modals/ModalCreateBill';
 import ModalCreateTransaction from '../components/modals/ModalCreateTransaction';
+import ModalCreateTarget from '../components/modals/ModalCreateTarget';
 
 export default function RootProvider({ store, initialUrl, persistor }) {
   return (
@@ -23,6 +24,7 @@ export default function RootProvider({ store, initialUrl, persistor }) {
           />
           <ModalCreateBill />
           <ModalCreateTransaction />
+          <ModalCreateTarget />
         </PersistGate>
       </Provider>
     </Root>

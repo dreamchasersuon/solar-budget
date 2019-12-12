@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Vibration
 } from 'react-native';
-import {
+import mapColorsToTheme, {
   $BLACK_FADE,
   $LIGHT_BLUE,
   $MEDIUMSILVER,
@@ -15,7 +15,7 @@ import {
   $WHITE
 } from '../../constants/colorLiterals';
 import ButtonMainBlue from '../buttons/ButtonMainBlue';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ModalHeader from './ModalHeader';
 import CustomInput from '../CustomInput';
 import NumericBoard from '../NumericBoard';
@@ -28,35 +28,32 @@ import {
 import uuid from 'uuid';
 import bringInCash from '../../utils/dotSeparation';
 import { useTranslation } from 'react-i18next';
+import setRef from '../../constants/refs';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 const styles = StyleSheet.create({
+  modalHeader: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalActiveArea: {
+    alignItems: 'center',
+    backgroundColor: $WHITE,
+    height: '100%',
+    width: '100%'
+  },
   buttonFinish: {
     marginBottom: 20,
     marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 20
+    marginRight: 'auto'
   },
-  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
-  closeModal: {
-    alignItems: 'center',
-    borderColor: $LIGHT_BLUE,
-    borderRadius: 50,
-    borderWidth: 1,
-    height: 30,
-    justifyContent: 'center',
-    marginLeft: 110,
-    width: 30
-  },
-  headerModalStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 5,
-    marginTop: 5
-  },
+  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 12 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
-    marginLeft: 150,
     marginTop: 20
   },
   label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
@@ -64,22 +61,6 @@ const styles = StyleSheet.create({
     color: $RED,
     fontSize: 14,
     marginBottom: 10
-  },
-  modalActiveArea: {
-    alignItems: 'center',
-    backgroundColor: $WHITE,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    height: '95%',
-    width: '100%'
-  },
-  modalHiddenArea: {
-    alignItems: 'flex-end',
-    backgroundColor: $BLACK_FADE,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end'
   },
   numericBoard: {
     alignItems: 'center',
@@ -153,7 +134,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     width: '100%'
   },
-  scrollView: { alignItems: 'center' },
   transactionFormWrapper: {
     marginTop: 20,
     paddingLeft: 20,
@@ -174,10 +154,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateTarget({
-  isVisible,
-  toggleCreateTargetModal
-}) {
+export default function ModalCreateTarget() {
+  const ref = useRef();
+  setRef({ name: 'target', ref });
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation('ModalCreateTarget');
@@ -189,6 +169,21 @@ export default function ModalCreateTarget({
   const [currency, setCurrency] = useState('rub');
   const [name, setTargetName] = useState('');
   const [depositAmount, setTargetPrice] = useState('');
+  const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    modalActiveAreaBackground: {
+      backgroundColor: background_top
+    },
+    textColorAccent: {
+      color: accent
+    },
+    backgroundColorAccent: {
+      backgroundColor: accent
+    },
+    textColorMain: {
+      color: text_main
+    }
+  });
 
   const setOperation = value => () => {
     const updateOperationValue = depositAmount + value;
@@ -233,128 +228,158 @@ export default function ModalCreateTarget({
     dispatch(setTargetActive({ id, userId: user.id }));
     setTargetPrice('');
     setTargetName('');
-    toggleCreateTargetModal();
+    ref.current.snapTo(0);
   };
 
-  return (
-    <Modal animationType="fade" transparent visible={isVisible}>
-      <View style={styles.modalHiddenArea}>
-        <View style={styles.modalActiveArea}>
-          <ModalHeader
-            containerStyle={styles.headerModalStyle}
-            titleStyle={styles.headerTitleModalStyle}
-            closeModalStyle={styles.closeModal}
-            handleOnClose={toggleCreateTargetModal}
-            title={t('headerTitle')}
-          />
-          <ScrollView
-            keyboardShouldPersistTaps="always"
-            contentContainerStyle={styles.scrollView}
-          >
-            <View style={styles.purposeInputContainer}>
-              <CustomInput
-                inputStyle={
-                  isValidName
-                    ? styles.purposeInput
-                    : [styles.purposeInput, { color: $RED, borderColor: $RED }]
-                }
-                label={t('targetNameInputLabel')}
-                placeholder={t('targetNameInputText')}
-                labelStyle={isValidName ? styles.label : styles.labelInvalid}
-                handleChange={value => onTypeName(value)}
-              />
-            </View>
-            <View style={styles.transactionFormWrapper}>
-              <Text style={styles.label}>{t('currencyCheckBoxesLabel')}</Text>
-              <View style={styles.operationTypeBtnsContainer}>
-                <ButtonMainBlue
-                  handleOnPress={() => setCurrency('rub')}
-                  buttonStyle={
-                    currency === 'rub'
-                      ? styles.operationTypeBtnActive
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    currency === 'rub'
-                      ? styles.operationTypeTextActive
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('currencyCheckBoxRUBText')}
-                />
-                <ButtonMainBlue
-                  handleOnPress={() => setCurrency('usd')}
-                  buttonStyle={
-                    currency === 'usd'
-                      ? styles.operationTypeBtnActive
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    currency === 'usd'
-                      ? styles.operationTypeTextActive
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('currencyCheckBoxUSDText')}
-                />
-                <ButtonMainBlue
-                  handleOnPress={() => setCurrency('eur')}
-                  buttonStyle={
-                    currency === 'eur'
-                      ? styles.operationTypeBtnActive
-                      : styles.operationTypeBtnInactive
-                  }
-                  buttonTextStyle={
-                    currency === 'eur'
-                      ? styles.operationTypeTextActive
-                      : styles.operationTypeTextInactive
-                  }
-                  title={t('currencyCheckBoxEURText')}
-                />
-              </View>
-            </View>
-            <View style={styles.transactionFormWrapper}>
-              <Text style={isValidAmount ? styles.label : styles.labelInvalid}>
-                {t('amountLabel')}
-              </Text>
-              <View style={styles.transactionInputWrapper}>
-                <CustomInput
-                  inputStyle={
-                    isValidAmount
-                      ? styles.transactionInput
-                      : [styles.transactionInput, { borderColor: $RED }]
-                  }
-                  placeholder="+ 0"
-                  placeholderColor={isValidAmount ? $LIGHT_BLUE : $RED}
-                  initial={bringInCash(depositAmount)}
-                  isEditable={false}
-                />
-                <View style={styles.numericBoard}>
-                  <NumericBoard
-                    wrapperStyle={styles.numericBoardWrapperStyle}
-                    containerStyle={styles.numericBoardContainerStyle}
-                    containerWithMarginStyle={
-                      styles.numericBoardContainerWithMarginsStyle
-                    }
-                    numberStyle={styles.numericBoardNumberStyle}
-                    hasDelete
-                    needNullAlignment
-                    onPressNumber={value => setOperation(value)}
-                  />
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-          <ButtonSecondary
-            buttonTextStyle={
-              isValid
-                ? styles.buttonTextStyle
-                : [styles.buttonTextStyle, { color: $RED }]
+  const renderHeader = () => {
+    return (
+      <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
+        <Text style={[styles.headerTitleModalStyle, themeStyles.textColorMain]}>
+          {t('headerTitle')}
+        </Text>
+      </View>
+    );
+  };
+  const renderContent = () => {
+    return (
+      <View
+        style={[styles.modalActiveArea, themeStyles.modalActiveAreaBackground]}
+      >
+        <View style={styles.purposeInputContainer}>
+          <CustomInput
+            inputStyle={
+              isValidName
+                ? styles.purposeInput
+                : [styles.purposeInput, { color: $RED, borderColor: $RED }]
             }
-            handleOnPress={createTarget}
-            buttonStyle={styles.buttonFinish}
-            buttonText={t('createButtonLabel')}
+            label={t('targetNameInputLabel')}
+            placeholder={t('targetNameInputText')}
+            labelStyle={
+              isValidName
+                ? [styles.label, themeStyles.textColorAccent]
+                : styles.labelInvalid
+            }
+            handleChange={value => onTypeName(value)}
           />
         </View>
+        <View style={styles.transactionFormWrapper}>
+          <Text style={[styles.label, themeStyles.textColorAccent]}>
+            {t('currencyCheckBoxesLabel')}
+          </Text>
+          <View style={styles.operationTypeBtnsContainer}>
+            <ButtonMainBlue
+              handleOnPress={() => setCurrency('rub')}
+              buttonStyle={
+                currency === 'rub'
+                  ? [
+                      styles.operationTypeBtnActive,
+                      themeStyles.backgroundColorAccent
+                    ]
+                  : styles.operationTypeBtnInactive
+              }
+              buttonTextStyle={
+                currency === 'rub'
+                  ? styles.operationTypeTextActive
+                  : styles.operationTypeTextInactive
+              }
+              title={t('currencyCheckBoxRUBText')}
+            />
+            <ButtonMainBlue
+              handleOnPress={() => setCurrency('usd')}
+              buttonStyle={
+                currency === 'usd'
+                  ? [
+                      styles.operationTypeBtnActive,
+                      themeStyles.backgroundColorAccent
+                    ]
+                  : styles.operationTypeBtnInactive
+              }
+              buttonTextStyle={
+                currency === 'usd'
+                  ? styles.operationTypeTextActive
+                  : styles.operationTypeTextInactive
+              }
+              title={t('currencyCheckBoxUSDText')}
+            />
+            <ButtonMainBlue
+              handleOnPress={() => setCurrency('eur')}
+              buttonStyle={
+                currency === 'eur'
+                  ? [
+                      styles.operationTypeBtnActive,
+                      themeStyles.backgroundColorAccent
+                    ]
+                  : styles.operationTypeBtnInactive
+              }
+              buttonTextStyle={
+                currency === 'eur'
+                  ? styles.operationTypeTextActive
+                  : styles.operationTypeTextInactive
+              }
+              title={t('currencyCheckBoxEURText')}
+            />
+          </View>
+        </View>
+        <View style={styles.transactionFormWrapper}>
+          <Text
+            style={
+              isValidAmount
+                ? [styles.label, themeStyles.textColorAccent]
+                : styles.labelInvalid
+            }
+          >
+            {t('amountLabel')}
+          </Text>
+          <View style={styles.transactionInputWrapper}>
+            <CustomInput
+              inputStyle={
+                isValidAmount
+                  ? styles.transactionInput
+                  : [styles.transactionInput, { borderColor: $RED }]
+              }
+              placeholder="+ 0"
+              placeholderColor={isValidAmount ? accent : $RED}
+              initial={bringInCash(depositAmount)}
+              isEditable={false}
+            />
+            <View style={styles.numericBoard}>
+              <NumericBoard
+                wrapperStyle={styles.numericBoardWrapperStyle}
+                containerStyle={styles.numericBoardContainerStyle}
+                containerWithMarginStyle={
+                  styles.numericBoardContainerWithMarginsStyle
+                }
+                numberStyle={[
+                  styles.numericBoardNumberStyle,
+                  themeStyles.textColorMain
+                ]}
+                hasDelete
+                needNullAlignment
+                onPressNumber={value => setOperation(value)}
+              />
+            </View>
+          </View>
+        </View>
+        <ButtonSecondary
+          buttonTextStyle={
+            isValid
+              ? [styles.buttonTextStyle, themeStyles.textColorAccent]
+              : [styles.buttonTextStyle, { color: $RED }]
+          }
+          handleOnPress={createTarget}
+          buttonStyle={styles.buttonFinish}
+          buttonText={t('createButtonLabel')}
+        />
       </View>
-    </Modal>
+    );
+  };
+  return (
+    <BottomSheet
+      ref={ref}
+      enabledContentGestureInteraction={false}
+      snapPoints={[0, 300, 610]}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+    />
   );
 }

@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flexDirection: 'row',
-    backgroundColor: $WHITE,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -478,10 +477,7 @@ export default function ModalCreateTransaction() {
                 }
                 buttonTextStyle={
                   type === 'income'
-                    ? [
-                        styles.operationTypeTextActive,
-                        themeStyles.textColorMain
-                      ]
+                    ? styles.operationTypeTextActive
                     : styles.operationTypeTextInactive
                 }
                 title={t('operationTypeIncomeText')}
@@ -498,10 +494,7 @@ export default function ModalCreateTransaction() {
                 }
                 buttonTextStyle={
                   type === 'outcome'
-                    ? [
-                        styles.operationTypeTextActive,
-                        themeStyles.textColorMain
-                      ]
+                    ? styles.operationTypeTextActive
                     : styles.operationTypeTextInactive
                 }
                 title={t('operationTypeOutcomeText')}
@@ -518,9 +511,7 @@ export default function ModalCreateTransaction() {
                       ]
                 }
                 placeholder={type === 'income' ? '+ 0' : '- 0'}
-                placeholderColor={
-                  isValidAmount ? themeStyles.textColorAccent : $RED
-                }
+                placeholderColor={isValidAmount ? accent : $RED}
                 initial={bringInCash(amount)}
                 isEditable={false}
               />
@@ -557,14 +548,12 @@ export default function ModalCreateTransaction() {
     );
   }
   return (
-    <>
-      <BottomSheet
-        ref={ref}
-        enabledContentGestureInteraction={false}
-        snapPoints={[0, 300, 500]}
-        renderHeader={renderHeader}
-        renderContent={renderContent}
-      />
-    </>
+    <BottomSheet
+      ref={ref}
+      enabledContentGestureInteraction={false}
+      snapPoints={[0, 350, 605]}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+    />
   );
 }

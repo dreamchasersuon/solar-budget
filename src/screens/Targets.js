@@ -11,6 +11,7 @@ import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTargetActive } from '../redux/features/targetFeatureSlice';
 import { useTranslation } from 'react-i18next';
+import { refs } from '../constants/refs';
 
 const styles = StyleSheet.create({
   container: {
@@ -72,8 +73,7 @@ function Targets() {
     activeTargetPrice = '0';
   }
 
-  const [isCreateTargetModalVisible, makeTarget] = useState(false);
-  const toggleCreateTargetModal = () => makeTarget(!isCreateTargetModalVisible);
+  const toggleCreateTargetModal = () => refs.target.current.snapTo(1);
 
   const selectTarget = id => {
     dispatch(setTargetActive({ id }));
@@ -115,10 +115,6 @@ function Targets() {
           keyExtractor={item => item.id}
         />
       ) : null}
-      <ModalCreateTarget
-        isVisible={isCreateTargetModalVisible}
-        toggleCreateTargetModal={toggleCreateTargetModal}
-      />
     </View>
   );
 }

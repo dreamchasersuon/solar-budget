@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flexDirection: 'row',
-    backgroundColor: $WHITE,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -131,7 +130,6 @@ const styles = StyleSheet.create({
 
 export default function ModalCreateBill() {
   const ref = useRef();
-  // eslint-disable-next-line no-unused-vars
   setRef({ name: 'bill', ref });
 
   const dispatch = useDispatch();
@@ -290,7 +288,7 @@ export default function ModalCreateBill() {
                       ]
                 }
                 placeholder="+ 0"
-                placeholderColor={isValid ? themeStyles.textColorMain : $RED}
+                placeholderColor={isValid ? text_main : $RED}
                 initial={bringInCash(depositAmount)}
                 isEditable={false}
               />
@@ -327,14 +325,12 @@ export default function ModalCreateBill() {
     );
   };
   return (
-    <>
-      <BottomSheet
-        ref={ref}
-        enabledContentGestureInteraction={false}
-        snapPoints={[0, 300, 450]}
-        renderHeader={renderHeader}
-        renderContent={renderContent}
-      />
-    </>
+    <BottomSheet
+      ref={ref}
+      enabledContentGestureInteraction={false}
+      snapPoints={[0, 230, 550]}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+    />
   );
 }
