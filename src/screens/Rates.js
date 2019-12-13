@@ -2,10 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
-import mapColorsToTheme, {
-  $LIGHTSILVER,
-  $MEDIUMSILVER
-} from '../constants/colorLiterals';
+import mapColorsToTheme, { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
 import RatePair from '../components/RatePair';
@@ -17,7 +14,6 @@ import { refs } from '../constants/refs';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },
@@ -77,6 +73,7 @@ function Rates() {
           contentContainerStyle={styles.transactionsContainer}
           renderItem={({ item }) => (
             <RatePair
+              theme={user.theme}
               ratePair={item.pair}
               rate={item.value}
               rateNote={item.note}

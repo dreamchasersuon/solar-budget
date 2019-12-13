@@ -1,12 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
-import mapColorsToTheme, {
-  $LIGHTSILVER,
-  $MEDIUMSILVER
-} from '../constants/colorLiterals';
+import mapColorsToTheme, { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
-import ModalCreateTarget from '../components/modals/ModalCreateTarget';
 import withSideScreen from '../components/HOCSideScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTargetActive } from '../redux/features/targetFeatureSlice';
@@ -16,7 +12,6 @@ import { refs } from '../constants/refs';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },

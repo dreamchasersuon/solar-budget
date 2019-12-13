@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
     width: '100%',
     height: '100%'
   },

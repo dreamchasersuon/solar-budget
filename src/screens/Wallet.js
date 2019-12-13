@@ -1,10 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
-import mapColorsToTheme, {
-  $LIGHTSILVER,
-  $MEDIUMSILVER
-} from '../constants/colorLiterals';
+import mapColorsToTheme, { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Transaction from '../components/Transaction';
 import Header from '../components/Header';
 import ButtonOpenModalRound from '../components/buttons/ButtonOpenModalRound';
@@ -19,7 +16,6 @@ import { refs } from '../constants/refs';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
     width: '100%',
     ...StyleSheet.absoluteFillObject,
     elevation: 8
@@ -144,6 +140,7 @@ function Wallet() {
                 date={item.date}
                 time={item.time}
                 type={item.type}
+                theme={user.theme}
               />
             );
           }}
