@@ -238,7 +238,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Wallet',
     resetOnBlur: true,
     // eslint-disable-next-line react/display-name
     tabBarComponent: props => <BottomTabNavigator {...props} />,

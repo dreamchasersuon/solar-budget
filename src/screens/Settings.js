@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   View,
   Image,
@@ -8,11 +8,7 @@ import {
   ScrollView,
   StatusBar
 } from 'react-native';
-import mapColorsToTheme, {
-  $LIGHT_BLUE,
-  $LIGHTSILVER,
-  $MEDIUMSILVER
-} from '../constants/colorLiterals';
+import mapColorsToTheme, { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
 import Language from '../../assets/language.svg';
 import NavigationService from '../navigation/service';
@@ -26,9 +22,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addAvatar, changeTheme } from '../redux/features/userFeatureSlice';
 // eslint-disable-next-line import/no-namespace
 import * as MailComposer from 'expo-mail-composer';
-import UpdateLoginModal from '../components/modals/ModalUpdateLogin';
-import UpdatePasswordModal from '../components/modals/ModalUpdatePassword';
-import ValidatePasswordModal from '../components/modals/ModalValidatePassword';
 import { useTranslation } from 'react-i18next';
 import { refs } from '../constants/refs';
 
@@ -43,7 +36,6 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
     ...StyleSheet.absoluteFillObject,
     elevation: 8
   },
@@ -64,7 +56,6 @@ const styles = StyleSheet.create({
     width: 'auto'
   },
   logout: {
-    color: $LIGHT_BLUE,
     fontSize: 16,
     paddingBottom: 20,
     paddingTop: 20
@@ -83,7 +74,6 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   title: {
-    color: $LIGHT_BLUE,
     fontSize: 16,
     marginBottom: 10
   }
@@ -147,6 +137,10 @@ function Settings() {
   const mailTechnicalSupport = async () => {
     const supportEmail = 'formulatim@gmail.com';
     await MailComposer.composeAsync({ recipients: [supportEmail] });
+  };
+
+  const rateUs = () => {
+    return null;
   };
 
   const setTheme = () => {
@@ -259,7 +253,7 @@ function Settings() {
           <Text style={[styles.title, themeStyles.textAccent]}>
             {t('SettingsScreen:feedbackHeaderTitle')}
           </Text>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity onPress={rateUs} style={styles.settingsUnit}>
             <React.Fragment>
               <Text style={themeStyles.textMain}>
                 {t('SettingsScreen:rateUsSettings')}

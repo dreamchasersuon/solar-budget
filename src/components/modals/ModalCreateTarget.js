@@ -1,14 +1,5 @@
-import {
-  Modal,
-  Text,
-  ScrollView,
-  View,
-  StyleSheet,
-  Vibration
-} from 'react-native';
+import { Text, View, StyleSheet, Vibration } from 'react-native';
 import mapColorsToTheme, {
-  $BLACK_FADE,
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $TRANSPARENT,
@@ -40,7 +31,6 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     alignItems: 'center',
-    backgroundColor: $WHITE,
     height: '100%',
     width: '100%'
   },
@@ -49,13 +39,13 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
-  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 12 },
+  buttonTextStyle: { fontSize: 12 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
     marginTop: 20
   },
-  label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
+  label: { fontSize: 14, marginBottom: 10 },
   labelInvalid: {
     color: $RED,
     fontSize: 14,
@@ -94,7 +84,6 @@ const styles = StyleSheet.create({
   },
   operationTypeBtnActive: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 4,
     flexDirection: 'row',
     height: 26,
@@ -142,7 +131,6 @@ const styles = StyleSheet.create({
   transactionInput: {
     borderBottomWidth: 1,
     borderColor: $MEDIUMSILVER,
-    color: $LIGHT_BLUE,
     fontSize: 28,
     height: 55,
     textAlign: 'right',
@@ -228,6 +216,15 @@ export default function ModalCreateTarget() {
     setTargetPrice('');
     setTargetName('');
     ref.current.snapTo(0);
+  };
+
+  const clearModal = () => {
+    setTargetPrice('');
+    setTargetName('');
+    setCurrency('rub');
+    setValidity(true);
+    setAmountValidity(true);
+    setNameValidity(true);
   };
 
   const renderHeader = () => {
@@ -333,7 +330,7 @@ export default function ModalCreateTarget() {
             <CustomInput
               inputStyle={
                 isValidAmount
-                  ? styles.transactionInput
+                  ? [styles.transactionInput, themeStyles.textColorMain]
                   : [styles.transactionInput, { borderColor: $RED }]
               }
               placeholder="+ 0"
@@ -379,6 +376,7 @@ export default function ModalCreateTarget() {
       snapPoints={[0, 320, 610]}
       renderHeader={renderHeader}
       renderContent={renderContent}
+      onCloseEnd={clearModal}
     />
   );
 }

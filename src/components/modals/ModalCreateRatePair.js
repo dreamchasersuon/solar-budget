@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native';
-import mapColorsToTheme, { $WHITE } from '../../constants/colorLiterals';
+import mapColorsToTheme from '../../constants/colorLiterals';
 import React, { useRef } from 'react';
-import RatePairModal from '../components/RatePairModal';
+import RatePairModal from '../RatePairModal';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import setRef from '../../constants/refs';
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     alignItems: 'center',
-    backgroundColor: $WHITE,
     height: '100%',
     width: '100%'
   },

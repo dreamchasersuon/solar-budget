@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderBottomLeftRadius: 4,
     borderTopLeftRadius: 4,
     flexDirection: 'row',
@@ -81,7 +80,6 @@ const styles = StyleSheet.create({
     paddingTop: 45,
     paddingBottom: 15,
     width: '100%',
-    backgroundColor: $LIGHT_BLUE,
     elevation: 8
   },
   headerBottomContainer: {
@@ -92,7 +90,6 @@ const styles = StyleSheet.create({
   },
   headerLeftSideMenu: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderBottomRightRadius: 20,
     borderTopRightRadius: 20,
     height: 60,
@@ -138,9 +135,6 @@ const styles = StyleSheet.create({
   },
   whiteText: {
     color: $WHITE
-  },
-  blueText: {
-    color: $LIGHT_BLUE
   },
   whiteBackground: {
     backgroundColor: $WHITE
@@ -190,12 +184,21 @@ export default function Header({
     },
     backgroundAccent: {
       backgroundColor: accent
+    },
+    textAccent: {
+      color: accent
     }
   });
 
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
-    <View style={blueBackgroundStyle ? styles.blueContainer : styles.container}>
+    <View
+      style={
+        blueBackgroundStyle
+          ? [styles.blueContainer, themeStyles.backgroundAccent]
+          : styles.container
+      }
+    >
       <View style={styles.headerTopContainer}>
         <View style={headerTopLeftSideStyle}>
           {hasLeftMenu ? (
@@ -244,7 +247,7 @@ export default function Header({
               }
               buttonTextStyle={
                 blueBackgroundStyle
-                  ? [styles.buttonTextStyle, styles.blueText]
+                  ? [styles.buttonTextStyle, themeStyles.textAccent]
                   : styles.buttonTextStyle
               }
             />
@@ -288,7 +291,7 @@ export default function Header({
                       }
                       buttonTextStyle={
                         item.active
-                          ? [styles.buttonTextStyle, styles.blueText]
+                          ? [styles.buttonTextStyle, themeStyles.textAccent]
                           : [styles.buttonTextStyleUnselected, styles.whiteText]
                       }
                       handleOnPress={() => handleOnPress(item.id)}

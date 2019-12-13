@@ -1,9 +1,7 @@
 import { View, StyleSheet, Vibration, Text } from 'react-native';
 import mapColorsToTheme, {
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
-  $RED,
-  $WHITE
+  $RED
 } from '../../constants/colorLiterals';
 import React, { useState, useRef } from 'react';
 import CustomInput from '../CustomInput';
@@ -27,7 +25,6 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     alignItems: 'center',
-    backgroundColor: $WHITE,
     height: '100%',
     width: '100%'
   },
@@ -37,13 +34,13 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
+  buttonTextStyle: { fontSize: 16 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
     marginTop: 20
   },
-  label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
+  label: { fontSize: 14, marginBottom: 10 },
   labelInvalid: {
     color: $RED,
     fontSize: 14,

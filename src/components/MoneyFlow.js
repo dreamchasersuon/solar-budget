@@ -7,7 +7,11 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { $LIGHT_BLUE, $MEDIUMSILVER, $WHITE } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $MEDIUMSILVER,
+  $WHITE
+} from '../constants/colorLiterals';
 import ArrowCollapseEnabled from '../../assets/arrow-collapse-enabled.svg';
 import ArrowCollapseDisabled from '../../assets/arrow-collapse-disabled.svg';
 import TestPurposeIcon from '../../assets/purpose-test-icon.svg';
@@ -73,9 +77,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 5
   },
-  blueColor: {
-    color: $LIGHT_BLUE
-  },
   historyClean: {
     fontSize: 14,
     color: $MEDIUMSILVER,
@@ -96,8 +97,21 @@ export default function MoneyFlow({
   totalTitle,
   noTransactionsNote,
   language,
-  purposes
+  purposes,
+  theme
 }) {
+  const { background_top, accent, text_main } = mapColorsToTheme(theme);
+  const themeStyles = StyleSheet.create({
+    backgroundMain: {
+      backgroundColor: background_top
+    },
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    }
+  });
   function renderTransactions() {
     if (transactions.length) {
       return (
@@ -109,11 +123,11 @@ export default function MoneyFlow({
               <View style={styles.moneyFlowTransaction}>
                 <View style={styles.purposeWithIcon}>
                   <TestPurposeIcon />
-                  <Text style={styles.moneyFlowPurpose}>
+                  <Text style={[styles.moneyFlowPurpose, themeStyles.textMain]}>
                     {purposes[item.label][language]}
                   </Text>
                 </View>
-                <Text style={styles.moneyFlowPurpose}>
+                <Text style={[styles.moneyFlowPurpose, themeStyles.textMain]}>
                   {'Р ' + dotSeparation(item.amount)}
                 </Text>
               </View>
@@ -127,36 +141,54 @@ export default function MoneyFlow({
   }
   return (
     <View style={styles.moneyFlowContainer}>
-      <View style={styles.moneyFlowInfo}>
+      <View style={[styles.moneyFlowInfo, themeStyles.backgroundMain]}>
         <TouchableOpacity
           onPress={handleOnPressToggleTransactions}
           style={styles.moneyFlowDropDownHeader}
         >
-          <Text style={styles.moneyFlowHeaderTitle}>{headerTitle}</Text>
+          <Text style={[styles.moneyFlowHeaderTitle, themeStyles.textMain]}>
+            {headerTitle}
+          </Text>
           {hasTransactions ? (
-            <ArrowCollapseEnabled />
+            <ArrowCollapseEnabled fill={text_main} />
           ) : (
-            <ArrowCollapseDisabled />
+            <ArrowCollapseDisabled fill={text_main} />
           )}
         </TouchableOpacity>
         {hasTransactions && renderTransactions()}
         <View style={styles.moneyFlowAverageAndAmount}>
           <View style={styles.flexRow}>
-            <Text style={styles.moneyFlowAverageAndAmountText}>
+            <Text
+              style={[
+                styles.moneyFlowAverageAndAmountText,
+                themeStyles.textMain
+              ]}
+            >
               {averageTitle}
             </Text>
             <Text
-              style={[styles.moneyFlowAverageAndAmountText, styles.blueColor]}
+              style={[
+                styles.moneyFlowAverageAndAmountText,
+                themeStyles.textAccent
+              ]}
             >
               {'Р ' + dotSeparation(average.toString())}
             </Text>
           </View>
           <View style={styles.flexRow}>
-            <Text style={styles.moneyFlowAverageAndAmountText}>
+            <Text
+              style={[
+                styles.moneyFlowAverageAndAmountText,
+                themeStyles.textMain
+              ]}
+            >
               {totalTitle}
             </Text>
             <Text
-              style={[styles.moneyFlowAverageAndAmountText, styles.blueColor]}
+              style={[
+                styles.moneyFlowAverageAndAmountText,
+                themeStyles.textAccent
+              ]}
             >
               {'Р ' + dotSeparation(total.toString())}
             </Text>

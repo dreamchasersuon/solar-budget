@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, SafeAreaView } from 'react-native';
-import {
+import mapColorsToTheme, {
   $LIGHTSILVER,
   $MEDIUMSILVER,
   $WHITE
@@ -17,17 +17,15 @@ import { PieChart } from 'react-native-chart-kit';
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
     width: '100%'
   },
   safeAreScrollView: {
-    width: '100%',
-    maxHeight: 530
+    width: '100%'
   },
   scrollView: {
     alignItems: 'center',
-    backgroundColor: $LIGHTSILVER,
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
   headerTopLeftSide: {
     alignItems: 'center',
@@ -58,6 +56,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius: 15,
     marginVertical: 5
+  },
+  pieChart: {
+    marginVertical: 8,
+    borderRadius: 16
   }
 });
 
@@ -69,6 +71,12 @@ export default function Statistics() {
   const billState = useSelector(state => state.bill);
   const bills = billState.filter(bill => bill.userId === user.id);
   const purposes = useSelector(state => state.purposes);
+  const { background_bottom } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_bottom
+    }
+  });
 
   const { t, i18n } = useTranslation('StatsScreen');
   const language = user.locale;
@@ -180,9 +188,16 @@ export default function Statistics() {
         list={bills}
         deposit={activeBillDeposit}
         saldo={1000}
+        theme={user.theme}
       />
       <SafeAreaView style={styles.safeAreScrollView}>
-        <ScrollView bounces contentContainerStyle={styles.scrollView}>
+        <ScrollView
+          bounces
+          contentContainerStyle={[
+            styles.scrollView,
+            themeStyles.containerBackground
+          ]}
+        >
           {activeBillTransactions.length ? (
             <React.Fragment>
               <PieChart
@@ -193,10 +208,7 @@ export default function Statistics() {
                   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
                 }}
                 bezier
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16
-                }}
+                style={styles.pieChart}
                 accessor="amount"
                 backgroundColor="transparent"
                 paddingLeft="15"
@@ -246,6 +258,7 @@ export default function Statistics() {
               }
               total={total}
               average={average}
+              theme={user.theme}
             />
           ) : (
             <Text style={styles.clearHistory}>

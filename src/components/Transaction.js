@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  //$RED,
+import mapColorsToTheme, {
   $LIGHT_GREEN,
   $SILVER,
-  $LIGHT_BLUE,
-  $WHITE,
   $RED
 } from '../constants/colorLiterals';
 import { View, StyleSheet, Text } from 'react-native';
@@ -29,7 +26,6 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: $WHITE,
     borderRadius: 2,
     elevation: 8,
     height: 80,
@@ -49,7 +45,6 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   headerDateTextLight: {
-    color: $LIGHT_BLUE,
     fontSize: 10
   },
   headerDateTextRegular: {
@@ -78,20 +73,44 @@ export default function Transaction({
   time,
   type,
   amount,
-  about
+  about,
+  theme
 }) {
+  const { background_top, text_main, accent } = mapColorsToTheme(theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_top
+    },
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    }
+  });
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.containerBackground]}>
       <View style={styles.headerData}>
-        <Text style={styles.headerTarget}>{purpose}</Text>
+        <Text style={[styles.headerTarget, themeStyles.textMain]}>
+          {purpose}
+        </Text>
         <View style={styles.headerDateTime}>
           <View style={styles.headerDate}>
-            <Text style={styles.headerDateTextRegular}>Дата</Text>
-            <Text style={styles.headerDateTextLight}>{date}</Text>
+            <Text style={[styles.headerDateTextRegular, themeStyles.textMain]}>
+              Дата
+            </Text>
+            <Text style={[styles.headerDateTextLight, themeStyles.textAccent]}>
+              {date}
+            </Text>
           </View>
           <View style={styles.headerTime}>
-            <Text style={styles.headerDateTextRegular}>Время</Text>
-            <Text style={styles.headerDateTextLight}>{time}</Text>
+            <Text style={[styles.headerDateTextRegular, themeStyles.textMain]}>
+              Время
+            </Text>
+            <Text style={[styles.headerDateTextLight, themeStyles.textAccent]}>
+              {time}
+            </Text>
           </View>
         </View>
       </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { $SILVER, $WHITE } from '../constants/colorLiterals';
+import mapColorsToTheme, { $SILVER, $WHITE } from '../constants/colorLiterals';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Rate from '../../assets/rate.svg';
 
@@ -55,15 +55,34 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function RatePair({ ratePair, ratePercent, rate, rateNote }) {
+export default function RatePair({
+  ratePair,
+  ratePercent,
+  rate,
+  rateNote,
+  theme
+}) {
+  const { background_top, text_main, accent } = mapColorsToTheme(theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_top
+    },
+    textMain: {
+      color: text_main
+    }
+  });
   return (
     <View style={styles.rateWrapper}>
-      <TouchableOpacity style={styles.container}>
-        <Rate />
+      <TouchableOpacity style={[styles.container, themeStyles.background]}>
+        <Rate fill={accent} />
         <View style={styles.content}>
           <View style={styles.ratePercent}>
-            <Text style={styles.ratePair}>{ratePair}</Text>
-            <Text style={styles.ratePercentage}>{ratePercent}</Text>
+            <Text style={[styles.ratePair, themeStyles.textMain]}>
+              {ratePair}
+            </Text>
+            <Text style={[styles.ratePercentage, themeStyles.textMain]}>
+              {ratePercent}
+            </Text>
           </View>
           <View style={styles.ratePrice}>
             <Text style={styles.rateNationalCurrencyValue}>{rate}</Text>

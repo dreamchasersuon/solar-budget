@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Text, TouchableNativeFeedback, View, StyleSheet } from 'react-native';
-import RateInfo from '../../../assets/rate_info.svg';
-import mapColorsToTheme from '../../constants/colorLiterals';
-import SelectedRatePair from '../../../assets/selected_rate-pair.svg';
-import UnselectedRatePair from '../../../assets/unselected_rate-pair.svg';
+import RateInfo from '../../assets/rate_info.svg';
+import mapColorsToTheme from '../constants/colorLiterals';
+import SelectedRatePair from '../../assets/selected_rate-pair.svg';
+import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addRate, removeRate } from '../../redux/features/rateFeatureSlice';
+import { addRate, removeRate } from '../redux/features/rateFeatureSlice';
 import uuid from 'uuid';
 
 const styles = StyleSheet.create({
