@@ -15,7 +15,6 @@ import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/CustomInput';
 import mapColorsToTheme, {
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED
 } from '../constants/colorLiterals';
@@ -27,7 +26,6 @@ import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonTextWithNote: {
-    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -101,7 +99,6 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

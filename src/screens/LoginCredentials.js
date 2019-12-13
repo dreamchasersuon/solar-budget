@@ -14,8 +14,12 @@ import AuthHeader from '../components/AuthHeader';
 import CustomInput from '../components/CustomInput';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
-import { $LIGHT_BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
-import { useDispatch } from 'react-redux';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $MEDIUMSILVER,
+  $RED
+} from '../constants/colorLiterals';
+import { useDispatch, useSelector } from 'react-redux';
 import { authorizeUserByCredentials } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useTranslation } from 'react-i18next';
@@ -109,6 +113,23 @@ const styles = StyleSheet.create({
 export default function LoginCredentials() {
   const dispatch = useDispatch();
 
+  const user = useSelector(state => state.user.find(user => user.active));
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    },
+    backgroundMain: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    }
+  });
+
   const { t, i18n } = useTranslation([
     'LoginCredentialsScreen',
     'ApplicationErrorMessages'
@@ -174,55 +195,72 @@ export default function LoginCredentials() {
   const goTo = route => NavigationService.navigate(route);
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, themeStyles.backgroundMain]}
       behavior={Platform.OS === 'android' ? 'height' : 'padding'}
     >
       <View style={styles.header}>
-        <ArrowLeft onPress={goBack} style={styles.backArrow} />
+        <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
       </View>
       <AuthHeader
         title={t('LoginCredentialsScreen:headerTitle')}
         note={t('LoginCredentialsScreen:headerNote')}
         extendedNote={t('LoginCredentialsScreen:headerExtendedNote')}
-        titleStyle={styles.title}
+        titleStyle={[styles.title, themeStyles.textMain]}
         handleOnPress={() => goTo('ForgotPassword')}
+        noteColor={text_main}
       >
         <Pros />
       </AuthHeader>
       <View style={styles.form}>
         <CustomInput
-          inputStyle={isValidLogin ? styles.input : styles.invalidInput}
+          inputStyle={
+            isValidLogin
+              ? [styles.input, themeStyles.textMain]
+              : styles.invalidInput
+          }
           label={t('LoginCredentialsScreen:loginInputLabel')}
-          labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
+          labelStyle={
+            isValidLogin
+              ? [styles.label, themeStyles.textMain]
+              : styles.invalidLabel
+          }
           placeholder={t('LoginCredentialsScreen:loginInputText')}
           initial={login}
           handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
           label={t('LoginCredentialsScreen:passwordInputLabel')}
-          inputStyle={isValidPassword ? styles.input : styles.invalidInput}
+          inputStyle={
+            isValidPassword
+              ? [styles.input, themeStyles.textMain]
+              : styles.invalidInput
+          }
           placeholder={t('LoginCredentialsScreen:passwordInputText')}
           hasMargin
           labelStyle={
             isValidPassword
-              ? [styles.label, styles.marginTop]
+              ? [styles.label, styles.marginTop, themeStyles.textMain]
               : [styles.invalidLabel, styles.marginTop]
           }
           password
           initial={password}
           handleChange={value => handlePasswordTyping(value)}
+          iconAccentColor={accent}
+          iconMainColor={text_main}
         />
       </View>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
           buttonStyle={
-            isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
+            isValid
+              ? [styles.buttonFeedback, themeStyles.backgroundAccent]
+              : styles.invalidButtonFeedback
           }
           handleOnPress={isValid ? authorize : null}
           buttonText={t('LoginCredentialsScreen:loginButtonLabel')}
         />
         <ButtonSecondary
-          buttonTextStyle={styles.buttonText}
+          buttonTextStyle={[styles.buttonText, themeStyles.textAccent]}
           buttonText={t('LoginCredentialsScreen:redirectToRemindPasswordText')}
           handleOnPress={() => goTo('ForgotPassword')}
         />
