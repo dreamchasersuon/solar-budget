@@ -20,13 +20,14 @@ export default function ButtonSecondary({
   buttonText,
   noteText,
   buttonTextStyle,
-  buttonStyle
+  buttonStyle,
+  textAccent
 }) {
   return (
     <View style={styles.container}>
       {hasNote && <Text style={styles.note}>{noteText}</Text>}
       <TouchableOpacity style={buttonStyle} onPress={handleOnPress}>
-        <Text style={buttonTextStyle}>{buttonText}</Text>
+        <Text style={[buttonTextStyle, textAccent]}>{buttonText}</Text>
       </TouchableOpacity>
     </View>
   );

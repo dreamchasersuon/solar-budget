@@ -15,7 +15,8 @@ export default function NumericUnit({
   onPress,
   bigDelete,
   deleteColor,
-  rippleColor
+  rippleColor,
+  fingerprintColor
 }) {
   return (
     <TouchableNativeFeedback
@@ -25,7 +26,7 @@ export default function NumericUnit({
       <View style={containerStyle}>
         {iconDelete && bigDelete && <BigDelete fill={deleteColor} />}
         {iconDelete && !bigDelete && <SmallDelete fill={deleteColor} />}
-        {iconFingerprint && <Fingerprint />}
+        {iconFingerprint && <Fingerprint fill={fingerprintColor} />}
         {number && <Text style={numberStyle}>{number}</Text>}
       </View>
     </TouchableNativeFeedback>

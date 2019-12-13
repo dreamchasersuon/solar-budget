@@ -7,7 +7,7 @@ import AuthHeader from '../components/AuthHeader';
 import NumericBoard from '../components/NumericBoard';
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import SecurePin from '../components/SecurePin';
-import { $LIGHT_BLUE } from '../constants/colorLiterals';
+import mapColorsToTheme, { $LIGHT_BLUE } from '../constants/colorLiterals';
 import {
   authorizeUserByPinCode,
   fingerprintScanning
@@ -23,12 +23,10 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   buttonText: {
-    color: $LIGHT_BLUE,
     fontSize: 12,
     textAlign: 'center'
   },
   buttonTextWithNote: {
-    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -70,7 +68,6 @@ const styles = StyleSheet.create({
     width: 240
   },
   paginationActive: {
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 50,
     height: 10,
     width: 10
@@ -97,10 +94,25 @@ export default function LoginPinCode() {
   const userWithMultipleAccounts = users.find(user => user.multiAccountSelect);
   let user;
   if (!userWithMultipleAccounts) {
-    user = users[0];
+    user = users.find(user => user.active);
   } else {
     user = userWithMultipleAccounts;
   }
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    }
+  });
 
   const dropDownRef = useRef(null);
   const [pinCode, setPin] = useState('');
@@ -170,19 +182,22 @@ export default function LoginPinCode() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.background]}>
       <View style={styles.header}>
-        <ArrowLeft onPress={goBack} style={styles.backArrow} />
+        <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
       </View>
       <View>
         <AuthHeader
           title={t('LoginPinScreen:greeting')}
-          titleStyle={styles.title}
+          titleStyle={[styles.title, themeStyles.textMain]}
         >
           <Pros />
         </AuthHeader>
         <SecurePin
-          paginationIndicatorStyle={styles.paginationActive}
+          paginationIndicatorStyle={[
+            styles.paginationActive,
+            themeStyles.backgroundAccent
+          ]}
           noMargins
           pinCodeLength={pinCode.length}
         />
@@ -196,11 +211,14 @@ export default function LoginPinCode() {
         isFingerprintEnabled
         wrapperStyle={styles.numericBoardWrapperStyle}
         containerStyle={styles.numericBoardContainerStyle}
-        numberStyle={styles.numberStyle}
+        numberStyle={[styles.numberStyle, themeStyles.textMain]}
+        deleteColor={text_main}
+        rippleColor={accent}
+        fingerprintColor={accent}
       />
       <View style={styles.buttonsContainer}>
         <ButtonSecondary
-          buttonTextStyle={styles.buttonText}
+          buttonTextStyle={[styles.buttonText, themeStyles.textAccent]}
           handleOnPress={() => goTo('LoginCredentials')}
           buttonText={t('LoginPinScreen:redirectToAuthByLoginAndPasswordText')}
         />
@@ -210,6 +228,7 @@ export default function LoginPinCode() {
           buttonText={t('LoginPinScreen:redirectToCreateAccountText')}
           hasNote
           noteText={t('LoginPinScreen:notRegisteredText')}
+          textAccent={themeStyles.textAccent}
         />
       </View>
       <DropdownAlert

@@ -15,7 +15,8 @@ export default function NumericBoard({
   onPressNumber,
   onPressFingerprint,
   deleteColor,
-  rippleColor
+  rippleColor,
+  fingerprintColor
 }) {
   return (
     <View style={wrapperStyle}>
@@ -88,6 +89,7 @@ export default function NumericBoard({
           onPress={onPressFingerprint}
           iconFingerprint
           rippleColor={rippleColor}
+          fingerprintColor={fingerprintColor}
         />
       )}
       <NumericUnit

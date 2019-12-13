@@ -285,7 +285,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'ValidatePinCode',
+    initialRouteName: 'LoginPin',
     headerMode: 'none',
     transitionConfig
   }
