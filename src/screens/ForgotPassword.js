@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
 });
 
 export default function LoginCredentials() {
+  const dropDownRef = useRef(null);
+
   const users = useSelector(state => state.user);
   const dispatch = useDispatch();
 
@@ -91,8 +93,6 @@ export default function LoginCredentials() {
     'ApplicationSuccessMessages',
     'ApplicationErrorMessages'
   ]);
-
-  const dropDownRef = useRef(null);
 
   const [isValidLogin, setLoginValidity] = useState(true);
   const multiAccUser = users.find(user => user.multiAccountSelect);

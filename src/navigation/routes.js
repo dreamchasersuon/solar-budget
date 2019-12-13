@@ -285,7 +285,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'ForgotPassword',
+    initialRouteName: 'ValidatePinCode',
     headerMode: 'none',
     transitionConfig
   }

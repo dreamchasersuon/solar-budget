@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { View, TouchableNativeFeedback, Text } from 'react-native';
-import mapColorsToTheme, { $LIGHT_BLUE } from '../constants/colorLiterals';
+import { $LIGHT_BLUE } from '../constants/colorLiterals';
 import BigDelete from '../../assets/big-delete.svg';
 import SmallDelete from '../../assets/delete.svg';
 import Fingerprint from '../../assets/small-fingerprint.svg';
@@ -14,11 +14,12 @@ export default function NumericUnit({
   iconFingerprint,
   onPress,
   bigDelete,
-  deleteColor
+  deleteColor,
+  rippleColor
 }) {
   return (
     <TouchableNativeFeedback
-      background={TouchableNativeFeedback.Ripple($LIGHT_BLUE, true)}
+      background={TouchableNativeFeedback.Ripple(rippleColor, true)}
       onPress={onPress || null}
     >
       <View style={containerStyle}>

@@ -5,7 +5,7 @@ import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { $LIGHT_BLUE } from '../constants/colorLiterals';
+import mapColorsToTheme, { $LIGHT_BLUE } from '../constants/colorLiterals';
 import { validatePinCode } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import { Notifications } from 'expo';
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
 });
 
 export default function ValidatePinCode({ navigation }) {
+  const dropDownRef = useRef(null);
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation([
@@ -68,7 +70,27 @@ export default function ValidatePinCode({ navigation }) {
   ]);
 
   const users = useSelector(state => state.user);
-  const dropDownRef = useRef(null);
+  const multiAccUser = users.find(user => user.multiAccountSelect);
+  let activeUser;
+  if (multiAccUser) {
+    activeUser = multiAccUser;
+  } else {
+    activeUser = users.find(user => user.active);
+  }
+  const { background_bottom, text_main, accent } = mapColorsToTheme(
+    activeUser.theme
+  );
+  const themeStyles = StyleSheet.create({
+    textMain: {
+      color: text_main
+    },
+    backgroundMain: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    }
+  });
 
   const [pinCode, setPin] = useState('');
   const goBack = () => NavigationService.goBack();
@@ -119,12 +141,16 @@ export default function ValidatePinCode({ navigation }) {
   if (pinCode.length === 4) return validatePin();
 
   return (
-    <View style={styles.container}>
-      <ArrowLeft onPress={goBack} style={styles.backArrow} />
+    <View style={[styles.container, themeStyles.backgroundMain]}>
+      <ArrowLeft onPress={goBack} style={styles.backArrow} fill={text_main} />
       <SecurePin
-        paginationIndicatorStyle={styles.paginationActive}
+        paginationIndicatorStyle={[
+          styles.paginationActive,
+          themeStyles.backgroundAccent
+        ]}
         pinCodeLength={pinCode.length}
         title={t('ValidatePinScreen:headerTitle')}
+        titleThemeStyle={themeStyles.textMain}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}
@@ -134,7 +160,9 @@ export default function ValidatePinCode({ navigation }) {
         hasDelete
         bigDelete
         needNullAlignment
-        numberStyle={styles.numberStyle}
+        numberStyle={[styles.numberStyle, themeStyles.textMain]}
+        deleteColor={text_main}
+        rippleColor={accent}
       />
       <DropdownAlert
         defaultContainer={{
