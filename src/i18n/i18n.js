@@ -126,7 +126,7 @@ const resources = {
     WalletScreen: {
       screenName: 'Wallet',
       noteToCreateBill:
-        'To use the wallet, create an bill using the plus button in the upper right corner',
+        'To use the wallet, create a bill using the plus button in the upper right corner',
       noteAboutTransactions:
         'Billing history is clean. To add a payment - click on the button below'
     },

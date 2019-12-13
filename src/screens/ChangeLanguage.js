@@ -65,7 +65,7 @@ export default function ChangeLanguage() {
 
   const users = useSelector(state => state.user);
   const user = users.find(user => user.active);
-  const { background_bottom, text_main } = mapColorsToTheme(user.theme);
+  const { background_bottom, text_main, accent } = mapColorsToTheme(user.theme);
   const themeStyles = StyleSheet.create({
     containerBackground: {
       backgroundColor: background_bottom
@@ -109,7 +109,7 @@ export default function ChangeLanguage() {
   return (
     <View style={[styles.container, themeStyles.containerBackground]}>
       <View style={styles.backArrow}>
-        <ArrowLeft onPress={goBack} />
+        <ArrowLeft onPress={goBack} fill={text_main} />
       </View>
       <FlatList
         data={languages}
@@ -123,7 +123,11 @@ export default function ChangeLanguage() {
             <Text style={themeStyles.textMain}>
               {localeToLanguageNameMapping[item]}
             </Text>
-            {locale === item ? <SelectedRatePair /> : <UnselectedRatePair />}
+            {locale === item ? (
+              <SelectedRatePair fill={accent} />
+            ) : (
+              <UnselectedRatePair />
+            )}
           </TouchableOpacity>
         )}
         keyExtractor={item => item}

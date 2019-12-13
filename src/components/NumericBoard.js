@@ -14,7 +14,7 @@ export default function NumericBoard({
   needNullAlignment,
   onPressNumber,
   onPressFingerprint,
-  isFingerprintEnabled
+  deleteColor
 }) {
   return (
     <View style={wrapperStyle}>
@@ -93,6 +93,7 @@ export default function NumericBoard({
           iconDelete
           bigDelete={bigDelete}
           onPress={onPressNumber('delete')}
+          deleteColor={deleteColor}
         />
       )}
     </View>

@@ -125,7 +125,7 @@ export default function ChangePinCode() {
 
   return (
     <View style={[styles.container, themeStyles.containerBackground]}>
-      <ArrowLeft onPress={goBack} style={styles.backArrow} />
+      <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
       <SecurePin
         titleThemeStyle={themeStyles.textMain}
         paginationIndicatorStyle={[
@@ -148,6 +148,7 @@ export default function ChangePinCode() {
         bigDelete
         needNullAlignment
         numberStyle={[styles.numberStyle, themeStyles.textMain]}
+        deleteColor={text_main}
       />
       <DropdownAlert
         defaultContainer={{

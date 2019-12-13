@@ -308,6 +308,7 @@ export default function ModalCreateBill() {
                   hasDelete
                   needNullAlignment
                   onPressNumber={value => setDepositAmount(value)}
+                  deleteColor={text_main}
                 />
               </View>
             </View>
