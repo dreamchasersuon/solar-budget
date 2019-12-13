@@ -1,9 +1,6 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
-import mapColorsToTheme, {
-  $LIGHT_BLUE,
-  $MEDIUMSILVER
-} from '../constants/colorLiterals';
+import mapColorsToTheme, { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
@@ -18,7 +15,6 @@ import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -63,7 +59,6 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

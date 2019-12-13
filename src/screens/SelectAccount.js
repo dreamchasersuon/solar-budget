@@ -9,7 +9,11 @@ import {
 } from 'react-native';
 import AuthHeader from '../components/AuthHeader';
 import DropdownAlert from 'react-native-dropdownalert';
-import { $LIGHT_BLUE, $TRANSPARENT, $WHITE } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $TRANSPARENT,
+  $WHITE
+} from '../constants/colorLiterals';
 // eslint-disable-next-line import/default
 import Swiper from 'react-native-swiper';
 import NavigationService from '../navigation/service';
@@ -77,12 +81,35 @@ const styles = StyleSheet.create({
 });
 
 export default function SelectAccount() {
+  const dropDownRef = useRef(null);
+
   const dispatch = useDispatch();
 
-  const { t, i18n } = useTranslation('SelectAccountScreen');
-
   const users = useSelector(state => state.user);
-  const dropDownRef = useRef(null);
+  const activeUser = users.find(user => user.active);
+
+  const {
+    background_bottom,
+    background_top,
+    accent,
+    text_main
+  } = mapColorsToTheme(activeUser.theme);
+  const themeStyles = StyleSheet.create({
+    backgroundBottom: {
+      backgroundColor: background_bottom
+    },
+    backgroundTop: {
+      backgroundColor: background_top
+    },
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    }
+  });
+
+  const { t, i18n } = useTranslation('SelectAccountScreen');
 
   const goBack = () => NavigationService.goBack();
   const goTo = route => NavigationService.navigate(route);
@@ -97,7 +124,7 @@ export default function SelectAccount() {
       return (
         <TouchableOpacity
           key={user.id}
-          style={styles.accountCard}
+          style={[styles.accountCard, themeStyles.backgroundTop]}
           onPress={selectAccount(user.id)}
         >
           <LinearGradient
@@ -109,24 +136,25 @@ export default function SelectAccount() {
           >
             <Image
               source={user.avatar !== null ? { uri: user.avatar } : { uri: '' }}
-              style={
-                user.avatar
-                  ? styles.cardImage
-                  : [styles.cardImage, { color: $TRANSPARENT }]
-              }
+              style={styles.cardImage}
             />
           </LinearGradient>
           <View style={styles.cardTextContainer}>
-            <Text style={styles.cardText}>{user.login}</Text>
+            <Text style={[styles.cardText, themeStyles.textAccent]}>
+              {user.login}
+            </Text>
           </View>
         </TouchableOpacity>
       );
     });
   }
   return (
-    <View style={styles.container}>
-      <ArrowLeft onPress={goBack} style={styles.backArrow} />
-      <AuthHeader title={t('headerTitle')} titleStyle={styles.title} />
+    <View style={[styles.container, themeStyles.backgroundBottom]}>
+      <ArrowLeft fill={text_main} onPress={goBack} style={styles.backArrow} />
+      <AuthHeader
+        title={t('headerTitle')}
+        titleStyle={[styles.title, themeStyles.textMain]}
+      />
       <Swiper
         showsPagination={false}
         width={400}
