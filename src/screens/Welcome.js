@@ -11,10 +11,7 @@ import NavigationService from '../navigation/service';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import Slider from '../components/Slider';
 import { useDispatch, useSelector } from 'react-redux';
-import mapColorsToTheme, {
-  $LIGHT_BLUE,
-  $WHITE
-} from '../constants/colorLiterals';
+import mapColorsToTheme from '../constants/colorLiterals';
 import { useTranslation } from 'react-i18next';
 import { setLocale } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -56,8 +53,7 @@ const styles = StyleSheet.create({
   activeLanguage: {
     fontSize: 16,
     width: 30,
-    textAlign: 'center',
-    color: $LIGHT_BLUE
+    textAlign: 'center'
   },
   languagesContainer: {
     width: 30,
@@ -69,12 +65,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     paddingBottom: 5,
-    backgroundColor: $WHITE,
     elevation: 6
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

@@ -14,8 +14,12 @@ import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import Pros from '../../assets/pros.svg';
 import CustomInput from '../components/CustomInput';
-import { $LIGHT_BLUE, $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
-import { useDispatch } from 'react-redux';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $MEDIUMSILVER,
+  $RED
+} from '../constants/colorLiterals';
+import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import ArrowLeft from '../../assets/left-arrow.svg';
@@ -115,6 +119,22 @@ const styles = StyleSheet.create({
 
 export default function CreateAccount() {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.find(user => user.active));
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    backgroundMain: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    }
+  });
 
   const { t, i18n } = useTranslation([
     'CreateAccountScreen',
@@ -200,66 +220,87 @@ export default function CreateAccount() {
     NavigationService.navigate(routeName, params);
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, themeStyles.backgroundMain]}
       behavior={Platform.OS === 'android' ? 'height' : 'padding'}
     >
       <View style={styles.header}>
-        <ArrowLeft onPress={goBack} style={styles.backArrow} />
-        <Text style={styles.headerText}>
+        <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
+        <Text style={[styles.headerText, themeStyles.textMain]}>
           {t('CreateAccountScreen:screenName')}
         </Text>
       </View>
       <AuthHeader
         title={t('CreateAccountScreen:headerTitle')}
         note={t('CreateAccountScreen:headerNote')}
-        titleStyle={styles.title}
+        titleStyle={[styles.title, themeStyles.textMain]}
+        noteColor={text_main}
       >
         <Pros />
       </AuthHeader>
       <View style={styles.form}>
         <CustomInput
-          inputStyle={isValidLogin ? styles.input : styles.invalidInput}
-          labelStyle={isValidLogin ? styles.label : styles.invalidLabel}
+          inputStyle={
+            isValidLogin
+              ? [styles.input, themeStyles.textMain]
+              : styles.invalidInput
+          }
+          labelStyle={
+            isValidLogin
+              ? [styles.label, themeStyles.textMain]
+              : styles.invalidLabel
+          }
           label={t('CreateAccountScreen:loginInputLabel')}
           placeholder={t('CreateAccountScreen:loginInputText')}
           initial={login}
           handleChange={value => handleLoginTyping(value)}
         />
         <CustomInput
-          inputStyle={isValidPassword ? styles.input : styles.invalidInput}
+          inputStyle={
+            isValidPassword
+              ? [styles.input, themeStyles.textMain]
+              : styles.invalidInput
+          }
           label={t('CreateAccountScreen:passwordInputLabel')}
           placeholder={t('CreateAccountScreen:passwordInputText')}
           hasMargin
           labelStyle={
             isValidPassword
-              ? [styles.label, styles.marginTop]
+              ? [styles.label, styles.marginTop, themeStyles.textMain]
               : [styles.invalidLabel, styles.marginTop]
           }
           password
           initial={password}
           handleChange={value => handlePasswordTyping(value)}
+          iconMainColor={text_main}
+          iconAccentColor={accent}
         />
         <CustomInput
           inputStyle={
-            isValidRepeatedPassword ? styles.input : styles.invalidInput
+            isValidRepeatedPassword
+              ? [styles.input, themeStyles.textMain]
+              : styles.invalidInput
           }
           label={t('CreateAccountScreen:confirmPasswordInputLabel')}
           placeholder={t('CreateAccountScreen:confirmPasswordInputText')}
           hasMargin
           labelStyle={
             isValidRepeatedPassword
-              ? [styles.label, styles.marginTop]
+              ? [styles.label, styles.marginTop, themeStyles.textMain]
               : [styles.invalidLabel, styles.marginTop]
           }
           password
           initial={repeatedPassword}
           handleChange={value => setRepeatedPassword(value)}
+          iconMainColor={text_main}
+          iconAccentColor={accent}
         />
       </View>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
           buttonStyle={
-            isValid ? styles.buttonFeedback : styles.invalidButtonFeedback
+            isValid
+              ? [styles.buttonFeedback, themeStyles.backgroundAccent]
+              : styles.invalidButtonFeedback
           }
           buttonText={t('CreateAccountScreen:createButtonLabel')}
           handleOnPress={createUserByCredentials}
@@ -268,7 +309,7 @@ export default function CreateAccount() {
           handleOnPress={() => goTo('LoginCredentials')}
           buttonText={t('CreateAccountScreen:redirectToLoginText')}
           hasNote
-          buttonTextStyle={styles.buttonTextWithNote}
+          buttonTextStyle={[styles.buttonTextWithNote, themeStyles.textAccent]}
           noteText={t('CreateAccountScreen:alreadyRegisteredRedirectText')}
         />
       </View>

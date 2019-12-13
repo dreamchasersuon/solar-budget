@@ -19,7 +19,9 @@ export default function CustomInput({
   multiline,
   initial,
   isEditable,
-  handleChange
+  handleChange,
+  iconMainColor,
+  iconAccentColor
 }) {
   const [isHiddenPassword, togglePassword] = useState(true);
   const setSecureOnPassword = () => {
@@ -40,12 +42,14 @@ export default function CustomInput({
           />
           {isHiddenPassword && (
             <HiddenPassword
+              fill={iconMainColor}
               onPress={setSecureOnPassword}
               style={styles.hiddenPassword}
             />
           )}
           {!isHiddenPassword && (
             <VisiblePassword
+              fill={iconAccentColor}
               onPress={setSecureOnPassword}
               style={styles.visiblePassword}
             />

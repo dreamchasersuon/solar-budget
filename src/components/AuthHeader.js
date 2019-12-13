@@ -25,15 +25,19 @@ export default function AuthHeader({
   note,
   extendedNote,
   titleStyle,
-  handleOnPress
+  handleOnPress,
+  noteColor
 }) {
   return (
     <View style={styles.container}>
       {children}
       <Text style={titleStyle}>{title}</Text>
-      {note && <Text style={styles.note}>{note}</Text>}
+      {note && <Text style={[styles.note, { color: noteColor }]}>{note}</Text>}
       {extendedNote && (
-        <Text onPress={handleOnPress} style={styles.extendedNote}>
+        <Text
+          onPress={handleOnPress}
+          style={[styles.extendedNote, { color: noteColor }]}
+        >
           {extendedNote}
         </Text>
       )}
