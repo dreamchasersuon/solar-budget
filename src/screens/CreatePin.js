@@ -4,9 +4,9 @@ import NavigationService from '../navigation/service';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import ArrowLeft from '../../assets/left-arrow.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPinCode } from '../redux/features/userFeatureSlice';
-import { $LIGHT_BLUE } from '../constants/colorLiterals';
+import mapColorsToTheme, { $LIGHT_BLUE } from '../constants/colorLiterals';
 import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
@@ -55,7 +55,19 @@ const styles = StyleSheet.create({
 
 export default function CreatePinCode({ navigation }) {
   const dispatch = useDispatch();
-
+  const user = useSelector(state => state.user.find(user => user.active));
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textMain: {
+      color: text_main
+    }
+  });
   const { t, i18n } = useTranslation('CreatePinScreen');
 
   const [pinCode, setPin] = useState('');
@@ -82,12 +94,16 @@ export default function CreatePinCode({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <ArrowLeft onPress={goBack} style={styles.backArrow} />
+    <View style={[styles.container, themeStyles.background]}>
+      <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
       <SecurePin
-        paginationIndicatorStyle={styles.paginationActive}
+        paginationIndicatorStyle={[
+          styles.paginationActive,
+          themeStyles.backgroundAccent
+        ]}
         pinCodeLength={pinCode.length}
         title={t('headerTitle')}
+        titleThemeStyle={themeStyles.textMain}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}
@@ -97,7 +113,9 @@ export default function CreatePinCode({ navigation }) {
         hasDelete
         bigDelete
         needNullAlignment
-        numberStyle={styles.numberStyle}
+        numberStyle={[styles.numberStyle, themeStyles.textMain]}
+        deleteColor={text_main}
+        rippleColor={accent}
       />
     </View>
   );
