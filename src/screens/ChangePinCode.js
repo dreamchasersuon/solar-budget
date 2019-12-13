@@ -9,6 +9,7 @@ import {
   validatePinCode,
   updateUserPinCode
 } from '../redux/features/userFeatureSlice';
+import mapColorsToTheme from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useTranslation } from 'react-i18next';
 
@@ -67,6 +68,19 @@ export default function ChangePinCode() {
   const dropDownRef = useRef(null);
 
   const user = useSelector(state => state.user.find(user => user.active));
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textMain: {
+      color: text_main
+    }
+  });
+
   const [pinCode, setPin] = useState('');
   const [
     permissionsToUpdatePinCode,
@@ -89,7 +103,7 @@ export default function ChangePinCode() {
     if (!permissionsToUpdatePinCode) {
       try {
         dispatch(validatePinCode({ pinCode, userId: user.id }));
-        dropDownRef.alertWithType(
+        dropDownRef.current.alertWithType(
           'success',
           `${t('ApplicationSuccessMessages:pinAcceptedMsg')}`,
           ''
@@ -97,7 +111,7 @@ export default function ChangePinCode() {
         return grantPermissionsToUpdatePinCode(true);
       } catch (e) {
         Vibration.vibrate(500);
-        dropDownRef.alertWithType(
+        dropDownRef.current.alertWithType(
           'error',
           `${t('ApplicationSuccessMessages:pinUpdatedMsg')}`,
           ''
@@ -110,10 +124,14 @@ export default function ChangePinCode() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.containerBackground]}>
       <ArrowLeft onPress={goBack} style={styles.backArrow} />
       <SecurePin
-        paginationIndicatorStyle={styles.paginationActive}
+        titleThemeStyle={themeStyles.textMain}
+        paginationIndicatorStyle={[
+          styles.paginationActive,
+          themeStyles.backgroundAccent
+        ]}
         pinCodeLength={pinCode.length}
         title={
           permissionsToUpdatePinCode
@@ -129,7 +147,7 @@ export default function ChangePinCode() {
         hasDelete
         bigDelete
         needNullAlignment
-        numberStyle={styles.numberStyle}
+        numberStyle={[styles.numberStyle, themeStyles.textMain]}
       />
       <DropdownAlert
         defaultContainer={{

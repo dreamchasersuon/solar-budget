@@ -22,7 +22,6 @@ import ForgotPassword from '../screens/ForgotPassword';
 import ValidatePinCode from '../screens/ValidatePinCode';
 import ChangeLanguage from '../screens/ChangeLanguage';
 import BottomTabNavigator from '../components/BottomTabNavigator';
-import { $LIGHT_BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
 import {
   WalletIcon,
   RatesIcon,

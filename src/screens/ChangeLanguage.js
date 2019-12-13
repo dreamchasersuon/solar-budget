@@ -16,6 +16,7 @@ import { setLocale } from '../redux/features/userFeatureSlice';
 import { supportedLanguages } from '../i18n/i18n';
 import SelectedRatePair from '../../assets/selected_rate-pair.svg';
 import UnselectedRatePair from '../../assets/unselected_rate-pair.svg';
+import mapColorsToTheme from '../constants/colorLiterals';
 
 const styles = StyleSheet.create({
   backArrow: {
@@ -52,6 +53,8 @@ const styles = StyleSheet.create({
 });
 
 export default function ChangeLanguage() {
+  const dropDownRef = useRef(null);
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation([
@@ -62,8 +65,15 @@ export default function ChangeLanguage() {
 
   const users = useSelector(state => state.user);
   const user = users.find(user => user.active);
-
-  const dropDownRef = useRef(null);
+  const { background_bottom, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    containerBackground: {
+      backgroundColor: background_bottom
+    },
+    textMain: {
+      color: text_main
+    }
+  });
 
   const locale = user.locale;
   const languages = supportedLanguages;
@@ -97,7 +107,7 @@ export default function ChangeLanguage() {
 
   const goBack = () => NavigationService.goBack();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.containerBackground]}>
       <View style={styles.backArrow}>
         <ArrowLeft onPress={goBack} />
       </View>
@@ -110,7 +120,7 @@ export default function ChangeLanguage() {
             onPress={changeLanguage(item)}
             style={styles.language}
           >
-            <Text style={styles.languageText}>
+            <Text style={themeStyles.textMain}>
               {localeToLanguageNameMapping[item]}
             </Text>
             {locale === item ? <SelectedRatePair /> : <UnselectedRatePair />}

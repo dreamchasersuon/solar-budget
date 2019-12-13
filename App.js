@@ -16,7 +16,7 @@ import i18n from './src/i18n/i18n';
 Sentry.init({
   dsn: 'https://90dc28b2dacb49c5906e84bbd221816d@sentry.io/1832573',
   enableInExpoDevelopment: true,
-  debug: true
+  debug: false
 });
 
 export default class App extends React.Component {

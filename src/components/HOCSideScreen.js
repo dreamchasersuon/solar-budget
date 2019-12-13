@@ -7,22 +7,21 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import Logo from '../../assets/logo.svg';
+import LogoLightTheme from '../../assets/logo.svg';
+import LogoDarkTheme from '../../assets/logo_dark.svg';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
-import {
+import mapColorsToTheme, {
   $LIGHT_BLUE,
   $LIGHTSILVER,
-  $MEDIUMSILVER,
-  $WHITE
+  $MEDIUMSILVER
 } from '../constants/colorLiterals';
 import ButtonWithFeedbackBlue from './buttons/ButtonWithFeedbackBlue';
 import ButtonSecondary from './buttons/ButtonSecondary';
 import { Translation } from 'react-i18next';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
-  buttonTextStyle: {
-    color: $LIGHT_BLUE
-  },
   buttonsContainer: {
     alignItems: 'center',
     height: 140,
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',
@@ -67,9 +65,22 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function withSideScreen(Component) {
+function withSideScreen(Component) {
   return class SideScreen extends React.Component {
     renderParallaxDrawer = progressValue => {
+      // eslint-disable-next-line no-invalid-this
+      const { accent, text_main } = mapColorsToTheme(this.props.user.theme);
+      const themeStyles = StyleSheet.create({
+        textAccent: {
+          color: accent
+        },
+        textMain: {
+          color: text_main
+        },
+        backgroundAccent: {
+          backgroundColor: accent
+        }
+      });
       const parallax = progressValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-50, 0]
@@ -78,10 +89,15 @@ export default function withSideScreen(Component) {
         transform: [{ translateX: parallax }]
       };
       return (
-        <Animated.View style={[animatedStyles]}>
+        <Animated.View style={animatedStyles}>
           <View style={styles.content}>
             <View>
-              <Logo />
+              {/* eslint-disable-next-line no-invalid-this */}
+              {this.props.user.theme === 'light' ? (
+                <LogoLightTheme />
+              ) : (
+                <LogoDarkTheme />
+              )}
               <Translation ns="HOCSideScreen">
                 {(t, { i18n }) => (
                   <Text style={styles.note}>{t('headerTitle')}</Text>
@@ -92,7 +108,7 @@ export default function withSideScreen(Component) {
               <TouchableOpacity style={styles.termsOfUse}>
                 <Translation ns="HOCSideScreen">
                   {(t, { i18n }) => (
-                    <Text style={styles.termsOfUseText}>
+                    <Text style={[styles.termsOfUseText, themeStyles.textMain]}>
                       {t('termsOfUseButtonLabel')}
                     </Text>
                   )}
@@ -102,7 +118,9 @@ export default function withSideScreen(Component) {
                 <Text style={styles.termsOfUseText}>
                   <Translation ns="HOCSideScreen">
                     {(t, { i18n }) => (
-                      <Text style={styles.termsOfUseText}>
+                      <Text
+                        style={[styles.termsOfUseText, themeStyles.textMain]}
+                      >
                         {t('privacyPolicyButtonLabel')}
                       </Text>
                     )}
@@ -114,7 +132,10 @@ export default function withSideScreen(Component) {
               <Translation ns="HOCSideScreen">
                 {(t, { i18n }) => (
                   <ButtonWithFeedbackBlue
-                    buttonStyle={styles.buttonFeedback}
+                    buttonStyle={[
+                      styles.buttonFeedback,
+                      themeStyles.backgroundAccent
+                    ]}
                     buttonText={t('giveFeedbackButtonLabel')}
                   />
                 )}
@@ -122,7 +143,10 @@ export default function withSideScreen(Component) {
               <Translation ns="HOCSideScreen">
                 {(t, { i18n }) => (
                   <ButtonWithFeedbackBlue
-                    buttonStyle={styles.buttonFeedback}
+                    buttonStyle={[
+                      styles.buttonFeedback,
+                      themeStyles.backgroundAccent
+                    ]}
                     buttonText={t('techSupportButtonLabel')}
                   />
                 )}
@@ -131,7 +155,7 @@ export default function withSideScreen(Component) {
                 {(t, { i18n }) => (
                   <ButtonSecondary
                     buttonText={t('donationButtonLabel')}
-                    buttonTextStyle={styles.buttonTextStyle}
+                    buttonTextStyle={themeStyles.textAccent}
                   />
                 )}
               </Translation>
@@ -142,6 +166,7 @@ export default function withSideScreen(Component) {
     };
 
     render() {
+      const { background_top } = mapColorsToTheme(this.props.user.theme);
       return (
         <View style={styles.container}>
           <DrawerLayout
@@ -149,7 +174,7 @@ export default function withSideScreen(Component) {
             keyboardDismissMode="on-drag"
             drawerPosition={DrawerLayout.positions.Left}
             drawerType={'back'}
-            drawerBackgroundColor={$WHITE}
+            drawerBackgroundColor={background_top}
             renderNavigationView={this.renderParallaxDrawer}
             contentContainerStyle={Platform.select({
               ios: {
@@ -171,3 +196,10 @@ export default function withSideScreen(Component) {
     }
   };
 }
+
+const mapStateToProps = state => ({
+  user: state.user.find(user => user.active)
+});
+
+const composedHOC = compose(connect(mapStateToProps, null), withSideScreen);
+export default composedHOC;

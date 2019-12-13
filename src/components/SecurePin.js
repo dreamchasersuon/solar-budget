@@ -39,7 +39,8 @@ export default function SecurePin({
   title,
   noMargins,
   pinCodeLength,
-  paginationIndicatorStyle
+  paginationIndicatorStyle,
+  titleThemeStyle
 }) {
   return (
     <View
@@ -47,7 +48,13 @@ export default function SecurePin({
         noMargins ? styles.container : [styles.container, styles.marginBottom]
       }
     >
-      <Text style={noMargins ? styles.titleNoMargin : styles.title}>
+      <Text
+        style={
+          noMargins
+            ? [styles.titleNoMargin, titleThemeStyle]
+            : [styles.title, titleThemeStyle]
+        }
+      >
         {title}
       </Text>
       <View
