@@ -195,7 +195,13 @@ export default function Header({
 
   const goToStats = () => NavigationService.navigate('Statistics');
   return (
-    <View style={blueBackgroundStyle ? styles.blueContainer : styles.container}>
+    <View
+      style={
+        blueBackgroundStyle
+          ? [styles.blueContainer, themeStyles.backgroundAccent]
+          : styles.container
+      }
+    >
       <View style={styles.headerTopContainer}>
         <View style={headerTopLeftSideStyle}>
           {hasLeftMenu ? (

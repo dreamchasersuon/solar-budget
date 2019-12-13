@@ -243,7 +243,7 @@ const BottomTabsBarNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Settings',
+    initialRouteName: 'Wallet',
     resetOnBlur: true,
     tabBarOptions: {
       showLabel: false,

@@ -155,6 +155,7 @@ export default function ModalCreateBill() {
   const [isValid, setValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
+  const [isBlanketVisible, setBlanketVisibility] = useState(true);
 
   const setDepositAmount = value => () => {
     const updateOperationValue = depositAmount + value;
