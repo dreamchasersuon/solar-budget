@@ -5,7 +5,7 @@ import ArrowLeft from '../../assets/left-arrow.svg';
 import SecurePin from '../components/SecurePin';
 import NumericBoard from '../components/NumericBoard';
 import { useSelector } from 'react-redux';
-import { $LIGHT_BLUE } from '../constants/colorLiterals';
+import mapColorsToTheme, { $LIGHT_BLUE } from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useTranslation } from 'react-i18next';
 
@@ -60,7 +60,19 @@ export default function AcceptPinCode() {
   ]);
 
   const users = useSelector(state => state.user);
-  const activeUser = users.find(user => user.active);
+  const user = users.find(user => user.active);
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textMain: {
+      color: text_main
+    }
+  });
 
   const dropDownRef = useRef(null);
 
@@ -77,7 +89,7 @@ export default function AcceptPinCode() {
 
   if (pinCode.length === 4) {
     setPin('');
-    if (activeUser.pinCode !== pinCode) {
+    if (user.pinCode !== pinCode) {
       dropDownRef.current.alertWithType(
         'error',
         `${t('ApplicationErrorMessages:wrongPinMsg')}`,
@@ -90,12 +102,16 @@ export default function AcceptPinCode() {
   }
 
   return (
-    <View style={styles.container}>
-      <ArrowLeft onPress={goBack} style={styles.backArrow} />
+    <View style={[styles.container, themeStyles.background]}>
+      <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
       <SecurePin
-        paginationIndicatorStyle={styles.paginationActive}
+        paginationIndicatorStyle={[
+          styles.paginationActive,
+          themeStyles.backgroundAccent
+        ]}
         pinCodeLength={pinCode.length}
         title={t('AcceptPinScreen:headerTitle')}
+        titleThemeStyle={themeStyles.textMain}
       />
       <NumericBoard
         wrapperStyle={styles.numericBoardWrapperStyle}
@@ -105,7 +121,9 @@ export default function AcceptPinCode() {
         hasDelete
         bigDelete
         needNullAlignment
-        numberStyle={styles.numberStyle}
+        numberStyle={[styles.numberStyle, themeStyles.textMain]}
+        rippleColor={accent}
+        deleteColor={text_main}
       />
       <DropdownAlert
         defaultContainer={{
