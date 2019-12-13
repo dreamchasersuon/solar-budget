@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import mapColorsToTheme, {
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $TRANSPARENT,
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     alignItems: 'center',
-    backgroundColor: $WHITE,
     height: '100%',
     width: '100%'
   },
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
+  buttonTextStyle: { fontSize: 16 },
   dateInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 20
   },
-  label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
+  label: { fontSize: 14, marginBottom: 10 },
   labelInvalid: {
     color: $RED,
     fontSize: 14,
@@ -139,7 +137,6 @@ const styles = StyleSheet.create({
   },
   operationTypeBtnActive: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 4,
     flexDirection: 'row',
     height: 26,
@@ -188,7 +185,6 @@ const styles = StyleSheet.create({
   transactionInput: {
     borderBottomWidth: 1,
     borderColor: $MEDIUMSILVER,
-    color: $LIGHT_BLUE,
     fontSize: 28,
     height: 55,
     textAlign: 'right',
@@ -233,7 +229,7 @@ export default function ModalCreateTransaction() {
   const [isValidPurpose, setPurposeValidity] = useState(true);
   const [isValidAmount, setAmountValidity] = useState(true);
 
-  const [purpose, selectPurpose] = useState('');
+  const [purpose, selectPurpose] = useState(null);
   const [type, setTransactionType] = useState('income');
   const [amount, setTransactionAmount] = useState('');
   const [date, chooseDate] = useState(
@@ -242,7 +238,7 @@ export default function ModalCreateTransaction() {
   const [time, chooseTime] = useState(
     `${new Date().getHours()}:${new Date().getMinutes()}`
   );
-  const [description, writeDescription] = useState(t('descriptionInitialText'));
+  const [description, setDescription] = useState('');
 
   const setAmount = value => () => {
     const updateOperationValue = amount + value;
@@ -336,7 +332,7 @@ export default function ModalCreateTransaction() {
     dispatch(
       withdrawDepositing({ type: isTarget ? 'outcome' : type, amount, billId })
     );
-    selectPurpose('');
+    selectPurpose(null);
     setTransactionAmount('');
     ref.current.snapTo(0);
   };
@@ -375,6 +371,22 @@ export default function ModalCreateTransaction() {
   });
   const purposeInputDefaultText = t('purposeInputDefaultText');
 
+  const clearModal = () => {
+    selectPurpose(null);
+    setDescription('');
+    setTransactionAmount('');
+    setTransactionType('income');
+    setAmountValidity(true);
+    setPurposeValidity(true);
+    setValidity(true);
+  };
+  const prepareModal = () => {
+    chooseDate(
+      `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
+    );
+    chooseTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
+  };
+
   const renderHeader = () => {
     return (
       <View style={[themeStyles.modalActiveAreaBackground, styles.modalHeader]}>
@@ -412,6 +424,7 @@ export default function ModalCreateTransaction() {
               }
             >
               <RNPickerSelect
+                value={purpose}
                 onValueChange={value => onSelectPurpose(value)}
                 style={{
                   inputAndroid: {
@@ -439,12 +452,13 @@ export default function ModalCreateTransaction() {
           </View>
           <View style={styles.descriptionInputContainer}>
             <CustomInput
+              initial={description}
               inputStyle={styles.descriptionInput}
               label={t('descriptionInputLabel')}
               placeholder={t('descriptionInputText')}
               multiline
               labelStyle={[styles.label, themeStyles.textColorAccent]}
-              handleChange={value => writeDescription(value)}
+              handleChange={value => setDescription(value)}
             />
           </View>
           <View style={styles.dateInputContainer}>
@@ -504,7 +518,7 @@ export default function ModalCreateTransaction() {
               <CustomInput
                 inputStyle={
                   isValidAmount
-                    ? [styles.transactionInput, themeStyles.textColorAccent]
+                    ? [styles.transactionInput, themeStyles.textColorMain]
                     : [
                         styles.transactionInput,
                         { color: $RED, borderColor: $RED }
@@ -554,6 +568,8 @@ export default function ModalCreateTransaction() {
       snapPoints={[0, 350, 605]}
       renderHeader={renderHeader}
       renderContent={renderContent}
+      onCloseEnd={clearModal}
+      onOpenStart={prepareModal}
     />
   );
 }

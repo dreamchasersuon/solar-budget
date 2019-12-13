@@ -150,9 +150,9 @@ export default function MoneyFlow({
             {headerTitle}
           </Text>
           {hasTransactions ? (
-            <ArrowCollapseEnabled />
+            <ArrowCollapseEnabled fill={text_main} />
           ) : (
-            <ArrowCollapseDisabled />
+            <ArrowCollapseDisabled fill={text_main} />
           )}
         </TouchableOpacity>
         {hasTransactions && renderTransactions()}

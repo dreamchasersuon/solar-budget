@@ -62,7 +62,7 @@ export default function RatePair({
   rateNote,
   theme
 }) {
-  const { background_top, text_main } = mapColorsToTheme(theme);
+  const { background_top, text_main, accent } = mapColorsToTheme(theme);
   const themeStyles = StyleSheet.create({
     background: {
       backgroundColor: background_top
@@ -74,7 +74,7 @@ export default function RatePair({
   return (
     <View style={styles.rateWrapper}>
       <TouchableOpacity style={[styles.container, themeStyles.background]}>
-        <Rate />
+        <Rate fill={accent} />
         <View style={styles.content}>
           <View style={styles.ratePercent}>
             <Text style={[styles.ratePair, themeStyles.textMain]}>

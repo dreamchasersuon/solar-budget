@@ -1,6 +1,5 @@
 import { Text, StyleSheet, ScrollView, View, Vibration } from 'react-native';
 import mapColorsToTheme, {
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED,
   $TRANSPARENT,
@@ -29,7 +28,6 @@ const styles = StyleSheet.create({
   },
   modalActiveArea: {
     alignItems: 'center',
-    backgroundColor: $WHITE,
     height: '100%',
     width: '100%'
   },
@@ -38,13 +36,13 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
-  buttonTextStyle: { color: $LIGHT_BLUE, fontSize: 16 },
+  buttonTextStyle: { fontSize: 16 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
     marginTop: 20
   },
-  label: { color: $LIGHT_BLUE, fontSize: 14, marginBottom: 10 },
+  label: { fontSize: 14, marginBottom: 10 },
   labelInvalid: {
     color: $RED,
     fontSize: 14,
@@ -83,7 +81,6 @@ const styles = StyleSheet.create({
   },
   operationTypeBtnActive: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 4,
     flexDirection: 'row',
     height: 26,
@@ -116,7 +113,6 @@ const styles = StyleSheet.create({
   transactionInput: {
     borderBottomWidth: 1,
     borderColor: $MEDIUMSILVER,
-    color: $LIGHT_BLUE,
     fontSize: 28,
     height: 55,
     textAlign: 'right',
@@ -136,6 +132,7 @@ export default function ModalCreateBill() {
   const { t, i18n } = useTranslation('ModalCreateBill');
 
   const user = useSelector(state => state.user.find(user => user.active));
+
   const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
   const themeStyles = StyleSheet.create({
     modalActiveAreaBackground: {
@@ -155,7 +152,6 @@ export default function ModalCreateBill() {
   const [isValid, setValidity] = useState(true);
   const [currency, setCurrency] = useState('rub');
   const [depositAmount, setDeposit] = useState('');
-  const [isBlanketVisible, setBlanketVisibility] = useState(true);
 
   const setDepositAmount = value => () => {
     const updateOperationValue = depositAmount + value;
@@ -188,6 +184,12 @@ export default function ModalCreateBill() {
     dispatch(setBillActive({ id, userId: user.id }));
     setDeposit('');
     ref.current.snapTo(0);
+  };
+
+  const clearModal = () => {
+    setDeposit('');
+    setCurrency('rub');
+    setValidity(true);
   };
 
   const renderHeader = () => {
@@ -281,7 +283,7 @@ export default function ModalCreateBill() {
               <CustomInput
                 inputStyle={
                   isValid
-                    ? styles.transactionInput
+                    ? [styles.transactionInput, themeStyles.textColorMain]
                     : [
                         styles.transactionInput,
                         { color: $RED, borderColor: $RED }
@@ -331,6 +333,7 @@ export default function ModalCreateBill() {
       snapPoints={[0, 230, 550]}
       renderHeader={renderHeader}
       renderContent={renderContent}
+      onCloseEnd={clearModal}
     />
   );
 }
