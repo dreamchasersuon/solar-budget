@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     width: 240
   },
   paginationActive: {
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 50,
     height: 10,
     width: 10

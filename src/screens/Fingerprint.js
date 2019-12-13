@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
-import { $LIGHT_BLUE, $MEDIUMSILVER } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $MEDIUMSILVER
+} from '../constants/colorLiterals';
 import Fingerprint from '../../assets/big-fingerprint.svg';
 import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
@@ -79,6 +82,22 @@ export default function AddFingerprint() {
   ]);
 
   const user = useSelector(state => state.user.find(user => user.active));
+  const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    background: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textMain: {
+      color: text_main
+    },
+    textAccent: {
+      color: accent
+    }
+  });
+
   const dispatch = useDispatch();
 
   const goTo = roteName => NavigationService.navigate(roteName);
@@ -136,26 +155,27 @@ export default function AddFingerprint() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.background]}>
       <View style={styles.header} />
       <AuthHeader
         title={t('FingerprintScreen:headerTitle')}
         note={t('FingerprintScreen:headerNote')}
-        titleStyle={styles.title}
+        titleStyle={[styles.title, themeStyles.textMain]}
+        noteColor={text_main}
       >
         <TouchableOpacity style={styles.fingerprint}>
-          <Fingerprint />
+          <Fingerprint fill={accent} />
         </TouchableOpacity>
       </AuthHeader>
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
-          buttonStyle={styles.buttonFeedback}
+          buttonStyle={[styles.buttonFeedback, themeStyles.backgroundAccent]}
           handleOnPress={useFingerprint}
           buttonText={t('FingerprintScreen:useFingerprintButtonLabel')}
         />
         <ButtonSecondary
           handleOnPress={() => goTo('App')}
-          buttonTextStyle={styles.buttonText}
+          buttonTextStyle={[styles.buttonText, themeStyles.textAccent]}
           buttonText={t('FingerprintScreen:useFingerprintLaterButtonLabel')}
         />
       </View>

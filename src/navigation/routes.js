@@ -285,7 +285,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'CreatePin',
+    initialRouteName: 'AddFingerprint',
     headerMode: 'none',
     transitionConfig
   }
