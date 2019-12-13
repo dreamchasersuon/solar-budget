@@ -139,6 +139,10 @@ function Settings() {
     await MailComposer.composeAsync({ recipients: [supportEmail] });
   };
 
+  const rateUs = () => {
+    return null;
+  };
+
   const setTheme = () => {
     const currentTheme = user.theme;
     if (currentTheme === 'light') {
@@ -249,7 +253,7 @@ function Settings() {
           <Text style={[styles.title, themeStyles.textAccent]}>
             {t('SettingsScreen:feedbackHeaderTitle')}
           </Text>
-          <TouchableOpacity style={styles.settingsUnit}>
+          <TouchableOpacity onPress={rateUs} style={styles.settingsUnit}>
             <React.Fragment>
               <Text style={themeStyles.textMain}>
                 {t('SettingsScreen:rateUsSettings')}
