@@ -11,7 +11,10 @@ import NavigationService from '../navigation/service';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import Slider from '../components/Slider';
 import { useDispatch, useSelector } from 'react-redux';
-import { $LIGHT_BLUE, $WHITE } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $WHITE
+} from '../constants/colorLiterals';
 import { useTranslation } from 'react-i18next';
 import { setLocale } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -89,6 +92,29 @@ export default function Welcome() {
   if (users.length) {
     activeUser = users.find(user => user.active);
   }
+  const {
+    background_bottom,
+    background_top,
+    accent,
+    text_main
+  } = mapColorsToTheme(activeUser.theme);
+  const themeStyles = StyleSheet.create({
+    backgroundMainBottom: {
+      backgroundColor: background_bottom
+    },
+    backgroundMainTop: {
+      backgroundColor: background_top
+    },
+    textMain: {
+      color: text_main
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    },
+    textAccent: {
+      color: accent
+    }
+  });
 
   const { t, i18n } = useTranslation([
     'WelcomeScreen',
@@ -124,22 +150,29 @@ export default function Welcome() {
 
   const goTo = routeName => () => NavigationService.navigate(routeName);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, themeStyles.backgroundMainBottom]}>
       <View style={styles.header}>
         <View style={styles.languageSelection}>
           <TouchableOpacity onPress={() => showLanguages(!isLanguagesVisible)}>
-            <Text style={styles.language}>{locale.toUpperCase()}</Text>
+            <Text style={[styles.language, themeStyles.textMain]}>
+              {locale.toUpperCase()}
+            </Text>
           </TouchableOpacity>
           {isLanguagesVisible && (
             <FlatList
               data={languages}
               extraData={locale}
-              contentContainerStyle={styles.languagesContainer}
+              contentContainerStyle={[
+                styles.languagesContainer,
+                themeStyles.backgroundMainTop
+              ]}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={changeLanguage(item)}>
                   <Text
                     style={
-                      locale === item ? styles.activeLanguage : styles.language
+                      locale === item
+                        ? [styles.activeLanguage, themeStyles.textAccent]
+                        : [styles.language, themeStyles.textMain]
                     }
                   >
                     {item.toUpperCase()}
@@ -151,15 +184,15 @@ export default function Welcome() {
           )}
         </View>
       </View>
-      <Slider />
+      <Slider backgroundAccent={accent} textMain={text_main} />
       <View style={styles.buttonsContainer}>
         <ButtonWithFeedbackBlue
-          buttonStyle={styles.buttonFeedback}
+          buttonStyle={[styles.buttonFeedback, themeStyles.backgroundAccent]}
           handleOnPress={goTo('Creation')}
           buttonText={t('WelcomeScreen:createAccountLabel')}
         />
         <ButtonWithFeedbackBlue
-          buttonStyle={styles.buttonFeedback}
+          buttonStyle={[styles.buttonFeedback, themeStyles.backgroundAccent]}
           handleOnPress={users.length > 1 ? goTo('Accounts') : goTo('LoginPin')}
           buttonText={t('WelcomeScreen:loginLabel')}
         />

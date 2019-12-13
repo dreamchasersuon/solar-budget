@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function Slider() {
+export default function Slider({ textMain, backgroundAccent }) {
   const { t, i18n } = useTranslation('SliderComponent');
   return (
     <Swiper
@@ -44,23 +44,35 @@ export default function Slider() {
       bounces
       containerStyle={styles.aboutContainer}
       dotColor={$MEDIUMSILVER}
-      activeDotColor={$LIGHT_BLUE}
+      activeDotColor={backgroundAccent}
     >
       <View style={styles.slideContainer}>
         <Pros />
-        <Text style={styles.slideTitle}>{t('firstSlideHeaderTitle')}</Text>
-        <Text style={styles.slideNote}>{t('firstSlideNote')}</Text>
+        <Text style={[styles.slideTitle, { color: textMain }]}>
+          {t('firstSlideHeaderTitle')}
+        </Text>
+        <Text style={[styles.slideNote, { color: textMain }]}>
+          {t('firstSlideNote')}
+        </Text>
       </View>
       <View style={styles.slideContainer}>
         <Pros />
-        <Text style={styles.slideTitle}>{t('secondSlideHeaderTitle')}</Text>
-        <Text style={styles.slideNote}>{t('secondSlideNote')}</Text>
+        <Text style={[styles.slideTitle, { color: textMain }]}>
+          {t('secondSlideHeaderTitle')}
+        </Text>
+        <Text style={[styles.slideNote, { color: textMain }]}>
+          {t('secondSlideNote')}
+        </Text>
       </View>
       <View style={styles.slideContainer}>
         <Pros />
-        <Text style={styles.slideTitle}>{t('thirdSlideHeaderTitle')}</Text>
-        <Text style={styles.slideNote}>{t('thirdSlideNote')}</Text>
-        <Text style={styles.bold}>Solar Budget</Text>
+        <Text style={[styles.slideTitle, { color: textMain }]}>
+          {t('thirdSlideHeaderTitle')}
+        </Text>
+        <Text style={[styles.slideNote, { color: textMain }]}>
+          {t('thirdSlideNote')}
+        </Text>
+        <Text style={[styles.bold, { color: textMain }]}>Solar Budget</Text>
       </View>
     </Swiper>
   );

@@ -22,7 +22,7 @@ const userSlice = createSlice({
       notifications: true,
       fingerprint: true,
       avatar: null,
-      theme: 'light',
+      theme: 'dark',
       locale: language,
       multiAccountSelect: false,
       permissionsToUpdatePassword: false,
