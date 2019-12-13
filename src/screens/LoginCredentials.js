@@ -15,7 +15,6 @@ import CustomInput from '../components/CustomInput';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
 import ButtonSecondary from '../components/buttons/ButtonSecondary';
 import mapColorsToTheme, {
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $RED
 } from '../constants/colorLiterals';
@@ -29,7 +28,6 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   buttonText: {
-    color: $LIGHT_BLUE,
     fontSize: 12,
     marginLeft: 5,
     textAlign: 'center'
@@ -94,7 +92,6 @@ const styles = StyleSheet.create({
   },
   buttonFeedback: {
     alignItems: 'center',
-    backgroundColor: $LIGHT_BLUE,
     borderRadius: 5,
     height: 45,
     justifyContent: 'center',

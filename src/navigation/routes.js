@@ -285,7 +285,7 @@ const AuthStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'LoginCredentials',
+    initialRouteName: 'ForgotPassword',
     headerMode: 'none',
     transitionConfig
   }

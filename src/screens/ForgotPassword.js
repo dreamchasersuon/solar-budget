@@ -13,7 +13,11 @@ import NavigationService from '../navigation/service';
 import AuthHeader from '../components/AuthHeader';
 import CustomInput from '../components/CustomInput';
 import ButtonWithFeedbackBlue from '../components/buttons/ButtonWithFeedbackBlue';
-import { $MEDIUMSILVER, $RED } from '../constants/colorLiterals';
+import mapColorsToTheme, {
+  $LIGHT_BLUE,
+  $MEDIUMSILVER,
+  $RED
+} from '../constants/colorLiterals';
 import DropdownAlert from 'react-native-dropdownalert';
 import { useSelector, useDispatch } from 'react-redux';
 import { Notifications } from 'expo';
@@ -68,6 +72,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     maxWidth: 220,
     textAlign: 'center'
+  },
+  buttonFeedback: {
+    alignItems: 'center',
+    borderRadius: 5,
+    height: 45,
+    justifyContent: 'center',
+    width: '100%'
   }
 });
 
@@ -84,9 +95,26 @@ export default function LoginCredentials() {
   const dropDownRef = useRef(null);
 
   const [isValidLogin, setLoginValidity] = useState(true);
-  const [login, setLogin] = useState(
-    users.find(user => user.multiAccountSelect).login
-  );
+  const multiAccUser = users.find(user => user.multiAccountSelect);
+  let user;
+  if (multiAccUser) {
+    user = multiAccUser;
+  } else {
+    user = users.find(user => user.active);
+  }
+  const [login, setLogin] = useState(user.login);
+  const { background_bottom, text_main, accent } = mapColorsToTheme(user.theme);
+  const themeStyles = StyleSheet.create({
+    textMain: {
+      color: text_main
+    },
+    backgroundMain: {
+      backgroundColor: background_bottom
+    },
+    backgroundAccent: {
+      backgroundColor: accent
+    }
+  });
 
   const [userCredentials, setUserCredentials] = useState({
     password: undefined,
@@ -97,9 +125,6 @@ export default function LoginCredentials() {
   const remindPassword = () => {
     try {
       if (login.length) {
-        const user = users.find(
-          user => user.login === login && user.multiAccountSelect
-        );
         if (user) {
           setLoginValidity(true);
           dropDownRef.current.alertWithType(
@@ -158,11 +183,11 @@ export default function LoginCredentials() {
     NavigationService.navigate(route, params);
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, themeStyles.backgroundMain]}
       behavior={Platform.OS === 'android' ? 'height' : 'padding'}
     >
       <View style={styles.header}>
-        <ArrowLeft onPress={goBack} style={styles.backArrow} />
+        <ArrowLeft onPress={goBack} fill={text_main} style={styles.backArrow} />
       </View>
       <AuthHeader
         title={
@@ -175,7 +200,8 @@ export default function LoginCredentials() {
             ? t('ForgotPasswordScreen:headerNoteSuccessReminder')
             : t('ForgotPasswordScreen:headerNoteStartReminder')
         }
-        titleStyle={styles.title}
+        titleStyle={[styles.title, themeStyles.textMain]}
+        noteColor={text_main}
       >
         <Pros />
       </AuthHeader>
@@ -183,12 +209,14 @@ export default function LoginCredentials() {
         <CustomInput
           inputStyle={
             isValidLogin
-              ? styles.input
+              ? [styles.input, themeStyles.textMain]
               : [styles.input, { color: $RED, borderColor: $RED }]
           }
           label={t('ForgotPasswordScreen:loginInputLabel')}
           labelStyle={
-            isValidLogin ? styles.label : [styles.label, { color: $RED }]
+            isValidLogin
+              ? [styles.label, themeStyles.textMain]
+              : [styles.label, { color: $RED }]
           }
           placeholder={t('ForgotPasswordScreen:loginInputText')}
           initial={login}
@@ -207,6 +235,7 @@ export default function LoginCredentials() {
               ? t('ForgotPasswordScreen:updatePasswordButton')
               : t('ForgotPasswordScreen:remindPasswordButton')
           }
+          buttonStyle={[styles.buttonFeedback, themeStyles.backgroundAccent]}
         />
       </View>
       <DropdownAlert
