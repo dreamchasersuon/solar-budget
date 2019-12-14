@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet, Vibration } from 'react-native';
 import mapColorsToTheme, {
+  $BLACK,
   $MEDIUMSILVER,
   $RED,
   $TRANSPARENT,
@@ -20,6 +21,7 @@ import bringInCash from '../../utils/dotSeparation';
 import { useTranslation } from 'react-i18next';
 import setRef from '../../constants/refs';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   modalHeader: {
@@ -104,8 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 210
   },
-  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
-  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
+  operationTypeTextActive: { color: $WHITE, fontSize: 14 },
+  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 14 },
   purposeInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -138,12 +140,17 @@ const styles = StyleSheet.create({
   },
   transactionInputWrapper: {
     paddingBottom: 20
+  },
+  shadowContainer: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: $BLACK
   }
 });
 
 export default function ModalCreateTarget() {
   const ref = useRef();
   setRef({ name: 'target', ref });
+  const fall = new Animated.Value(1);
 
   const dispatch = useDispatch();
 
@@ -369,14 +376,36 @@ export default function ModalCreateTarget() {
       </View>
     );
   };
+
+  const renderShadow = () => {
+    const animatedShadowOpacity = Animated.interpolate(fall, {
+      inputRange: [0, 1],
+      outputRange: [0.5, 0]
+    });
+    return (
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.shadowContainer,
+          {
+            opacity: animatedShadowOpacity
+          }
+        ]}
+      />
+    );
+  };
   return (
-    <BottomSheet
-      ref={ref}
-      enabledContentGestureInteraction={false}
-      snapPoints={[0, 320, 610]}
-      renderHeader={renderHeader}
-      renderContent={renderContent}
-      onCloseEnd={clearModal}
-    />
+    <>
+      <BottomSheet
+        ref={ref}
+        enabledContentGestureInteraction={false}
+        snapPoints={[0, 320, 610]}
+        callbackNode={fall}
+        renderHeader={renderHeader}
+        renderContent={renderContent}
+        onCloseEnd={clearModal}
+      />
+      {renderShadow()}
+    </>
   );
 }

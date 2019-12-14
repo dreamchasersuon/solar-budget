@@ -1,10 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import mapColorsToTheme, {
-  $WHITE,
-  $LIGHT_BLUE
-} from '../../constants/colorLiterals';
+import mapColorsToTheme, { $WHITE } from '../../constants/colorLiterals';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
@@ -14,11 +11,7 @@ const styles = StyleSheet.create({
     elevation: 8,
     height: 60,
     width: 60,
-    marginBottom: 10,
-    ...StyleSheet.absoluteFillObject,
-    left: 'auto',
-    right: 'auto',
-    top: '88%'
+    marginBottom: 10
   },
   icon: {
     fontSize: 35
@@ -43,7 +36,6 @@ export default function ButtonOpenModalRound({
       backgroundColor: background_top
     }
   });
-
   const hideButton = hideOrShow === 'down';
   return (
     <View

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-no-bind */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import mapColorsToTheme, { $MEDIUMSILVER } from '../constants/colorLiterals';
 import Header from '../components/Header';
@@ -10,6 +10,7 @@ import withSideScreen from '../components/HOCSideScreen';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { refs } from '../constants/refs';
+import ModalCreateRatePair from '../components/modals/ModalCreateRatePair';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +59,29 @@ function Rates() {
     }
   });
 
-  const toggleAddRatePairModal = () => refs.rate.current.snapTo(1);
+  const [scrollDirection, setScrollDirection] = useState('up');
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = event => {
+    const scrollOffsetY = event.contentOffset.y;
+    setScrollPosition(scrollOffsetY);
+    if (scrollPosition > scrollOffsetY) {
+      setScrollDirection('up');
+    } else {
+      setScrollDirection('down');
+    }
+  };
+
+  const toggleAddRatePairModal = () => {
+    refs.rate.current.snapTo(1);
+  };
+
+  function hideRoundBtn() {
+    return setScrollDirection('down');
+  }
+  function showRoundBtn() {
+    return setScrollDirection('up');
+  }
   return (
     <View style={[styles.container, themeStyles.background]}>
       <Header
@@ -71,6 +94,7 @@ function Rates() {
         <FlatList
           data={rates}
           contentContainerStyle={styles.transactionsContainer}
+          onScroll={event => handleScroll(event.nativeEvent)}
           renderItem={({ item }) => (
             <RatePair
               theme={user.theme}
@@ -86,9 +110,14 @@ function Rates() {
         <Text style={styles.clearHistory}>{t('ratesNotSelectedNote')}</Text>
       )}
       <ButtonOpenModalRound
+        hideOrShow={scrollDirection}
         isActive
         expandModal={toggleAddRatePairModal}
         theme={user.theme}
+      />
+      <ModalCreateRatePair
+        showRoundBtn={showRoundBtn}
+        hideRoundBtn={hideRoundBtn}
       />
     </View>
   );

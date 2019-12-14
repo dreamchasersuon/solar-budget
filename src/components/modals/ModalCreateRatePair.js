@@ -1,11 +1,12 @@
 import { View, StyleSheet, Text } from 'react-native';
-import mapColorsToTheme from '../../constants/colorLiterals';
+import mapColorsToTheme, { $BLACK } from '../../constants/colorLiterals';
 import React, { useRef } from 'react';
 import RatePairModal from '../RatePairModal';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import setRef from '../../constants/refs';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   modalHeader: {
@@ -30,12 +31,17 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignItems: 'center',
     width: '100%'
+  },
+  shadowContainer: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: $BLACK
   }
 });
 
-export default function ModalCreateRatePair() {
+export default function ModalCreateRatePair({ showRoundBtn, hideRoundBtn }) {
   const ref = useRef();
   setRef({ name: 'rate', ref });
+  const fall = new Animated.Value(1);
 
   const { t, i18n } = useTranslation('ModalCreateRatePair');
 
@@ -118,13 +124,36 @@ export default function ModalCreateRatePair() {
       </View>
     );
   };
+  const renderShadow = () => {
+    const animatedShadowOpacity = Animated.interpolate(fall, {
+      inputRange: [0, 1],
+      outputRange: [0.5, 0]
+    });
+    return (
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.shadowContainer,
+          {
+            opacity: animatedShadowOpacity
+          }
+        ]}
+      />
+    );
+  };
   return (
-    <BottomSheet
-      ref={ref}
-      enabledContentGestureInteraction={false}
-      snapPoints={[0, 230, 400]}
-      renderHeader={renderHeader}
-      renderContent={renderContent}
-    />
+    <>
+      <BottomSheet
+        ref={ref}
+        enabledContentGestureInteraction={false}
+        snapPoints={[0, 230, 400]}
+        callbackNode={fall}
+        renderHeader={renderHeader}
+        renderContent={renderContent}
+        onOpenStart={hideRoundBtn}
+        onCloseEnd={showRoundBtn}
+      />
+      {/* renderShadow() */}
+    </>
   );
 }

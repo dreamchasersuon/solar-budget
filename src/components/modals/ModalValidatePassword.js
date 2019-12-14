@@ -1,5 +1,6 @@
 import { View, StyleSheet, Vibration, Text } from 'react-native';
 import mapColorsToTheme, {
+  $BLACK,
   $MEDIUMSILVER,
   $RED
 } from '../../constants/colorLiterals';
@@ -14,6 +15,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import setRef from '../../constants/refs';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   modalHeader: {
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { fontSize: 16 },
+  buttonTextStyle: { fontSize: 12 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
@@ -61,12 +63,17 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     width: '100%'
+  },
+  shadowContainer: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: $BLACK
   }
 });
 
 export default function ModalValidatePassword() {
   const ref = useRef();
   setRef({ name: 'validate_password', ref });
+  const fall = new Animated.Value(1);
 
   const dispatch = useDispatch();
 
@@ -166,14 +173,35 @@ export default function ModalValidatePassword() {
       </View>
     );
   };
+  const renderShadow = () => {
+    const animatedShadowOpacity = Animated.interpolate(fall, {
+      inputRange: [0, 1],
+      outputRange: [0.5, 0]
+    });
+    return (
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.shadowContainer,
+          {
+            opacity: animatedShadowOpacity
+          }
+        ]}
+      />
+    );
+  };
   return (
-    <BottomSheet
-      ref={ref}
-      enabledContentGestureInteraction={false}
-      snapPoints={[0, 200]}
-      renderHeader={renderHeader}
-      renderContent={renderContent}
-      onCloseEnd={denyPermissionsToUpdatePassword}
-    />
+    <>
+      <BottomSheet
+        ref={ref}
+        enabledContentGestureInteraction={false}
+        snapPoints={[0, 200]}
+        callbackNode={fall}
+        renderHeader={renderHeader}
+        renderContent={renderContent}
+        onCloseEnd={denyPermissionsToUpdatePassword}
+      />
+      {renderShadow()}
+    </>
   );
 }

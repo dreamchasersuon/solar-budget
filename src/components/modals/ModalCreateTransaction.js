@@ -31,6 +31,7 @@ import bringInCash from '../../utils/dotSeparation';
 import { useTranslation } from 'react-i18next';
 import setRef from '../../constants/refs';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   modalHeader: {
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { fontSize: 16 },
+  buttonTextStyle: { fontSize: 12 },
   dateInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -196,9 +197,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateTransaction() {
+export default function ModalCreateTransaction({ setRoundBtnVisible }) {
   const ref = useRef();
   setRef({ name: 'transaction', ref });
+  const fall = new Animated.Value(1);
 
   const dispatch = useDispatch();
 
@@ -335,6 +337,7 @@ export default function ModalCreateTransaction() {
     selectPurpose(null);
     setTransactionAmount('');
     ref.current.snapTo(0);
+    setRoundBtnVisible('up');
   };
 
   const mappedPurposesDependOnLanguage = [];
@@ -379,8 +382,10 @@ export default function ModalCreateTransaction() {
     setAmountValidity(true);
     setPurposeValidity(true);
     setValidity(true);
+    setRoundBtnVisible('up');
   };
   const prepareModal = () => {
+    setRoundBtnVisible('down');
     chooseDate(
       `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
     );
@@ -551,7 +556,7 @@ export default function ModalCreateTransaction() {
         <ButtonSecondary
           buttonTextStyle={
             isValid
-              ? [styles.operationTypeTextActive, themeStyles.textColorAccent]
+              ? [styles.buttonTextStyle, themeStyles.textColorAccent]
               : [styles.buttonTextStyle, { color: $RED }]
           }
           handleOnPress={createTransaction}
@@ -561,15 +566,36 @@ export default function ModalCreateTransaction() {
       </View>
     );
   }
+  const renderShadow = () => {
+    const animatedShadowOpacity = Animated.interpolate(fall, {
+      inputRange: [0, 1],
+      outputRange: [0.5, 0]
+    });
+    return (
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.shadowContainer,
+          {
+            opacity: animatedShadowOpacity
+          }
+        ]}
+      />
+    );
+  };
   return (
-    <BottomSheet
-      ref={ref}
-      enabledContentGestureInteraction={false}
-      snapPoints={[0, 350, 605]}
-      renderHeader={renderHeader}
-      renderContent={renderContent}
-      onCloseEnd={clearModal}
-      onOpenStart={prepareModal}
-    />
+    <>
+      <BottomSheet
+        ref={ref}
+        enabledContentGestureInteraction={false}
+        callbackNode={fall}
+        snapPoints={[0, 350, 605]}
+        renderHeader={renderHeader}
+        renderContent={renderContent}
+        onCloseEnd={clearModal}
+        onOpenStart={prepareModal}
+      />
+      {/* renderShadow() */}
+    </>
   );
 }
