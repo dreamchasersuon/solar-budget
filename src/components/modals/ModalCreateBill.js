@@ -97,14 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 100
   },
-  buttonTextStyle: { fontSize: 12 },
+  buttonTextStyle: { fontSize: 14 },
   operationTypeBtnsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: 210
   },
-  operationTypeTextActive: { color: $WHITE, fontSize: 14 },
-  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 14 },
+  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
+  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
   transactionFormWrapper: {
     marginTop: 20,
     paddingLeft: 20,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateBill({ setRoundBtnVisible }) {
+export default function ModalCreateBill() {
   const ref = useRef();
   setRef({ name: 'bill', ref });
   const fall = new Animated.Value(1);
@@ -190,14 +190,12 @@ export default function ModalCreateBill({ setRoundBtnVisible }) {
     dispatch(setBillActive({ id, userId: user.id }));
     setDeposit('');
     ref.current.snapTo(0);
-    setRoundBtnVisible('up');
   };
 
   const clearModal = () => {
     setDeposit('');
     setCurrency('rub');
     setValidity(true);
-    setRoundBtnVisible('up');
   };
 
   const renderHeader = () => {
@@ -358,7 +356,6 @@ export default function ModalCreateBill({ setRoundBtnVisible }) {
         renderHeader={renderHeader}
         renderContent={renderContent}
         onCloseEnd={clearModal}
-        onOpenStart={() => setRoundBtnVisible('down')}
       />
       {/* renderShadow() */}
     </>

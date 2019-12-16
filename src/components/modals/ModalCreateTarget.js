@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
-  buttonTextStyle: { fontSize: 12 },
+  buttonTextStyle: { fontSize: 14 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 210
   },
-  operationTypeTextActive: { color: $WHITE, fontSize: 14 },
-  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 14 },
+  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
+  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
   purposeInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,

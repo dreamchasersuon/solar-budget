@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { fontSize: 12 },
+  buttonTextStyle: { fontSize: 14 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',

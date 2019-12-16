@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTargetActive } from '../redux/features/targetFeatureSlice';
 import { useTranslation } from 'react-i18next';
 import { refs } from '../constants/refs';
-import ModalCreateTarget from '../components/modals/ModalCreateTarget';
 
 const styles = StyleSheet.create({
   container: {
@@ -111,7 +110,6 @@ function Targets() {
           keyExtractor={item => item.id}
         />
       ) : null}
-      <ModalCreateTarget />
     </View>
   );
 }

@@ -12,8 +12,6 @@ import { setBillActive } from '../redux/features/billFeatureSlice';
 import { useTranslation } from 'react-i18next';
 import NavigationService from '../navigation/service';
 import { refs } from '../constants/refs';
-import ModalCreateBill from '../components/modals/ModalCreateBill';
-import ModalCreateTransaction from '../components/modals/ModalCreateTransaction';
 
 const styles = StyleSheet.create({
   container: {
@@ -154,12 +152,6 @@ function Wallet() {
         isActive={!!bills.length}
         expandModal={toggleTransactionModal}
         theme={user.theme}
-      />
-      <ModalCreateBill
-        setRoundBtnVisible={direction => setScrollDirection(direction)}
-      />
-      <ModalCreateTransaction
-        setRoundBtnVisible={direction => setScrollDirection(direction)}
       />
     </View>
   );

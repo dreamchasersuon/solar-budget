@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateRatePair({ showRoundBtn, hideRoundBtn }) {
+export default function ModalCreateRatePair() {
   const ref = useRef();
   setRef({ name: 'rate', ref });
   const fall = new Animated.Value(1);
@@ -150,8 +150,6 @@ export default function ModalCreateRatePair({ showRoundBtn, hideRoundBtn }) {
         callbackNode={fall}
         renderHeader={renderHeader}
         renderContent={renderContent}
-        onOpenStart={hideRoundBtn}
-        onCloseEnd={showRoundBtn}
       />
       {/* renderShadow() */}
     </>

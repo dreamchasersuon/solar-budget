@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginTop: 20
   },
-  buttonTextStyle: { fontSize: 12 },
+  buttonTextStyle: { fontSize: 14 },
   dateInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 210
   },
-  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
-  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
+  operationTypeTextActive: { color: $WHITE, fontSize: 14 },
+  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 14 },
   purposeInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function ModalCreateTransaction({ setRoundBtnVisible }) {
+export default function ModalCreateTransaction() {
   const ref = useRef();
   setRef({ name: 'transaction', ref });
   const fall = new Animated.Value(1);
@@ -337,7 +337,6 @@ export default function ModalCreateTransaction({ setRoundBtnVisible }) {
     selectPurpose(null);
     setTransactionAmount('');
     ref.current.snapTo(0);
-    setRoundBtnVisible('up');
   };
 
   const mappedPurposesDependOnLanguage = [];
@@ -382,10 +381,8 @@ export default function ModalCreateTransaction({ setRoundBtnVisible }) {
     setAmountValidity(true);
     setPurposeValidity(true);
     setValidity(true);
-    setRoundBtnVisible('up');
   };
   const prepareModal = () => {
-    setRoundBtnVisible('down');
     chooseDate(
       `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
     );

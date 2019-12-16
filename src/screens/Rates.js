@@ -10,7 +10,6 @@ import withSideScreen from '../components/HOCSideScreen';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { refs } from '../constants/refs';
-import ModalCreateRatePair from '../components/modals/ModalCreateRatePair';
 
 const styles = StyleSheet.create({
   container: {
@@ -114,10 +113,6 @@ function Rates() {
         isActive
         expandModal={toggleAddRatePairModal}
         theme={user.theme}
-      />
-      <ModalCreateRatePair
-        showRoundBtn={showRoundBtn}
-        hideRoundBtn={hideRoundBtn}
       />
     </View>
   );

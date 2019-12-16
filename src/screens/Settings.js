@@ -24,9 +24,6 @@ import { addAvatar, changeTheme } from '../redux/features/userFeatureSlice';
 import * as MailComposer from 'expo-mail-composer';
 import { useTranslation } from 'react-i18next';
 import { refs } from '../constants/refs';
-import ModalUpdateLogin from '../components/modals/ModalUpdateLogin';
-import ModalUpdatePassword from '../components/modals/ModalUpdatePassword';
-import ModalValidatePassword from '../components/modals/ModalValidatePassword';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -303,9 +300,6 @@ function Settings() {
         updateStatusBar={false}
         ref={dropDownRef}
       />
-      <ModalUpdateLogin />
-      <ModalUpdatePassword />
-      <ModalValidatePassword />
     </View>
   );
 }

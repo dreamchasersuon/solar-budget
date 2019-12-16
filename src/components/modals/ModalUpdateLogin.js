@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20
   },
-  buttonTextStyle: { fontSize: 12 },
+  buttonTextStyle: { fontSize: 14 },
   headerTitleModalStyle: {
     fontSize: 18,
     fontWeight: '700',
