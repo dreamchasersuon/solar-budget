@@ -14182,10 +14182,10 @@ victory-line@^33.0.0:
     prop-types "^15.5.8"
     victory-core "^33.1.2"
 
-victory-native@^33.0.0:
-  version "33.0.0"
-  resolved "https://registry.yarnpkg.com/victory-native/-/victory-native-33.0.0.tgz#9cc37dffe9fa71162159642fb02e15ce7f2eb883"
-  integrity sha512-Tz3R/aEBQp3l3GYbiVKDn6x+kTw8K9WoVjcO1/g00TVLD6vJWdTC1ADw9cQ0BwARi1MBNxzs6Qhsky7d5vOwag==
+victory-native@^33.0.1:
+  version "33.0.1"
+  resolved "https://registry.yarnpkg.com/victory-native/-/victory-native-33.0.1.tgz#5e576023872bf84aa2ebc0cdff0b823291d3f4db"
+  integrity sha512-tGLp3WkiDjzI9imHFflXaOjAqdZA4a3XAIUwB/qGGfzjDbpWbnL/Un2X+R4J+Ghwgr2x6BYYepUxXEC3FIVNuQ==
   dependencies:
     lodash "^4.17.11"
     prop-types "^15.5.10"
