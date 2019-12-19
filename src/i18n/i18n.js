@@ -139,7 +139,8 @@ const resources = {
       noteAboutTransactions:
         'The payment history is clean, to see the statistics go back and make a payment',
       noIncomeTransactions: 'Income history is clean',
-      noOutcomeTransactions: 'Outcome history is clean'
+      noOutcomeTransactions: 'Outcome history is clean',
+      totalNoTransactions: 'History is clean'
     },
     HOCSideScreen: {
       headerTitle:
@@ -378,11 +379,12 @@ const resources = {
       income: 'Доходы',
       outcome: 'Расходы',
       average: 'Средний',
-      total: 'Общий',
+      total: 'Общее',
       noteAboutTransactions:
         'Платежная история чиста, чтобы увидеть статистику вернитесь назад и совершите платёж',
-      noIncomeTransactions: 'История доходов чиста',
-      noOutcomeTransactions: 'История расходов чиста'
+      incomeNoTransactions: 'История доходов чиста',
+      outcomeNoTransactions: 'История расходов чиста',
+      totalNoTransactions: 'История чиста'
     },
     HOCSideScreen: {
       headerTitle:

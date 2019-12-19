@@ -11,7 +11,11 @@ const styles = StyleSheet.create({
     elevation: 8,
     height: 60,
     width: 60,
-    marginBottom: 10
+    marginBottom: 10,
+    ...StyleSheet.absoluteFillObject,
+    left: 'auto',
+    right: 'auto',
+    top: '88%'
   },
   icon: {
     fontSize: 35

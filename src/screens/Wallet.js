@@ -97,8 +97,8 @@ function Wallet() {
     }
   };
 
-  const toggleTransactionModal = () => refs.transaction.current.snapTo(1);
-  const toggleBillModal = () => refs.bill.current.snapTo(1);
+  const toggleTransactionModal = () => refs.transaction.current.snapTo(2);
+  const toggleBillModal = () => refs.bill.current.snapTo(2);
 
   const selectBill = id => {
     dispatch(setBillActive({ id, userId: user.id }));

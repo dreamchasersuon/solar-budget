@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 210
   },
-  operationTypeTextActive: { color: $WHITE, fontSize: 14 },
-  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 14 },
+  operationTypeTextActive: { color: $WHITE, fontSize: 12 },
+  operationTypeTextInactive: { color: $MEDIUMSILVER, fontSize: 12 },
   purposeInput: {
     borderColor: $MEDIUMSILVER,
     borderRadius: 3,
@@ -232,7 +232,7 @@ export default function ModalCreateTransaction() {
   const [isValidAmount, setAmountValidity] = useState(true);
 
   const [purpose, selectPurpose] = useState(null);
-  const [type, setTransactionType] = useState('income');
+  const [type, setTransactionType] = useState('outcome');
   const [amount, setTransactionAmount] = useState('');
   const [date, chooseDate] = useState(
     `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
@@ -377,7 +377,7 @@ export default function ModalCreateTransaction() {
     selectPurpose(null);
     setDescription('');
     setTransactionAmount('');
-    setTransactionType('income');
+    setTransactionType('outcome');
     setAmountValidity(true);
     setPurposeValidity(true);
     setValidity(true);
@@ -482,23 +482,6 @@ export default function ModalCreateTransaction() {
             </Text>
             <View style={styles.operationTypeBtnsContainer}>
               <ButtonMainBlue
-                handleOnPress={() => setTransactionType('income')}
-                buttonStyle={
-                  type === 'income'
-                    ? [
-                        styles.operationTypeBtnActive,
-                        themeStyles.backgroundColorAccent
-                      ]
-                    : styles.operationTypeBtnInactive
-                }
-                buttonTextStyle={
-                  type === 'income'
-                    ? styles.operationTypeTextActive
-                    : styles.operationTypeTextInactive
-                }
-                title={t('operationTypeIncomeText')}
-              />
-              <ButtonMainBlue
                 handleOnPress={() => setTransactionType('outcome')}
                 buttonStyle={
                   type === 'outcome'
@@ -514,6 +497,23 @@ export default function ModalCreateTransaction() {
                     : styles.operationTypeTextInactive
                 }
                 title={t('operationTypeOutcomeText')}
+              />
+              <ButtonMainBlue
+                handleOnPress={() => setTransactionType('income')}
+                buttonStyle={
+                  type === 'income'
+                    ? [
+                        styles.operationTypeBtnActive,
+                        themeStyles.backgroundColorAccent
+                      ]
+                    : styles.operationTypeBtnInactive
+                }
+                buttonTextStyle={
+                  type === 'income'
+                    ? styles.operationTypeTextActive
+                    : styles.operationTypeTextInactive
+                }
+                title={t('operationTypeIncomeText')}
               />
             </View>
             <View style={styles.transactionInputWrapper}>

@@ -8,7 +8,6 @@ import {
   View
 } from 'react-native';
 import mapColorsToTheme, {
-  $LIGHT_BLUE,
   $MEDIUMSILVER,
   $WHITE
 } from '../constants/colorLiterals';
@@ -90,10 +89,8 @@ export default function MoneyFlow({
   hasTransactions,
   transactions,
   total,
-  average,
   handleOnPressToggleTransactions,
   headerTitle,
-  averageTitle,
   totalTitle,
   noTransactionsNote,
   language,
@@ -124,11 +121,11 @@ export default function MoneyFlow({
                 <View style={styles.purposeWithIcon}>
                   <TestPurposeIcon />
                   <Text style={[styles.moneyFlowPurpose, themeStyles.textMain]}>
-                    {purposes[item.label][language]}
+                    {purposes[item.purpose][language]}
                   </Text>
                 </View>
                 <Text style={[styles.moneyFlowPurpose, themeStyles.textMain]}>
-                  {'Р ' + dotSeparation(item.amount)}
+                  {'Р ' + dotSeparation(item.amount.toString())}
                 </Text>
               </View>
             );
@@ -157,24 +154,6 @@ export default function MoneyFlow({
         </TouchableOpacity>
         {hasTransactions && renderTransactions()}
         <View style={styles.moneyFlowAverageAndAmount}>
-          <View style={styles.flexRow}>
-            <Text
-              style={[
-                styles.moneyFlowAverageAndAmountText,
-                themeStyles.textMain
-              ]}
-            >
-              {averageTitle}
-            </Text>
-            <Text
-              style={[
-                styles.moneyFlowAverageAndAmountText,
-                themeStyles.textAccent
-              ]}
-            >
-              {'Р ' + dotSeparation(average.toString())}
-            </Text>
-          </View>
           <View style={styles.flexRow}>
             <Text
               style={[
