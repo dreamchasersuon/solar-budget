@@ -19,6 +19,7 @@ import mapColorsToTheme, {
 } from '../../constants/colorLiterals';
 import ButtonMainBlue from '../buttons/ButtonMainBlue';
 import React, { useState, useRef } from 'react';
+import { timezone as Localization_timezone } from 'expo-localization';
 import NumericBoard from '../NumericBoard';
 import ButtonSecondary from '../buttons/ButtonSecondary';
 import CustomInput from '../CustomInput';
@@ -32,6 +33,7 @@ import { useTranslation } from 'react-i18next';
 import setRef from '../../constants/refs';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import moment from 'moment-timezone';
 
 const styles = StyleSheet.create({
   modalHeader: {
@@ -202,6 +204,8 @@ export default function ModalCreateTransaction() {
   setRef({ name: 'transaction', ref });
   const fall = new Animated.Value(1);
 
+  const timezone = Localization_timezone;
+
   const dispatch = useDispatch();
 
   const { t, i18n } = useTranslation('ModalCreateTransaction');
@@ -238,7 +242,9 @@ export default function ModalCreateTransaction() {
     `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
   );
   const [time, chooseTime] = useState(
-    `${new Date().getHours()}:${new Date().getMinutes()}`
+    moment(new Date())
+      .tz(timezone)
+      .format('LT')
   );
   const [description, setDescription] = useState('');
 
@@ -261,7 +267,13 @@ export default function ModalCreateTransaction() {
         minute: 0,
         is24Hour: false
       });
-      chooseTime(`${hour}:${minute}`);
+      const locatedTime = moment(new Date()).tz(timezone);
+      chooseTime(
+        locatedTime
+          .hour(hour)
+          .minutes(minute)
+          .format('LT')
+      );
     } catch ({ code, message }) {
       throw new Error(`Cannot open time picker ${message}`);
     }

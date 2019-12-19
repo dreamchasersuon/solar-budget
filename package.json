@@ -9,8 +9,7 @@
     "lint": "npx eslint *.js",
     "format": "npx prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\"",
     "snyk-protect": "snyk protect",
-    "validate-ci-config": "circleci config validate -c .circleci/config.yml",
-    "prepare": "yarn run snyk-protect"
+    "validate-ci-config": "circleci config validate -c .circleci/config.yml"
   },
   "jest": {
     "preset": "jest-expo",
@@ -48,6 +47,8 @@
     "expo-permissions": "~7.0.0",
     "expo-secure-store": "~7.0.0",
     "i18next": "^19.0.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
     "react": "16.12.0",
@@ -74,8 +75,7 @@
     "redux-starter-kit": "^1.0.1",
     "sentry-expo": "^2.0.1",
     "snyk": "^1.258.2",
-    "uuid": "^3.3.3",
-    "victory-native": "^33.0.0"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.6.5",
