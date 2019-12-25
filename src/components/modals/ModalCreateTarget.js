@@ -359,6 +359,7 @@ export default function ModalCreateTarget() {
                 hasDelete
                 needNullAlignment
                 onPressNumber={value => setOperation(value)}
+                deleteColor={text_main}
               />
             </View>
           </View>
@@ -405,7 +406,7 @@ export default function ModalCreateTarget() {
         renderContent={renderContent}
         onCloseEnd={clearModal}
       />
-      {renderShadow()}
+      {/* renderShadow() */}
     </>
   );
 }

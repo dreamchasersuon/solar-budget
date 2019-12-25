@@ -33,8 +33,7 @@ export default function RatePairModal({
   title,
   ratePercent,
   rateValue,
-  rateNote,
-  iconColor
+  rateNote
 }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.find(user => user.active));
@@ -70,16 +69,16 @@ export default function RatePairModal({
     return rateState.find(
       rate => rate.pair === title && rate.userId === user.id
     ) ? (
-      <SelectedRatePair fill={iconColor} />
+      <SelectedRatePair fill={accent} />
     ) : (
-      <UnselectedRatePair />
+      <UnselectedRatePair fill={text_main} />
     );
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.left}>
-        <RateInfo fill={iconColor} />
+        <RateInfo fill={accent} />
         <Text style={[styles.title, themeStyles.textColorMain]}>{title}</Text>
       </View>
       <TouchableNativeFeedback

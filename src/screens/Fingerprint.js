@@ -134,7 +134,7 @@ export default function AddFingerprint() {
       dispatch(enableFingerprint({ userId: user.id }));
       dropDownRef.current.alertWithType(
         'success',
-        `${t('ApplicationMessages:fingerprintRecognizedMsg')}`,
+        `${t('ApplicationSuccessMessages:fingerprintRecognizedMsg')}`,
         ''
       );
       setTimeout(() => {

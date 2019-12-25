@@ -176,6 +176,7 @@ export default function ModalUpdatePassword() {
                 : styles.labelInvalid
             }
             handleChange={value => onTypePassword(value)}
+            iconMainColor={text_main}
           />
         </View>
         <View style={styles.purposeInputContainer}>
@@ -195,6 +196,8 @@ export default function ModalUpdatePassword() {
                 : styles.labelInvalid
             }
             handleChange={value => onTypeRepeatedPassword(value)}
+            iconMainColor={text_main}
+            iconAccentColor={accent}
           />
         </View>
         <ButtonSecondary
@@ -210,6 +213,7 @@ export default function ModalUpdatePassword() {
       </View>
     );
   };
+
   const renderShadow = () => {
     const animatedShadowOpacity = Animated.interpolate(fall, {
       inputRange: [0, 1],
@@ -238,7 +242,7 @@ export default function ModalUpdatePassword() {
         renderContent={renderContent}
         onCloseEnd={denyPermissionsToUpdatePassword}
       />
-      {renderShadow()}
+      {/*renderShadow() */}
     </>
   );
 }

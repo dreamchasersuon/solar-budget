@@ -58,6 +58,7 @@ const userSlice = createSlice({
         pinCode: null,
         active: true,
         notifications: true,
+        theme: 'light',
         fingerprint: false,
         avatar: null,
         locale: language,

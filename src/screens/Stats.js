@@ -263,7 +263,7 @@ export default function Statistics() {
         handleOnPress={selectBill}
         list={bills}
         deposit={activeBillDeposit}
-        saldo={1000}
+        saldo={totalIncome - totalOutcome}
         theme={user.theme}
       />
       <SafeAreaView style={[styles.safeArea, themeStyles.backgroundBottom]}>
@@ -297,12 +297,22 @@ export default function Statistics() {
                   return (
                     <View
                       key={i}
-                      style={[
-                        styles.purposesTags,
-                        {
-                          backgroundColor: purposes[transaction.purpose].color
-                        }
-                      ]}
+                      style={
+                        transactionType !== 'total'
+                          ? [
+                              styles.purposesTags,
+                              {
+                                backgroundColor:
+                                  purposes[transaction.purpose].color
+                              }
+                            ]
+                          : [
+                              styles.purposesTags,
+                              {
+                                backgroundColor: transaction.color
+                              }
+                            ]
+                      }
                     >
                       {/* eslint-disable-next-line react-native/no-inline-styles */}
                       <Text style={{ color: $WHITE, fontSize: 12 }}>

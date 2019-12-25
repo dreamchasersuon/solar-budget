@@ -126,7 +126,7 @@ export default function ChangeLanguage() {
             {locale === item ? (
               <SelectedRatePair fill={accent} />
             ) : (
-              <UnselectedRatePair />
+              <UnselectedRatePair fill={text_main} />
             )}
           </TouchableOpacity>
         )}

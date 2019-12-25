@@ -148,6 +148,8 @@ export default function UpdateLoginModal() {
                 : styles.labelInvalid
             }
             handleChange={value => onTypeLogin(value)}
+            iconMainColor={text_main}
+            iconAccentColor={accent}
           />
         </View>
         <ButtonSecondary
@@ -193,7 +195,7 @@ export default function UpdateLoginModal() {
         renderContent={renderContent}
         onCloseEnd={clearInputs}
       />
-      {renderShadow()}
+      {/* renderShadow() */}
     </>
   );
 }

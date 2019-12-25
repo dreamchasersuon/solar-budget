@@ -63,10 +63,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     width: '100%'
-  },
-  shadowContainer: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: $BLACK
   }
 });
 
@@ -158,6 +154,8 @@ export default function ModalValidatePassword() {
                 : styles.labelInvalid
             }
             handleChange={value => onTypePassword(value)}
+            iconMainColor={text_main}
+            iconAccentColor={accent}
           />
         </View>
         <ButtonSecondary
@@ -173,23 +171,7 @@ export default function ModalValidatePassword() {
       </View>
     );
   };
-  const renderShadow = () => {
-    const animatedShadowOpacity = Animated.interpolate(fall, {
-      inputRange: [0, 1],
-      outputRange: [0.5, 0]
-    });
-    return (
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          styles.shadowContainer,
-          {
-            opacity: animatedShadowOpacity
-          }
-        ]}
-      />
-    );
-  };
+
   return (
     <>
       <BottomSheet
@@ -201,7 +183,6 @@ export default function ModalValidatePassword() {
         renderContent={renderContent}
         onCloseEnd={denyPermissionsToUpdatePassword}
       />
-      {renderShadow()}
     </>
   );
 }

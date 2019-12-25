@@ -34,6 +34,7 @@ import setRef from '../../constants/refs';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import moment from 'moment-timezone';
+import PickerIcon from '../../../assets/picker.svg';
 
 const styles = StyleSheet.create({
   modalHeader: {
@@ -238,14 +239,8 @@ export default function ModalCreateTransaction() {
   const [purpose, selectPurpose] = useState(null);
   const [type, setTransactionType] = useState('outcome');
   const [amount, setTransactionAmount] = useState('');
-  const [date, chooseDate] = useState(
-    `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
-  );
-  const [time, chooseTime] = useState(
-    moment(new Date())
-      .tz(timezone)
-      .format('LT')
-  );
+  const [date, chooseDate] = useState('');
+  const [time, chooseTime] = useState('');
   const [description, setDescription] = useState('');
 
   const setAmount = value => () => {
@@ -396,9 +391,15 @@ export default function ModalCreateTransaction() {
   };
   const prepareModal = () => {
     chooseDate(
-      `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`
+      moment(new Date())
+        .tz(timezone)
+        .format('L')
     );
-    chooseTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
+    chooseTime(
+      moment(new Date())
+        .tz(timezone)
+        .format('LT')
+    );
   };
 
   const renderHeader = () => {
@@ -411,6 +412,9 @@ export default function ModalCreateTransaction() {
     );
   };
 
+  function ComponentPickerIcon() {
+    return <PickerIcon fill={text_main} />;
+  }
   function renderContent() {
     return (
       <View
@@ -444,7 +448,8 @@ export default function ModalCreateTransaction() {
                   inputAndroid: {
                     backgroundColor: 'transparent',
                     top: 2,
-                    fontSize: 10
+                    fontSize: 10,
+                    color: text_main
                   },
                   iconContainer: {
                     top: 5,
@@ -460,6 +465,7 @@ export default function ModalCreateTransaction() {
                   label: purposeInputDefaultText,
                   value: null
                 }}
+                Icon={ComponentPickerIcon}
               />
             </View>
           </View>

@@ -76,49 +76,42 @@ export default function ModalCreateRatePair() {
             ratePercent="0.23%"
             rateNote={`${t('ratePairNote')} RUB`}
             rateValue="1.23"
-            iconColor={accent}
           />
           <RatePairModal
             title="USD/CAN"
             ratePercent="0.63%"
             rateNote={`${t('ratePairNote')} CAN`}
             rateValue="1.93"
-            iconColor={accent}
           />
           <RatePairModal
             title="USD/EUR"
             ratePercent="1.61%"
             rateNote={`${t('ratePairNote')} EUR`}
             rateValue="1.74"
-            iconColor={accent}
           />
           <RatePairModal
             title="USD/CRN"
             ratePercent="0.02%"
             rateNote={`${t('ratePairNote')} CRN`}
             rateValue="0.23"
-            iconColor={accent}
           />
           <RatePairModal
             title="USD/GRV"
             ratePercent="0.12%"
             rateNote={`${t('ratePairNote')} GRV`}
             rateValue="0.2"
-            iconColor={accent}
           />
           <RatePairModal
             title="USD/GBR"
             ratePercent="0.56%"
             rateNote={`${t('ratePairNote')} GBR`}
             rateValue="1.63"
-            iconColor={accent}
           />
           <RatePairModal
             title="USD/MLD"
             ratePercent="0.01%"
             rateNote={`${t('ratePairNote')} MLD`}
             rateValue="0.22"
-            iconColor={accent}
           />
         </View>
       </View>
