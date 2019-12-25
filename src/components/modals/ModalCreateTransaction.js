@@ -454,8 +454,7 @@ export default function ModalCreateTransaction() {
                 useNativeAndroidPickerStyle={false}
                 items={[
                   ...mappedPurposesDependOnLanguage,
-                  ...mappedTargetsForPicker,
-                  { value: 'addNew', label: t('addNewPurposeText') }
+                  ...mappedTargetsForPicker
                 ]}
                 placeholder={{
                   label: purposeInputDefaultText,
@@ -557,6 +556,7 @@ export default function ModalCreateTransaction() {
                   hasDelete
                   needNullAlignment
                   onPressNumber={value => setAmount(value)}
+                  deleteColor={text_main}
                 />
               </View>
             </View>

@@ -11,13 +11,14 @@ export default function ButtonMainBlue({
   buttonTextStyle,
   icon,
   handleOnPress,
-  isBlue
+  isBlue,
+  iconColor
 }) {
   return (
-    <TouchableOpacity key={1} onPress={handleOnPress} style={buttonStyle}>
+    <TouchableOpacity onPress={handleOnPress} style={buttonStyle}>
       <View style={iconStyle}>
         {icon && !isBlue && <Ruble />}
-        {icon && isBlue && <RubleBlue />}
+        {icon && isBlue && <RubleBlue fill={iconColor} />}
       </View>
       <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>

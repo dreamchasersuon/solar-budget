@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%'
   },
-  safeArea: { flex: 1 },
+  safeArea: { flex: 1, width: '100%' },
   scrollView: {
     alignItems: 'center',
     width: '100%'
@@ -266,7 +266,7 @@ export default function Statistics() {
         saldo={1000}
         theme={user.theme}
       />
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={[styles.safeArea, themeStyles.backgroundBottom]}>
         <ScrollView
           bounces
           contentContainerStyle={[

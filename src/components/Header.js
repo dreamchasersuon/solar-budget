@@ -237,6 +237,7 @@ export default function Header({
             <ButtonMainBlue
               iconStyle={styles.iconBalance}
               handleOnPress={handleOnPressDeposit}
+              iconColor={accent}
               title={bringInCash(deposit)}
               isBlue={blueBackgroundStyle}
               icon
@@ -275,6 +276,7 @@ export default function Header({
                     <ButtonMainBlue
                       title={item.name}
                       icon={item.currency}
+                      iconColor={accent}
                       isBlue
                       iconStyle={styles.icon}
                       buttonStyle={
