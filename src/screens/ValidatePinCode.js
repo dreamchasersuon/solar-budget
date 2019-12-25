@@ -9,7 +9,9 @@ import mapColorsToTheme, { $LIGHT_BLUE } from '../constants/colorLiterals';
 import { validatePinCode } from '../redux/features/userFeatureSlice';
 import DropdownAlert from 'react-native-dropdownalert';
 import { Notifications } from 'expo';
+import { timezone as Localization_timezone } from 'expo-localization';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment-timezone';
 // eslint-disable-next-line import/no-commonjs
 const CryptoJS = require('crypto-js');
 
@@ -59,6 +61,8 @@ const styles = StyleSheet.create({
 
 export default function ValidatePinCode({ navigation }) {
   const dropDownRef = useRef(null);
+
+  const timezone = Localization_timezone;
 
   const dispatch = useDispatch();
 
@@ -115,7 +119,9 @@ export default function ValidatePinCode({ navigation }) {
       );
       setTimeout(async () => {
         const user = users.find(user => user.id === userId);
-        const date = `${new Date().getFullYear()}${new Date().getMonth()}${new Date().getMinutes()}}`;
+        const date = moment(new Date())
+          .tz(timezone)
+          .format('LTS');
         const password = CryptoJS.AES.encrypt(pinCode, date)
           .toString()
           .substr(3, 6);
