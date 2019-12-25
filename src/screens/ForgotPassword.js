@@ -102,7 +102,7 @@ export default function LoginCredentials() {
   } else {
     user = users.find(user => user.active);
   }
-  const [login, setLogin] = useState(user.login);
+  const [loginInput, setLogin] = useState(user.login);
   const { background_bottom, text_main, accent } = mapColorsToTheme(user.theme);
   const themeStyles = StyleSheet.create({
     textMain: {
@@ -124,7 +124,7 @@ export default function LoginCredentials() {
 
   const remindPassword = () => {
     try {
-      if (login.length) {
+      if (loginInput.length) {
         if (user) {
           setLoginValidity(true);
           dropDownRef.current.alertWithType(
@@ -152,9 +152,8 @@ export default function LoginCredentials() {
   };
 
   const handleNotification = notification => {
-    const { password, userId } = notification.data;
-    const user = users.find(user => user.id === userId);
-    setUserCredentials({ password, login: user.login, userId });
+    const { password, userId, login } = notification.data;
+    setUserCredentials({ password, login, userId });
     setLogin(login);
   };
 
@@ -219,7 +218,7 @@ export default function LoginCredentials() {
               : [styles.label, { color: $RED }]
           }
           placeholder={t('ForgotPasswordScreen:loginInputText')}
-          initial={login}
+          initial={loginInput}
           handleChange={value => setLogin(value)}
         />
       </View>

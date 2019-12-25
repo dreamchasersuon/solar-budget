@@ -275,6 +275,7 @@ export const updateUserPasswordThunk = ({
   password,
   userId
 }) => dispatch => {
+  console.log(login, password);
   dispatch(updateUserPassword({ password, userId }));
   dispatch(updateUserPasswordHash({ login, password }));
 };
