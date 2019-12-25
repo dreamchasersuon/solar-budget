@@ -116,7 +116,17 @@ const styles = StyleSheet.create({
 
 export default function CreateAccount() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.find(user => user.active));
+  const users = useSelector(state => state.user);
+  let user;
+  if (users.length) {
+    const multiSelectUser = users.find(user => user.multiAccountSelect);
+    if (multiSelectUser) {
+      user = multiSelectUser;
+    } else {
+      user = users.find(user => user.active);
+    }
+  }
+
   const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
   const themeStyles = StyleSheet.create({
     backgroundMain: {

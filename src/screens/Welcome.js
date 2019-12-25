@@ -84,8 +84,14 @@ export default function Welcome() {
   const users = useSelector(state => state.user);
   let activeUser;
   if (users.length) {
-    activeUser = users.find(user => user.active);
+    const multiSelectUser = users.find(user => user.multiAccountSelect);
+    if (multiSelectUser) {
+      activeUser = multiSelectUser;
+    } else {
+      activeUser = users.find(user => user.active);
+    }
   }
+
   const {
     background_bottom,
     background_top,

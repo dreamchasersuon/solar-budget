@@ -59,7 +59,16 @@ export default function AcceptPinCode() {
   ]);
 
   const users = useSelector(state => state.user);
-  const user = users.find(user => user.active);
+  let user;
+  if (users.length) {
+    const multiSelectUser = users.find(user => user.multiAccountSelect);
+    if (multiSelectUser) {
+      user = multiSelectUser;
+    } else {
+      user = users.find(user => user.active);
+    }
+  }
+
   const { background_bottom, accent, text_main } = mapColorsToTheme(user.theme);
   const themeStyles = StyleSheet.create({
     background: {

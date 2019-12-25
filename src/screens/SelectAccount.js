@@ -86,7 +86,15 @@ export default function SelectAccount() {
   const dispatch = useDispatch();
 
   const users = useSelector(state => state.user);
-  const activeUser = users.find(user => user.active);
+  let activeUser;
+  if (users.length) {
+    const multiSelectUser = users.find(user => user.multiAccountSelect);
+    if (multiSelectUser) {
+      activeUser = multiSelectUser;
+    } else {
+      activeUser = users.find(user => user.active);
+    }
+  }
 
   const {
     background_bottom,
