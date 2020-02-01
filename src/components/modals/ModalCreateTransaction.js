@@ -211,9 +211,11 @@ export default function ModalCreateTransaction() {
 
   const { t, i18n } = useTranslation('ModalCreateTransaction');
 
-  const bills = useSelector(state => state.bill);
   const targets = useSelector(state => state.target);
   const user = useSelector(state => state.user.find(user => user.active));
+  const bills = useSelector(state =>
+    state.bill.filter(bill => bill.userId === user.id)
+  );
   const purposes = useSelector(state => state.purposes);
   const language = user.locale;
   const { background_top, accent, text_main } = mapColorsToTheme(user.theme);
@@ -287,9 +289,6 @@ export default function ModalCreateTransaction() {
 
   function onSelectPurpose(purpose) {
     setPurposeValidity(true);
-    if (purpose !== 'addNew') {
-      return selectPurpose(purpose);
-    }
     selectPurpose(purpose);
   }
 
@@ -297,10 +296,11 @@ export default function ModalCreateTransaction() {
     if (!amount.length) {
       setAmountValidity(false);
     }
-    if (!purpose.length) {
+
+    if (!purpose) {
       setPurposeValidity(false);
     }
-    if (!amount.length || !purpose.length) {
+    if (!amount.length || !purpose) {
       Vibration.vibrate(500);
       return setValidity(false);
     }
