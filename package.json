@@ -110,7 +110,7 @@
     "react-native-unimodules": "^0.6.0",
     "react-test-renderer": "^16.10.2",
     "remote-redux-devtools": "^0.5.16",
-    "semantic-release": "^15.13.31"
+    "semantic-release": "^17.2.3"
   },
   "private": true,
   "snyk": true
